@@ -48,7 +48,7 @@ public class Day1 {
     }
 
     public boolean doPuzzleFromData(String eventData) {
-        if (!getFloor(0, eventData)) {
+        if (!doEvent(0, eventData)) {
             return false;
         }
 
@@ -80,7 +80,7 @@ public class Day1 {
         return responseData.toString();
     }
 
-    private boolean getFloor(int startFloor, String data) {
+    private boolean doEvent(int startFloor, String data) {
         onFlor = startFloor;
         for (int i = 0; i < data.length(); i++) {
             char step = data.charAt(i);

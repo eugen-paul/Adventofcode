@@ -11,13 +11,36 @@ import org.junit.jupiter.api.Test;
 public class Test2015Day1 {
 
     @Test
-    public void test(){
-        Day1 event = new Day1();
-        String testData = "(()(()(";
+    public void test() {
+        assertEquals(0, testPuzzle1("(())"));
+        assertEquals(0, testPuzzle1("()()"));
+        assertEquals(3, testPuzzle1("((("));
+        assertEquals(3, testPuzzle1("(()(()("));
+        assertEquals(3, testPuzzle1("))((((("));
+        assertEquals(-1, testPuzzle1("())"));
+        assertEquals(-1, testPuzzle1("))("));
+        assertEquals(-3, testPuzzle1(")))"));
+        assertEquals(-3, testPuzzle1(")())())"));
 
-        assertTrue(event.doPuzzleFromData(testData), "Test Nr. 1");
-        assertEquals(3, event.getOnFlor());
+        assertEquals(1, testPuzzle2(")"));
+        assertEquals(5, testPuzzle2("()())"));
 
         System.out.println("All tests OK.");
+    }
+
+    private int testPuzzle1(String inputData) {
+        Day1 event = new Day1();
+
+        assertTrue(event.doPuzzleFromData(inputData), "Testdata " + inputData);
+
+        return event.getOnFlor();
+    }
+
+    private int testPuzzle2(String inputData) {
+        Day1 event = new Day1();
+
+        assertTrue(event.doPuzzleFromData(inputData), "Testdata " + inputData);
+
+        return event.getFirstPositionOfbasement();
     }
 }
