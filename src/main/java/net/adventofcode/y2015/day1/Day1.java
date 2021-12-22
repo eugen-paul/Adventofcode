@@ -1,13 +1,12 @@
 package net.adventofcode.y2015.day1;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+
+import net.adventofcode.helper.FileReaderHelper;
 
 public class Day1 {
 
@@ -39,7 +38,7 @@ public class Day1 {
     }
 
     public boolean doPuzzleFromFile(String filename) {
-        String eventData = readDataFromFile(filename);
+        String eventData = FileReaderHelper.readStringFromFile(filename);
         if (null == eventData) {
             return false;
         }
@@ -58,41 +57,19 @@ public class Day1 {
         return true;
     }
 
-    private String readDataFromFile(String filename) {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(filename).getFile());
-
-        if (!file.canRead() || !file.isFile()) {
-            return null;
-        }
-
-        StringBuilder responseData = new StringBuilder();
-
-        try (BufferedReader in = new BufferedReader(new FileReader(file))) {
-            String zeile = null;
-            while ((zeile = in.readLine()) != null) {
-                responseData.append(zeile);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return responseData.toString();
-    }
-
     private boolean doEvent(int startFloor, String data) {
         onFlor = startFloor;
         for (int i = 0; i < data.length(); i++) {
             char step = data.charAt(i);
             switch (step) {
-                case '(':
-                    onFlor++;
-                    break;
-                case ')':
-                    onFlor--;
-                    break;
-                default:
-                    return false;
+            case '(':
+                onFlor++;
+                break;
+            case ')':
+                onFlor--;
+                break;
+            default:
+                return false;
             }
 
             if (null == firstPositionOfbasement && -1 == onFlor) {
