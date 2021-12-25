@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 public class Test2015Day6 {
 
     @Test
-    public void test() throws NoSuchAlgorithmException {
+    public void test() {
         testPuzzle(List.of("turn on 0,0 through 9,9"), 100, 100);
         testPuzzle(List.of("turn on 0,0 through 9,1"), 20, 20);
         testPuzzle(List.of("turn on 0,1 through 9,1"), 10, 10);
@@ -30,7 +30,7 @@ public class Test2015Day6 {
         System.out.println("All tests OK.");
     }
 
-    private void testPuzzle(List<String> inputData, long lights, long brightness) throws NoSuchAlgorithmException {
+    private void testPuzzle(List<String> inputData, long lights, long brightness) {
         Day6 event = new Day6(10, 10);
 
         assertTrue(event.doPuzzleFromData(inputData), "Testdata " + inputData);
