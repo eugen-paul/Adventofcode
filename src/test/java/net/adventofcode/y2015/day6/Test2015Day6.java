@@ -3,13 +3,12 @@ package net.adventofcode.y2015.day6;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * Test2015Day4
+ * Test2015Day6
  */
 public class Test2015Day6 {
 
