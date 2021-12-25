@@ -11,11 +11,9 @@ import java.util.Map.Entry;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test2015Day4
+ * Test2015Day7
  */
 public class Test2015Day7 {
-
-    private Integer value;
 
     @Test
     public void test() throws NoSuchAlgorithmException {
