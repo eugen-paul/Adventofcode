@@ -3,7 +3,6 @@ package net.adventofcode.y2015.day7;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -16,7 +15,7 @@ import org.junit.jupiter.api.Test;
 public class Test2015Day7 {
 
     @Test
-    public void test() throws NoSuchAlgorithmException {
+    public void test() {
         testPuzzle(List.of(//
                 "123 -> x", //
                 "456 -> y", //
@@ -60,7 +59,7 @@ public class Test2015Day7 {
         System.out.println("All tests OK.");
     }
 
-    private void testPuzzle(List<String> inputData, Map<String, Integer> signals) throws NoSuchAlgorithmException {
+    private void testPuzzle(List<String> inputData, Map<String, Integer> signals) {
         Day7 event = new Day7();
 
         assertTrue(event.doPuzzleFromData(inputData), "Testdata " + inputData);
