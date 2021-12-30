@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Test2015Day2
  */
-public class Test2015Day2 {
+class Test2015Day2 {
 
     @Test
-    public void testTest2015Day2() {
+    void testTest2015Day2() {
         testPuzzle("2x3x4", 58, 34);
         testPuzzle("1x1x10", 43, 14);
 

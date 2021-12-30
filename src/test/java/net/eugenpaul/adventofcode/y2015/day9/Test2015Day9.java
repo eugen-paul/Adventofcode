@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Test2015Day9
  */
-public class Test2015Day9 {
+class Test2015Day9 {
 
     @Test
-    public void testTest2015Day9() {
+    void testTest2015Day9() {
         testPuzzle(List.of(//
                 "London to Dublin = 464", //
                 "London to Belfast = 518", //

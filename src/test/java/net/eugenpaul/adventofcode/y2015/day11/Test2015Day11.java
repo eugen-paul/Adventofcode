@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Test2015Day11
  */
-public class Test2015Day11 {
+class Test2015Day11 {
 
     @Test
-    public void testTest2015Day11() {
+    void testTest2015Day11() {
         testPuzzle("abcdefgh", "abcdffaa");
         testPuzzle("ghijklmn", "ghjaabcc");
 
