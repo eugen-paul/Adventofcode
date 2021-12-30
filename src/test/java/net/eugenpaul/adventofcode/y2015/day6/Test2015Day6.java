@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Test2015Day6
  */
-public class Test2015Day6 {
+class Test2015Day6 {
 
     @Test
-    public void testTest2015Day6() {
+    void testTest2015Day6() {
         testPuzzle(List.of("turn on 0,0 through 9,9"), 100, 100);
         testPuzzle(List.of("turn on 0,0 through 9,1"), 20, 20);
         testPuzzle(List.of("turn on 0,1 through 9,1"), 10, 10);

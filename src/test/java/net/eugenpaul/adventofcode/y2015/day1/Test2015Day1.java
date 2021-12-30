@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Test2015Day1
  */
-public class Test2015Day1 {
+class Test2015Day1 {
 
     @Test
-    public void testTest2015Day1() {
+    void testTest2015Day1() {
         assertEquals(0, testPuzzle1("(())"));
         assertEquals(0, testPuzzle1("()()"));
         assertEquals(3, testPuzzle1("((("));

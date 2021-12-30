@@ -12,10 +12,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Test2015Day7
  */
-public class Test2015Day7 {
+class Test2015Day7 {
 
     @Test
-    public void testTest2015Day7() {
+    void testTest2015Day7() {
         testPuzzle(List.of(//
                 "123 -> x", //
                 "456 -> y", //
