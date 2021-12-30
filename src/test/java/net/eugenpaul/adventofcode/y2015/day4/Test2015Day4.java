@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Test2015Day4
  */
-public class Test2015Day4 {
+class Test2015Day4 {
 
     @Test
-    public void testTest2015Day4() throws NoSuchAlgorithmException {
+    void testTest2015Day4() throws NoSuchAlgorithmException {
         testPuzzle("abcdef", 609043, 6742839);
         testPuzzle("pqrstuv", 1048970, 5714438);
 
