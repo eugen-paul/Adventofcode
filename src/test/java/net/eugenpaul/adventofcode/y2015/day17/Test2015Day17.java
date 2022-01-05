@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test2015Day16
+ * Test2015Day17
  */
 class Test2015Day17 {
 
