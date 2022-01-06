@@ -28,6 +28,7 @@ public class Day19 {
 
     private int distinctMolecules;
     private int fewestNumberOfSteps;
+    private Object synchObj = new Object();
 
     public long getDistinctMolecules() {
         return distinctMolecules;
@@ -81,11 +82,19 @@ public class Day19 {
         return true;
     }
 
+    /**
+     * Code doesn't always work :(. It works for me and for most Solution, not for all Solitions. Code finds the first Solution (not the best Solution). To find
+     * the best Solution this function must call "doReduceMoleculeBruteForce". But it is to slooooooooooooooooooooooow.
+     * 
+     * @param molecule
+     * @param replacements
+     */
     private void doPuzzle2(String molecule, List<Replacement> replacements) {
         fewestNumberOfSteps = Integer.MAX_VALUE;
 
         Map<String, Boolean> deadEndMolecules = new HashMap<>();
         doReduceMolecule(molecule, replacements, 0, deadEndMolecules);
+        // doReduceMoleculeBruteForce(molecule, replacements, 0);
     }
 
     private boolean doReduceMolecule(String generatedMolecule, List<Replacement> replacements, int step, Map<String, Boolean> deadEndMolecules) {
@@ -110,6 +119,24 @@ public class Day19 {
         }
 
         return false;
+    }
+
+    private void doReduceMoleculeBruteForce(String generatedMolecule, List<Replacement> replacements, int step) {
+        if (generatedMolecule.equals("e")) {
+            synchronized (synchObj) {
+                if (fewestNumberOfSteps > step) {
+                    fewestNumberOfSteps = step;
+                }
+                return;
+            }
+        }
+        if (generatedMolecule.length() <= 0) {
+            return;
+        }
+        List<String> molecules = new ArrayList<>();
+        replacements.parallelStream().forEach(v -> doReverseReplacements(generatedMolecule, v, molecules));
+
+        molecules.parallelStream().forEach(v -> doReduceMoleculeBruteForce(v, replacements, step + 1));
     }
 
     private void doPuzzle1(String molecule, List<Replacement> replacements) {
