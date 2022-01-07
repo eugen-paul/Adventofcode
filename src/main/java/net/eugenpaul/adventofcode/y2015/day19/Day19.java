@@ -84,7 +84,7 @@ public class Day19 {
 
     /**
      * Code doesn't always work :(. It works for me and for most Solution, not for all Solitions. Code finds the first Solution (not the best Solution). To find
-     * the best Solution this function must call "doReduceMoleculeBruteForce". But it is to slooooooooooooooooooooooow.
+     * the best Solution this function must always call "doReduceMoleculeBruteForce". But it is to slooooooooooooooooooooooow.
      * 
      * @param molecule
      * @param replacements
@@ -93,8 +93,12 @@ public class Day19 {
         fewestNumberOfSteps = Integer.MAX_VALUE;
 
         Map<String, Boolean> deadEndMolecules = new HashMap<>();
-        doReduceMolecule(molecule, replacements, 0, deadEndMolecules);
-        // doReduceMoleculeBruteForce(molecule, replacements, 0);
+
+        if (molecule.length() < 10) {
+            doReduceMoleculeBruteForce(molecule, replacements, 0);
+        } else {
+            doReduceMolecule(molecule, replacements, 0, deadEndMolecules);
+        }
     }
 
     private boolean doReduceMolecule(String generatedMolecule, List<Replacement> replacements, int step, Map<String, Boolean> deadEndMolecules) {
