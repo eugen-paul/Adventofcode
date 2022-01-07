@@ -26,7 +26,7 @@ One folder for each year. One folder for each event. Resource folder contains my
 | 17 | ⭐⭐  | [Day 17: No Such Thing as Too Much](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day17) |
 | 18 | ⭐⭐  | [Day 18: Like a GIF For Your Yard](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day18) |
 | 19 | ⭐⭐  | [Day 19: Medicine for Rudolph](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day19) |
-| 20 |   |  |
+| 20 | ⭐⭐  | [Day 20: Infinite Elves and Infinite Houses](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day20) |
 | 21 |   |  |
 | 22 |   |  |
 | 23 |   |  |

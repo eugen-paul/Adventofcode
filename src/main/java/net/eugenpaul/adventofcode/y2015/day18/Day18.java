@@ -38,18 +38,18 @@ public class Day18 {
         puzzle.doPuzzleFromFile("y2015/day18/puzzle1.txt", "y2015/day18/puzzle1_steps.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename, String filenameLiters) {
+    public boolean doPuzzleFromFile(String filename, String filenameSteps) {
         List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
         if (null == eventData) {
             return false;
         }
 
-        String liters = FileReaderHelper.readStringFromFile(filenameLiters);
-        if (null == liters) {
+        String steps = FileReaderHelper.readStringFromFile(filenameSteps);
+        if (null == steps) {
             return false;
         }
 
-        return doPuzzleFromData(eventData, liters);
+        return doPuzzleFromData(eventData, steps);
     }
 
     public boolean doPuzzleFromData(List<String> eventData, String steps) {
