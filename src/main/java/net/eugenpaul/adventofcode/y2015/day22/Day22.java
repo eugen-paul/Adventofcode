@@ -78,36 +78,42 @@ public class Day22 {
                 new Shield()//
         );
 
-        doEasyGame(player, boss, avaiblePlayerSpells);
+        doGame(player, boss, avaiblePlayerSpells, false);
 
-        doHardGame(player, boss, avaiblePlayerSpells);
+        doGame(player, boss, avaiblePlayerSpells, true);
 
         return lastGameManaCost != Integer.MAX_VALUE;
     }
 
-    private void doEasyGame(Actor player, Actor boss, List<Spell> avaiblePlayerSpells) {
+    private void doGame(Actor player, Actor boss, List<Spell> avaiblePlayerSpells, boolean isHard) {
+        if (!isHard) {
+            logger.log(Level.INFO, () -> "Start new game. Difficulty: easy.");
+        } else {
+            logger.log(Level.INFO, () -> "Start new game. Difficulty: hard.");
+        }
+
         TurnsStorage tStorage = new TurnsStorage();
         TurnData initTurn = new TurnData(player, boss, avaiblePlayerSpells);
         tStorage.addTurnData(initTurn);
 
         lastGameManaCost = Integer.MAX_VALUE;
-        doPuzzle(tStorage, false);
-        pringGameHistory();
-        easyGameLeastAmountOfMana = lastGameManaCost;
+        doPuzzle(tStorage, isHard);
+
+        if (!isHard) {
+            easyGameLeastAmountOfMana = lastGameManaCost;
+        } else {
+            hardGameLeastAmountOfMana = lastGameManaCost;
+        }
+
+        if (lastGameManaCost != Integer.MAX_VALUE) {
+            printGameHistory();
+            logger.log(Level.INFO, () -> "Game over. Player win!");
+        } else {
+            logger.log(Level.INFO, () -> "Game over. Unpossible to win.");
+        }
     }
 
-    private void doHardGame(Actor player, Actor boss, List<Spell> avaiblePlayerSpells) {
-        TurnsStorage tStorage = new TurnsStorage();
-        TurnData initTurn = new TurnData(player, boss, avaiblePlayerSpells);
-        tStorage.addTurnData(initTurn);
-
-        lastGameManaCost = Integer.MAX_VALUE;
-        doPuzzle(tStorage, true);
-        pringGameHistory();
-        hardGameLeastAmountOfMana = lastGameManaCost;
-    }
-
-    private void pringGameHistory() {
+    private void printGameHistory() {
         lastGameData.stream().forEach(v -> logger.info(v));
     }
 
