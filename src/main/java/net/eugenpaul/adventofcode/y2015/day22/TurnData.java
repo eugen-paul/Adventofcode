@@ -143,6 +143,9 @@ public class TurnData {
         this.gameHistory.add(actorData.toString());
     }
 
+    /**
+     * @return false if der Player cann't use the spell
+     */
     private boolean playerCasts(Spell spell) {
         if (!avaiblePlayerSpells.contains(spell) || player.getMana() < spell.getManaCost()) {
             return false;

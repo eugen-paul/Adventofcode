@@ -12,7 +12,7 @@ import net.eugenpaul.adventofcode.y2015.day22.actors.Actor;
 class Test2015Day22 {
 
     @Test
-    void test2015Day20Example1() {
+    void test2015Day22Example1() {
         Day22 puzzle = new Day22();
 
         puzzle.doEvent(//
@@ -24,7 +24,7 @@ class Test2015Day22 {
     }
 
     @Test
-    void test2015Day20Example2() {
+    void test2015Day22Example2() {
         Day22 puzzle = new Day22();
 
         puzzle.doEvent(//
