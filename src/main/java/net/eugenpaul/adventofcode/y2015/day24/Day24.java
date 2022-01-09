@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -24,7 +27,6 @@ public class Day24 {
 
     private static Logger logger = Logger.getLogger(Day24.class.getName());
 
-    private int minGroupLen;
     private long quantumEntanglement;
 
     public long getQuantumEntanglement() {
@@ -68,108 +70,167 @@ public class Day24 {
             return false;
         }
 
-        doPuzzle(new LinkedList<>(eventData), groupCount);
+        int groupWeight = eventData.stream().reduce(0, Integer::sum) / groupCount;
+        TreeMap<Integer, List<List<Integer>>> allGroups = findGroupsWithWeight(new LinkedList<>(eventData), groupWeight);
+
+        List<List<Integer>> asList = treeMapToList(allGroups);
+
+        Integer minGroupLen = null;
+        quantumEntanglement = Integer.MAX_VALUE;
+
+        for (List<Integer> list : asList) {
+            if (isOk(asList, list, groupCount)) {
+                long qe = getQuantumEntanglement(list);
+                if (minGroupLen == null) {
+                    quantumEntanglement = qe;
+                    minGroupLen = list.size();
+                } else if (minGroupLen < list.size()) {
+                    return true;
+                } else if (qe < quantumEntanglement) {
+                    quantumEntanglement = qe;
+                }
+            }
+        }
 
         return true;
     }
 
-    private void doPuzzle(LinkedList<Integer> eventData, int groupCount) {
-        minGroupLen = Integer.MAX_VALUE;
-        quantumEntanglement = Integer.MAX_VALUE;
-
-        int totalSum = eventData.stream().reduce(0, Integer::sum);
-
-        // Storage for found groups, in case we need it.
-        // Groups can appear twice in the memory.
-        LinkedList<LinkedList<Integer>> allGroups = new LinkedList<>();
-
-        getGroup(//
-                new LinkedList<>(eventData), //
-                new LinkedList<>(), //
-                new LinkedList<>(), //
-                totalSum / groupCount, //
-                1, //
-                groupCount, //
-                allGroups//
-        );
-    }
-
     /**
-     * The return value depends on the group.<br>
-     * Group 1 return always false to keep searching.<br>
-     * All other groups return true if the search are successful.
+     * The group is ok if the remaining groups can be built from the remaining packages.
      * 
-     * The Solution workd for me but i don't like it.
+     * @param possibleGroups - The list of all remaining possible groups
+     * @param checkGroup     - Group currently being checked
+     * @param count          - number of groups that must also be formed.
+     * @return true - the group is OK.
      */
-    private boolean getGroup(//
-            LinkedList<Integer> avaiblePackages, //
-            LinkedList<Integer> restPackages, //
-            LinkedList<Integer> group, //
-            int groupWeight, //
-            int currentGroupNumber, //
-            int maxGropus, //
-            LinkedList<LinkedList<Integer>> allGroups //
-    ) {
-        int currentGroupSum = group.stream().reduce(0, Integer::sum);
+    private boolean isOk(List<List<Integer>> possibleGroups, List<Integer> checkGroup, int count) {
+        if (possibleGroups.size() == 1 && isEqual(possibleGroups.get(0), checkGroup) && count == 1) {
+            return true;
+        }
 
-        if (groupWeight < currentGroupSum) {
-            // Current group a to large => try next
+        possibleGroups = getPossibleGroups(possibleGroups, checkGroup);
+
+        if (possibleGroups.isEmpty()) {
             return false;
         }
 
-        if (groupWeight == currentGroupSum) {
-            // next-to-last group found => last group must be a right group => save both
-            if (currentGroupNumber == maxGropus - 1) {
-                allGroups.add(group);
-                countQuantumEntanglement(group);
-
-                LinkedList<Integer> thirdGroup = new LinkedList<>(avaiblePackages);
-                thirdGroup.addAll(restPackages);
-                allGroups.add(thirdGroup);
-
-                countQuantumEntanglement(thirdGroup);
+        for (List<Integer> mb : possibleGroups) {
+            if (isOk(possibleGroups, mb, count - 1)) {
                 return true;
             }
-            LinkedList<Integer> newAvaiblePackages = new LinkedList<>(avaiblePackages);
-            newAvaiblePackages.addAll(restPackages);
-            if (getGroup(newAvaiblePackages, new LinkedList<>(), new LinkedList<>(), groupWeight, currentGroupNumber + 1, maxGropus, allGroups)) {
-                allGroups.add(new LinkedList<>(group));
-                countQuantumEntanglement(group);
-                // Group 1 return always false to keep searching
-                return currentGroupNumber != 1;
-            }
-            return false;
-        }
-
-        Integer testPackage = avaiblePackages.pollFirst();
-
-        while (testPackage != null) {
-            group.push(testPackage);
-
-            if (getGroup(new LinkedList<>(avaiblePackages), new LinkedList<>(restPackages), group, groupWeight, currentGroupNumber, maxGropus, allGroups)) {
-                return true;
-            }
-
-            group.pop();
-            restPackages.push(testPackage);
-            if (group.isEmpty()) {
-                //the current Group must have the element with lowest weight.
-                //By removing der last Element stop the search
-                return false;
-            }
-            testPackage = avaiblePackages.pollFirst();
         }
 
         return false;
+
     }
 
-    private void countQuantumEntanglement(LinkedList<Integer> group) {
-        long qe = group.stream().mapToLong(v -> v).reduce(1L, (a, b) -> a * b);
-        if (group.size() < minGroupLen) {
-            minGroupLen = group.size();
-            quantumEntanglement = qe;
-        } else if (group.size() == minGroupLen) {
-            quantumEntanglement = (qe < quantumEntanglement) ? qe : quantumEntanglement;
+    /**
+     * 
+     * @param a
+     * @param b
+     * @return true if List contains equal Elements
+     */
+    private boolean isEqual(List<Integer> a, List<Integer> b) {
+        for (Integer integer : b) {
+            if (!a.contains(integer)) {
+                return false;
+            }
         }
+        for (Integer integer : a) {
+            if (!b.contains(integer)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Delete all groups from the list that cannot occur and response the list.
+     * 
+     * @param groups
+     * @param filterGroup
+     * @return
+     */
+    private List<List<Integer>> getPossibleGroups(List<List<Integer>> groups, List<Integer> filterGroup) {
+        List<List<Integer>> response = new LinkedList<>();
+        for (List<Integer> elem : groups) {
+            boolean ok = true;
+            for (Integer data : elem) {
+                if (filterGroup.contains(data)) {
+                    ok = false;
+                }
+            }
+            if (ok) {
+                response.add(elem);
+            }
+        }
+        return response;
+    }
+
+    /**
+     * Convert all groups from TreeMap to List. All groups will be sorted by packagesize.
+     * 
+     * @param allGroups
+     * @return
+     */
+    private List<List<Integer>> treeMapToList(TreeMap<Integer, List<List<Integer>>> allGroups) {
+        List<List<Integer>> response = new LinkedList<>();
+        for (Entry<Integer, List<List<Integer>>> list : allGroups.entrySet()) {
+            response.addAll(list.getValue());
+        }
+        return response;
+    }
+
+    /**
+     * Finds all possible groups with a given weight.
+     * 
+     * @param avaiblePackages
+     * @param weight
+     * @return Sorted Map of groups
+     */
+    private TreeMap<Integer, List<List<Integer>>> findGroupsWithWeight(LinkedList<Integer> avaiblePackages, int weight) {
+        TreeMap<Integer, List<List<Integer>>> response = new TreeMap<>();
+        LinkedList<Integer> group = new LinkedList<>();
+
+        groupSearch(avaiblePackages, group, response, weight);
+
+        return response;
+    }
+
+    private void groupSearch(LinkedList<Integer> avaiblePackages, LinkedList<Integer> group, Map<Integer, List<List<Integer>>> response, int sum) {
+        Integer testPacket = avaiblePackages.pollFirst();
+        while (testPacket != null) {
+            group.addLast(testPacket);
+
+            int currentGroupSum = group.stream().reduce(0, Integer::sum);
+
+            if (sum == currentGroupSum) {
+                addGroupToTree(group, response);
+            } else if (sum < currentGroupSum) {
+                return;
+            }
+
+            groupSearch(new LinkedList<>(avaiblePackages), new LinkedList<>(group), response, sum);
+
+            group.removeLast();
+
+            testPacket = avaiblePackages.pollFirst();
+        }
+    }
+
+    private void addGroupToTree(LinkedList<Integer> group, Map<Integer, List<List<Integer>>> response) {
+        response.compute(group.size(), (k, v) -> {
+            if (v == null) {
+                List<List<Integer>> value = new LinkedList<>();
+                value.add(new LinkedList<>(group));
+                return value;
+            }
+            v.add(new LinkedList<>(group));
+            return v;
+        });
+    }
+
+    private Long getQuantumEntanglement(List<Integer> group) {
+        return group.stream().mapToLong(v -> v).reduce(1L, (a, b) -> a * b);
     }
 }
