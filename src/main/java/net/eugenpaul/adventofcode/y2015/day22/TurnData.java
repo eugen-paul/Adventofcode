@@ -70,22 +70,25 @@ public class TurnData {
             spell.setValue(spell.getValue() - 1);
 
             String log = spell.getKey().computeEffectOnFriend(player);
-            if (null != log) {
-                gameHistory.add(log);
-            }
+            logSpell(log);
             log = spell.getKey().computeEffectOnEnemy(boss);
-            if (null != log) {
-                gameHistory.add(log);
-            }
+            logSpell(log);
 
             if (spell.getValue() <= 0) {
-                spell.getKey().deaktivateOnEnemy(boss);
-                spell.getKey().deaktivateOnFriend(player);
+                log = spell.getKey().deaktivateOnEnemy(boss);
+                logSpell(log);
+                log = spell.getKey().deaktivateOnFriend(player);
+                logSpell(log);
                 iterator.remove();
                 avaiblePlayerSpells.add(spell.getKey());
             }
         }
+    }
 
+    private void logSpell(String log) {
+        if (null != log) {
+            gameHistory.add(log);
+        }
     }
 
     public boolean isPlayerWin() {
