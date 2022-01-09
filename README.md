@@ -28,7 +28,7 @@ One folder for each year. One folder for each event. Resource folder contains my
 | 19 | ⭐⭐  | [Day 19: Medicine for Rudolph](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day19) |
 | 20 | ⭐⭐  | [Day 20: Infinite Elves and Infinite Houses](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day20) |
 | 21 | ⭐⭐  | [Day 21: RPG Simulator 20XX](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day21) |
-| 22 |   |  |
+| 22 | ⭐⭐  | [Day 22: Wizard Simulator 20XX](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day22) |
 | 23 |   |  |
 | 24 |   |  |
 | 25 |   |  |
