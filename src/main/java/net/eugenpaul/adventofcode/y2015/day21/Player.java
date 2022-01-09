@@ -41,9 +41,9 @@ public class Player extends Actor {
             armor = item;
             break;
         case RING:
-            if (ring1 == null && ring2 != item) {
+            if (ring1 == null) {
                 ring1 = item;
-            } else if (ring1 != item) {
+            } else {
                 ring2 = item;
             }
             break;
