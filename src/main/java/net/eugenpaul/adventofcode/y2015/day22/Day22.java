@@ -124,7 +124,7 @@ public class Day22 {
 
             for (Spell spell : avaibleSpells) {
                 TurnData turn = new TurnData(lowestTurn);
-                if (!doFullTurn(turn, spell, isHard)) {
+                if (!doNextTurn(turn, spell, isHard)) {
                     tStorage.addTurnData(turn);
                 }
             }
@@ -136,7 +136,7 @@ public class Day22 {
     /**
      * @return true ist the game is over or mana cost are to high
      */
-    private boolean doFullTurn(TurnData turn, Spell spell, boolean isHard) {
+    private boolean doNextTurn(TurnData turn, Spell spell, boolean isHard) {
         if (turn.doPlayerTurn(spell, isHard) || turn.doBossTurn()) {
             checkGameOver(turn);
             return true;
