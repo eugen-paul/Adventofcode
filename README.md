@@ -31,4 +31,4 @@ One folder for each year. One folder for each event. Resource folder contains my
 | 22 | ⭐⭐  | [Day 22: Wizard Simulator 20XX](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day22) |
 | 23 | ⭐⭐  | [Day 23: Opening the Turing Lock](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day23) |
 | 24 | ⭐⭐  | [Day 24: It Hangs in the Balance](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day24) |
-| 25 |   |  |
+| 25 | ⭐⭐  | [--- Day 25: Let It Snow ---](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day25) |
