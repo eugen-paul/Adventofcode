@@ -4,7 +4,7 @@ My Java-solutions for [Advent of Code](https://adventofcode.com/).
 One folder for each year. One folder for each event. Resource folder contains my input for the events.
 
 ## Progress:
-### Year 2015
+### Year 2015 [50/50]
 | Day  | Status | Link |
 | ---- | ------ | ---- |
 | 1  | ⭐⭐  | [Day 1: Not Quite Lisp](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day1)   |
@@ -31,4 +31,4 @@ One folder for each year. One folder for each event. Resource folder contains my
 | 22 | ⭐⭐  | [Day 22: Wizard Simulator 20XX](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day22) |
 | 23 | ⭐⭐  | [Day 23: Opening the Turing Lock](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day23) |
 | 24 | ⭐⭐  | [Day 24: It Hangs in the Balance](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day24) |
-| 25 | ⭐⭐  | [--- Day 25: Let It Snow ---](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day25) |
+| 25 | ⭐⭐  | [Day 25: Let It Snow](https://github.com/eugen-paul/Adventofcode/tree/master/src/main/java/net/eugenpaul/adventofcode/y2015/day25) |
