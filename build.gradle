@@ -1,3 +1,5 @@
+apply from: 'dependencies.gradle'
+
 apply plugin: 'java'
 
 sourceCompatibility=14
@@ -16,10 +18,17 @@ test {
 }
 
 dependencies {
-    implementation 'org.apache.commons:commons-text:1.9'
+    implementation          commonDependencies.apache_commons
+    
+	compileOnly             commonDependencies.lombok
+	annotationProcessor     commonDependencies.lombok
+	
+    //Tests
+	testCompileOnly         commonDependencies.lombok
+	testAnnotationProcessor commonDependencies.lombok
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation      commonDependencies.junit_api
+    testRuntimeOnly         commonDependencies.junit_engine
 
-    testImplementation  'org.mockito:mockito-core:4.2.0'
+    testImplementation      commonDependencies.mockito
 }
