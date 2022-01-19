@@ -1,0 +1,17 @@
+ext {
+    lombok_version = "1.18.22"
+    junit_version = "5.8.1"
+    mockito_version = "4.2.0"
+    apache_commons_version = "1.9"
+
+    commonDependencies = [
+        apache_commons         : "org.apache.commons:commons-text:$apache_commons_version",
+        
+        lombok                 : "org.projectlombok:lombok:$lombok_version",
+
+        junit_api              : "org.junit.jupiter:junit-jupiter-api:$junit_version",
+        junit_engine           : "org.junit.jupiter:junit-jupiter-engine:$junit_version",
+
+        mockito                : "org.mockito:mockito-core:$mockito_version"
+    ]
+}
