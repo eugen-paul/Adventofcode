@@ -33,11 +33,11 @@ One folder for each year. One folder for each event. Resource folder contains my
 | 24 | ⭐⭐  | [Day 24: It Hangs in the Balance](src/main/java/net/eugenpaul/adventofcode/y2015/day24) |
 | 25 | ⭐⭐  | [Day 25: Let It Snow](src/main/java/net/eugenpaul/adventofcode/y2015/day25) |
 
-### Year 2016 [0/50]
+### Year 2016 [4/50]
 | Day  | Status | Link |
 | ---- | ------ | ---- |
-| 1  | ⭐⭐ | [Day 1: No Time for a Taxicab](src/main/java/net/eugenpaul/adventofcode/y2016/day1) |
-| 2  |   |   |
+| 1  | ⭐⭐  | [Day 1: No Time for a Taxicab](src/main/java/net/eugenpaul/adventofcode/y2016/day1) |
+| 2  | ⭐⭐  | [Day 2: Bathroom Security](src/main/java/net/eugenpaul/adventofcode/y2016/day2)  |
 | 3  |   |   |
 | 4  |   |   |
 | 5  |   |   |
