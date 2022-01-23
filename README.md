@@ -33,31 +33,31 @@ One folder for each year. One folder for each event. Resource folder contains my
 | 24 | ⭐⭐  | [Day 24: It Hangs in the Balance](src/main/java/net/eugenpaul/adventofcode/y2015/day24) |
 | 25 | ⭐⭐  | [Day 25: Let It Snow](src/main/java/net/eugenpaul/adventofcode/y2015/day25) |
 
-### Year 2016 [8/50]
+### Year 2016 [10/50]
 | Day  | Status | Link |
 | ---- | ------ | ---- |
 | 1  | ⭐⭐  | [Day 1: No Time for a Taxicab](src/main/java/net/eugenpaul/adventofcode/y2016/day1) |
-| 2  | ⭐⭐  | [Day 2: Bathroom Security](src/main/java/net/eugenpaul/adventofcode/y2016/day2)  |
-| 3  | ⭐⭐  | [Day 3: Squares With Three Sides](src/main/java/net/eugenpaul/adventofcode/y2016/day3)  |
-| 4  | ⭐⭐  | [Day 4: Security Through Obscurity](src/main/java/net/eugenpaul/adventofcode/y2016/day4)  |
-| 5  |   |   |
-| 6  |   |   |
-| 7  |   |   |
-| 8  |   |   |
-| 9  |   |   |
-| 10 |   |   |
-| 11 |   |   |
-| 12 |   |   |
-| 13 |   |   |
-| 14 |   |   |
-| 15 |   |   |
-| 16 |   |   |
-| 17 |   |   |
-| 18 |   |   |
-| 19 |   |   |
-| 20 |   |   |
-| 21 |   |   |
-| 22 |   |   |
-| 23 |   |   |
-| 24 |   |   |
-| 25 |   |   |
+| 2  | ⭐⭐  | [Day 2: Bathroom Security](src/main/java/net/eugenpaul/adventofcode/y2016/day2) |
+| 3  | ⭐⭐  | [Day 3: Squares With Three Sides](src/main/java/net/eugenpaul/adventofcode/y2016/day3) |
+| 4  | ⭐⭐  | [Day 4: Security Through Obscurity](src/main/java/net/eugenpaul/adventofcode/y2016/day4) |
+| 5  | ⭐⭐  | [Day 5: How About a Nice Game of Chess?](src/main/java/net/eugenpaul/adventofcode/y2016/day5) |
+| 6  |   |  |
+| 7  |   |  |
+| 8  |   |  |
+| 9  |   |  |
+| 10 |   |  |
+| 11 |   |  |
+| 12 |   |  |
+| 13 |   |  |
+| 14 |   |  |
+| 15 |   |  |
+| 16 |   |  |
+| 17 |   |  |
+| 18 |   |  |
+| 19 |   |  |
+| 20 |   |  |
+| 21 |   |  |
+| 22 |   |  |
+| 23 |   |  |
+| 24 |   |  |
+| 25 |   |  |
