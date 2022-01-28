@@ -45,7 +45,7 @@ One folder for each year. One folder for each event. Resource folder contains my
 | 7  | ⭐⭐  | [Day 7: Internet Protocol Version 7](src/main/java/net/eugenpaul/adventofcode/y2016/day7) |
 | 8  | ⭐⭐  | [Day 8: Two-Factor Authentication](src/main/java/net/eugenpaul/adventofcode/y2016/day8) |
 | 9  | ⭐⭐  | [Day 9: Explosives in Cyberspace](src/main/java/net/eugenpaul/adventofcode/y2016/day9) |
-| 10 |   |  |
+| 10 | ⭐⭐  | [Day 10: Balance Bots](src/main/java/net/eugenpaul/adventofcode/y2016/day10) |
 | 11 |   |  |
 | 12 |   |  |
 | 13 |   |  |
