@@ -5,6 +5,7 @@ One folder for each year. One folder for each event. Resource folder contains my
 
 ## Progress:
 ### Year 2015 [50/50]
+
 | Day  | Status | Link |
 | ---- | ------ | ---- |
 | 1  | ⭐⭐  | [Day 1: Not Quite Lisp](src/main/java/net/eugenpaul/adventofcode/y2015/day1)   |
@@ -33,7 +34,8 @@ One folder for each year. One folder for each event. Resource folder contains my
 | 24 | ⭐⭐  | [Day 24: It Hangs in the Balance](src/main/java/net/eugenpaul/adventofcode/y2015/day24) |
 | 25 | ⭐⭐  | [Day 25: Let It Snow](src/main/java/net/eugenpaul/adventofcode/y2015/day25) |
 
-### Year 2016 [22/50]
+### Year 2016 [24/50]
+
 | Day  | Status | Link |
 | ---- | ------ | ---- |
 | 1  | ⭐⭐  | [Day 1: No Time for a Taxicab](src/main/java/net/eugenpaul/adventofcode/y2016/day1) |
@@ -47,7 +49,7 @@ One folder for each year. One folder for each event. Resource folder contains my
 | 9  | ⭐⭐  | [Day 9: Explosives in Cyberspace](src/main/java/net/eugenpaul/adventofcode/y2016/day9) |
 | 10 | ⭐⭐  | [Day 10: Balance Bots](src/main/java/net/eugenpaul/adventofcode/y2016/day10) |
 | 11 | ⭐⭐  | [Day 11: Radioisotope Thermoelectric Generators](src/main/java/net/eugenpaul/adventofcode/y2016/day11) |
-| 12 |   |  |
+| 12 | ⭐⭐  | [Day 12: Leonardo's Monorail](src/main/java/net/eugenpaul/adventofcode/y2016/day12) |
 | 13 |   |  |
 | 14 |   |  |
 | 15 |   |  |
