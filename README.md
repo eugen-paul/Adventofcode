@@ -7,7 +7,7 @@ One folder for each year. One folder for each event. Resource folder contains my
 ### Year 2015 [50/50]
 
 | Day  | Status | Link |
-| ---- | ------ | ---- |
+| --- | --- | --- |
 | 1  | ⭐⭐  | [Day 1: Not Quite Lisp](src/main/java/net/eugenpaul/adventofcode/y2015/day1)   |
 | 2  | ⭐⭐  | [Day 2: I Was Told There Would Be No Math](src/main/java/net/eugenpaul/adventofcode/y2015/day2)   |
 | 3  | ⭐⭐  | [Day 3: Perfectly Spherical Houses in a Vacuum](src/main/java/net/eugenpaul/adventofcode/y2015/day3)   |
@@ -37,7 +37,7 @@ One folder for each year. One folder for each event. Resource folder contains my
 ### Year 2016 [24/50]
 
 | Day  | Status | Link |
-| ---- | ------ | ---- |
+| --- | --- | --- |
 | 1  | ⭐⭐  | [Day 1: No Time for a Taxicab](src/main/java/net/eugenpaul/adventofcode/y2016/day1) |
 | 2  | ⭐⭐  | [Day 2: Bathroom Security](src/main/java/net/eugenpaul/adventofcode/y2016/day2) |
 | 3  | ⭐⭐  | [Day 3: Squares With Three Sides](src/main/java/net/eugenpaul/adventofcode/y2016/day3) |
