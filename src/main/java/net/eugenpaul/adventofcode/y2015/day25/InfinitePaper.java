@@ -17,7 +17,7 @@ public class InfinitePaper {
      * <p>
      * OR
      * <p>
-     * Element(n+1) = Element(n) * (multiplier to the n-1) mod modulo
+     * Element(n+1) = Element(1) * (multiplier to the n-1) mod modulo
      * 
      * @param posX
      * @param posY
