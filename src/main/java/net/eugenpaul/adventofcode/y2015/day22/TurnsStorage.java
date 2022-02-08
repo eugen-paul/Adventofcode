@@ -6,6 +6,7 @@ import java.util.TreeMap;
 
 public class TurnsStorage {
 
+    /**posible player turns sorted by manacost */
     private TreeMap<Integer, List<TurnData>> turns;
 
     public TurnsStorage() {

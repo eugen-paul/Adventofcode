@@ -120,11 +120,14 @@ public class Day22 {
     private void doPuzzle(TurnsStorage tStorage, boolean isHard) {
         TurnData lowestTurn = tStorage.getLowestTurn();
         while (lowestTurn != null) {
+            //get all player spells
             List<Spell> avaibleSpells = lowestTurn.getPlayerSpells();
 
             for (Spell spell : avaibleSpells) {
+                //check if the player can cast the spell
                 TurnData turn = new TurnData(lowestTurn);
                 if (!doNextTurn(turn, spell, isHard)) {
+                    // player can cast the spell. Add new turn to storage
                     tStorage.addTurnData(turn);
                 }
             }
@@ -134,7 +137,7 @@ public class Day22 {
     }
 
     /**
-     * @return true ist the game is over or mana cost are to high
+     * @return true if the game is over or mana cost are to high
      */
     private boolean doNextTurn(TurnData turn, Spell spell, boolean isHard) {
         if (turn.doPlayerTurn(spell, isHard) || turn.doBossTurn()) {
