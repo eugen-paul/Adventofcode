@@ -50,7 +50,7 @@ One folder for each year. One folder for each event. Resource folder contains my
 | 10 | ⭐⭐  | [Day 10: Balance Bots](src/main/java/net/eugenpaul/adventofcode/y2016/day10) |
 | 11 | ⭐⭐  | [Day 11: Radioisotope Thermoelectric Generators](src/main/java/net/eugenpaul/adventofcode/y2016/day11) |
 | 12 | ⭐⭐  | [Day 12: Leonardo's Monorail](src/main/java/net/eugenpaul/adventofcode/y2016/day12) |
-| 13 |   |  |
+| 13 | ⭐⭐  | [Day 13: A Maze of Twisty Little Cubicles](src/main/java/net/eugenpaul/adventofcode/y2016/day13) |
 | 14 |   |  |
 | 15 |   |  |
 | 16 |   |  |
