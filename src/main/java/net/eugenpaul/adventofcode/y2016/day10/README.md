@@ -27,3 +27,7 @@ value 2 goes to bot 2
 In the end, output bin `0` contains a value-`5` microchip, output bin `1` contains a value-`2` microchip, and output bin `2` contains a value-`3` microchip. In this configuration, bot number **`2`** is responsible for comparing value-`5` microchips with value-`2` microchips.
 
 Based on your instructions, **what is the number of the bot** that is responsible for comparing value-`61` microchips with value-`17` microchips?
+
+# --- Part Two ---
+
+What do you get if you **multiply together the values** of one chip in each of outputs `0`, `1`, and `2`?
