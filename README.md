@@ -34,7 +34,7 @@ One folder for each year. One folder for each event. Resource folder contains my
 | 24 | ⭐⭐  | [Day 24: It Hangs in the Balance](src/main/java/net/eugenpaul/adventofcode/y2015/day24) |
 | 25 | ⭐⭐  | [Day 25: Let It Snow](src/main/java/net/eugenpaul/adventofcode/y2015/day25) |
 
-### Year 2016 [28/50]
+### Year 2016 [30/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -52,7 +52,7 @@ One folder for each year. One folder for each event. Resource folder contains my
 | 12 | ⭐⭐  | [Day 12: Leonardo's Monorail](src/main/java/net/eugenpaul/adventofcode/y2016/day12) |
 | 13 | ⭐⭐  | [Day 13: A Maze of Twisty Little Cubicles](src/main/java/net/eugenpaul/adventofcode/y2016/day13) |
 | 14 | ⭐⭐  | [Day 14: One-Time Pad](src/main/java/net/eugenpaul/adventofcode/y2016/day14) |
-| 15 |   |  |
+| 15 | ⭐⭐  | [Day 15: Timing is Everything](src/main/java/net/eugenpaul/adventofcode/y2016/day15) |
 | 16 |   |  |
 | 17 |   |  |
 | 18 |   |  |
