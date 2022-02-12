@@ -30,14 +30,13 @@ public class Dijkstra {
         Pos to = new Pos(toX, toY);
         Pos from = new Pos(fromX, fromY);
 
-        // add first step
+        // set first Position as reached
         reachedSteps.put(from, 0);
-        nextSteps.add(from);
 
         // pathfinding
         while (!to.equals(from)) {
-            from = nextSteps.poll();
             checkAndAddNextSteps(area, from);
+            from = nextSteps.poll();
         }
 
         return reachedSteps.get(to);
@@ -46,14 +45,13 @@ public class Dijkstra {
     public int getFieldsCount(BuildingArea area, int fromX, int fromY, int stepCount) {
         Pos from = new Pos(fromX, fromY);
 
-        // add first step
+        // set first Position as reached
         reachedSteps.put(from, 0);
-        nextSteps.add(from);
 
         // pathfinding
-        while (reachedSteps.get(nextSteps.getFirst()) <= stepCount) {
-            from = nextSteps.poll();
+        while (reachedSteps.get(from) <= stepCount) {
             checkAndAddNextSteps(area, from);
+            from = nextSteps.poll();
         }
 
         return (int) reachedSteps.values().stream().filter(v -> v <= stepCount).count();

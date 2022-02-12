@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-class Day15Test {
+class Day16Test {
 
     @Test
-    void testTest2016Day15_puzzle1() {
+    void testTest2016Day16_puzzle1() {
         testPuzzle1(//
                 "110010110100", //
                 "100", //
