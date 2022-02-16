@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2016 [34/50]
+## Year 2016 [36/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -21,7 +21,7 @@
 | 15 | ⭐⭐  | [Day 15: Timing is Everything](day15) |
 | 16 | ⭐⭐  | [Day 16: Dragon Checksum](day16) |
 | 17 | ⭐⭐  | [Day 17: Two Steps Forward](day17) |
-| 18 |   |  |
+| 18 | ⭐⭐  | [Day 18: Like a Rogue](day18) |
 | 19 |   |  |
 | 20 |   |  |
 | 21 |   |  |
