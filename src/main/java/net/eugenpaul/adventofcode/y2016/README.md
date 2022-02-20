@@ -22,7 +22,7 @@
 | 16 | ⭐⭐  | [Day 16: Dragon Checksum](day16) |
 | 17 | ⭐⭐  | [Day 17: Two Steps Forward](day17) |
 | 18 | ⭐⭐  | [Day 18: Like a Rogue](day18) |
-| 19 |   |  |
+| 19 | ⭐⭐  | [Day 19: An Elephant Named Joseph](day19) |
 | 20 |   |  |
 | 21 |   |  |
 | 22 |   |  |
