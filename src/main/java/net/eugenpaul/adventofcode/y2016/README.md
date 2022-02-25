@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2016 [36/50]
+## Year 2016 [40/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -23,7 +23,7 @@
 | 17 | ⭐⭐  | [Day 17: Two Steps Forward](day17) |
 | 18 | ⭐⭐  | [Day 18: Like a Rogue](day18) |
 | 19 | ⭐⭐  | [Day 19: An Elephant Named Joseph](day19) |
-| 20 |   |  |
+| 20 | ⭐⭐  | [Day 20: Firewall Rules](day20) |
 | 21 |   |  |
 | 22 |   |  |
 | 23 |   |  |
