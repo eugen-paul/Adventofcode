@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2016 [40/50]
+## Year 2016 [42/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -24,7 +24,7 @@
 | 18 | ⭐⭐  | [Day 18: Like a Rogue](day18) |
 | 19 | ⭐⭐  | [Day 19: An Elephant Named Joseph](day19) |
 | 20 | ⭐⭐  | [Day 20: Firewall Rules](day20) |
-| 21 |   |  |
+| 21 | ⭐⭐  | [Day 21: Scrambled Letters and Hash](day21) |
 | 22 |   |  |
 | 23 |   |  |
 | 24 |   |  |
