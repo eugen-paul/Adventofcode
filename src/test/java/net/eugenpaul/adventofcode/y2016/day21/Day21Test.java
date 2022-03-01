@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class Day21Test {
 
     @Test
-    void testTest2016Day20_puzzle1() {
+    void testTest2016Day21_puzzle1() {
         testPuzzle1(//
                 List.of(//
                         "swap position 4 with position 0", //
