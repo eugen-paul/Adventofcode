@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2016 [44/50]
+## Year 2016 [46/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -26,6 +26,6 @@
 | 20 | ⭐⭐  | [Day 20: Firewall Rules](day20) |
 | 21 | ⭐⭐  | [Day 21: Scrambled Letters and Hash](day21) |
 | 22 | ⭐⭐  | [Day 22: Grid Computing](day22) |
-| 23 |   |  |
+| 23 | ⭐⭐  | [Day 23: Safe Cracking](day23) |
 | 24 |   |  |
 | 25 |   |  |
