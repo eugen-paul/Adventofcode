@@ -29,13 +29,22 @@ public class InstructionCpy implements Instruction {
         String[] elements = data.split(" ");
 
         char to = elements[2].charAt(0);
-        if (elements[1].charAt(0) < '0' || elements[1].charAt(0) > '9') {
-            return new InstructionCpy(elements[1].charAt(0), elements[2].charAt(0));
+        Integer v = toNumber(elements[1]);
+        if (v == null) {
+            return new InstructionCpy(elements[1].charAt(0), to);
         }
 
         return new InstructionCpy(//
-                Integer.parseInt(elements[1]), //
+                v, //
                 to);
+    }
+
+    private static Integer toNumber(String input) {
+        try {
+            return Integer.parseInt(input); //
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
     @Override
