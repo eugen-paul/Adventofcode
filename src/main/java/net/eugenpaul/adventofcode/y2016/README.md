@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2016 [48/50]
+## Year 2016 [50/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -28,4 +28,4 @@
 | 22 | ⭐⭐  | [Day 22: Grid Computing](day22) |
 | 23 | ⭐⭐  | [Day 23: Safe Cracking](day23) |
 | 24 | ⭐⭐  | [Day 24: Air Duct Spelunking](day24) |
-| 25 |   |  |
+| 25 | ⭐⭐  | [Day 25: Clock Signal](day25) |
