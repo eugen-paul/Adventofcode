@@ -22,35 +22,31 @@ public class Dijkstra {
 
     public Dijkstra(DuctLayout area) {
         this.area = area;
-        steps = new LinkedList<>();
-        visited = new boolean[area.getW()][area.getH()];
+        this.steps = new LinkedList<>();
+        this.visited = new boolean[area.getW()][area.getH()];
 
-        for (boolean[] line : visited) {
+        for (boolean[] line : this.visited) {
             Arrays.fill(line, false);
         }
     }
 
     public int getSteps(int fromX, int fromY, int toX, int toY) {
-        Pos to = new Pos(toX, toY, 0);
         Pos from = new Pos(fromX, fromY, 0);
+        Pos to = new Pos(toX, toY, 0);
 
         // pathfinding
         while (to.getX() != from.getX() || to.getY() != from.getY()) {
-            checkAndAddNextSteps(area, from);
+            checkAndAdd(from, from.x - 1, from.y);
+            checkAndAdd(from, from.x + 1, from.y);
+            checkAndAdd(from, from.x, from.y - 1);
+            checkAndAdd(from, from.x, from.y + 1);
             from = steps.poll();
         }
 
         return from.getSteps();
     }
 
-    private void checkAndAddNextSteps(DuctLayout area, Pos src) {
-        checkAndAdd(area, src, src.x - 1, src.y);
-        checkAndAdd(area, src, src.x + 1, src.y);
-        checkAndAdd(area, src, src.x, src.y - 1);
-        checkAndAdd(area, src, src.x, src.y + 1);
-    }
-
-    private void checkAndAdd(DuctLayout area, Pos src, int targetX, int targetY) {
+    private void checkAndAdd(Pos src, int targetX, int targetY) {
         if (!area.isOk(targetX, targetY) || visited[targetX][targetY]) {
             return;
         }
