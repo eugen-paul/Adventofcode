@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2016 [46/50]
+## Year 2016 [48/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -27,5 +27,5 @@
 | 21 | ⭐⭐  | [Day 21: Scrambled Letters and Hash](day21) |
 | 22 | ⭐⭐  | [Day 22: Grid Computing](day22) |
 | 23 | ⭐⭐  | [Day 23: Safe Cracking](day23) |
-| 24 |   |  |
+| 24 | ⭐⭐  | [Day 24: Air Duct Spelunking](day24) |
 | 25 |   |  |
