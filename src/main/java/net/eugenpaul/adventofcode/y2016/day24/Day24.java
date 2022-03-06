@@ -2,14 +2,17 @@ package net.eugenpaul.adventofcode.y2016.day24;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import net.eugenpaul.adventofcode.y2016.day24.DuctLayout.Pos;
 
 public class Day24 {
 
@@ -35,6 +38,8 @@ public class Day24 {
     private DuctLayout layout;
 
     private boolean returnToStart;
+
+    private Map<Pos, Map<Pos, Integer>> cache;
 
     public static void main(String[] args) {
         Day24 puzzle = new Day24();
@@ -66,37 +71,34 @@ public class Day24 {
             return false;
         }
 
+        cache = new HashMap<>();
+
         layout = DuctLayout.fromStringList(eventData);
 
+        // Puzzle 1
+        shortestRoute = duPuzzle(false);
+
+        // Puzzle 2
+        shortestRoute2 = duPuzzle(true);
+
+        return true;
+    }
+
+    private int duPuzzle(boolean returnToZero) {
         int maxNumber = 0;
         while (layout.getNumberPosition(maxNumber) != null) {
             maxNumber++;
         }
 
-        // Puzzle 1
         shortestRouteTemp = Integer.MAX_VALUE;
-        returnToStart = false;
+        returnToStart = returnToZero;
         List<Integer> numbers = new LinkedList<>();
         for (int i = 1; i < maxNumber; i++) {
             numbers.add(i);
         }
 
         permutationsRecursive(numbers.size(), numbers.toArray(new Integer[0]));
-
-        shortestRoute = shortestRouteTemp;
-
-        // Puzzle 2
-        shortestRouteTemp = Integer.MAX_VALUE;
-        returnToStart = true;
-        numbers = new LinkedList<>();
-        for (int i = 1; i < maxNumber; i++) {
-            numbers.add(i);
-        }
-
-        permutationsRecursive(numbers.size(), numbers.toArray(new Integer[0]));
-        shortestRoute2 = shortestRouteTemp;
-
-        return true;
+        return shortestRouteTemp;
     }
 
     /**
@@ -129,19 +131,27 @@ public class Day24 {
 
     private void computeDistanceOfPermutation(Integer[] input) {
         var startPos = layout.getNumberPosition(0);
-        Dijkstra pathfinding;
 
         int route = 0;
         for (Integer c : input) {
-            pathfinding = new Dijkstra(layout);
             var endPos = layout.getNumberPosition(c);
-            route += pathfinding.getSteps(startPos.getX(), startPos.getY(), endPos.getX(), endPos.getY());
+            var fromPos = startPos;
+
+            route += cache.computeIfAbsent(startPos, key -> {
+                Dijkstra pathfinding = new Dijkstra(layout);
+                Map<Pos, Integer> value = new HashMap<>();
+                value.put(key, pathfinding.getSteps(fromPos.getX(), fromPos.getY(), endPos.getX(), endPos.getY()));
+                return value;
+            }).computeIfAbsent(endPos, key -> {
+                Dijkstra pathfinding = new Dijkstra(layout);
+                return pathfinding.getSteps(fromPos.getX(), fromPos.getY(), endPos.getX(), endPos.getY());
+            });
 
             startPos = endPos;
         }
 
         if (returnToStart) {
-            pathfinding = new Dijkstra(layout);
+            Dijkstra pathfinding = new Dijkstra(layout);
             route += pathfinding.getSteps(startPos.getX(), startPos.getY(), layout.getNumberPosition(0).getX(), layout.getNumberPosition(0).getY());
         }
 
