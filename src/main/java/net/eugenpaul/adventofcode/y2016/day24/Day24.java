@@ -134,18 +134,15 @@ public class Day24 {
 
         int route = 0;
         for (Integer c : input) {
+            Dijkstra pathfinding = new Dijkstra(layout);
             var endPos = layout.getNumberPosition(c);
             var fromPos = startPos;
 
             route += cache.computeIfAbsent(startPos, key -> {
-                Dijkstra pathfinding = new Dijkstra(layout);
                 Map<Pos, Integer> value = new HashMap<>();
-                value.put(key, pathfinding.getSteps(fromPos.getX(), fromPos.getY(), endPos.getX(), endPos.getY()));
+                value.put(endPos, pathfinding.getSteps(fromPos.getX(), fromPos.getY(), endPos.getX(), endPos.getY()));
                 return value;
-            }).computeIfAbsent(endPos, key -> {
-                Dijkstra pathfinding = new Dijkstra(layout);
-                return pathfinding.getSteps(fromPos.getX(), fromPos.getY(), endPos.getX(), endPos.getY());
-            });
+            }).computeIfAbsent(endPos, key -> pathfinding.getSteps(fromPos.getX(), fromPos.getY(), endPos.getX(), endPos.getY()));
 
             startPos = endPos;
         }
