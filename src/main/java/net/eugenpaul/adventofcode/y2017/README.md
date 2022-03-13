@@ -1,11 +1,11 @@
 # Solutions
 
-## Year 2017 [2/50]
+## Year 2017 [4/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
-| 1  | ⭐⭐  | [Day 1: No Time for a Taxicab](day1) |
-| 2  |   | 
+| 1  | ⭐⭐ | [Day 1: No Time for a Taxicab](day1) |
+| 2  | ⭐⭐ | [Day 2: Corruption Checksum](day2) |
 | 3  |   | 
 | 4  |   | 
 | 5  |   | 
