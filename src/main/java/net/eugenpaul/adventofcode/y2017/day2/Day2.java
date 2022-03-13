@@ -1,29 +1,13 @@
 package net.eugenpaul.adventofcode.y2017.day2;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
+import net.eugenpaul.adventofcode.helper.StringConverter;
 
-public class Day2 {
-
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day2.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day2.class.getName());
+public class Day2 extends SolutionTemplate {
 
     @Getter
     private long checksum;
@@ -35,18 +19,19 @@ public class Day2 {
         puzzle.doPuzzleFromFile("y2017/day2/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
+    @Override
+    public boolean doEvent(List<String> eventData) {
         if (null == eventData) {
             return false;
         }
 
-        return doPuzzleFromData(eventData);
-    }
+        checksum = 0;
+        checksum2 = 0;
+        for (String string : eventData) {
+            List<Long> elements = StringConverter.toNumberArrayListSorted(string);
 
-    public boolean doPuzzleFromData(List<String> eventData) {
-        if (!doEvent(eventData)) {
-            return false;
+            checksum += checksumPuzzle1(elements);
+            checksum2 += checksumPuzzle2(elements);
         }
 
         logger.log(Level.INFO, () -> "checksum : " + getChecksum());
@@ -55,43 +40,20 @@ public class Day2 {
         return true;
     }
 
-    private boolean doEvent(List<String> eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
-        checksum = 0;
-        checksum2 = 0;
-        for (String string : eventData) {
-            List<Integer> elements = Stream.of(string.split("[\t ]"))//
-                    .mapToInt(Integer::parseInt)//
-                    .boxed()//
-                    .sorted() //
-                    .collect(Collectors.toList());
-
-            checksum += checksumPuzzle1(elements);
-            checksum2 += checksumPuzzle2(elements);
-        }
-
-        return true;
-    }
-
-    private int checksumPuzzle1(List<Integer> data) {
+    private long checksumPuzzle1(List<Long> data) {
         return data.get(data.size() - 1) - data.get(0);
     }
 
-    private int checksumPuzzle2(List<Integer> data) {
-
+    private long checksumPuzzle2(List<Long> data) {
         for (int i = 0; i < data.size() - 1; i++) {
-            int a = data.get(i);
+            long a = data.get(i);
             for (int k = i + 1; k < data.size(); k++) {
-                int b = data.get(k);
+                long b = data.get(k);
                 if (b % a == 0) {
                     return b / a;
                 }
             }
         }
-
         return 0;
     }
 
