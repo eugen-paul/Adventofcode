@@ -1,10 +1,10 @@
 # Solutions
 
-## Year 2017 [0/50]
+## Year 2017 [2/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
-| 1  |   | 
+| 1  | ⭐⭐  | [Day 1: No Time for a Taxicab](day1) |
 | 2  |   | 
 | 3  |   | 
 | 4  |   | 
