@@ -50,4 +50,8 @@ public class StringConverter {
         return data.chars().mapToLong(v -> v - '0').toArray();
     }
 
+    public static Stream<Character> toCharStream(String data) {
+        return data.chars().mapToObj(c -> (char) c);
+    }
+
 }
