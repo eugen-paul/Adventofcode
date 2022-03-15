@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [8/50]
+## Year 2017 [10/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -8,7 +8,7 @@
 | 2  | ⭐⭐ | [Day 2: Corruption Checksum](day2) |
 | 3  | ⭐⭐ | [Day 3: Spiral Memory](day3) |
 | 4  | ⭐⭐ | [Day 4: High-Entropy Passphrases](day4) |
-| 5  |   | 
+| 5  | ⭐⭐ | [Day 5: A Maze of Twisty Trampolines, All Alike](day5) |
 | 6  |   | 
 | 7  |   | 
 | 8  |   | 
