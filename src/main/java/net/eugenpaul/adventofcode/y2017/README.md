@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [10/50]
+## Year 2017 [12/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -9,7 +9,7 @@
 | 3  | ⭐⭐ | [Day 3: Spiral Memory](day3) |
 | 4  | ⭐⭐ | [Day 4: High-Entropy Passphrases](day4) |
 | 5  | ⭐⭐ | [Day 5: A Maze of Twisty Trampolines, All Alike](day5) |
-| 6  |   | 
+| 6  | ⭐⭐ | [Day 6: Memory Reallocation](day6) |
 | 7  |   | 
 | 8  |   | 
 | 9  |   | 
