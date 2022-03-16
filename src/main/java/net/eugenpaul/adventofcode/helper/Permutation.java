@@ -2,7 +2,7 @@ package net.eugenpaul.adventofcode.helper;
 
 import java.util.function.Consumer;
 
-public class Permutation {
+public final class Permutation {
 
     private Permutation() {
 

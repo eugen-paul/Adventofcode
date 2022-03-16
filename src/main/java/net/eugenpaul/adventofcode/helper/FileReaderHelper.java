@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Some static helper functions to read content of a files.
  */
-public class FileReaderHelper {
+public final class FileReaderHelper {
     private FileReaderHelper() {
 
     }

@@ -1,6 +1,6 @@
 package net.eugenpaul.adventofcode.helper;
 
-public class MathHelper {
+public final class MathHelper {
     private MathHelper() {
 
     }
