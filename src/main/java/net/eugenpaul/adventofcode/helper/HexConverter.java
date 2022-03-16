@@ -1,12 +1,18 @@
 package net.eugenpaul.adventofcode.helper;
 
-public class HexConverter {
+public final class HexConverter {
     private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 
     private HexConverter() {
 
     }
 
+    /**
+     * Convert bytes to HEX-String: 0x1234 -> "1234"
+     * 
+     * @param bytes input
+     * @return HEX-String
+     */
     public static String bytesToHexString(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
         for (int j = 0; j < bytes.length; j++) {
