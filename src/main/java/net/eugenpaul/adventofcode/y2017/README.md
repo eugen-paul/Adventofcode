@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [14/50]
+## Year 2017 [16/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -11,7 +11,7 @@
 | 5  | ⭐⭐ | [Day 5: A Maze of Twisty Trampolines, All Alike](day5) |
 | 6  | ⭐⭐ | [Day 6: Memory Reallocation](day6) |
 | 7  | ⭐⭐ | [Day 7: Recursive Circus](day7) |
-| 8  |   | 
+| 8  | ⭐⭐ | [Day 8: I Heard You Like Registers](day8) |
 | 9  |   | 
 | 10 |   | 
 | 11 |   | 
