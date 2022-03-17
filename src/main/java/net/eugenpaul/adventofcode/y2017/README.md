@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [12/50]
+## Year 2017 [14/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -10,7 +10,7 @@
 | 4  | ⭐⭐ | [Day 4: High-Entropy Passphrases](day4) |
 | 5  | ⭐⭐ | [Day 5: A Maze of Twisty Trampolines, All Alike](day5) |
 | 6  | ⭐⭐ | [Day 6: Memory Reallocation](day6) |
-| 7  |   | 
+| 7  | ⭐⭐ | [Day 7: Recursive Circus](day7) |
 | 8  |   | 
 | 9  |   | 
 | 10 |   | 
