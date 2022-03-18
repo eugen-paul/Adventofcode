@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [16/50]
+## Year 2017 [18/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -12,7 +12,7 @@
 | 6  | ⭐⭐ | [Day 6: Memory Reallocation](day6) |
 | 7  | ⭐⭐ | [Day 7: Recursive Circus](day7) |
 | 8  | ⭐⭐ | [Day 8: I Heard You Like Registers](day8) |
-| 9  |   | 
+| 9  | ⭐⭐ | [Day 9: Stream Processing](day9) |
 | 10 |   | 
 | 11 |   | 
 | 12 |   | 
