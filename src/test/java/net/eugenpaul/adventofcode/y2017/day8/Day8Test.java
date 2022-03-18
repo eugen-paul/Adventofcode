@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-class Day7Test {
+class Day8Test {
 
     @Test
-    void testTest2017Day7_puzzle1() {
+    void testTest2017Day8_puzzle1() {
         testPuzzle1(List.of(//
                 "b inc 5 if a > 1", //
                 "a inc 1 if b < 5", //
