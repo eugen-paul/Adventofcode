@@ -28,7 +28,7 @@ public class Day6 extends SolutionTemplate {
             return false;
         }
 
-        List<Long> data = StringConverter.toNumberArrayList(eventData);
+        List<Long> data = StringConverter.toLongArrayList(eventData);
 
         Map<String, Integer> hashs = new HashMap<>();
 
