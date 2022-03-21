@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [18/50]
+## Year 2017 [20/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -13,7 +13,7 @@
 | 7  | ⭐⭐ | [Day 7: Recursive Circus](day7) |
 | 8  | ⭐⭐ | [Day 8: I Heard You Like Registers](day8) |
 | 9  | ⭐⭐ | [Day 9: Stream Processing](day9) |
-| 10 |   | 
+| 10 | ⭐⭐ | [Day 10: Knot Hash](day10) |
 | 11 |   | 
 | 12 |   | 
 | 13 |   | 

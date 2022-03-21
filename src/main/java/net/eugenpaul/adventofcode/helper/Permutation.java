@@ -15,7 +15,7 @@ public final class Permutation {
      * @param elements input array (will be modified).
      * @param callback consumer that will be executed by each output
      */
-    public <T> void permutationsRecursive(int n, T[] elements, Consumer<T[]> callback) {
+    public static <T> void permutationsRecursive(int n, T[] elements, Consumer<T[]> callback) {
         if (n == 1) {
             callback.accept(elements);
         } else {
@@ -31,8 +31,44 @@ public final class Permutation {
         }
     }
 
-    private <T> void swap(T[] input, int a, int b) {
+    /**
+     * Swap two element in array
+     * 
+     * @param <T>
+     * @param input
+     * @param a
+     * @param b
+     */
+    public static <T> void swap(T[] input, int a, int b) {
         T tmp = input[a];
+        input[a] = input[b];
+        input[b] = tmp;
+    }
+
+    /**
+     * Swap two element in array
+     * 
+     * @param <T>
+     * @param input
+     * @param a
+     * @param b
+     */
+    public static void swap(int[] input, int a, int b) {
+        int tmp = input[a];
+        input[a] = input[b];
+        input[b] = tmp;
+    }
+
+    /**
+     * Swap two element in array
+     * 
+     * @param <T>
+     * @param input
+     * @param a
+     * @param b
+     */
+    public static void swap(long[] input, int a, int b) {
+        long tmp = input[a];
         input[a] = input[b];
         input[b] = tmp;
     }
