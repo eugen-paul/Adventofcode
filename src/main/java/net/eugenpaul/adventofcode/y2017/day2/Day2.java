@@ -28,7 +28,7 @@ public class Day2 extends SolutionTemplate {
         checksum = 0;
         checksum2 = 0;
         for (String string : eventData) {
-            List<Long> elements = StringConverter.toNumberArrayListSorted(string);
+            List<Long> elements = StringConverter.toLongArrayListSorted(string);
 
             checksum += checksumPuzzle1(elements);
             checksum2 += checksumPuzzle2(elements);
