@@ -14,7 +14,7 @@
 | 8  | ⭐⭐ | [Day 8: I Heard You Like Registers](day8) |
 | 9  | ⭐⭐ | [Day 9: Stream Processing](day9) |
 | 10 | ⭐⭐ | [Day 10: Knot Hash](day10) |
-| 11 |   | 
+| 11 | ⭐⭐ | [Day 11: Hex Ed](day11) |
 | 12 |   | 
 | 13 |   | 
 | 14 |   | 
