@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [20/50]
+## Year 2017 [24/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -15,7 +15,7 @@
 | 9  | ⭐⭐ | [Day 9: Stream Processing](day9) |
 | 10 | ⭐⭐ | [Day 10: Knot Hash](day10) |
 | 11 | ⭐⭐ | [Day 11: Hex Ed](day11) |
-| 12 |   | 
+| 12 | ⭐⭐ | [Day 12: Digital Plumber](day12) |
 | 13 |   | 
 | 14 |   | 
 | 15 |   | 
