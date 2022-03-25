@@ -45,7 +45,7 @@ public class Day10 extends SolutionTemplate {
         return true;
     }
 
-    private String puzzle2(String eventData) {
+    public String puzzle2(String eventData) {
         List<Integer> input = eventData.chars().boxed().collect(Collectors.toCollection(LinkedList::new));
         input.addAll(List.of(17, 31, 73, 47, 23));
 
