@@ -66,7 +66,7 @@ public class Day10 extends SolutionTemplate {
     }
 
     private int puzzle1(String eventData) {
-        List<Integer> input = StringConverter.toNumberLinkedList(eventData, Integer.class);
+        List<Integer> input = StringConverter.toIntegerLinkedList(eventData);
 
         int[] data = round(input, 1);
 
