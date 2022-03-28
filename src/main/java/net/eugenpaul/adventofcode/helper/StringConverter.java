@@ -100,26 +100,6 @@ public final class StringConverter {
         return toNumberList(data, Integer::parseInt, LinkedList::new, true);
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T extends Number & Comparable<T>> List<T> toNumberArrayList(String data, Class<T> clazz) {
-        if (clazz.isAssignableFrom(Integer.class)) {
-            return (List<T>) toNumberList(data, Integer::parseInt, ArrayList::new, false);
-        } else if (clazz.isAssignableFrom(Long.class)) {
-            return (List<T>) toNumberList(data, Long::parseLong, ArrayList::new, false);
-        }
-        throw new IllegalArgumentException();
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T extends Number & Comparable<T>> List<T> toNumberLinkedList(String data, Class<T> clazz) {
-        if (clazz.isAssignableFrom(Integer.class)) {
-            return (List<T>) toNumberList(data, Integer::parseInt, LinkedList::new, false);
-        } else if (clazz.isAssignableFrom(Long.class)) {
-            return (List<T>) toNumberList(data, Long::parseLong, LinkedList::new, false);
-        }
-        throw new IllegalArgumentException();
-    }
-
     public static <T extends Number & Comparable<T>> List<T> toNumberList(String data, Function<String, T> mapper, Supplier<Collection<T>> supplier,
             boolean sort) {
         var response = (List<T>) Stream.of(data.split(NUMBER_SEPARATOR_REGEX))//
