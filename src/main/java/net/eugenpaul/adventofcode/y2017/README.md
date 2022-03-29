@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [30/50]
+## Year 2017 [32/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -19,7 +19,7 @@
 | 13 | ⭐⭐ | [Day 13: Packet Scanners](day13) |
 | 14 | ⭐⭐ | [Day 14: Disk Defragmentation](day14) |
 | 15 | ⭐⭐ | [Day 15: Dueling Generators](day15) |
-| 16 |   | 
+| 16 | ⭐⭐ | [Day 16: Permutation Promenade](day16) |
 | 17 |   | 
 | 18 |   | 
 | 19 |   | 
