@@ -43,6 +43,14 @@ public class SolutionTemplate {
         }
 
         if (eventData.size() == 1) {
+            try {
+                int input = Integer.parseInt(eventData.get(0));
+                if (doEvent(input)) {
+                    return true;
+                }
+            } catch (Exception e) {
+                // ignore
+            }
             return doEvent(eventData.get(0));
         } else {
             return doEvent(eventData);
@@ -52,6 +60,12 @@ public class SolutionTemplate {
 
     @SuppressWarnings("all")
     public boolean doEvent(List<String> eventData) {
+        logger.log(Level.SEVERE, "!!NOT IMPLEMENTED!!");
+        return false;
+    }
+
+    @SuppressWarnings("all")
+    public boolean doEvent(Integer eventData) {
         logger.log(Level.SEVERE, "!!NOT IMPLEMENTED!!");
         return false;
     }
