@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [36/50]
+## Year 2017 [38/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -22,7 +22,7 @@
 | 16 | ⭐⭐ | [Day 16: Permutation Promenade](day16) |
 | 17 | ⭐⭐ | [Day 17: Spinlock](day17) |
 | 18 | ⭐⭐ | [Day 18: Duet](day18) |
-| 19 |   | 
+| 19 | ⭐⭐ | [Day 19: A Series of Tubes](day19) |
 | 20 |   | 
 | 21 |   | 
 | 22 |   | 
