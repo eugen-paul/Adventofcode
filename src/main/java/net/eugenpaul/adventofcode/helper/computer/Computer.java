@@ -42,13 +42,7 @@ public class Computer {
     }
 
     public Computer(List<Character> registerList, int position) {
-        register = registerList.stream().collect(Collectors.toMap(v -> v, v -> 0L));
-        specialRegister = new HashMap<>();
-        sndQueue = new LinkedList<>();
-        rcvQueue = sndQueue;
-        this.position = position;
-        this.instructions = null;
-        this.registerInitValue = 0;
+        this(registerList, position, null);
     }
 
     public Computer(List<Character> registerList, int position, List<Instruction> instructions) {
