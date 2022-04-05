@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [40/50]
+## Year 2017 [42/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -24,7 +24,7 @@
 | 18 | ⭐⭐ | [Day 18: Duet](day18) |
 | 19 | ⭐⭐ | [Day 19: A Series of Tubes](day19) |
 | 20 | ⭐⭐ | [Day 20: Particle Swarm](day20) |
-| 21 |   | 
+| 21 | ⭐⭐ | [Day 21: Fractal Art](day21) |
 | 22 |   | 
 | 23 |   | 
 | 24 |   | 
