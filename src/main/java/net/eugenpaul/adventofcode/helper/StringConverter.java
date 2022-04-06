@@ -1,19 +1,23 @@
 package net.eugenpaul.adventofcode.helper;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class StringConverter {
-    /**
-     *
-     */
+
+    private static Logger logger = Logger.getLogger(StringConverter.class.getName());
     private static final String NUMBER_SEPARATOR_REGEX = "[\t ,]";
 
     private StringConverter() {
@@ -143,4 +147,38 @@ public final class StringConverter {
         return data.chars().mapToObj(c -> (char) c);
     }
 
+    public static Map<SimplePos, Boolean> toBoolMap(List<String> data, char trueChar) {
+        Map<SimplePos, Boolean> response = new HashMap<>();
+        for (int y = 0; y < data.size(); y++) {
+            for (int x = 0; x < data.get(0).length(); x++) {
+                var currentPos = new SimplePos(x, y);
+                var value = data.get(y).charAt(x) == trueChar;
+                response.put(currentPos, value);
+            }
+        }
+        return response;
+    }
+
+    public static void printBoolMap(Map<SimplePos, Boolean> map) {
+        int xMin = Integer.MAX_VALUE;
+        int xMax = Integer.MIN_VALUE;
+        int yMin = Integer.MAX_VALUE;
+        int yMax = Integer.MIN_VALUE;
+
+        for (var entry : map.entrySet()) {
+            xMin = Math.min(xMin, entry.getKey().getX());
+            xMax = Math.max(xMax, entry.getKey().getX());
+            yMin = Math.min(yMin, entry.getKey().getY());
+            yMax = Math.max(yMax, entry.getKey().getY());
+        }
+
+        for (int y = yMin; y <= yMax; y++) {
+            StringBuilder line = new StringBuilder();
+            for (int x = xMin; x <= xMax; x++) {
+                var value = map.getOrDefault(new SimplePos(x, y), false);
+                line.append(value.booleanValue() ? '#' : '.');
+            }
+            logger.log(Level.INFO, line::toString);
+        }
+    }
 }
