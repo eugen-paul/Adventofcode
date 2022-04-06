@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [42/50]
+## Year 2017 [44/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -25,7 +25,7 @@
 | 19 | ⭐⭐ | [Day 19: A Series of Tubes](day19) |
 | 20 | ⭐⭐ | [Day 20: Particle Swarm](day20) |
 | 21 | ⭐⭐ | [Day 21: Fractal Art](day21) |
-| 22 |   | 
+| 22 | ⭐⭐ | [Day 22: Sporifica Virus](day22) |
 | 23 |   | 
 | 24 |   | 
 | 25 |   | 
