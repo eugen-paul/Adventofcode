@@ -35,6 +35,9 @@ public class InstructionFactory {
         case "add":
             response = InstructionAdd.fromString(data);
             break;
+        case "sub":
+            response = InstructionSub.fromString(data);
+            break;
         case "mul":
             response = InstructionMul.fromString(data);
             break;
