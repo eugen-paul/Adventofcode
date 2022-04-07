@@ -38,13 +38,13 @@ public class Day23 extends SolutionTemplate {
         }
 
         mulInvoked = doPuzzle1(eventData);
-        regHValue = doPuzzle2();
+        regHValue = doPuzzle2Fast();
 
         if (doSlow) {
             doPuzzle2Slow();
         }
         if (doSlowEdit) {
-            doPuzzle2Kompakt1();
+            doPuzzle2Refactored();
         }
 
         logger.log(Level.INFO, () -> "mulInvoked: " + getMulInvoked());
@@ -74,7 +74,7 @@ public class Day23 extends SolutionTemplate {
         return mulCounter;
     }
 
-    private long doPuzzle2() {
+    private long doPuzzle2Fast() {
         long b = 109900L;
         long c = 126900L;
         long h = 0L;
@@ -86,7 +86,7 @@ public class Day23 extends SolutionTemplate {
         return h;
     }
 
-    private long doPuzzle2Kompakt1() {
+    private long doPuzzle2Refactored() {
         long b = 109900L;
         long c = 126900L;
         long d;
@@ -101,7 +101,7 @@ public class Day23 extends SolutionTemplate {
                 e = 2;
                 do {
                     if (d * e == b) {
-                        f = 0; // only if d * e equal b is f will be set zero
+                        f = 0; // only if d * e equal b is f will be set zero => we can break both while-loops there
                     }
                     e++; // e is a counter from 2 to b
                 } while (e != b);
