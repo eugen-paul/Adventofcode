@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [44/50]
+## Year 2017 [46/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -26,6 +26,6 @@
 | 20 | ⭐⭐ | [Day 20: Particle Swarm](day20) |
 | 21 | ⭐⭐ | [Day 21: Fractal Art](day21) |
 | 22 | ⭐⭐ | [Day 22: Sporifica Virus](day22) |
-| 23 |   | 
+| 23 | ⭐⭐ | [Day 23: Coprocessor Conflagration](day23) |
 | 24 |   | 
 | 25 |   | 
