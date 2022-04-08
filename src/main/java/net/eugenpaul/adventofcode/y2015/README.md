@@ -29,3 +29,5 @@
 | 23 | ⭐⭐  | [Day 23: Opening the Turing Lock](day23) |
 | 24 | ⭐⭐  | [Day 24: It Hangs in the Balance](day24) |
 | 25 | ⭐⭐  | [Day 25: Let It Snow](day25) |
+
+![Solutions 2015](../../../../../../../doc/img/2015.png "2015 is done")

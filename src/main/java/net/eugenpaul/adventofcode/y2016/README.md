@@ -29,3 +29,5 @@
 | 23 | ⭐⭐  | [Day 23: Safe Cracking](day23) |
 | 24 | ⭐⭐  | [Day 24: Air Duct Spelunking](day24) |
 | 25 | ⭐⭐  | [Day 25: Clock Signal](day25) |
+
+![Solutions 2016](../../../../../../../doc/img/2016.png "2016 is done")

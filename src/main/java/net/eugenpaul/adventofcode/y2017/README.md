@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [48/50]
+## Year 2017 [50/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -28,4 +28,6 @@
 | 22 | ⭐⭐ | [Day 22: Sporifica Virus](day22) |
 | 23 | ⭐⭐ | [Day 23: Coprocessor Conflagration](day23) |
 | 24 | ⭐⭐ | [Day 24: Electromagnetic Moat](day24) |
-| 25 |   | 
+| 25 | ⭐⭐ | [Day 25: The Halting Problem](day25) |
+
+![Solutions 2017](../../../../../../../doc/img/2017.png "2017 is done")
