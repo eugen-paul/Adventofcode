@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2017 [46/50]
+## Year 2017 [48/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -27,5 +27,5 @@
 | 21 | ⭐⭐ | [Day 21: Fractal Art](day21) |
 | 22 | ⭐⭐ | [Day 22: Sporifica Virus](day22) |
 | 23 | ⭐⭐ | [Day 23: Coprocessor Conflagration](day23) |
-| 24 |   | 
+| 24 | ⭐⭐ | [Day 24: Electromagnetic Moat](day24) |
 | 25 |   | 
