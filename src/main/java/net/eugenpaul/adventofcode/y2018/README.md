@@ -1,10 +1,10 @@
 # Solutions
 
-## Year 2018 [00/50]
+## Year 2018 [02/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
-| 1  |  |  |
+| 1  | ⭐⭐ | [Day 1: Chronal Calibration](day1) |
 | 2  |  |  |
 | 3  |  |  |
 | 4  |  |  |
