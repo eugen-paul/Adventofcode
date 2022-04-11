@@ -1,55 +1,37 @@
 package net.eugenpaul.adventofcode.y2015.day3;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.Direction;
+import net.eugenpaul.adventofcode.helper.SimplePos;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day3 {
+public class Day3 extends SolutionTemplate {
 
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day3.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day3.class.getName());
-
+    @Getter
     private Integer visitedHouseCountSantaAlone = null;
+    @Getter
     private Integer visitedHouseCountSantaAndRobo = null;
-
-    public Integer getVisitedHouseCountSantaAlone() {
-        return this.visitedHouseCountSantaAlone;
-    }
-
-    public Integer getVisitedHouseCountSantaAndRobo() {
-        return this.visitedHouseCountSantaAndRobo;
-    }
 
     public static void main(String[] args) {
         Day3 puzzle = new Day3();
         puzzle.doPuzzleFromFile("y2015/day3/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        String eventData = FileReaderHelper.readStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
+    @Override
+    public boolean doEvent(String eventData) {
 
-        return doPuzzleFromData(eventData);
-    }
+        Map<SimplePos, Boolean> cityMap = new HashMap<>();
+        doDelivery(eventData, 0, 1, cityMap);
+        visitedHouseCountSantaAlone = getHouseCount(cityMap);
 
-    public boolean doPuzzleFromData(String eventData) {
-        if (!doEvent(eventData)) {
-            return false;
-        }
+        cityMap.clear();
+        doDelivery(eventData, 0, 2, cityMap);
+        doDelivery(eventData, 1, 2, cityMap);
+        visitedHouseCountSantaAndRobo = getHouseCount(cityMap);
 
         logger.log(Level.INFO, () -> "Houses with at least one present (Santa alone) " + visitedHouseCountSantaAlone);
         logger.log(Level.INFO, () -> "Houses with at least one present (Santa and Robo) " + visitedHouseCountSantaAndRobo);
@@ -57,46 +39,40 @@ public class Day3 {
         return true;
     }
 
-    private boolean doEvent(String eventData) {
-        if (null == eventData) {
-            return false;
-        }
+    private void doDelivery(String deliveryPath, int startPositon, int deliveryStep, Map<SimplePos, Boolean> cityMap) {
+        SimplePos pos = new SimplePos(0, 0);
+        Direction direction = Direction.N;
 
-        CityMap citySantaAlone = new CityMap();
-        doDelivery(eventData, 0, 1, citySantaAlone);
-        visitedHouseCountSantaAlone = citySantaAlone.getHouseCount();
-
-        CityMap citySantaAndRobo = new CityMap();
-        doDelivery(eventData, 0, 2, citySantaAndRobo);
-        doDelivery(eventData, 1, 2, citySantaAndRobo);
-        visitedHouseCountSantaAndRobo = citySantaAndRobo.getHouseCount();
-        return true;
-    }
-
-    private void doDelivery(String deliveryPath, int startPositon, int deliveryStep, CityMap city) {
-        int positionX = 0;
-        int positionY = 0;
-
-        city.addVisitedHouse(positionX, positionY);
+        addVisitedHouse(cityMap, pos);
 
         for (int i = startPositon; i < deliveryPath.length(); i += deliveryStep) {
             char step = deliveryPath.charAt(i);
             switch (step) {
             case '^':
-                positionY++;
+                direction = Direction.N;
                 break;
             case 'v':
-                positionY--;
+                direction = Direction.S;
                 break;
             case '>':
-                positionX++;
+                direction = Direction.O;
                 break;
             case '<':
-                positionX--;
+                direction = Direction.W;
                 break;
             default:
             }
-            city.addVisitedHouse(positionX, positionY);
+            pos = pos.moveNew(direction);
+            addVisitedHouse(cityMap, pos);
         }
+    }
+
+    public boolean addVisitedHouse(Map<SimplePos, Boolean> cityMap, SimplePos pos) {
+        cityMap.putIfAbsent(pos, true);
+        return true;
+    }
+
+    public int getHouseCount(Map<SimplePos, Boolean> cityMap) {
+        return cityMap.values().size();
     }
 }

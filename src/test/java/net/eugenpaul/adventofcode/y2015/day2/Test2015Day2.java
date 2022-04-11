@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+
 /**
  * Test2015Day2
  */
@@ -23,9 +25,20 @@ class Test2015Day2 {
     private void testPuzzle(String inputData, long totalSquare, long totalRibbon) {
         Day2 event = new Day2();
 
-        assertTrue(event.doPuzzleFromData(List.of(Square.fromString(inputData))), "Testdata " + inputData);
+        assertTrue(event.doEvent(List.of(inputData)), "Testdata " + inputData);
         assertEquals(totalSquare, event.getTotalSquare());
         assertEquals(totalRibbon, event.getTotalRibbon());
     }
+
+    @Test
+    void testSolution2015Day2() {
+        Day2 event = new Day2();
+
+        List<String> eventData = FileReaderHelper.readListStringFromFile("y2015/day2/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+        assertEquals(1598415, event.getTotalSquare());
+        assertEquals(3812909, event.getTotalRibbon());
+    }
+
 
 }

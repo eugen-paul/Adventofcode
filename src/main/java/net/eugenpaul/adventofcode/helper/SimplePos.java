@@ -27,4 +27,10 @@ public class SimplePos {
             break;
         }
     }
+
+    public SimplePos moveNew(Direction direction) {
+        SimplePos pos = new SimplePos(x, y);
+        pos.move(direction);
+        return pos;
+    }
 }
