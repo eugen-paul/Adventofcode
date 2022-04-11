@@ -1,15 +1,16 @@
 package net.eugenpaul.adventofcode.y2015.day2;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class Square {
     private int length;
     private int width;
     private int height;
-
-    public Square(int length, int width, int height) {
-        this.length = length;
-        this.width = width;
-        this.height = height;
-    }
 
     public static Square fromString(String data) {
         String[] params = data.split("x");
@@ -21,30 +22,6 @@ public class Square {
         } catch (Exception e) {
             return null;
         }
-    }
-
-    public int getLength() {
-        return this.length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public int getWidth() {
-        return this.width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return this.height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     public long getSmallestSide() {
