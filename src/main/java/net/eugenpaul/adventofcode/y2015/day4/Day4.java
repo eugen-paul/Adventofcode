@@ -1,82 +1,35 @@
 package net.eugenpaul.adventofcode.y2015.day4;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.Crypto;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day4 {
+public class Day4 extends SolutionTemplate {
 
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day4.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day4.class.getName());
     private static final byte[] ZERO_ARRAY = new byte[] { 0, 0, 0 };
 
+    @Getter
     private Long lowestFiveZeroNumber = null;
+    @Getter
     private Long lowestSixZeroNumber = null;
-
-    public long getLowestFiveZeroNumber() {
-        return lowestFiveZeroNumber;
-    }
-
-    public long getLowestSixZeroNumber() {
-        return lowestSixZeroNumber;
-    }
 
     public static void main(String[] args) {
         Day4 puzzle = new Day4();
-        try {
-            puzzle.doPuzzleFromFile("y2015/day4/puzzle1.txt");
-        } catch (NoSuchAlgorithmException e) {
-            logger.log(Level.WARNING, "NoSuchAlgorithmException", e);
-        }
+        puzzle.doPuzzleFromFile("y2015/day4/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) throws NoSuchAlgorithmException {
-        String eventData = FileReaderHelper.readStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(String eventData) throws NoSuchAlgorithmException {
-        if (!doEvent(eventData)) {
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "lowestFiveZeroNumber  " + lowestFiveZeroNumber);
-        logger.log(Level.INFO, () -> "lowestSixZeroNumber  " + lowestSixZeroNumber);
-
-        return true;
-    }
-
-    private boolean doEvent(String eventData) throws NoSuchAlgorithmException {
-        if (null == eventData) {
-            return false;
-        }
-
+    @Override
+    public boolean doEvent(String eventData) {
         lowestFiveZeroNumber = null;
         lowestSixZeroNumber = null;
 
         long number = 0;
         do {
             number++;
-            byte[] hash = doMd5(eventData, number);
+            byte[] hash = Crypto.doMd5(eventData + number);
 
             if (Arrays.compare(ZERO_ARRAY, 0, 3, hash, 0, 3) == 0) {
                 lowestSixZeroNumber = number;
@@ -88,12 +41,8 @@ public class Day4 {
             }
         } while (null == lowestFiveZeroNumber || null == lowestSixZeroNumber);
 
+        logger.log(Level.INFO, () -> "lowestFiveZeroNumber  " + lowestFiveZeroNumber);
+        logger.log(Level.INFO, () -> "lowestSixZeroNumber  " + lowestSixZeroNumber);
         return true;
-    }
-
-    private byte[] doMd5(String secret, Long number) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update((secret + number).getBytes());
-        return md.digest();
     }
 }
