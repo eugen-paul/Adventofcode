@@ -1,11 +1,26 @@
 package net.eugenpaul.adventofcode.helper;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import lombok.Getter;
+
 public enum Direction {
-    N, //
-    O, //
-    S, //
-    W //
+    N('^'), //
+    O('>'), //
+    S('v'), //
+    W('<') //
     ;
+
+    @Getter
+    private char arrow;
+
+    private static Map<Character, Direction> arrowToDirection = Stream.of(Direction.values()).collect(Collectors.toMap(Direction::getArrow, v -> v));
+
+    private Direction(char arrow) {
+        this.arrow = arrow;
+    }
 
     public Direction turnLeft() {
         switch (this) {
@@ -53,5 +68,14 @@ public enum Direction {
             break;
         }
         throw new IllegalArgumentException();
+    }
+
+    /**
+     * Convert direction-char (^v<>) to Direction
+     * @param arrow
+     * @return
+     */
+    public static Direction fromArrow(char arrow) {
+        return arrowToDirection.get(arrow);
     }
 }

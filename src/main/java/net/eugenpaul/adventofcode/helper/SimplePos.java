@@ -28,6 +28,12 @@ public class SimplePos {
         }
     }
 
+    /**
+     * Create new position. Move position depending on direction and return new position.
+     * 
+     * @param direction
+     * @return new Position
+     */
     public SimplePos moveNew(Direction direction) {
         SimplePos pos = new SimplePos(x, y);
         pos.move(direction);
