@@ -12,7 +12,7 @@ import net.eugenpaul.adventofcode.helper.FileReaderHelper;
 class Day1Test {
 
     @Test
-    void testTest2018Day25_puzzle1() {
+    void testTest2018Day1_puzzle1() {
         testPuzzle1(List.of(//
                 "+1", //
                 "-2", //
@@ -29,7 +29,7 @@ class Day1Test {
     }
 
     @Test
-    void testTest2018Day25_puzzle2() {
+    void testTest2018Day1_puzzle2() {
         testPuzzle2(List.of(//
                 "+1", //
                 "-2", //

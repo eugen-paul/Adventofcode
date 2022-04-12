@@ -26,12 +26,12 @@ public class Day3 extends SolutionTemplate {
 
         Map<SimplePos, Boolean> cityMap = new HashMap<>();
         doDelivery(eventData, 0, 1, cityMap);
-        visitedHouseCountSantaAlone = getHouseCount(cityMap);
+        visitedHouseCountSantaAlone = cityMap.size();
 
         cityMap.clear();
         doDelivery(eventData, 0, 2, cityMap);
         doDelivery(eventData, 1, 2, cityMap);
-        visitedHouseCountSantaAndRobo = getHouseCount(cityMap);
+        visitedHouseCountSantaAndRobo = cityMap.size();
 
         logger.log(Level.INFO, () -> "Houses with at least one present (Santa alone) " + visitedHouseCountSantaAlone);
         logger.log(Level.INFO, () -> "Houses with at least one present (Santa and Robo) " + visitedHouseCountSantaAndRobo);
@@ -41,38 +41,13 @@ public class Day3 extends SolutionTemplate {
 
     private void doDelivery(String deliveryPath, int startPositon, int deliveryStep, Map<SimplePos, Boolean> cityMap) {
         SimplePos pos = new SimplePos(0, 0);
-        Direction direction = Direction.N;
-
-        addVisitedHouse(cityMap, pos);
+        cityMap.putIfAbsent(pos, true);
 
         for (int i = startPositon; i < deliveryPath.length(); i += deliveryStep) {
             char step = deliveryPath.charAt(i);
-            switch (step) {
-            case '^':
-                direction = Direction.N;
-                break;
-            case 'v':
-                direction = Direction.S;
-                break;
-            case '>':
-                direction = Direction.O;
-                break;
-            case '<':
-                direction = Direction.W;
-                break;
-            default:
-            }
-            pos = pos.moveNew(direction);
-            addVisitedHouse(cityMap, pos);
+            pos = pos.moveNew(Direction.fromArrow(step));
+            cityMap.putIfAbsent(pos, true);
         }
     }
 
-    public boolean addVisitedHouse(Map<SimplePos, Boolean> cityMap, SimplePos pos) {
-        cityMap.putIfAbsent(pos, true);
-        return true;
-    }
-
-    public int getHouseCount(Map<SimplePos, Boolean> cityMap) {
-        return cityMap.values().size();
-    }
 }
