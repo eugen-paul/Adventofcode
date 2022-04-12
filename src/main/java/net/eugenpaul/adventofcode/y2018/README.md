@@ -5,7 +5,7 @@
 | Day  | Status | Link |
 | --- | --- | --- |
 | 1  | ⭐⭐ | [Day 1: Chronal Calibration](day1) |
-| 2  |  |  |
+| 2  | ⭐⭐ | [Day 2: Inventory Management System](day2) |
 | 3  |  |  |
 | 4  |  |  |
 | 5  |  |  |
