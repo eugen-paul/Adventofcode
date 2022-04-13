@@ -181,4 +181,31 @@ public final class StringConverter {
             logger.log(Level.INFO, line::toString);
         }
     }
+
+    public static void printIntegerMap(Map<SimplePos, Integer> map) {
+        int xMin = Integer.MAX_VALUE;
+        int xMax = Integer.MIN_VALUE;
+        int yMin = Integer.MAX_VALUE;
+        int yMax = Integer.MIN_VALUE;
+
+        for (var entry : map.entrySet()) {
+            xMin = Math.min(xMin, entry.getKey().getX());
+            xMax = Math.max(xMax, entry.getKey().getX());
+            yMin = Math.min(yMin, entry.getKey().getY());
+            yMax = Math.max(yMax, entry.getKey().getY());
+        }
+
+        for (int y = yMin; y <= yMax; y++) {
+            StringBuilder line = new StringBuilder();
+            for (int x = xMin; x <= xMax; x++) {
+                var value = map.getOrDefault(new SimplePos(x, y), 0);
+                if (value == 0) {
+                    line.append(".");
+                } else {
+                    line.append(Math.min(9, value));
+                }
+            }
+            logger.log(Level.INFO, line::toString);
+        }
+    }
 }
