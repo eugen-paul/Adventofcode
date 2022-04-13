@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+
 /**
  * Test2015Day5
  */
@@ -32,15 +34,25 @@ class Test2015Day5 {
     private void testPuzzle1(String inputData, long niceStringCount) {
         Day5 event = new Day5();
 
-        assertTrue(event.doPuzzleFromData(List.of(inputData)), "Testdata " + inputData);
+        assertTrue(event.doEvent(List.of(inputData)), "Testdata " + inputData);
         assertEquals(niceStringCount, event.getNiceStringCount());
     }
 
     private void testPuzzle2(String inputData, long niceStringCount) {
         Day5 event = new Day5();
 
-        assertTrue(event.doPuzzleFromData(List.of(inputData)), "Testdata " + inputData);
+        assertTrue(event.doEvent(List.of(inputData)), "Testdata " + inputData);
         assertEquals(niceStringCount, event.getAdvancedNiceStringCount());
+    }
+
+    @Test
+    void testSolution2018Day3() {
+        Day5 event = new Day5();
+
+        List<String> eventData = FileReaderHelper.readListStringFromFile("y2015/day5/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+        assertEquals(236, event.getNiceStringCount());
+        assertEquals(51, event.getAdvancedNiceStringCount());
     }
 
 }
