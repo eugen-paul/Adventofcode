@@ -1,37 +1,19 @@
 package net.eugenpaul.adventofcode.y2015.day7;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day7 {
+public class Day7 extends SolutionTemplate {
 
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day7.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day7.class.getName());
+    @Getter
+    private int aPuzzle1;
+    @Getter
+    private int aPuzzle2;
 
     private Circuit circuit;
-
-    public Short getSignal(String wireName) {
-        try {
-            return circuit.getWireSignal(wireName);
-        } catch (Exception e) {
-            logger.log(Level.WARNING, "Exception by getWireSignal: ", e);
-            return null;
-        }
-    }
 
     public Day7() {
         circuit = new Circuit();
@@ -40,38 +22,32 @@ public class Day7 {
     public static void main(String[] args) {
         Day7 puzzle1 = new Day7();
         puzzle1.doPuzzleFromFile("y2015/day7/puzzle1.txt");
-        int aSignal = puzzle1.getSignal("a") & 0xFFFF;
-        logger.log(Level.INFO, () -> "puzzle1 - wire a: " + (aSignal & 0xFFFF));
-
-        puzzle1.addSignal(aSignal + " -> b");
-        puzzle1.resetCircuitValue();
-        logger.log(Level.INFO, () -> "puzzle1 - wire a: " + (puzzle1.getSignal("a") & 0xFFFF));
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(List<String> eventData) {
-        return doEvent(eventData);
-    }
-
-    private boolean doEvent(List<String> eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
+    @Override
+    public boolean doEvent(List<String> eventData) {
         for (String commando : eventData) {
             ISourceSignal signal = SignalFactory.parseSignal(commando);
             circuit.addInputSignal(signal);
         }
 
+        aPuzzle1 = getSignal("a") & 0xFFFF;
+        logger.log(Level.INFO, () -> "puzzle1 - wire a: " + (aPuzzle1 & 0xFFFF));
+        
+        addSignal(aPuzzle1 + " -> b");
+        resetCircuitValue();
+        aPuzzle2 = getSignal("a") & 0xFFFF;
+        logger.log(Level.INFO, () -> "puzzle1 - wire a: " + (aPuzzle2 & 0xFFFF));
         return true;
+    }
+
+    public Short getSignal(String wireName) {
+        try {
+            return circuit.getWireSignal(wireName);
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Exception by getWireSignal: ", e);
+            return null;
+        }
     }
 
     public void addSignal(String commando) {
