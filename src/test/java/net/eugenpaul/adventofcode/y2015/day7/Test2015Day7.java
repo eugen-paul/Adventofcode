@@ -9,6 +9,8 @@ import java.util.Map.Entry;
 
 import org.junit.jupiter.api.Test;
 
+import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+
 /**
  * Test2015Day7
  */
@@ -17,6 +19,7 @@ class Test2015Day7 {
     @Test
     void testTest2015Day7() {
         testPuzzle(List.of(//
+                "0 -> a", //
                 "123 -> x", //
                 "456 -> y", //
                 "x AND y -> d", //
@@ -26,6 +29,7 @@ class Test2015Day7 {
                 "NOT x -> h", //
                 "NOT y -> i" //
         ), Map.of(//
+                "a", 0, //
                 "d", 72, //
                 "e", 507, //
                 "f", 492, //
@@ -37,6 +41,7 @@ class Test2015Day7 {
         ));
 
         testPuzzle(List.of(//
+                "0 -> a", //
                 "123 -> x", //
                 "x LSHIFT 2 -> f", //
                 "x OR y -> e", //
@@ -46,6 +51,7 @@ class Test2015Day7 {
                 "x AND y -> d", //
                 "NOT y -> i" //
         ), Map.of(//
+                "a", 0, //
                 "d", 72, //
                 "e", 507, //
                 "f", 492, //
@@ -67,6 +73,16 @@ class Test2015Day7 {
             Short value = (short) signal.getValue().intValue();
             assertEquals(value, event.getSignal(signal.getKey()), "Error: " + signal.getKey());
         }
+    }
+
+    @Test
+    void testSolution2015Day7() {
+        Day7 event = new Day7();
+
+        List<String> eventData = FileReaderHelper.readListStringFromFile("y2015/day7/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+        assertEquals(3176, event.getAPuzzle1());
+        assertEquals(14710, event.getAPuzzle2());
     }
 
 }
