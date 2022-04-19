@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2018 [08/50]
+## Year 2018 [10/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -8,7 +8,7 @@
 | 2  | ⭐⭐ | [Day 2: Inventory Management System](day2) |
 | 3  | ⭐⭐ | [Day 3: No Matter How You Slice It](day3) |
 | 4  | ⭐⭐ | [Day 4: Repose Record](day4) |
-| 5  |  |  |
+| 5  | ⭐⭐ | [Day 5: Alchemical Reduction](day5) |
 | 6  |  |  |
 | 7  |  |  |
 | 8  |  |  |
