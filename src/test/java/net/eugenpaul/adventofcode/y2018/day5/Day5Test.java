@@ -43,12 +43,12 @@ class Day5Test {
 
     @Test
     void testSolution2018Day4() {
-    Day5 event = new Day5();
+        Day5 event = new Day5();
 
-    List<String> eventData = FileReaderHelper.readListStringFromFile("y2018/day5/puzzle1.txt");
-    assertTrue(event.doPuzzleFromData(eventData));
-    assertEquals(10978, event.getUnitsAfterReacting());
-    assertEquals(4840, event.getShortestPolymer());
+        List<String> eventData = FileReaderHelper.readListStringFromFile("y2018/day5/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+        assertEquals(10978, event.getUnitsAfterReacting());
+        assertEquals(4840, event.getShortestPolymer());
     }
 
 }
