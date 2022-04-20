@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+
 /**
  * Test2015Day12
  * 
@@ -34,6 +36,16 @@ class Test2015Day12 {
         assertTrue(event.doPuzzleFromData(inputData));
         assertEquals(sum, event.getSum());
         assertEquals(sumWithoutRe, event.getSumWithoutRed());
+    }
+
+    @Test
+    void testSolution2015Day12() {
+        Day12 event = new Day12();
+
+        String eventData = FileReaderHelper.readStringFromFile("y2015/day12/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+        assertEquals(156366, event.getSum());
+        assertEquals(96852, event.getSumWithoutRed());
     }
 
 }
