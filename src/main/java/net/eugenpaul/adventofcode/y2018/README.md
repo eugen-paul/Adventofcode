@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2018 [10/50]
+## Year 2018 [12/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -9,7 +9,7 @@
 | 3  | ⭐⭐ | [Day 3: No Matter How You Slice It](day3) |
 | 4  | ⭐⭐ | [Day 4: Repose Record](day4) |
 | 5  | ⭐⭐ | [Day 5: Alchemical Reduction](day5) |
-| 6  |  |  |
+| 6  | ⭐⭐ | [Day 6: Chronal Coordinates](day6) |
 | 7  |  |  |
 | 8  |  |  |
 | 9  |  |  |
