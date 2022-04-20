@@ -1,43 +1,26 @@
 package net.eugenpaul.adventofcode.y2015.day11;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.y2015.day11.rules.NotContainLetter;
 import net.eugenpaul.adventofcode.y2015.day11.rules.StraightOfThree;
 import net.eugenpaul.adventofcode.y2015.day11.rules.TwoDifferentPairs;
 
-public class Day11 {
+public class Day11 extends SolutionTemplate {
 
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day11.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day11.class.getName());
-
+    @Getter
     private String nextPassword = null;
+    @Getter
+    private String nextPassword2 = null;
 
     private List<IRule> rules;
-
-    public String getNextPassword() {
-        return nextPassword;
-    }
 
     public static void main(String[] args) {
         Day11 puzzle = new Day11();
         puzzle.doPuzzleFromFile("y2015/day11/puzzle1.txt");
-
-        puzzle.doPuzzleFromData(puzzle.getNextPassword());
     }
 
     public Day11() {
@@ -49,40 +32,27 @@ public class Day11 {
                 new TwoDifferentPairs());
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        String eventData = FileReaderHelper.readStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(String eventData) {
-        if (!doEvent(eventData)) {
-            return false;
-        }
+    @Override
+    public boolean doEvent(String eventData) {
+        char[] password = eventData.toCharArray();
+        password = computeNextPassword(password);
+        nextPassword = new String(password);
 
         logger.log(Level.INFO, () -> "nextPassword  " + getNextPassword());
 
+        password = computeNextPassword(password);
+        nextPassword2 = new String(password);
+
+        logger.log(Level.INFO, () -> "nextPassword2  " + getNextPassword2());
+
         return true;
     }
 
-    private boolean doEvent(String eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
-        boolean passwordIsOk = false;
-        char[] password = eventData.toCharArray();
+    private char[] computeNextPassword(char[] password) {
         do {
             password = incrementPassword(password, password.length - 1);
-            passwordIsOk = isPasswordOk(password);
-        } while (!passwordIsOk);
-
-        nextPassword = new String(password);
-
-        return true;
+        } while (!isPasswordOk(password));
+        return password;
     }
 
     private boolean isPasswordOk(char[] password) {
