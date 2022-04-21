@@ -6,38 +6,53 @@ import java.util.List;
 import java.util.Map;
 
 public class FullPlan {
-    private Map<String, Person> plan;
+
+    private class Relations {
+        private Map<String, Integer> happiness = new HashMap<>();
+
+        public void setRelation(String to, int relation) {
+            happiness.put(to, relation);
+        }
+
+        public int getHappines(String neighbor1, String neighbor2) {
+            return happiness.get(neighbor1) + happiness.get(neighbor2);
+        }
+    }
+
+    private Map<String, Relations> personRelations;
 
     public FullPlan() {
-        plan = new HashMap<>();
+        personRelations = new HashMap<>();
     }
 
     public void addRelation(String person, String neighbor, int relation) {
-        plan.compute(person, (k, v) -> {
-            if (null == v) {
-                Person data = new Person(person);
-                data.setRelation(neighbor, relation);
-                return data;
-            }
-            v.setRelation(neighbor, relation);
-            return v;
-        });
+        personRelations.computeIfAbsent(person, k -> new Relations())//
+                .setRelation(neighbor, relation);
     }
 
     public List<String> getPersonList() {
-        return new ArrayList<>(plan.keySet());
+        return new ArrayList<>(personRelations.keySet());
     }
 
     public int getTotalHappiness(String[] arrangement) {
         int responseHappines = 0;
         for (int i = 0; i < arrangement.length; i++) {
+            String currentPerson = arrangement[i];
+            String neighborNext;
+            String neighborPrevious;
+
             if (i == 0) {
-                responseHappines += plan.get(arrangement[i]).getHappines(arrangement[i + 1], arrangement[arrangement.length - 1]);
+                neighborPrevious = arrangement[arrangement.length - 1];
+                neighborNext = arrangement[i + 1];
             } else if (i == arrangement.length - 1) {
-                responseHappines += plan.get(arrangement[i]).getHappines(arrangement[0], arrangement[i - 1]);
+                neighborPrevious = arrangement[arrangement.length - 2];
+                neighborNext = arrangement[0];
             } else {
-                responseHappines += plan.get(arrangement[i]).getHappines(arrangement[i + 1], arrangement[i - 1]);
+                neighborPrevious = arrangement[i - 1];
+                neighborNext = arrangement[i + 1];
             }
+
+            responseHappines += personRelations.get(currentPerson).getHappines(neighborPrevious, neighborNext);
         }
         return responseHappines;
     }
