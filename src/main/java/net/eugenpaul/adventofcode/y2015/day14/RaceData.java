@@ -33,22 +33,11 @@ public class RaceData {
     }
 
     private void setPoints() {
-        int[] maxDistance = { 0 };
-        distance.forEach((k, v) -> {
-            if (maxDistance[0] < v) {
-                maxDistance[0] = v.intValue();
-            }
-        });
-        points.replaceAll((k, v) -> (maxDistance[0] == distance.get(k)) ? v + 1 : v);
+        int maxDistance = distance.values().stream().sorted((a, b) -> b - a).findFirst().orElseThrow();
+        points.replaceAll((k, v) -> (maxDistance == distance.get(k)) ? v + 1 : v);
     }
 
     public int getWinnerPoints() {
-        int[] maxPoints = { 0 };
-        points.forEach((k, v) -> {
-            if (maxPoints[0] < v) {
-                maxPoints[0] = v.intValue();
-            }
-        });
-        return maxPoints[0];
+        return points.values().stream().sorted((a, b) -> b - a).findFirst().orElseThrow();
     }
 }
