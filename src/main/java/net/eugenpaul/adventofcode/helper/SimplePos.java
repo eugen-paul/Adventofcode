@@ -39,4 +39,14 @@ public class SimplePos {
         pos.move(direction);
         return pos;
     }
+
+    /**
+     * Add b to current
+     * 
+     * @param b
+     */
+    public void add(SimplePos b) {
+        x += b.getX();
+        y += b.getY();
+    }
 }

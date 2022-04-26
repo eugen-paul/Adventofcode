@@ -160,7 +160,7 @@ public final class StringConverter {
         return response;
     }
 
-    public static void printBoolMap(Map<SimplePos, Boolean> map) {
+    public static List<String> printBoolMap(Map<SimplePos, Boolean> map) {
         int xMin = Integer.MAX_VALUE;
         int xMax = Integer.MIN_VALUE;
         int yMin = Integer.MAX_VALUE;
@@ -173,6 +173,8 @@ public final class StringConverter {
             yMax = Math.max(yMax, entry.getKey().getY());
         }
 
+        List<String> response = new LinkedList<>();
+
         for (int y = yMin; y <= yMax; y++) {
             StringBuilder line = new StringBuilder();
             for (int x = xMin; x <= xMax; x++) {
@@ -180,7 +182,10 @@ public final class StringConverter {
                 line.append(value.booleanValue() ? '#' : '.');
             }
             logger.log(Level.INFO, line::toString);
+            response.add(line.toString());
         }
+
+        return response;
     }
 
     public static void printIntegerMap(Map<SimplePos, Integer> map) {
