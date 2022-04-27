@@ -14,7 +14,7 @@
 | 8  | ⭐⭐ | [Day 8: Memory Maneuver](day8) |
 | 9  | ⭐⭐ | [Day 9: Marble Mania](day9) |
 | 10 | ⭐⭐ | [Day 10: The Stars Align](day10) |
-| 11 |  |  |
+| 11 | ⭐⭐ | [Day 11: Chronal Charge](day11) |
 | 12 |  |  |
 | 13 |  |  |
 | 14 |  |  |
