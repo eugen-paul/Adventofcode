@@ -1,97 +1,53 @@
 package net.eugenpaul.adventofcode.y2015.day16;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Getter;
+import lombok.Setter;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day16 {
+public class Day16 extends SolutionTemplate {
 
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day16.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day16.class.getName());
-
+    @Getter
     private int sueNumber;
+    @Getter
     private int sueNumberRanges;
 
-    public long getSueNumber() {
-        return sueNumber;
-    }
-
-    public long getSueNumberRanges() {
-        return sueNumberRanges;
-    }
+    @Setter
+    private List<String> mfcsamData = List.of(//
+            "children: 3", //
+            "cats: 7", //
+            "samoyeds: 2", //
+            "pomeranians: 3", //
+            "akitas: 0", //
+            "vizslas: 0", //
+            "goldfish: 5", //
+            "trees: 3", //
+            "cars: 2", //
+            "perfumes: 1" //
+    );
 
     public static void main(String[] args) {
         Day16 puzzle = new Day16();
-        puzzle.doPuzzleFromFile("y2015/day16/puzzle1.txt", "y2015/day16/puzzle1_mfcsam.txt");
+        puzzle.doPuzzleFromFile("y2015/day16/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename, String filenameMfcsam) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        List<String> mfcsamData = FileReaderHelper.readListStringFromFile(filenameMfcsam);
-        if (null == mfcsamData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData, mfcsamData);
-    }
-
-    public boolean doPuzzleFromData(List<String> eventData, List<String> mfcsamData) {
-        if (!doEvent(eventData, mfcsamData)) {
-            logger.log(Level.INFO, () -> "Aunt not Found :(");
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "sueNumber: " + getSueNumber());
-        logger.log(Level.INFO, () -> "sueNumberRanges: " + getSueNumberRanges());
-
-        return true;
-    }
-
-    private boolean doEvent(List<String> eventData, List<String> mfcsamData) {
-        if (null == eventData) {
-            return false;
-        }
-
-        List<Aunt> aunts = new LinkedList<>();
-        for (String data : eventData) {
-            aunts.add(Aunt.fromString(data));
-        }
+    @Override
+    public boolean doEvent(List<String> eventData) {
+        List<Aunt> aunts = eventData.stream()//
+                .map(Aunt::fromString)//
+                .collect(Collectors.toList());
 
         MfcsamData mfcsam = MfcsamData.fromList(mfcsamData);
 
-        sueNumber = -1;
-        for (Aunt aunt : aunts) {
-            if (mfcsam.chechAunt(aunt)) {
-                sueNumber = aunt.getNumber();
-                break;
-            }
-        }
+        sueNumber = aunts.stream().filter(mfcsam::chechAunt).findFirst().orElseThrow().getNumber();
 
-        sueNumberRanges = -1;
-        for (Aunt aunt : aunts) {
-            if (mfcsam.chechAuntRanges(aunt)) {
-                sueNumberRanges = aunt.getNumber();
-                break;
-            }
-        }
+        sueNumberRanges = aunts.stream().filter(mfcsam::chechAuntRanges).findFirst().orElseThrow().getNumber();
+
+        logger.log(Level.INFO, () -> "sueNumber: " + getSueNumber());
+        logger.log(Level.INFO, () -> "sueNumberRanges: " + getSueNumberRanges());
 
         return sueNumber != -1 && sueNumberRanges != -1;
     }

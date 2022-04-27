@@ -3,18 +3,17 @@ package net.eugenpaul.adventofcode.y2015.day16;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.Getter;
+
 public class Aunt {
 
+    @Getter
     private int number;
     private Map<String, Integer> props;
 
     private Aunt() {
         number = -1;
         props = new HashMap<>();
-    }
-
-    public int getNumber() {
-        return this.number;
     }
 
     public Integer getPropValue(String propName) {
