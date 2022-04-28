@@ -29,7 +29,7 @@ public class Day11 extends SolutionTemplate {
         SimplePos pos = findBest(3);
         bestPos = pos.getX() + "," + pos.getY();
 
-        bestPosEver = findBestEver();
+        bestPosEver = findBestEverFast();
 
         logger.log(Level.INFO, () -> "bestPos : " + getBestPos());
         logger.log(Level.INFO, () -> "bestPosEver : " + getBestPosEver());
@@ -86,7 +86,7 @@ public class Day11 extends SolutionTemplate {
         return response;
     }
 
-    public String findBestEver() {
+    public String findBestEverSlow() {
         int maxPower = Integer.MIN_VALUE;
         int maxSize = 1;
         SimplePos maxPos = new SimplePos(0, 0);
@@ -103,6 +103,44 @@ public class Day11 extends SolutionTemplate {
         }
 
         return maxPos.getX() + "," + maxPos.getY() + "," + maxSize;
+    }
+
+    public String findBestEverFast() {
+        int maxPower = Integer.MIN_VALUE;
+        int maxSize = 1;
+        SimplePos maxPos = new SimplePos(0, 0);
+
+        for (int x = 1; x <= 300; x++) {
+            for (int y = 1; y <= 300; y++) {
+                int maxCellSize = Math.min(300 + 1 - x, 300 + 1 - y);
+                int power = 0;
+                for (int cellSize = 1; cellSize <= maxCellSize; cellSize++) {
+                    power = incPowerValue(x, y, cellSize, power);
+
+                    if (maxPower < power) {
+                        maxPower = power;
+                        maxPos = new SimplePos(x, y);
+                        maxSize = cellSize;
+                    }
+                }
+            }
+        }
+
+        return maxPos.getX() + "," + maxPos.getY() + "," + maxSize;
+    }
+
+    private int incPowerValue(int xPos, int yPos, int size, int lastCellPower) {
+        int response = lastCellPower;
+
+        for (int x = xPos; x < xPos + size; x++) {
+            response += grid[x - 1][yPos + size - 1 - 1];
+        }
+
+        for (int y = yPos; y < yPos + size - 1; y++) {
+            response += grid[xPos + size - 1 - 1][y - 1];
+        }
+
+        return response;
     }
 
     public int getPowerLevel(SimplePos pos) {
