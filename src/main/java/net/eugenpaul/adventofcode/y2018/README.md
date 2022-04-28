@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2018 [20/50]
+## Year 2018 [24/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -15,7 +15,7 @@
 | 9  | ⭐⭐ | [Day 9: Marble Mania](day9) |
 | 10 | ⭐⭐ | [Day 10: The Stars Align](day10) |
 | 11 | ⭐⭐ | [Day 11: Chronal Charge](day11) |
-| 12 |  |  |
+| 12 | ⭐⭐ | [Day 12: Subterranean Sustainability](day12) |
 | 13 |  |  |
 | 14 |  |  |
 | 15 |  |  |
