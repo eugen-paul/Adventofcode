@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2018 [24/50]
+## Year 2018 [26/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -16,7 +16,7 @@
 | 10 | ⭐⭐ | [Day 10: The Stars Align](day10) |
 | 11 | ⭐⭐ | [Day 11: Chronal Charge](day11) |
 | 12 | ⭐⭐ | [Day 12: Subterranean Sustainability](day12) |
-| 13 |  |  |
+| 13 | ⭐⭐ | [Day 13: Mine Cart Madness](day13) |
 | 14 |  |  |
 | 15 |  |  |
 | 16 |  |  |
