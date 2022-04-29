@@ -70,8 +70,42 @@ public enum Direction {
         throw new IllegalArgumentException();
     }
 
+    public Direction turnOnCurve(char curve) {
+        switch (curve) {
+        case '/':
+            switch (this) {
+            case N:
+                return Direction.O;
+            case S:
+                return Direction.W;
+            case W:
+                return Direction.S;
+            case O:
+                return Direction.N;
+            default:
+                throw new IllegalArgumentException("Illegal Direction: " + curve);
+            }
+        case '\\':
+            switch (this) {
+            case N:
+                return Direction.W;
+            case S:
+                return Direction.O;
+            case W:
+                return Direction.N;
+            case O:
+                return Direction.S;
+            default:
+                throw new IllegalArgumentException("Illegal Direction: " + curve);
+            }
+        default:
+            throw new IllegalArgumentException("Illegal curve: " + curve);
+        }
+    }
+
     /**
      * Convert direction-char (^v<>) to Direction
+     * 
      * @param arrow
      * @return
      */
