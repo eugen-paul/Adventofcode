@@ -1,74 +1,29 @@
 package net.eugenpaul.adventofcode.y2015.day18;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Getter;
+import lombok.Setter;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day18 {
+public class Day18 extends SolutionTemplate {
 
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day18.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day18.class.getName());
-
+    @Getter
     private int lightsOn;
+    @Getter
     private int lightsBrokenOn;
 
-    public long getLightsOn() {
-        return lightsOn;
-    }
-
-    public long getLightsBrokenOn() {
-        return lightsBrokenOn;
-    }
+    @Setter
+    private int steps = 100;
 
     public static void main(String[] args) {
         Day18 puzzle = new Day18();
-        puzzle.doPuzzleFromFile("y2015/day18/puzzle1.txt", "y2015/day18/puzzle1_steps.txt");
+        puzzle.doPuzzleFromFile("y2015/day18/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename, String filenameSteps) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        String steps = FileReaderHelper.readStringFromFile(filenameSteps);
-        if (null == steps) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData, steps);
-    }
-
-    public boolean doPuzzleFromData(List<String> eventData, String steps) {
-        if (!doEvent(eventData, Integer.parseInt(steps))) {
-            logger.log(Level.INFO, () -> "Solution not found :(");
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "lightsOn: " + getLightsOn());
-        logger.log(Level.INFO, () -> "lightsBrokenOn: " + getLightsBrokenOn());
-
-        return true;
-    }
-
-    private boolean doEvent(List<String> eventData, int steps) {
-        if (null == eventData) {
-            return false;
-        }
-
+    @Override
+    public boolean doEvent(List<String> eventData) {
         lightsOn = 0;
         lightsBrokenOn = 0;
 
@@ -84,6 +39,9 @@ public class Day18 {
 
         lightsOn = doPuzzle(steps, xSize, ySize, lightsGrid, false);
         lightsBrokenOn = doPuzzle(steps, xSize, ySize, lightsGrid, true);
+
+        logger.log(Level.INFO, () -> "lightsOn: " + getLightsOn());
+        logger.log(Level.INFO, () -> "lightsBrokenOn: " + getLightsBrokenOn());
 
         return true;
     }
