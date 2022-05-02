@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+
 /**
  * Test2015Day19
  */
@@ -77,6 +79,16 @@ class Test2015Day19 {
 
         assertTrue(event.doPuzzleFromData(inputData));
         assertEquals(fewestNumberOfSteps, event.getFewestNumberOfSteps());
+    }
+
+    @Test
+    void testSolution2015Day19() {
+        Day19 event = new Day19();
+
+        List<String> eventData = FileReaderHelper.readListStringFromFile("y2015/day19/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+        assertEquals(518, event.getDistinctMolecules());
+        assertEquals(200, event.getFewestNumberOfSteps());
     }
 
 }
