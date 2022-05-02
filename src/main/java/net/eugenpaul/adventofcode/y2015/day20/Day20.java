@@ -1,72 +1,30 @@
 package net.eugenpaul.adventofcode.y2015.day20;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.function.IntToLongFunction;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day20 {
+public class Day20 extends SolutionTemplate {
 
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day20.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day20.class.getName());
-
+    @Getter
     private int lowestHouseNumber;
+    @Getter
     private int lowestHouseNumberPart2;
-
-    public long getLowestHouseNumber() {
-        return lowestHouseNumber;
-    }
-
-    public long getLowestHouseNumberPart2() {
-        return lowestHouseNumberPart2;
-    }
 
     public static void main(String[] args) {
         Day20 puzzle = new Day20();
         puzzle.doPuzzleFromFile("y2015/day20/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        String eventData = FileReaderHelper.readStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(String eventData) {
-        if (!doEvent(Long.parseLong(eventData))) {
-            logger.log(Level.INFO, () -> "Solution not found :(");
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "lowestHouseNumber: " + getLowestHouseNumber());
-        logger.log(Level.INFO, () -> "lowestHouseNumberPart2: " + getLowestHouseNumberPart2());
-
-        return true;
-    }
-
-    private boolean doEvent(Long eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
+    @Override
+    public boolean doEvent(Integer eventData) {
         lowestHouseNumber = doPuzzle(eventData, this::countPresentsForHouse);
         lowestHouseNumberPart2 = doPuzzle(eventData, this::countPresentsForHousePart2);
 
+        logger.log(Level.INFO, () -> "lowestHouseNumber: " + getLowestHouseNumber());
+        logger.log(Level.INFO, () -> "lowestHouseNumberPart2: " + getLowestHouseNumberPart2());
         return true;
     }
 

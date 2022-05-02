@@ -1,74 +1,31 @@
 package net.eugenpaul.adventofcode.y2015.day19;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day19 {
+public class Day19 extends SolutionTemplate {
 
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day19.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day19.class.getName());
-
+    @Getter
     private int distinctMolecules;
+
+    @Getter
     private int fewestNumberOfSteps;
     private Object synchObj = new Object();
-
-    public long getDistinctMolecules() {
-        return distinctMolecules;
-    }
-
-    public long getFewestNumberOfSteps() {
-        return fewestNumberOfSteps;
-    }
 
     public static void main(String[] args) {
         Day19 puzzle = new Day19();
         puzzle.doPuzzleFromFile("y2015/day19/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(List<String> eventData) {
-        if (!doEvent(eventData)) {
-            logger.log(Level.INFO, () -> "Solution not found :(");
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "distinctMolecules: " + getDistinctMolecules());
-        logger.log(Level.INFO, () -> "fewestNumberOfSteps: " + getFewestNumberOfSteps());
-
-        return true;
-    }
-
-    private boolean doEvent(List<String> eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
+    @Override
+    public boolean doEvent(List<String> eventData) {
         String molecule = eventData.get(eventData.size() - 1);
 
         List<Replacement> replacements = eventData.stream()//
@@ -79,6 +36,8 @@ public class Day19 {
         doPuzzle1(molecule, replacements);
         doPuzzle2(molecule, replacements);
 
+        logger.log(Level.INFO, () -> "distinctMolecules: " + getDistinctMolecules());
+        logger.log(Level.INFO, () -> "fewestNumberOfSteps: " + getFewestNumberOfSteps());
         return true;
     }
 
