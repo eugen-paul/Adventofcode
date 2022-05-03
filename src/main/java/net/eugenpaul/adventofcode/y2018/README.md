@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2018 [28/50]
+## Year 2018 [30/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -18,7 +18,7 @@
 | 12 | ⭐⭐ | [Day 12: Subterranean Sustainability](day12) |
 | 13 | ⭐⭐ | [Day 13: Mine Cart Madness](day13) |
 | 14 | ⭐⭐ | [Day 14: Chocolate Charts](day14) |
-| 15 |  |  |
+| 15 | ⭐⭐ | [Day 15: Beverage Bandits](day15) |
 | 16 |  |  |
 | 17 |  |  |
 | 18 |  |  |
