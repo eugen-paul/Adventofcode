@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2018 [30/50]
+## Year 2018 [32/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -19,7 +19,7 @@
 | 13 | ⭐⭐ | [Day 13: Mine Cart Madness](day13) |
 | 14 | ⭐⭐ | [Day 14: Chocolate Charts](day14) |
 | 15 | ⭐⭐ | [Day 15: Beverage Bandits](day15) |
-| 16 |  |  |
+| 16 | ⭐⭐ | [Day 16: Chronal Classification](day16) |
 | 17 |  |  |
 | 18 |  |  |
 | 19 |  |  |
