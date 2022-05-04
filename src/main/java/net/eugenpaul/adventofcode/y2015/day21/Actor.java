@@ -1,5 +1,8 @@
 package net.eugenpaul.adventofcode.y2015.day21;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public abstract class Actor {
 
     protected int hitpoints;
@@ -8,10 +11,6 @@ public abstract class Actor {
 
     public abstract int getArmor();
 
-    protected Actor(int hitpoints) {
-        this.hitpoints = hitpoints;
-    }
-
     /**
      * how many attacks can the player survive.
      * 
@@ -19,10 +18,7 @@ public abstract class Actor {
      * @return turn to Death
      */
     public int surviveTurns(Actor attacker) {
-        int hitDamage = attacker.getDamage() - getArmor();
-        if (hitDamage < 1) {
-            hitDamage = 1;
-        }
+        int hitDamage = Math.max(1, attacker.getDamage() - getArmor());
 
         int turnCount = hitpoints / hitDamage;
 
