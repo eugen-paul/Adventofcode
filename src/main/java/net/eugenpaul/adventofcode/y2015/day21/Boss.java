@@ -2,9 +2,13 @@ package net.eugenpaul.adventofcode.y2015.day21;
 
 import java.util.List;
 
+import lombok.Getter;
+
 public class Boss extends Actor {
 
+    @Getter
     private int damage;
+    @Getter
     private int armor;
 
     public Boss(int hitpoints, int damage, int armor) {
@@ -44,15 +48,4 @@ public class Boss extends Actor {
         response.append(" Armor: ").append(armor);
         return response.toString();
     }
-
-    @Override
-    public int getDamage() {
-        return damage;
-    }
-
-    @Override
-    public int getArmor() {
-        return armor;
-    }
-
 }

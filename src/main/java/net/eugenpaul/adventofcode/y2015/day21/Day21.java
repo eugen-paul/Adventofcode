@@ -1,72 +1,28 @@
 package net.eugenpaul.adventofcode.y2015.day21;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
+import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day21 {
+public class Day21 extends SolutionTemplate {
 
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day21.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day21.class.getName());
-
+    @Getter
     private int leastAmountOfGold;
+    @Getter
     private int mostAmountOfGold;
-
-    public long getLeastAmountOfGold() {
-        return leastAmountOfGold;
-    }
-
-    public long getMostAmountOfGold() {
-        return mostAmountOfGold;
-    }
 
     public static void main(String[] args) {
         Day21 puzzle = new Day21();
-        puzzle.doPuzzleFromFile("y2015/day21/puzzle1.txt", "y2015/day21/puzzle1_shop.txt");
+        puzzle.doPuzzleFromFile("y2015/day21/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename, String shopFilename) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-        List<String> shopData = FileReaderHelper.readListStringFromFile(shopFilename);
-        if (null == shopData) {
-            return false;
-        }
+    @Override
+    public boolean doEvent(List<String> eventData) {
 
-        return doPuzzleFromData(eventData, shopData);
-    }
-
-    public boolean doPuzzleFromData(List<String> eventData, List<String> shopData) {
-        if (!doEvent(eventData, shopData)) {
-            logger.log(Level.INFO, () -> "Solution not found :(");
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "leastAmountOfGold: " + getLeastAmountOfGold());
-        logger.log(Level.INFO, () -> "mostAmountOfGold: " + getMostAmountOfGold());
-
-        return true;
-    }
-
-    private boolean doEvent(List<String> eventData, List<String> shopData) {
-        if (null == eventData) {
-            return false;
-        }
+        List<String> shopData = FileReaderHelper.readListStringFromFile("y2015/day21/puzzle1_shop.txt");
 
         Shop shop = Shop.fromList(shopData);
         Boss boss = Boss.fromList(eventData);
@@ -74,12 +30,15 @@ public class Day21 {
         leastAmountOfGold = Integer.MAX_VALUE;
         mostAmountOfGold = Integer.MIN_VALUE;
 
-        doPuzzle1(shop, boss);
+        doPuzzle(shop, boss);
+
+        logger.log(Level.INFO, () -> "leastAmountOfGold: " + getLeastAmountOfGold());
+        logger.log(Level.INFO, () -> "mostAmountOfGold: " + getMostAmountOfGold());
 
         return true;
     }
 
-    private int doPuzzle1(Shop shop, Boss boss) {
+    private int doPuzzle(Shop shop, Boss boss) {
         List<Item> weapons = shop.getItems(ItemType.WEAPON);
         List<Item> armors = shop.getItems(ItemType.ARMOR);
         List<Item> rings = shop.getItems(ItemType.RING);
@@ -117,13 +76,9 @@ public class Day21 {
         Player player = generatePlayer(weapon, armor, ring1, ring2);
         int playerCost = player.getCost();
         if (isPlayerWin(player, boss)) {
-            if (leastAmountOfGold > playerCost) {
-                leastAmountOfGold = playerCost;
-            }
+            leastAmountOfGold = Math.min(leastAmountOfGold, playerCost);
         } else {
-            if (mostAmountOfGold < playerCost) {
-                mostAmountOfGold = playerCost;
-            }
+            mostAmountOfGold = Math.max(mostAmountOfGold, playerCost);
         }
     }
 
