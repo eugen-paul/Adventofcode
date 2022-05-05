@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2018 [32/50]
+## Year 2018 [34/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -20,7 +20,7 @@
 | 14 | ⭐⭐ | [Day 14: Chocolate Charts](day14) |
 | 15 | ⭐⭐ | [Day 15: Beverage Bandits](day15) |
 | 16 | ⭐⭐ | [Day 16: Chronal Classification](day16) |
-| 17 |  |  |
+| 17 | ⭐⭐ | [Day 17: Reservoir Research](day17) |
 | 18 |  |  |
 | 19 |  |  |
 | 20 |  |  |
