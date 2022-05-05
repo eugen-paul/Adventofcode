@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.eugenpaul.adventofcode.helper.MapOfSimplePos;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
-import net.eugenpaul.adventofcode.helper.StringConverter;
 
 public class Day10 extends SolutionTemplate {
 
@@ -75,7 +75,8 @@ public class Day10 extends SolutionTemplate {
                         .map(Point::getPos)//
                         .collect(Collectors.toMap(k -> k, v -> true, (a, b) -> a));
 
-                text = StringConverter.printBoolMap(sky);
+                text = MapOfSimplePos.mapToPrintList(sky);
+                MapOfSimplePos.printList(text);
 
                 break;
             }
