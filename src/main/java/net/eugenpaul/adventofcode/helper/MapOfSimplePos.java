@@ -2,7 +2,7 @@ package net.eugenpaul.adventofcode.helper;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -92,5 +92,21 @@ public final class MapOfSimplePos {
         }
 
         return response;
+    }
+
+    public static <T> Map<SimplePos, T> initMap(List<String> eventData, Function<Character, T> toT) {
+        Map<SimplePos, T> responseMap = new HashMap<>();
+
+        int y = 0;
+        for (String scan : eventData) {
+            int x = 0;
+            for (char c : scan.toCharArray()) {
+                responseMap.put(new SimplePos(x, y), toT.apply(c));
+                x++;
+            }
+            y++;
+        }
+
+        return responseMap;
     }
 }
