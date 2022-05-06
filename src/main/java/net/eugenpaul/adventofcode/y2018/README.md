@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2018 [34/50]
+## Year 2018 [36/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -21,7 +21,7 @@
 | 15 | ⭐⭐ | [Day 15: Beverage Bandits](day15) |
 | 16 | ⭐⭐ | [Day 16: Chronal Classification](day16) |
 | 17 | ⭐⭐ | [Day 17: Reservoir Research](day17) |
-| 18 |  |  |
+| 18 | ⭐⭐ | [Day 18: Settlers of The North Pole](day18) |
 | 19 |  |  |
 | 20 |  |  |
 | 21 |  |  |
