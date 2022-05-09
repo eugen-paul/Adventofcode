@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2018 [36/50]
+## Year 2018 [38/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -22,7 +22,7 @@
 | 16 | ⭐⭐ | [Day 16: Chronal Classification](day16) |
 | 17 | ⭐⭐ | [Day 17: Reservoir Research](day17) |
 | 18 | ⭐⭐ | [Day 18: Settlers of The North Pole](day18) |
-| 19 |  |  |
+| 19 | ⭐⭐ | [Day 19: Go With The Flow](day19) |
 | 20 |  |  |
 | 21 |  |  |
 | 22 |  |  |
