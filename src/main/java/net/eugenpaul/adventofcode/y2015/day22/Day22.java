@@ -1,13 +1,11 @@
 package net.eugenpaul.adventofcode.y2015.day22;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Getter;
+import lombok.Setter;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.y2015.day22.actors.Actor;
 import net.eugenpaul.adventofcode.y2015.day22.spells.Drain;
 import net.eugenpaul.adventofcode.y2015.day22.spells.MagicMissle;
@@ -16,60 +14,28 @@ import net.eugenpaul.adventofcode.y2015.day22.spells.Recharge;
 import net.eugenpaul.adventofcode.y2015.day22.spells.Shield;
 import net.eugenpaul.adventofcode.y2015.day22.spells.Spell;
 
-public class Day22 {
-
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day22.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day22.class.getName());
+public class Day22 extends SolutionTemplate {
 
     private int lastGameManaCost;
     private List<String> lastGameData = null;
 
+    @Getter
     private int easyGameLeastAmountOfMana;
+    @Getter
     private int hardGameLeastAmountOfMana;
 
-    public long getEasyGameLeastAmountOfMana() {
-        return easyGameLeastAmountOfMana;
-    }
-
-    public long getHardGameLeastAmountOfMana() {
-        return hardGameLeastAmountOfMana;
-    }
+    @Setter
+    private Actor player = new Actor("Player", 50, 0, 0, 500);
 
     public static void main(String[] args) {
         Day22 puzzle = new Day22();
         puzzle.doPuzzleFromFile("y2015/day22/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
+    @Override
+    public boolean doEvent(List<String> eventData) {
+        Actor boss = Actor.initBoss(eventData);
 
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(List<String> eventData) {
-        if (!doEvent(Actor.fromList(eventData), new Actor("Player", 50, 0, 0, 500))) {
-            logger.log(Level.INFO, () -> "Solution not found :(");
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "easyGameLeastAmountOfMana: " + getEasyGameLeastAmountOfMana());
-        logger.log(Level.INFO, () -> "hardGameLeastAmountOfMana: " + getHardGameLeastAmountOfMana());
-
-        return true;
-    }
-
-    public boolean doEvent(Actor boss, Actor player) {
         List<Spell> avaiblePlayerSpells = List.of(//
                 new Drain(), //
                 new MagicMissle(), //
@@ -81,6 +47,9 @@ public class Day22 {
         doGame(player, boss, avaiblePlayerSpells, false);
 
         doGame(player, boss, avaiblePlayerSpells, true);
+
+        logger.log(Level.INFO, () -> "easyGameLeastAmountOfMana: " + getEasyGameLeastAmountOfMana());
+        logger.log(Level.INFO, () -> "hardGameLeastAmountOfMana: " + getHardGameLeastAmountOfMana());
 
         return lastGameManaCost != Integer.MAX_VALUE;
     }
@@ -120,11 +89,11 @@ public class Day22 {
     private void doPuzzle(TurnsStorage tStorage, boolean isHard) {
         TurnData lowestTurn = tStorage.getLowestTurn();
         while (lowestTurn != null) {
-            //get all player spells
+            // get all player spells
             List<Spell> avaibleSpells = lowestTurn.getPlayerSpells();
 
             for (Spell spell : avaibleSpells) {
-                //check if the player can cast the spell
+                // check if the player can cast the spell
                 TurnData turn = new TurnData(lowestTurn);
                 if (!doNextTurn(turn, spell, isHard)) {
                     // player can cast the spell. Add new turn to storage

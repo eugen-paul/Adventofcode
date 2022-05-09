@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import lombok.Getter;
 import net.eugenpaul.adventofcode.y2015.day22.actors.Actor;
 import net.eugenpaul.adventofcode.y2015.day22.spells.Spell;
 
@@ -26,6 +27,7 @@ public class TurnData {
 
     private List<String> gameHistory;
 
+    @Getter
     private int totalManaCost;
 
     public TurnData(Actor player, Actor boss, List<Spell> avaiblePlayerSpells) {
@@ -46,10 +48,6 @@ public class TurnData {
         aktivePlayerSpells = new HashMap<>(data.aktivePlayerSpells);
         gameHistory = new LinkedList<>(data.gameHistory);
         totalManaCost = data.totalManaCost;
-    }
-
-    public int getTotalManaCost() {
-        return totalManaCost;
     }
 
     public List<String> getGameHistory() {
@@ -130,17 +128,7 @@ public class TurnData {
     }
 
     private void addActorStatsToGameHistory(Actor actor) {
-        StringBuilder actorData = new StringBuilder();
-        actorData.append("- ");
-        actorData.append(actor.getName());
-        actorData.append(" has ");
-        actorData.append(actor.getHitpoints());
-        actorData.append(" hit points, ");
-        actorData.append(actor.getArmor());
-        actorData.append(" armor, ");
-        actorData.append(actor.getMana());
-        actorData.append(" mana");
-        this.gameHistory.add(actorData.toString());
+        this.gameHistory.add(actor.toString());
     }
 
     /**

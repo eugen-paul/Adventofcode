@@ -6,7 +6,7 @@ import java.util.TreeMap;
 
 public class TurnsStorage {
 
-    /**posible player turns sorted by manacost */
+    /** posible player turns sorted by manacost */
     private TreeMap<Integer, List<TurnData>> turns;
 
     public TurnsStorage() {
@@ -17,15 +17,11 @@ public class TurnsStorage {
         if (turns.isEmpty()) {
             return null;
         }
-        Integer lowestKey = turns.firstKey();
-        if (lowestKey == null) {
-            return null;
-        }
-
-        List<TurnData> valueList = turns.get(lowestKey);
+        var first = turns.firstEntry();
+        List<TurnData> valueList = first.getValue();
         TurnData responseData = valueList.remove(0);
         if (valueList.isEmpty()) {
-            turns.remove(lowestKey);
+            turns.pollFirstEntry();
         }
         return responseData;
     }
@@ -35,11 +31,7 @@ public class TurnsStorage {
     }
 
     public synchronized void addTurnData(TurnData data) {
-        List<TurnData> values = turns.get(data.getTotalManaCost());
-        if (values == null) {
-            values = new LinkedList<>();
-            turns.put(data.getTotalManaCost(), values);
-        }
-        values.add(data);
+        turns.computeIfAbsent(data.getTotalManaCost(), v -> new LinkedList<>())//
+                .add(data);
     }
 }
