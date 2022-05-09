@@ -114,7 +114,7 @@ public class Day19 extends SolutionTemplate {
     private long puzzle2() {
         long response = 0;
         long number = 10_551_293;
-        double sqrt = Math.sqrt(number);
+        long sqrt = (long) Math.sqrt(number);
         for (int i = 1; i <= sqrt; i++) {
             if (number % i == 0) {
                 response += i;
