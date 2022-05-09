@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.DevicesOpcodes;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day16 extends SolutionTemplate {
@@ -20,164 +21,6 @@ public class Day16 extends SolutionTemplate {
     private static final Pattern BEFOR_PATTERN = Pattern.compile(BEFOR_FORMAT);
     private static final Pattern REGISTER_PATTERN = Pattern.compile(REGISTER_FORMAT);
     private static final Pattern AFTER_PATTERN = Pattern.compile(AFTER_FORMAT);
-
-    private enum Instruction {
-        ADDR {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                responseegister[instruction[3]] = responseegister[instruction[1]] + responseegister[instruction[2]];
-                return responseegister;
-            }
-        }, //
-        ADDI {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                responseegister[instruction[3]] = responseegister[instruction[1]] + instruction[2];
-                return responseegister;
-            }
-        }, //
-        MULR {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                responseegister[instruction[3]] = responseegister[instruction[1]] * responseegister[instruction[2]];
-                return responseegister;
-            }
-        }, //
-        MULI {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                responseegister[instruction[3]] = responseegister[instruction[1]] * instruction[2];
-                return responseegister;
-            }
-        }, //
-        BANR {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                responseegister[instruction[3]] = responseegister[instruction[1]] & responseegister[instruction[2]];
-                return responseegister;
-            }
-        }, //
-        BANI {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                responseegister[instruction[3]] = responseegister[instruction[1]] & instruction[2];
-                return responseegister;
-            }
-        }, //
-        BORR {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                responseegister[instruction[3]] = responseegister[instruction[1]] | responseegister[instruction[2]];
-                return responseegister;
-            }
-        }, //
-        BORI {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                responseegister[instruction[3]] = responseegister[instruction[1]] | instruction[2];
-                return responseegister;
-            }
-        }, //
-        SETR {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                responseegister[instruction[3]] = responseegister[instruction[1]];
-                return responseegister;
-            }
-        }, //
-        SETI {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                responseegister[instruction[3]] = instruction[1];
-                return responseegister;
-            }
-        }, //
-        GTIR {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                if (instruction[1] > responseegister[instruction[2]]) {
-                    responseegister[instruction[3]] = 1;
-                } else {
-                    responseegister[instruction[3]] = 0;
-                }
-                return responseegister;
-            }
-        }, //
-        GTRI {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                if (responseegister[instruction[1]] > instruction[2]) {
-                    responseegister[instruction[3]] = 1;
-                } else {
-                    responseegister[instruction[3]] = 0;
-                }
-                return responseegister;
-            }
-        }, //
-        GTRR {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                if (responseegister[instruction[1]] > responseegister[instruction[2]]) {
-                    responseegister[instruction[3]] = 1;
-                } else {
-                    responseegister[instruction[3]] = 0;
-                }
-                return responseegister;
-            }
-        }, //
-        EQIR {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                if (instruction[1] == responseegister[instruction[2]]) {
-                    responseegister[instruction[3]] = 1;
-                } else {
-                    responseegister[instruction[3]] = 0;
-                }
-                return responseegister;
-            }
-        }, //
-        EQRI {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                if (responseegister[instruction[1]] == instruction[2]) {
-                    responseegister[instruction[3]] = 1;
-                } else {
-                    responseegister[instruction[3]] = 0;
-                }
-                return responseegister;
-            }
-        }, //
-        EQRR {
-            @Override
-            public int[] execute(int[] register, int[] instruction) {
-                int[] responseegister = register.clone();
-                if (responseegister[instruction[1]] == responseegister[instruction[2]]) {
-                    responseegister[instruction[3]] = 1;
-                } else {
-                    responseegister[instruction[3]] = 0;
-                }
-                return responseegister;
-            }
-        }, //
-        ;
-
-        public abstract int[] execute(int[] register, int[] instruction);
-    }
 
     @Getter
     private Integer threeOrMoreOpcodes;
@@ -193,18 +36,18 @@ public class Day16 extends SolutionTemplate {
     @Override
     public boolean doEvent(List<String> eventData) {
 
-        int[] registerBefor = new int[4];
-        int[] inst = new int[4];
-        int[] registerAfter = new int[4];
+        long[] registerBefor = new long[4];
+        long[] inst = new long[4];
+        long[] registerAfter = new long[4];
 
         int pos = 0;
         threeOrMoreOpcodes = 0;
 
-        Map<Integer, Set<Instruction>> opcodes = new HashMap<>();
+        Map<Long, Set<DevicesOpcodes>> opcodes = new HashMap<>();
 
         while (readTest(eventData, pos, registerBefor, inst, registerAfter)) {
             int count = 0;
-            for (Instruction i : Instruction.values()) {
+            for (DevicesOpcodes i : DevicesOpcodes.values()) {
                 if (isInstruction(i, registerBefor, inst, registerAfter)) {
                     count++;
 
@@ -220,11 +63,11 @@ public class Day16 extends SolutionTemplate {
             pos += 4;
         }
 
-        Map<Integer, Instruction> op = getOpcodes(opcodes);
+        Map<Long, DevicesOpcodes> op = getOpcodes(opcodes);
 
         register0 = 0;
         if (op.size() == 16) {
-            register0 = doPuzzle2(op, eventData, pos);
+            register0 = (int) doPuzzle2(op, eventData, pos);
         }
 
         logger.log(Level.INFO, () -> "threeOrMoreOpcodes : " + getThreeOrMoreOpcodes());
@@ -233,9 +76,9 @@ public class Day16 extends SolutionTemplate {
         return true;
     }
 
-    private int doPuzzle2(Map<Integer, Instruction> op, List<String> eventData, int pos) {
-        int[] register = { 0, 0, 0, 0 };
-        int[] inst = { 0, 0, 0, 0 };
+    private long doPuzzle2(Map<Long, DevicesOpcodes> op, List<String> eventData, int pos) {
+        long[] register = { 0, 0, 0, 0 };
+        long[] inst = { 0, 0, 0, 0 };
 
         int currentPos = pos + 2;
 
@@ -247,13 +90,13 @@ public class Day16 extends SolutionTemplate {
         return register[0];
     }
 
-    private Map<Integer, Instruction> getOpcodes(Map<Integer, Set<Instruction>> opcodes) {
-        Map<Integer, Instruction> response = new HashMap<>();
+    private Map<Long, DevicesOpcodes> getOpcodes(Map<Long, Set<DevicesOpcodes>> opcodes) {
+        Map<Long, DevicesOpcodes> response = new HashMap<>();
 
         boolean done = false;
         while (!done) {
 
-            Instruction unique = null;
+            DevicesOpcodes unique = null;
             for (var opcodesEntry : opcodes.entrySet()) {
                 if (opcodesEntry.getValue().size() == 1) {
                     unique = opcodesEntry.getValue().stream().findFirst().orElseThrow();
@@ -274,7 +117,7 @@ public class Day16 extends SolutionTemplate {
         return response;
     }
 
-    private boolean readInstruction(List<String> eventData, int pos, int[] inst) {
+    private boolean readInstruction(List<String> eventData, int pos, long[] inst) {
         if (eventData.size() <= pos) {
             return false;
         }
@@ -291,7 +134,7 @@ public class Day16 extends SolutionTemplate {
         return true;
     }
 
-    private boolean readTest(List<String> eventData, int pos, int[] registerBefor, int[] inst, int[] registerAfter) {
+    private boolean readTest(List<String> eventData, int pos, long[] registerBefor, long[] inst, long[] registerAfter) {
         if (eventData.size() <= pos) {
             return false;
         }
@@ -322,8 +165,8 @@ public class Day16 extends SolutionTemplate {
         return true;
     }
 
-    private boolean isInstruction(Instruction testInst, int[] registerBefor, int[] inst, int[] registerAfter) {
-        int[] testOut = testInst.execute(registerBefor, inst);
+    private boolean isInstruction(DevicesOpcodes testInst, long[] registerBefor, long[] inst, long[] registerAfter) {
+        long[] testOut = testInst.execute(registerBefor, inst);
 
         return Arrays.compare(testOut, registerAfter) == 0;
     }
