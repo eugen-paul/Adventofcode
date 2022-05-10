@@ -11,6 +11,21 @@ public class InstructionFactory {
 
         Instruction response = null;
         switch (prefix) {
+        case "hlf":
+            response = InstructionHlf.fromString(data);
+            break;
+        case "jmp":
+            response = InstructionJmp.fromString(data);
+            break;
+        case "jie":
+            response = InstructionJie.fromString(data);
+            break;
+        case "jio":
+            response = InstructionJio.fromString(data);
+            break;
+        case "tpl":
+            response = InstructionTpl.fromString(data);
+            break;
         case "cpy":
             response = InstructionCpy.fromString(data);
             break;

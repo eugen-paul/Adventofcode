@@ -2,15 +2,18 @@ package net.eugenpaul.adventofcode.y2015.day23;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import net.eugenpaul.adventofcode.y2015.day23.instruction.InstructionHlf;
-import net.eugenpaul.adventofcode.y2015.day23.instruction.InstructionInc;
-import net.eugenpaul.adventofcode.y2015.day23.instruction.InstructionJie;
-import net.eugenpaul.adventofcode.y2015.day23.instruction.InstructionJio;
-import net.eugenpaul.adventofcode.y2015.day23.instruction.InstructionJmp;
-import net.eugenpaul.adventofcode.y2015.day23.instruction.InstructionTpl;
+import net.eugenpaul.adventofcode.helper.computer.Computer;
+import net.eugenpaul.adventofcode.helper.computer.InstructionHlf;
+import net.eugenpaul.adventofcode.helper.computer.InstructionInc;
+import net.eugenpaul.adventofcode.helper.computer.InstructionJie;
+import net.eugenpaul.adventofcode.helper.computer.InstructionJio;
+import net.eugenpaul.adventofcode.helper.computer.InstructionJmp;
+import net.eugenpaul.adventofcode.helper.computer.InstructionTpl;
 
 /**
  * Test2015Day23RegisterTest
@@ -21,7 +24,9 @@ class Test2015Day23RegisterTest {
 
     @BeforeEach
     void init() {
-        computer = new Computer(10, 20, 1);
+        computer = new Computer(List.of('a', 'b'), 1);
+        computer.setRegister('a', 10);
+        computer.setRegister('b', 20);
     }
 
     @Test

@@ -1,18 +1,13 @@
-package net.eugenpaul.adventofcode.y2015.day23.instruction;
+package net.eugenpaul.adventofcode.helper.computer;
 
-import net.eugenpaul.adventofcode.y2015.day23.Computer;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@AllArgsConstructor
 public class InstructionHlf implements Instruction {
 
+    @Getter
     private char register;
-
-    public InstructionHlf(char register) {
-        this.register = register;
-    }
-
-    public char getRegister() {
-        return this.register;
-    }
 
     public static InstructionHlf fromString(String data) {
         if (!data.startsWith("hlf ")) {

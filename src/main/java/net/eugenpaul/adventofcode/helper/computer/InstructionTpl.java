@@ -1,18 +1,13 @@
-package net.eugenpaul.adventofcode.y2015.day23.instruction;
+package net.eugenpaul.adventofcode.helper.computer;
 
-import net.eugenpaul.adventofcode.y2015.day23.Computer;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@AllArgsConstructor
+@Getter
 public class InstructionTpl implements Instruction {
 
     private char register;
-
-    public InstructionTpl(char register) {
-        this.register = register;
-    }
-
-    public char getRegister() {
-        return this.register;
-    }
 
     public static InstructionTpl fromString(String data) {
         if (!data.startsWith("tpl ")) {

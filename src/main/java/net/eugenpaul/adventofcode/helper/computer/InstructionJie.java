@@ -1,24 +1,14 @@
-package net.eugenpaul.adventofcode.y2015.day23.instruction;
+package net.eugenpaul.adventofcode.helper.computer;
 
-import net.eugenpaul.adventofcode.y2015.day23.Computer;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@AllArgsConstructor
+@Getter
 public class InstructionJie implements Instruction {
 
     private char register;
     private int offset;
-
-    public InstructionJie(char register, int offset) {
-        this.register = register;
-        this.offset = offset;
-    }
-
-    public char getRegister() {
-        return this.register;
-    }
-
-    public int getOffset() {
-        return this.offset;
-    }
 
     public static InstructionJie fromString(String data) {
         if (!data.startsWith("jie ")) {
