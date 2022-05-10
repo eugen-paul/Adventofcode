@@ -9,7 +9,7 @@ public class SimplePos {
     private int x;
     private int y;
 
-    public void move(Direction direction) {
+    public SimplePos move(Direction direction) {
         switch (direction) {
         case N:
             y--;
@@ -17,7 +17,7 @@ public class SimplePos {
         case S:
             y++;
             break;
-        case O:
+        case E:
             x++;
             break;
         case W:
@@ -26,6 +26,8 @@ public class SimplePos {
         default:
             break;
         }
+
+        return this;
     }
 
     /**
