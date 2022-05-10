@@ -1,18 +1,13 @@
-package net.eugenpaul.adventofcode.y2015.day23.instruction;
+package net.eugenpaul.adventofcode.helper.computer;
 
-import net.eugenpaul.adventofcode.y2015.day23.Computer;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@AllArgsConstructor
 public class InstructionJmp implements Instruction {
 
+    @Getter
     private int offset;
-
-    public InstructionJmp(int offset) {
-        this.offset = offset;
-    }
-
-    public int getOffset() {
-        return this.offset;
-    }
 
     public static InstructionJmp fromString(String data) {
         if (!data.startsWith("jmp ")) {
