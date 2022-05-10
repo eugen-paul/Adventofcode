@@ -134,13 +134,13 @@ public class Day18 extends SolutionTemplate {
         if (area.get(pos.moveNew(Direction.N)) == countType) {
             response++;
         }
-        if (area.get(pos.moveNew(Direction.N).moveNew(Direction.O)) == countType) {
+        if (area.get(pos.moveNew(Direction.N).moveNew(Direction.E)) == countType) {
             response++;
         }
-        if (area.get(pos.moveNew(Direction.O)) == countType) {
+        if (area.get(pos.moveNew(Direction.E)) == countType) {
             response++;
         }
-        if (area.get(pos.moveNew(Direction.O).moveNew(Direction.S)) == countType) {
+        if (area.get(pos.moveNew(Direction.E).moveNew(Direction.S)) == countType) {
             response++;
         }
         if (area.get(pos.moveNew(Direction.S)) == countType) {

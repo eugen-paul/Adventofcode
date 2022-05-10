@@ -50,7 +50,6 @@ public class SolutionTemplate {
                 }
             } catch (Exception e) {
                 // ignore
-                e.printStackTrace();
             }
             return doEvent(eventData.get(0));
         } else {

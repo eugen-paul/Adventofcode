@@ -8,18 +8,22 @@ import lombok.Getter;
 
 public enum Direction {
     N('^'), //
-    O('>'), //
+    E('>'), //
     S('v'), //
     W('<') //
     ;
 
     @Getter
     private char arrow;
+    @Getter
+    private char oneChar;
 
     private static Map<Character, Direction> arrowToDirection = Stream.of(Direction.values()).collect(Collectors.toMap(Direction::getArrow, v -> v));
+    private static Map<Character, Direction> charToDirection = Stream.of(Direction.values()).collect(Collectors.toMap(Direction::getOneChar, v -> v));
 
     private Direction(char arrow) {
         this.arrow = arrow;
+        this.oneChar = toString().charAt(0);
     }
 
     public Direction turnLeft() {
@@ -29,8 +33,8 @@ public enum Direction {
         case W:
             return S;
         case S:
-            return O;
-        case O:
+            return E;
+        case E:
             return N;
         default:
             break;
@@ -41,8 +45,8 @@ public enum Direction {
     public Direction turnRight() {
         switch (this) {
         case N:
-            return O;
-        case O:
+            return E;
+        case E:
             return S;
         case S:
             return W;
@@ -60,10 +64,10 @@ public enum Direction {
             return S;
         case S:
             return N;
-        case O:
+        case E:
             return W;
         case W:
-            return O;
+            return E;
         default:
             break;
         }
@@ -75,12 +79,12 @@ public enum Direction {
         case '/':
             switch (this) {
             case N:
-                return Direction.O;
+                return Direction.E;
             case S:
                 return Direction.W;
             case W:
                 return Direction.S;
-            case O:
+            case E:
                 return Direction.N;
             default:
                 throw new IllegalArgumentException("Illegal Direction: " + curve);
@@ -90,10 +94,10 @@ public enum Direction {
             case N:
                 return Direction.W;
             case S:
-                return Direction.O;
+                return Direction.E;
             case W:
                 return Direction.N;
-            case O:
+            case E:
                 return Direction.S;
             default:
                 throw new IllegalArgumentException("Illegal Direction: " + curve);
@@ -111,5 +115,15 @@ public enum Direction {
      */
     public static Direction fromArrow(char arrow) {
         return arrowToDirection.get(arrow);
+    }
+
+    /**
+     * Convert direction-char (NWES) to Direction
+     * 
+     * @param Direction
+     * @return
+     */
+    public static Direction fromChar(char c) {
+        return charToDirection.get(c);
     }
 }

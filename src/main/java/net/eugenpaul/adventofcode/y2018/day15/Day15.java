@@ -210,7 +210,7 @@ public class Day15 extends SolutionTemplate {
                 posibleEnemies = e;
             }
         }
-        n = pos.moveNew(Direction.O);
+        n = pos.moveNew(Direction.E);
         e = playersPositions.get(n);
         if (e != null && e.getHitPoints() > 0 && e.isGood() == isGood) {
             if (posibleEnemies == null || posibleEnemies.getHitPoints() > e.getHitPoints()) {
@@ -277,7 +277,7 @@ public class Day15 extends SolutionTemplate {
                 response = stepW;
                 continue;
             }
-            SimplePos stepO = response.moveNew(Direction.O);
+            SimplePos stepO = response.moveNew(Direction.E);
             Integer costO = stepsMap.get(stepO);
             if (costO != null && costO < cost) {
                 cost = costO;
@@ -310,7 +310,7 @@ public class Day15 extends SolutionTemplate {
             responseSteps.add(stepW);
             stepsMap.put(stepW, currentCost);
         }
-        SimplePos stepO = pos.moveNew(Direction.O);
+        SimplePos stepO = pos.moveNew(Direction.E);
         if (!grid.get(stepO).booleanValue() && stepsMap.get(stepO) == null && playersPositions.get(stepO) == null) {
             responseSteps.add(stepO);
             stepsMap.put(stepO, currentCost);

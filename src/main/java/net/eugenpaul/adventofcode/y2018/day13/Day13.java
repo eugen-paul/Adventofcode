@@ -151,7 +151,7 @@ public class Day13 extends SolutionTemplate {
                     break;
                 case '>':
                     track[x][y] = '-';
-                    cars.add(new Car(new SimplePos(x, y), Direction.O, 0));
+                    cars.add(new Car(new SimplePos(x, y), Direction.E, 0));
                     break;
                 case '^':
                     track[x][y] = '|';

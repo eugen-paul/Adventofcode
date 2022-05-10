@@ -88,9 +88,9 @@ public class Day17 extends SolutionTemplate {
         if (nextTile == Type.CLAY || nextTile == Type.WATER_STANDING) {
             var isWall = true;
             if (direction != Direction.W) {
-                isWall &= doPuzzle(tiles, pos.moveNew(Direction.O), yMax, Direction.O);
+                isWall &= doPuzzle(tiles, pos.moveNew(Direction.E), yMax, Direction.E);
             }
-            if (direction != Direction.O) {
+            if (direction != Direction.E) {
                 isWall &= doPuzzle(tiles, pos.moveNew(Direction.W), yMax, Direction.W);
             }
 
@@ -108,7 +108,7 @@ public class Day17 extends SolutionTemplate {
         SimplePos posOfStandingWater = pos;
         do {
             tiles.put(posOfStandingWater, Type.WATER_STANDING);
-            posOfStandingWater = posOfStandingWater.moveNew(Direction.O);
+            posOfStandingWater = posOfStandingWater.moveNew(Direction.E);
         } while (tiles.get(posOfStandingWater) == Type.WATTER_FLOWING);
 
         posOfStandingWater = pos;
