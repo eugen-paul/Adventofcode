@@ -36,7 +36,7 @@ class Day20Test {
     }
 
     @Test
-    void testSolution2018Day19() {
+    void testSolution2018Day20() {
         Day20 event = new Day20();
 
         List<String> eventData = FileReaderHelper.readListStringFromFile("y2018/day20/puzzle1.txt");
