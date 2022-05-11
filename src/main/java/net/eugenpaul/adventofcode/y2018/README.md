@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2018 [40/50]
+## Year 2018 [42/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -24,7 +24,7 @@
 | 18 | ⭐⭐ | [Day 18: Settlers of The North Pole](day18) |
 | 19 | ⭐⭐ | [Day 19: Go With The Flow](day19) |
 | 20 | ⭐⭐ | [Day 20: A Regular Map](day20) |
-| 21 |  |  |
+| 21 | ⭐⭐ | [Day 21: Chronal Conversion](day21) |
 | 22 |  |  |
 | 23 |  |  |
 | 24 |  |  |
