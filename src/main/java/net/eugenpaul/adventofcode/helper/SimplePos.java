@@ -51,4 +51,8 @@ public class SimplePos {
         x += b.getX();
         y += b.getY();
     }
+
+    public SimplePos copy() {
+        return new SimplePos(x, y);
+    }
 }
