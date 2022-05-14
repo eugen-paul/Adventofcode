@@ -1,9 +1,10 @@
 package net.eugenpaul.adventofcode.y2018.day23;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.Pos3d;
+import lombok.var;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day23 extends SolutionTemplate {
@@ -22,62 +23,20 @@ public class Day23 extends SolutionTemplate {
     @AllArgsConstructor
     @Data
     private class Nanobot {
-
         private long x;
         private long y;
         private long z;
         private long range;
 
-        public Area toArea() {
-            Pos3d a = new Pos3d(x, y, z + range);
-            Pos3d b = new Pos3d(x, y, z - range);
-            return new Area(a, b);
+        public long distanceToZero() {
+            return Math.abs(x) + Math.abs(y) + Math.abs(z) - range;
         }
-    }
-
-    @AllArgsConstructor
-    @Data
-    private class Area {
-        private Pos3d t;
-        private Pos3d b;
-
-        public Pos3d getP1() {
-            long deltaX = t.getX() - b.getX();
-            long deltaY = t.getY() - b.getY();
-            long deltaZ = t.getZ() - b.getZ();
-
-            return new Pos3d(//
-                    b.getX() - (deltaZ / 2 - deltaX / 2), //
-                    b.getY() - (deltaZ / 2 - deltaY / 2), //
-                    b.getZ() - (deltaZ / 2 - deltaZ / 2) //
-            );
-        }
-    }
-
-    public int part2(List<Nanobot> bots) {
-        TreeMap<Integer, Integer> ranges = new TreeMap<>();
-        for (Nanobot n : bots) {
-            int distFromZero = (int) distance(n, new Nanobot(0, 0, 0, 0));
-            ranges.put(Math.max(0, distFromZero - (int) n.range), 1);
-            ranges.put(distFromZero + (int) n.range, -1);
-        }
-        int count = 0;
-        int result = 0;
-        int maxCount = 0;
-        for (Map.Entry<Integer, Integer> each : ranges.entrySet()) {
-            count += each.getValue();
-            if (count > maxCount) {
-                result = each.getKey();
-                maxCount = count;
-            }
-        }
-        return result;
     }
 
     @Getter
     private int nanobotsInRange;
     @Getter
-    private int manhattanDistance;
+    private long manhattanDistance;
 
     public static void main(String[] args) {
         Day23 puzzle = new Day23();
@@ -101,20 +60,83 @@ public class Day23 extends SolutionTemplate {
 
         logger.log(Level.INFO, () -> "nanobotsInRange : " + getNanobotsInRange());
 
-        List<Area> areas = nanobots.stream()//
-                .map(Nanobot::toArea)//
-                .collect(Collectors.toList());
-
-        System.out.println("a");
-
-        manhattanDistance = part2(nanobots);
+        manhattanDistance = doPuzzle2(nanobots);
         logger.log(Level.INFO, () -> "manhattanDistance : " + getManhattanDistance());
 
         return true;
     }
 
+    private long doPuzzle2(List<Nanobot> nanobots) {
+
+        Set<Nanobot> testDone = new HashSet<>();
+
+        // Megabot covers all bots.
+        Nanobot megabot = getMegaBot(nanobots);
+
+        // divide the mega bot to 6 child small bots an 4 same bots (but with other position)
+        LinkedList<Nanobot> childs = divide(megabot);
+        Collections.sort(childs, (a, b) -> sortTestBots(nanobots, a, b));
+
+        long bestCut = 0;
+        long bestDistance = 0;
+
+        while (!childs.isEmpty()) {
+            var testBot = childs.poll();
+            long cutOfBot = collisionCount(nanobots, testBot);
+
+            if (cutOfBot < bestCut) {
+                // no need to chech the testBoot or devide the bot. We already found a end-bot with more collisions.
+                continue;
+            }
+
+            if (testBot.range == 0) {
+                if (cutOfBot == bestCut) {
+                    bestDistance = Math.min(bestDistance, testBot.distanceToZero());
+                } else {
+                    bestDistance = testBot.distanceToZero();
+                }
+                bestCut = cutOfBot;
+                continue;
+            }
+
+            LinkedList<Nanobot> testChilds = divide(testBot);
+
+            long checkCount = Math.max(1, bestCut); // The test area must intersect with one of the octahedrons.
+
+            testChilds = testChilds.stream()//
+                    .filter(v -> collisionCount(nanobots, v) > checkCount)//
+                    .filter(v -> !testDone.contains(v))// The areas that have already been tested do not need to be tested again.
+                    .sorted((a, b) -> sortTestBots(nanobots, a, b) * (-1))//
+                    .collect(Collectors.toCollection(LinkedList::new));
+
+            for (Nanobot t : testChilds) {
+                childs.addFirst(t);
+                testDone.add(t);
+            }
+        }
+
+        return bestDistance;
+    }
+
+    /**
+     * After dividing the bots, I want to test the smaller bots first. Only then will the bots with the same radius be tested.
+     */
+    private int sortTestBots(List<Nanobot> nanobots, Nanobot a, Nanobot b) {
+        if (a.range == b.range) {
+            int collB = (int) collisionCount(nanobots, b);
+            int collA = (int) collisionCount(nanobots, a);
+            return collB - collA;
+        }
+
+        return (int) (a.range - b.range);
+    }
+
     private boolean inRange(Nanobot from, Nanobot to) {
         return from.range >= distance(from, to);
+    }
+
+    private boolean isCollision(Nanobot a, Nanobot b) {
+        return distance(a, b) <= a.range + b.range;
     }
 
     private long distance(Nanobot a, Nanobot b) {
@@ -124,63 +146,172 @@ public class Day23 extends SolutionTemplate {
         ;
     }
 
-    private List<Area> collision(Area a, Area b) {
-        if (isInArea(a, b.t) && isInArea(a, b.b)) {
-            return List.of(new Area(b.t, b.b));
-        }
-
-        if (isInArea(b, a.t) && isInArea(b, a.b)) {
-            return List.of(new Area(a.t, a.b));
-        }
-
-        return null;
+    private long collisionCount(List<Nanobot> nanobots, Nanobot testBot) {
+        return nanobots.stream()//
+                .filter(v -> isCollision(v, testBot))//
+                .count();
     }
 
-    private boolean isInArea(Area a, Pos3d point) {
-        if (a.t.equals(point) || a.b.equals(point)) {
-            return true;
+    private Nanobot getMegaBot(List<Nanobot> nanobots) {
+        long minX = Long.MAX_VALUE;
+        long maxX = Long.MIN_VALUE;
+        long minY = Long.MAX_VALUE;
+        long maxY = Long.MIN_VALUE;
+        long minZ = Long.MAX_VALUE;
+        long maxZ = Long.MIN_VALUE;
+
+        for (Nanobot nanobot : nanobots) {
+            minX = Math.min(minX, nanobot.x);
+            maxX = Math.max(maxX, nanobot.x);
+            minY = Math.min(minY, nanobot.y);
+            maxY = Math.max(maxY, nanobot.y);
+            minZ = Math.min(minZ, nanobot.z);
+            maxZ = Math.max(maxZ, nanobot.z);
         }
 
-        Pos3d pointToB = new Pos3d(//
-                point.getX() - a.b.getX(), //
-                point.getY() - a.b.getY(), //
-                point.getZ() - a.b.getZ() //
+        long radiusX = (maxX - minX) / 2;
+        long radiusY = (maxY - minY) / 2;
+        long radiusZ = (maxZ - minZ) / 2;
+
+        long maxRadius = Math.max(radiusX, Math.max(radiusY, radiusZ));
+
+        maxRadius = maxRadius * 4;
+
+        long nextPowerOfTwo = Long.toString(maxRadius, 2).length() + 1L;
+
+        return new Nanobot(//
+                minX + radiusX, //
+                minY + radiusY, //
+                minZ + radiusZ, //
+                1L << nextPowerOfTwo //
         );
-
-        if (pointToB.getZ() < 0) {
-            return false;
-        }
-
-        if (pointToB.getZ() < Math.abs(pointToB.getX()) || pointToB.getZ() < Math.abs(pointToB.getY())) {
-            return false;
-        }
-
-        Pos3d pointToT = new Pos3d(//
-                point.getX() - a.t.getX(), //
-                point.getY() - a.t.getY(), //
-                point.getZ() - a.t.getZ() //
-        );
-
-        if (pointToT.getZ() > 0) {
-            return false;
-        }
-
-        if (pointToB.getZ() > Math.abs(pointToB.getX()) || pointToB.getZ() > Math.abs(pointToB.getY())) {
-            return false;
-        }
-
-        return true;
     }
 
-    private void getAllInRange(List<Nanobot> nanobots) {
-        List<Nanobot> copy = new LinkedList<>(nanobots);
-
-        for (Nanobot nanobot : copy) {
-            int count = (int) (nanobots.stream()//
-                    .filter(v -> inRange(nanobot, v))//
-                    .count());
-            System.out.println(nanobot.toString() + " " + count);
+    private LinkedList<Nanobot> divide(Nanobot bot) {
+        if (bot.range == 0) {
+            throw new IllegalArgumentException();
         }
+
+        LinkedList<Nanobot> response = new LinkedList<>();
+
+        long newRadius = bot.range / 2;
+
+        if (bot.range > 1) {
+            // devide area/circles in 6 small areas/circles
+            response.add(new Nanobot(//
+                    bot.x, //
+                    bot.y, //
+                    bot.z + newRadius, //
+                    newRadius //
+            ));
+            response.add(new Nanobot(//
+                    bot.x, //
+                    bot.y, //
+                    bot.z - newRadius, //
+                    newRadius //
+            ));
+            response.add(new Nanobot(//
+                    bot.x, //
+                    bot.y + newRadius, //
+                    bot.z, //
+                    newRadius //
+            ));
+            response.add(new Nanobot(//
+                    bot.x, //
+                    bot.y - newRadius, //
+                    bot.z, //
+                    newRadius //
+            ));
+            response.add(new Nanobot(//
+                    bot.x + newRadius, //
+                    bot.y, //
+                    bot.z, //
+                    newRadius //
+            ));
+            response.add(new Nanobot(//
+                    bot.x - newRadius, //
+                    bot.y, //
+                    bot.z, //
+                    newRadius //
+            ));
+
+            if (bot.range > 2) {
+                // Octahedron cannot be divided into 6 octahedrons.
+                // To cover the remaining area, I move the current octahedron four times.
+                // But only if radius of Octahedron is greater than 2. Otherwise all points are covered by the 6 smaller octahedrons.
+                response.add(new Nanobot(//
+                        bot.x + newRadius / 2, //
+                        bot.y + newRadius / 2, //
+                        bot.z, //
+                        bot.range //
+                ));
+                response.add(new Nanobot(//
+                        bot.x + newRadius / 2, //
+                        bot.y - newRadius / 2, //
+                        bot.z, //
+                        bot.range //
+                ));
+                response.add(new Nanobot(//
+                        bot.x - newRadius / 2, //
+                        bot.y + newRadius / 2, //
+                        bot.z, //
+                        bot.range //
+                ));
+                response.add(new Nanobot(//
+                        bot.x - newRadius / 2, //
+                        bot.y - newRadius / 2, //
+                        bot.z, //
+                        bot.range //
+                ));
+            }
+        } else {
+            // If the radium is equal to 1, then octahedrons must be created manually.
+            response.add(new Nanobot(//
+                    bot.x, //
+                    bot.y, //
+                    bot.z + 1, //
+                    newRadius //
+            ));
+            response.add(new Nanobot(//
+                    bot.x, //
+                    bot.y, //
+                    bot.z - 1, //
+                    newRadius //
+            ));
+            response.add(new Nanobot(//
+                    bot.x, //
+                    bot.y + 1, //
+                    bot.z, //
+                    newRadius //
+            ));
+            response.add(new Nanobot(//
+                    bot.x, //
+                    bot.y - 1, //
+                    bot.z, //
+                    newRadius //
+            ));
+            response.add(new Nanobot(//
+                    bot.x + 1, //
+                    bot.y, //
+                    bot.z, //
+                    newRadius //
+            ));
+            response.add(new Nanobot(//
+                    bot.x - 1, //
+                    bot.y, //
+                    bot.z, //
+                    newRadius //
+            ));
+
+            response.add(new Nanobot(//
+                    bot.x, //
+                    bot.y, //
+                    bot.z, //
+                    newRadius //
+            ));
+        }
+
+        return response;
     }
 
     private Nanobot toNanobot(String data) {

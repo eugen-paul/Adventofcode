@@ -59,14 +59,14 @@ class Day23Test {
         assertEquals(manhattanDistance, event.getManhattanDistance());
     }
 
-    // @Test
-    // void testSolution2018Day22() {
-    // Day23 event = new Day23();
+    @Test
+    void testSolution2018Day22() {
+        Day23 event = new Day23();
 
-    // List<String> eventData = FileReaderHelper.readListStringFromFile("y2018/day23/puzzle1.txt");
-    // assertTrue(event.doPuzzleFromData(eventData));
-    // assertEquals(11575, event.getRiskLevel());
-    // assertEquals(1068, event.getCost());
-    // }
+        List<String> eventData = FileReaderHelper.readListStringFromFile("y2018/day23/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+        assertEquals(580, event.getNanobotsInRange());
+        assertEquals(97816347, event.getManhattanDistance());
+    }
 
 }
