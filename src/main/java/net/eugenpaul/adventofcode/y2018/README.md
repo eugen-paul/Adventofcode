@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2018 [44/50]
+## Year 2018 [46/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -26,6 +26,6 @@
 | 20 | ⭐⭐ | [Day 20: A Regular Map](day20) |
 | 21 | ⭐⭐ | [Day 21: Chronal Conversion](day21) |
 | 22 | ⭐⭐ | [Day 22: Mode Maze](day22) |
-| 23 |  |  |
+| 23 | ⭐⭐ | [Day 23: Experimental Emergency Teleportation](day23) |
 | 24 |  |  |
 | 25 |  |  |
