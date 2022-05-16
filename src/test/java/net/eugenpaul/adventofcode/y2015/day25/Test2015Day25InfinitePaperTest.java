@@ -1,8 +1,14 @@
 package net.eugenpaul.adventofcode.y2015.day25;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import net.eugenpaul.adventofcode.helper.MathHelper;
 
 /**
  * Test2015Day25
@@ -36,8 +42,8 @@ class Test2015Day25InfinitePaperTest {
 
     @Test
     void test2015Day25InfinitePaper_getModularExponentiation() {
-        assertEquals(64L, InfinitePaper.modularExponentiation(2, 6, 100));
-        assertEquals(28L, InfinitePaper.modularExponentiation(2, 7, 100));
+        assertEquals(64L, MathHelper.modularExponentiation(2, 6, 100));
+        assertEquals(28L, MathHelper.modularExponentiation(2, 7, 100));
     }
 
     @Test
@@ -45,6 +51,15 @@ class Test2015Day25InfinitePaperTest {
         InfinitePaper paper = new InfinitePaper(20151125L, 252533L, 33554393L);
         assertEquals(31916031L, paper.getElement(2, 1));
         assertEquals(18749137, paper.getElement(1, 2));
+    }
+
+    @Test
+    void testSolution2015Day25() {
+        Day25 event = new Day25();
+
+        List<String> eventData = FileReaderHelper.readListStringFromFile("y2015/day25/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+        assertEquals(19980801, event.getCode());
     }
 
 }

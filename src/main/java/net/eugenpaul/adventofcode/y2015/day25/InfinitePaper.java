@@ -1,16 +1,14 @@
 package net.eugenpaul.adventofcode.y2015.day25;
 
+import lombok.AllArgsConstructor;
+import net.eugenpaul.adventofcode.helper.MathHelper;
+
+@AllArgsConstructor
 public class InfinitePaper {
 
     private long firstNumber;
     private long multiplier;
     private long modulo;
-
-    public InfinitePaper(long firstNumber, long multiplier, long modulo) {
-        this.firstNumber = firstNumber;
-        this.multiplier = multiplier;
-        this.modulo = modulo;
-    }
 
     /**
      * Element(n+1) = Element(n)*multiplier mod modulo
@@ -24,7 +22,7 @@ public class InfinitePaper {
      * @return
      */
     public long getElement(long posX, long posY) {
-        long mod = modularExponentiation(multiplier, getElementNumberPosition(posX, posY) - 1, modulo);
+        long mod = MathHelper.modularExponentiation(multiplier, getElementNumberPosition(posX, posY) - 1, modulo);
         return (firstNumber * mod) % modulo;
     }
 
@@ -67,22 +65,6 @@ public class InfinitePaper {
         long b = (posY - 1) * posY / 2;
         long c = posX * posY;
         return a + b + c;
-    }
-
-    public static long modularExponentiation(long number, long exp, long mod) {
-        String expBinary = Long.toBinaryString(exp);
-
-        long response = 1L;
-        for (char element : expBinary.toCharArray()) {
-            if (element == '0') {
-                response = (response * response) % mod;
-            } else {
-                response = (response * response) % mod;
-                response = (response * number) % mod;
-            }
-        }
-
-        return response;
     }
 
 }
