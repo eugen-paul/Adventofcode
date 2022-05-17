@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2018 [48/50]
+## Year 2018 [50/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -28,4 +28,6 @@
 | 22 | ⭐⭐ | [Day 22: Mode Maze](day22) |
 | 23 | ⭐⭐ | [Day 23: Experimental Emergency Teleportation](day23) |
 | 24 | ⭐⭐ | [Day 24: Immune System Simulator 20XX](day24) |
-| 25 |  |  |
+| 25 | ⭐⭐ | [Day 25: Four-Dimensional Adventure](day25) |
+
+![Solutions 2018](../../../../../../../doc/img/2018.png "2018 is done")
