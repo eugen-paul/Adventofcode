@@ -1,10 +1,10 @@
 # Solutions
 
-## Year 2019 [0/50]
+## Year 2019 [2/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
-| 1  |  |  |
+| 1  | ⭐⭐ | [Day 1: The Tyranny of the Rocket Equation](day1) |
 | 2  |  |  |
 | 3  |  |  |
 | 4  |  |  |
