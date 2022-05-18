@@ -7,22 +7,26 @@ import java.util.stream.Stream;
 import lombok.Getter;
 
 public enum Direction {
-    N('^'), //
-    E('>'), //
-    S('v'), //
-    W('<') //
+    N('^', 'U'), //
+    E('>', 'R'), //
+    S('v', 'D'), //
+    W('<', 'L') //
     ;
 
     @Getter
     private char arrow;
     @Getter
     private char oneChar;
+    @Getter
+    private char udrl;
 
     private static Map<Character, Direction> arrowToDirection = Stream.of(Direction.values()).collect(Collectors.toMap(Direction::getArrow, v -> v));
     private static Map<Character, Direction> charToDirection = Stream.of(Direction.values()).collect(Collectors.toMap(Direction::getOneChar, v -> v));
+    private static Map<Character, Direction> udrlToDirection = Stream.of(Direction.values()).collect(Collectors.toMap(Direction::getUdrl, v -> v));
 
-    private Direction(char arrow) {
+    private Direction(char arrow, char udrl) {
         this.arrow = arrow;
+        this.udrl = udrl;
         this.oneChar = toString().charAt(0);
     }
 
@@ -125,5 +129,15 @@ public enum Direction {
      */
     public static Direction fromChar(char c) {
         return charToDirection.get(c);
+    }
+
+    /**
+     * Convert direction-char (UDRL) to Direction
+     * 
+     * @param Direction
+     * @return
+     */
+    public static Direction fromUdrl(char c) {
+        return udrlToDirection.get(c);
     }
 }
