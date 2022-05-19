@@ -124,6 +124,17 @@ public final class StringConverter {
     }
 
     /**
+     * Convert Numbers in String to Array of Numbers: "2 1 3" => new long[]{2,1,3}
+     * 
+     * @param data
+     * @return
+     */
+    public static int[] toIntArray(String data) {
+        return Stream.of(data.split(NUMBER_SEPARATOR_REGEX))//
+                .mapToInt(Integer::parseInt).toArray();
+    }
+
+    /**
      * Convert digits in String to Array of Numbers: "213" => new long[]{2,1,3}
      * 
      * @param data
