@@ -12,7 +12,7 @@ import net.eugenpaul.adventofcode.helper.FileReaderHelper;
 class Day1Test {
 
     @Test
-    void testTest2019Day1_testPuzzle1() {
+    void testTest2019Day1_testPuzzle() {
         testPuzzle1(List.of("12"), 2, 2);
         testPuzzle1(List.of("14"), 2, 2);
         testPuzzle1(List.of("1969"), 654, 966);
