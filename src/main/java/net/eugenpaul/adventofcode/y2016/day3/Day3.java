@@ -1,33 +1,18 @@
 package net.eugenpaul.adventofcode.y2016.day3;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day3 {
+public class Day3 extends SolutionTemplate {
 
     private static final String REGEX = "[ ]*(\\d+)[ ]+(\\d+)[ ]+(\\d+)$";
     private static final Pattern pattern = Pattern.compile(REGEX);
-
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day3.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day3.class.getName());
 
     @Getter
     private int triangleCount;
@@ -40,43 +25,19 @@ public class Day3 {
         puzzle.doPuzzleFromFile("y2016/day3/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
+    @Override
+    public boolean doEvent(List<String> eventData) {
 
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(List<String> eventData) {
-        if (!doEvent(eventData)) {
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "triangleCount: " + getTriangleCount());
-        logger.log(Level.INFO, () -> "triangleVerticallyCount: " + getTriangleVerticallyCount());
-
-        return true;
-    }
-
-    private boolean doEvent(List<String> eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
-        triangleCount = 0;
-        for (String data : eventData) {
-            if (isTriangle(data)) {
-                triangleCount++;
-            }
-        }
+        triangleCount = (int) eventData.stream().filter(this::isTriangle).count();
 
         triangleVerticallyCount = 0;
         LinkedList<String> dataCopy = new LinkedList<>(eventData);
         while (!dataCopy.isEmpty()) {
             triangleVerticallyCount += isTriangle(dataCopy.poll(), dataCopy.poll(), dataCopy.poll());
         }
+
+        logger.log(Level.INFO, () -> "triangleCount: " + getTriangleCount());
+        logger.log(Level.INFO, () -> "triangleVerticallyCount: " + getTriangleVerticallyCount());
 
         return true;
     }
@@ -100,26 +61,14 @@ public class Day3 {
         matcher3.find();
 
         int response = 0;
-        if (isTriangle(//
-                Integer.parseInt(matcher1.group(1)), //
-                Integer.parseInt(matcher2.group(1)), //
-                Integer.parseInt(matcher3.group(1)) //
-        )) {
-            response++;
-        }
-        if (isTriangle(//
-                Integer.parseInt(matcher1.group(2)), //
-                Integer.parseInt(matcher2.group(2)), //
-                Integer.parseInt(matcher3.group(2)) //
-        )) {
-            response++;
-        }
-        if (isTriangle(//
-                Integer.parseInt(matcher1.group(3)), //
-                Integer.parseInt(matcher2.group(3)), //
-                Integer.parseInt(matcher3.group(3)) //
-        )) {
-            response++;
+        for (int i = 1; i <= 3; i++) {
+            if (isTriangle(//
+                    Integer.parseInt(matcher1.group(i)), //
+                    Integer.parseInt(matcher2.group(i)), //
+                    Integer.parseInt(matcher3.group(i)) //
+            )) {
+                response++;
+            }
         }
 
         return response;

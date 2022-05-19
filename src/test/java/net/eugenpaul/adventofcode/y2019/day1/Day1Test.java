@@ -13,13 +13,13 @@ class Day1Test {
 
     @Test
     void testTest2019Day1_testPuzzle() {
-        testPuzzle1(List.of("12"), 2, 2);
-        testPuzzle1(List.of("14"), 2, 2);
-        testPuzzle1(List.of("1969"), 654, 966);
-        testPuzzle1(List.of("100756"), 33583, 50346);
+        testPuzzle(List.of("12"), 2, 2);
+        testPuzzle(List.of("14"), 2, 2);
+        testPuzzle(List.of("1969"), 654, 966);
+        testPuzzle(List.of("100756"), 33583, 50346);
     }
 
-    private void testPuzzle1(List<String> inputData, int sum, int sum2) {
+    private void testPuzzle(List<String> inputData, int sum, int sum2) {
         Day1 event = new Day1();
 
         assertTrue(event.doEvent(inputData));
