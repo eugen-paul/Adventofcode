@@ -1,31 +1,15 @@
 package net.eugenpaul.adventofcode.y2016.day5;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import net.eugenpaul.adventofcode.helper.Crypto;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day5 {
+public class Day5 extends SolutionTemplate {
 
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day5.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day5.class.getName());
     private static final byte[] ZERO_ARRAY = new byte[] { 0, 0, 0 };
 
     @Getter
@@ -36,45 +20,21 @@ public class Day5 {
 
     public static void main(String[] args) {
         Day5 puzzle = new Day5();
-        try {
-            puzzle.doPuzzleFromFile("y2016/day5/puzzle1.txt");
-        } catch (NoSuchAlgorithmException e) {
-            logger.log(Level.WARNING, "NoSuchAlgorithmException", e);
-        }
+        puzzle.doPuzzleFromFile("y2016/day5/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) throws NoSuchAlgorithmException {
-        String eventData = FileReaderHelper.readStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(String eventData) throws NoSuchAlgorithmException {
-        if (!doEvent(eventData)) {
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "password  " + getPassword());
-        logger.log(Level.INFO, () -> "secondPassword  " + getSecondPassword());
-
-        return true;
-    }
-
-    private boolean doEvent(String eventData) throws NoSuchAlgorithmException {
-        if (null == eventData) {
-            return false;
-        }
+    @Override
+    public boolean doEvent(String eventData) {
 
         StringBuilder passBuilder = new StringBuilder();
         TreeMap<Integer, String> secondPass = new TreeMap<>();
 
+        byte[] prefix = eventData.getBytes();
+
         long number = 0;
         do {
             number++;
-            byte[] hash = doMd5(eventData, number);
+            byte[] hash = Crypto.doMd5(prefix, longToAsciiBytes(number));
 
             int sixthCharacter = (hash[2] & 0x0F);
             int sevensthCharacter = ((hash[3] & 0xF0) >> 4);
@@ -93,17 +53,27 @@ public class Day5 {
         password = passBuilder.toString();
 
         StringBuilder secondPassBuilder = new StringBuilder();
-        for (Entry<Integer, String> entry : secondPass.entrySet()) {
-            secondPassBuilder.append(entry.getValue());
-        }
+        secondPass.entrySet().stream().forEach(v -> secondPassBuilder.append(v.getValue()));
         secondPassword = secondPassBuilder.toString();
+
+        logger.log(Level.INFO, () -> "password  " + getPassword());
+        logger.log(Level.INFO, () -> "secondPassword  " + getSecondPassword());
 
         return true;
     }
 
-    private byte[] doMd5(String secret, Long number) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update((secret + number).getBytes());
-        return md.digest();
+    private byte[] longToAsciiBytes(long data) {
+        byte[] response = new byte[40];
+        int len = 0;
+        long tmp = data;
+        while (tmp != 0) {
+            long mod = tmp % 10;
+            tmp = tmp / 10;
+            len++;
+            response[40 - len] = (byte) ('0' + mod);
+        }
+
+        return Arrays.copyOfRange(response, 40 - len, 40);
     }
+
 }

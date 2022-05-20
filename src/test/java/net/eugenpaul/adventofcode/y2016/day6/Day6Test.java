@@ -7,10 +7,12 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+
 class Day6Test {
 
     @Test
-    void testTest2016Day6() {
+    void testTest2016Day6_testPuzzle() {
         testPuzzle(List.of(//
                 "eedadn", //
                 "drvtee", //
@@ -40,6 +42,16 @@ class Day6Test {
         assertTrue(event.doPuzzleFromData(inputData));
         assertEquals(errorCorrectedInput, event.getErrorCorrectedInput());
         assertEquals(originalMessage, event.getOriginalMessage());
+    }
+
+    @Test
+    void testSolution2016Day6() {
+        Day6 event = new Day6();
+
+        List<String> eventData = FileReaderHelper.readListStringFromFile("y2016/day6/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+        assertEquals("asvcbhvg", event.getErrorCorrectedInput());
+        assertEquals("odqnikqv", event.getOriginalMessage());
     }
 
 }

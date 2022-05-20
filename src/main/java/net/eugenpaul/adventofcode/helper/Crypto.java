@@ -29,4 +29,17 @@ public final class Crypto {
         md.update(data, offset, len);
         return md.digest();
     }
+
+    public static byte[] doMd5(byte[]... data) {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalArgumentException(MD5_LOAD_ERROR, e);
+        }
+        for (byte[] bs : data) {
+            md.update(bs, 0, bs.length);
+        }
+        return md.digest();
+    }
 }
