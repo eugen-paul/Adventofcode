@@ -1,13 +1,13 @@
 # Solutions
 
-## Year 2019 [6/50]
+## Year 2019 [8/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
 | 1  | ⭐⭐ | [Day 1: The Tyranny of the Rocket Equation](day1) |
 | 2  | ⭐⭐ | [Day 2: 1202 Program Alarm](day2) |
 | 3  | ⭐⭐ | [Day 3: Crossed Wires](day3) |
-| 4  |  |  |
+| 4  | ⭐⭐ | [Day 4: Secure Container](day4) |
 | 5  |  |  |
 | 6  |  |  |
 | 7  |  |  |
