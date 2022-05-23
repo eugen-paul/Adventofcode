@@ -1,28 +1,13 @@
 package net.eugenpaul.adventofcode.y2016.day7;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day7 {
-
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day7.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day7.class.getName());
+public class Day7 extends SolutionTemplate {
 
     @Getter
     private long ipWithTls;
@@ -34,34 +19,13 @@ public class Day7 {
         puzzle.doPuzzleFromFile("y2016/day7/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(List<String> eventData) {
-        if (!doEvent(eventData)) {
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "ipWithTls: " + getIpWithTls());
-        logger.log(Level.INFO, () -> "ipWithSsl: " + getIpWithSsl());
-
-        return true;
-    }
-
-    private boolean doEvent(List<String> eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
+    @Override
+    public boolean doEvent(List<String> eventData) {
         ipWithTls = eventData.stream().filter(this::isTslSupport).count();
         ipWithSsl = eventData.stream().filter(this::isSslSupport).count();
 
+        logger.log(Level.INFO, () -> "ipWithTls: " + getIpWithTls());
+        logger.log(Level.INFO, () -> "ipWithSsl: " + getIpWithSsl());
         return true;
     }
 
@@ -117,9 +81,9 @@ public class Day7 {
 
     private boolean isIn(String data, boolean isIn, int i) {
         if (data.charAt(i) == '[') {
-            isIn = true;
+            return true;
         } else if (data.charAt(i) == ']') {
-            isIn = false;
+            return false;
         }
         return isIn;
     }

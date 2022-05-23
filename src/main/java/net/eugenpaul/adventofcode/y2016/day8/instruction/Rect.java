@@ -1,14 +1,12 @@
 package net.eugenpaul.adventofcode.y2016.day8.instruction;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class Rect implements Instruction {
 
     private int x;
     private int y;
-
-    private Rect(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
 
     public static Rect fromString(String data) {
         String[] size = data.substring("rect ".length()).split("x");
