@@ -1,14 +1,12 @@
 package net.eugenpaul.adventofcode.y2016.day8.instruction;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class RotateColumn implements Instruction {
 
     private int column;
     private int shift;
-
-    public RotateColumn(int column, int shift) {
-        this.column = column;
-        this.shift = shift;
-    }
 
     public static RotateColumn fromString(String data) {
         String[] size = data.substring("rotate column x=".length()).split(" ");
