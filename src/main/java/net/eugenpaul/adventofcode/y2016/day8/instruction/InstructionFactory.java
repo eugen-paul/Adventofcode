@@ -1,6 +1,6 @@
 package net.eugenpaul.adventofcode.y2016.day8.instruction;
 
-public class InstructionFactory {
+public final class InstructionFactory {
     private InstructionFactory() {
 
     }
