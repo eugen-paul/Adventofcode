@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2019 [8/50]
+## Year 2019 [10/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -8,7 +8,7 @@
 | 2  | ⭐⭐ | [Day 2: 1202 Program Alarm](day2) |
 | 3  | ⭐⭐ | [Day 3: Crossed Wires](day3) |
 | 4  | ⭐⭐ | [Day 4: Secure Container](day4) |
-| 5  |  |  |
+| 5  | ⭐⭐ | [Day 5: Sunny with a Chance of Asteroids](day5) |
 | 6  |  |  |
 | 7  |  |  |
 | 8  |  |  |
