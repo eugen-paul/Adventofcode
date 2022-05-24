@@ -4,6 +4,7 @@ import java.util.logging.Level;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.eugenpaul.adventofcode.helper.IntcodeComputer;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.helper.StringConverter;
 
@@ -68,23 +69,9 @@ public class Day2 extends SolutionTemplate {
     }
 
     private int runOpcodes(int[] opcodes) {
-        int pos = 0;
+        IntcodeComputer comp = new IntcodeComputer();
 
-        while (opcodes[pos] != 99) {
-            switch (opcodes[pos]) {
-            case 1:
-                opcodes[opcodes[pos + 3]] = opcodes[opcodes[pos + 1]] + opcodes[opcodes[pos + 2]];
-                break;
-            case 2:
-                opcodes[opcodes[pos + 3]] = opcodes[opcodes[pos + 1]] * opcodes[opcodes[pos + 2]];
-                break;
-            default:
-                throw new IllegalArgumentException("Wrong opcode: " + opcodes[pos] + ". pos " + pos);
-            }
-            pos += 4;
-        }
-
-        return opcodes[0];
+        return comp.runOpcodes(opcodes);
     }
 
 }
