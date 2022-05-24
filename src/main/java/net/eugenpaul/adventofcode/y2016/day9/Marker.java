@@ -1,18 +1,14 @@
 package net.eugenpaul.adventofcode.y2016.day9;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 @Getter
 public class Marker {
     int charCount;
     int repetition;
     int markerLen;
-
-    public Marker(int charCount, int repetition, int markerLen) {
-        this.charCount = charCount;
-        this.repetition = repetition;
-        this.markerLen = markerLen;
-    }
 
     public static Marker fromString(String text, int position) {
         int eom = text.indexOf(")", position);

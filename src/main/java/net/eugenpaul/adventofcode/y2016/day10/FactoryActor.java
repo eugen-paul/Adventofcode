@@ -28,7 +28,9 @@ public class FactoryActor {
     }
 
     public boolean isMicrochips(int lowValue, int highValue) {
-        return microchips.size() == 2 && microchips.get(0) == lowValue && microchips.get(1) == highValue;
+        return microchips.size() == 2 //
+                && microchips.get(0) == lowValue //
+                && microchips.get(1) == highValue;
     }
 
     public boolean giveMicrochip(Integer value) {
