@@ -1,7 +1,5 @@
 package net.eugenpaul.adventofcode.y2016.day11;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,25 +7,12 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day11 {
-
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day11.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day11.class.getName());
+public class Day11 extends SolutionTemplate {
 
     @Getter
     private int minSteps;
@@ -40,31 +25,8 @@ public class Day11 {
         puzzle.doPuzzleFromFile("y2016/day11/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(List<String> eventData) {
-        if (!doEvent(eventData)) {
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "minimum number of steps : " + getMinSteps());
-        logger.log(Level.INFO, () -> "minimum number of steps (part two): " + getMinStepsPartTwo());
-
-        return true;
-    }
-
-    private boolean doEvent(List<String> eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
+    @Override
+    public boolean doEvent(List<String> eventData) {
         // Part 1
         List<Floor> floors = eventData.stream().map(Floor::fromString).collect(Collectors.toList());
 
@@ -84,6 +46,9 @@ public class Day11 {
         statesToCheck = new TreeMap<>();
         addToStepStates(statesToCheck, floors, 0, reachedStates);
         minStepsPartTwo = doBreadthFirstSearch(statesToCheck, reachedStates);
+
+        logger.log(Level.INFO, () -> "minimum number of steps : " + getMinSteps());
+        logger.log(Level.INFO, () -> "minimum number of steps (part two): " + getMinStepsPartTwo());
 
         return true;
     }
@@ -179,15 +144,8 @@ public class Day11 {
 
         reachedStates.put(id, currentStepNumber);
 
-        statesToCheck.compute(currentStepNumber, (k, v) -> {
-            if (null == v) {
-                List<List<Floor>> steps = new LinkedList<>();
-                steps.add(nextFloor);
-                return steps;
-            }
-            v.add(nextFloor);
-            return v;
-        });
+        statesToCheck.computeIfAbsent(currentStepNumber, k -> new LinkedList<>())//
+                .add(nextFloor);
     }
 
     private String getState(List<Floor> floors) {
