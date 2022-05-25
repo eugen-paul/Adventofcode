@@ -8,10 +8,11 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import net.eugenpaul.adventofcode.y2016.day12.instruction.InstructionInc;
-import net.eugenpaul.adventofcode.y2016.day12.instruction.InstructionJnz;
-import net.eugenpaul.adventofcode.y2016.day12.instruction.InstructionCpy;
-import net.eugenpaul.adventofcode.y2016.day12.instruction.InstructionDec;
+import net.eugenpaul.adventofcode.helper.computer.Computer;
+import net.eugenpaul.adventofcode.helper.computer.InstructionCpy;
+import net.eugenpaul.adventofcode.helper.computer.InstructionDec;
+import net.eugenpaul.adventofcode.helper.computer.InstructionInc;
+import net.eugenpaul.adventofcode.helper.computer.InstructionJnz;
 
 /**
  * Test2016Day12RegisterTest
@@ -65,7 +66,7 @@ class Test2016Day12RegisterTest {
         assertEquals(40, instruction.getValue());
         assertNull(instruction.getFrom());
         assertEquals('a', instruction.getTo());
-        
+
         instruction = InstructionCpy.fromString("cpy a b");
         assertNull(instruction.getValue());
         assertEquals('a', instruction.getFrom());

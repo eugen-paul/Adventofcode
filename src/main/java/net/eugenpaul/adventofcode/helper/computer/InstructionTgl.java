@@ -1,15 +1,9 @@
-package net.eugenpaul.adventofcode.y2016.day23;
+package net.eugenpaul.adventofcode.helper.computer;
 
 import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.eugenpaul.adventofcode.y2016.day12.Computer;
-import net.eugenpaul.adventofcode.y2016.day12.instruction.Instruction;
-import net.eugenpaul.adventofcode.y2016.day12.instruction.InstructionCpy;
-import net.eugenpaul.adventofcode.y2016.day12.instruction.InstructionDec;
-import net.eugenpaul.adventofcode.y2016.day12.instruction.InstructionInc;
-import net.eugenpaul.adventofcode.y2016.day12.instruction.InstructionJnz;
 
 @AllArgsConstructor
 public class InstructionTgl implements Instruction {
@@ -28,7 +22,7 @@ public class InstructionTgl implements Instruction {
 
     @Override
     public void doInstruction(Computer computer) {
-        int valueRegister = computer.getRegister(register);
+        int valueRegister = computer.getRegister(register).intValue();
         int position = computer.getPosition();
 
         List<Instruction> instructions = computer.getInstructions();
