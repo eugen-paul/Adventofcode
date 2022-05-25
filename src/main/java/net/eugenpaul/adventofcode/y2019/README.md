@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2019 [10/50]
+## Year 2019 [12/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -9,7 +9,7 @@
 | 3  | ⭐⭐ | [Day 3: Crossed Wires](day3) |
 | 4  | ⭐⭐ | [Day 4: Secure Container](day4) |
 | 5  | ⭐⭐ | [Day 5: Sunny with a Chance of Asteroids](day5) |
-| 6  |  |  |
+| 6  | ⭐⭐ | [Day 6: Universal Orbit Map](day6) |
 | 7  |  |  |
 | 8  |  |  |
 | 9  |  |  |
