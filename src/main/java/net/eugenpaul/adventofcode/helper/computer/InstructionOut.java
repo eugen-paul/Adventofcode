@@ -1,8 +1,6 @@
-package net.eugenpaul.adventofcode.y2016.day25;
+package net.eugenpaul.adventofcode.helper.computer;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.y2016.day12.Computer;
-import net.eugenpaul.adventofcode.y2016.day12.instruction.Instruction;
 
 @Getter
 public class InstructionOut implements Instruction {
@@ -24,8 +22,8 @@ public class InstructionOut implements Instruction {
 
     @Override
     public void doInstruction(Computer computer) {
-        int currentSignal = computer.getRegister(register);
-        int lastSignal = computer.getRegister('o');
+        int currentSignal = computer.getRegister(register).intValue();
+        int lastSignal = computer.getRegister('o').intValue();
 
         if (currentSignal != 0 && currentSignal != 1) {
             // wrong signal => break
