@@ -63,7 +63,7 @@ public class Day17 {
         shortestPath = pathFinding.getSteps(area, eventData, 0, 0, 3, 3);
 
         pathFinding = new Dijkstra();
-        longestPathLength = pathFinding.getLongethPathLength(area, eventData, 0, 0, 3, 3);
+        longestPathLength = pathFinding.getLongestPathLength(area, eventData, 0, 0, 3, 3);
 
         return true;
     }
