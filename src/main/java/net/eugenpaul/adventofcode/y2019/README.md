@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2019 [12/50]
+## Year 2019 [14/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -10,7 +10,7 @@
 | 4  | ⭐⭐ | [Day 4: Secure Container](day4) |
 | 5  | ⭐⭐ | [Day 5: Sunny with a Chance of Asteroids](day5) |
 | 6  | ⭐⭐ | [Day 6: Universal Orbit Map](day6) |
-| 7  |  |  |
+| 7  | ⭐⭐ | [Day 7: Amplification Circuit](day7) |
 | 8  |  |  |
 | 9  |  |  |
 | 10 |  |  |
