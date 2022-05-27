@@ -36,7 +36,7 @@ public class Dijkstra {
         return from.getHash().substring(passcode.length());
     }
 
-    public int getLongethPathLength(BuildingArea area, String passcode, int fromX, int fromY, int toX, int toY) {
+    public int getLongestPathLength(BuildingArea area, String passcode, int fromX, int fromY, int toX, int toY) {
         Pos to = new Pos(passcode, toX, toY);
         Pos from = new Pos(passcode, fromX, fromY);
 
