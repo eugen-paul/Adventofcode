@@ -1,5 +1,6 @@
 package net.eugenpaul.adventofcode.helper;
 
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.function.BiFunction;
 
@@ -10,8 +11,11 @@ public final class IntcodeComputer {
 
     @Getter
     private Integer output = null;
+
+    private LinkedList<Integer> input = null;
+
     @Setter
-    private Integer input = null;
+    private boolean waitForInput = false;
 
     private Map<Integer, BiFunction<int[], Integer, Integer>> codes = Map.ofEntries(//
             Map.entry(1, this::doAdd), //
@@ -39,6 +43,37 @@ public final class IntcodeComputer {
         return opcodes[0];
     }
 
+    public int runOpcodes(int[] opcodes, int pos) {
+        int currentPos = pos;
+        currentPos += codes.get(opcodes[currentPos] % 100).apply(opcodes, currentPos);
+        return currentPos;
+    }
+
+    public boolean isEnd(int[] opcodes, int pos) {
+        return opcodes[pos] == 99;
+    }
+
+    public void setInput(int... input) {
+        this.input = new LinkedList<>();
+        for (int i : input) {
+            this.input.add(i);
+        }
+    }
+
+    public void addToInput(int input) {
+        this.input.add(input);
+    }
+
+    public Integer removeOutput() {
+        Integer response = output;
+        output = null;
+        return response;
+    }
+
+    public boolean isOutput() {
+        return output != null;
+    }
+
     private int doEnd(int[] opcodes, int pos) {
         stopped = true;
         return 0;
@@ -62,8 +97,10 @@ public final class IntcodeComputer {
     }
 
     private int doInput(int[] opcodes, int pos) {
-        opcodes[opcodes[pos + 1]] = input;
-        input = null;
+        if (waitForInput && input.isEmpty()) {
+            return 0;
+        }
+        opcodes[opcodes[pos + 1]] = input.pollFirst();
         return 2;
     }
 
