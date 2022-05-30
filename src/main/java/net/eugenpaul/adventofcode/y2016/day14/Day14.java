@@ -1,30 +1,15 @@
 package net.eugenpaul.adventofcode.y2016.day14;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.TreeMap;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
 import net.eugenpaul.adventofcode.helper.HexConverter;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day14 {
-
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day14.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day14.class.getName());
+public class Day14 extends SolutionTemplate {
 
     @Getter
     private long index;
@@ -36,33 +21,14 @@ public class Day14 {
         puzzle.doPuzzleFromFile("y2016/day14/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        String eventData = FileReaderHelper.readStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(String eventData) {
-        if (!doEvent(eventData)) {
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "index : " + getIndex());
-        logger.log(Level.INFO, () -> "index2 : " + getIndex2());
-
-        return true;
-    }
-
-    private boolean doEvent(String eventData) {
-        if (null == eventData) {
-            return false;
-        }
+    @Override
+    public boolean doEvent(String eventData) {
 
         index = puzzle(eventData, 1);
         index2 = puzzle(eventData, 2017);
+
+        logger.log(Level.INFO, () -> "index : " + getIndex());
+        logger.log(Level.INFO, () -> "index2 : " + getIndex2());
 
         return true;
     }
