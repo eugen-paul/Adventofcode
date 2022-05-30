@@ -1,19 +1,15 @@
 package net.eugenpaul.adventofcode.y2016.day15;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+@AllArgsConstructor
 @Data
 public class Disc {
 
     private int number;
     private int positionCount;
     private int startPosition;
-
-    public Disc(int number, int positionCount, int startPosition) {
-        this.number = number;
-        this.positionCount = positionCount;
-        this.startPosition = startPosition;
-    }
 
     public static Disc fromString(String data) {
         String[] elements = data.split(" ");
