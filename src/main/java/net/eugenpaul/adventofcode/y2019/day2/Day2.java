@@ -11,7 +11,7 @@ import net.eugenpaul.adventofcode.helper.StringConverter;
 public class Day2 extends SolutionTemplate {
 
     @Getter
-    private int reg0;
+    private long reg0;
     @Getter
     private int nounVerb;
 
@@ -28,7 +28,7 @@ public class Day2 extends SolutionTemplate {
     @Override
     public boolean doEvent(String eventData) {
 
-        int[] opcodes = StringConverter.toIntArray(eventData);
+        long[] opcodes = StringConverter.toLongArray(eventData);
 
         reg0 = doPuzzle1(opcodes.clone());
         logger.log(Level.INFO, () -> "reg0  : " + getReg0());
@@ -41,7 +41,7 @@ public class Day2 extends SolutionTemplate {
         return true;
     }
 
-    private int doPuzzle1(int[] opcodes) {
+    private long doPuzzle1(long[] opcodes) {
         if (doReplace) {
             opcodes[1] = 12;
             opcodes[2] = 2;
@@ -50,7 +50,7 @@ public class Day2 extends SolutionTemplate {
         return runOpcodes(opcodes);
     }
 
-    private int doPuzzle2(int[] opcodes) {
+    private int doPuzzle2(long[] opcodes) {
         for (int noun = 0; noun < 100; noun++) {
             for (int verb = 0; verb < 100; verb++) {
                 try {
@@ -68,7 +68,7 @@ public class Day2 extends SolutionTemplate {
         return -1;
     }
 
-    private int runOpcodes(int[] opcodes) {
+    private long runOpcodes(long[] opcodes) {
         IntcodeComputer comp = new IntcodeComputer();
 
         return comp.runOpcodes(opcodes);

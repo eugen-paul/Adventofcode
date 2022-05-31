@@ -10,9 +10,9 @@ import net.eugenpaul.adventofcode.helper.StringConverter;
 public class Day5 extends SolutionTemplate {
 
     @Getter
-    private int diagnosticCode;
+    private long diagnosticCode;
     @Getter
-    private int diagnosticCode2;
+    private long diagnosticCode2;
 
     public static void main(String[] args) {
         Day5 puzzle = new Day5();
@@ -22,12 +22,12 @@ public class Day5 extends SolutionTemplate {
     @Override
     public boolean doEvent(String eventData) {
 
-        int[] opcodes = StringConverter.toIntArray(eventData);
+        long[] opcodes = StringConverter.toLongArray(eventData);
 
-        diagnosticCode = doPuzzle(opcodes, 1);
+        diagnosticCode = doPuzzle(opcodes, 1L);
 
-        opcodes = StringConverter.toIntArray(eventData);
-        diagnosticCode2 = doPuzzle(opcodes, 5);
+        opcodes = StringConverter.toLongArray(eventData);
+        diagnosticCode2 = doPuzzle(opcodes, 5L);
 
         logger.log(Level.INFO, () -> "diagnosticCode   : " + getDiagnosticCode());
         logger.log(Level.INFO, () -> "diagnosticCode2  : " + getDiagnosticCode2());
@@ -35,7 +35,7 @@ public class Day5 extends SolutionTemplate {
         return true;
     }
 
-    private int doPuzzle(int[] opcodes, int input) {
+    private long doPuzzle(long[] opcodes, long input) {
         IntcodeComputer comp = new IntcodeComputer();
         comp.setInput(input);
         comp.runOpcodes(opcodes);
