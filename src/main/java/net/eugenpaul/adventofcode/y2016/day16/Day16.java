@@ -1,26 +1,12 @@
 package net.eugenpaul.adventofcode.y2016.day16;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Setter;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day16 {
-
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day16.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day16.class.getName());
+public class Day16 extends SolutionTemplate {
 
     @Getter
     private String checksum;
@@ -28,38 +14,23 @@ public class Day16 {
     @Getter
     private String checksum2;
 
+    @Setter
+    private int length = 272;
+    @Setter
+    private int length2 = 35651584;
+
     public static void main(String[] args) {
         Day16 puzzle = new Day16();
-        puzzle.doPuzzleFromFile("y2016/day16/puzzle1.txt", 272, 35651584);
+        puzzle.doPuzzleFromFile("y2016/day16/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename, int length, int length2) {
-        String eventData = FileReaderHelper.readStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData, length, length2);
-    }
-
-    public boolean doPuzzleFromData(String eventData, int length, int length2) {
-        if (!doEvent(eventData, length, length2)) {
-            return false;
-        }
+    @Override
+    public boolean doEvent(String eventData) {
+        checksum = getChecksum(eventData, length);
+        checksum2 = getChecksum(eventData, length2);
 
         logger.log(Level.INFO, () -> "checksum : " + getChecksum());
         logger.log(Level.INFO, () -> "checksum2 : " + getChecksum2());
-
-        return true;
-    }
-
-    private boolean doEvent(String eventData, int length, int length2) {
-        if (null == eventData) {
-            return false;
-        }
-
-        checksum = getChecksum(eventData, length);
-        checksum2 = getChecksum(eventData, length2);
 
         return true;
     }
