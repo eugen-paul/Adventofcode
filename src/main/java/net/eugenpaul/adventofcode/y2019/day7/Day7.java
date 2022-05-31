@@ -12,11 +12,11 @@ import net.eugenpaul.adventofcode.helper.StringConverter;
 public class Day7 extends SolutionTemplate {
 
     @Getter
-    private int highestSignal;
+    private long highestSignal;
     @Getter
-    private int highestSignal2;
+    private long highestSignal2;
 
-    private int[] opcodes;
+    private long[] opcodes;
 
     @Setter
     private boolean doFirst = true;
@@ -31,18 +31,18 @@ public class Day7 extends SolutionTemplate {
     @Override
     public boolean doEvent(String eventData) {
 
-        opcodes = StringConverter.toIntArray(eventData);
+        opcodes = StringConverter.toLongArray(eventData);
 
         highestSignal = 0;
         highestSignal2 = 0;
 
         if (doFirst) {
-            Integer[] sequence1 = { 0, 1, 2, 3, 4 };
+            Long[] sequence1 = { 0L, 1L, 2L, 3L, 4L };
             Permutation.permutationsRecursive(sequence1.length, sequence1, this::doPuzzle1);
         }
 
         if (doSecond) {
-            Integer[] sequence2 = { 5, 6, 7, 8, 9 };
+            Long[] sequence2 = { 5L, 6L, 7L, 8L, 9L };
             Permutation.permutationsRecursive(sequence2.length, sequence2, this::doPuzzle2);
         }
 
@@ -52,11 +52,11 @@ public class Day7 extends SolutionTemplate {
         return true;
     }
 
-    private void doPuzzle1(Integer[] sequence) {
-        int input = 0;
+    private void doPuzzle1(Long[] sequence) {
+        long input = 0L;
 
-        for (Integer s : sequence) {
-            int[] stepOpcodes = opcodes.clone();
+        for (Long s : sequence) {
+            long[] stepOpcodes = opcodes.clone();
 
             IntcodeComputer comp = new IntcodeComputer();
             comp.setInput(s, input);
@@ -68,34 +68,34 @@ public class Day7 extends SolutionTemplate {
         highestSignal = Math.max(highestSignal, input);
     }
 
-    private void doPuzzle2(Integer[] sequence) {
-        int lastOutput = 0;
+    private void doPuzzle2(Long[] sequence) {
+        long lastOutput = 0L;
 
-        int[] stepOpcodes1 = opcodes.clone();
+        long[] stepOpcodes1 = opcodes.clone();
         IntcodeComputer comp1 = new IntcodeComputer();
         comp1.setWaitForInput(true);
         comp1.setInput(sequence[0], 0);
         int pos1 = 0;
 
-        int[] stepOpcodes2 = opcodes.clone();
+        long[] stepOpcodes2 = opcodes.clone();
         IntcodeComputer comp2 = new IntcodeComputer();
         comp2.setWaitForInput(true);
         comp2.setInput(sequence[1]);
         int pos2 = 0;
 
-        int[] stepOpcodes3 = opcodes.clone();
+        long[] stepOpcodes3 = opcodes.clone();
         IntcodeComputer comp3 = new IntcodeComputer();
         comp3.setWaitForInput(true);
         comp3.setInput(sequence[2]);
         int pos3 = 0;
 
-        int[] stepOpcodes4 = opcodes.clone();
+        long[] stepOpcodes4 = opcodes.clone();
         IntcodeComputer comp4 = new IntcodeComputer();
         comp4.setWaitForInput(true);
         comp4.setInput(sequence[3]);
         int pos4 = 0;
 
-        int[] stepOpcodes5 = opcodes.clone();
+        long[] stepOpcodes5 = opcodes.clone();
         IntcodeComputer comp5 = new IntcodeComputer();
         comp5.setWaitForInput(true);
         comp5.setInput(sequence[4]);
