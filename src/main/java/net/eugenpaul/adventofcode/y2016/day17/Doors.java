@@ -1,7 +1,9 @@
 package net.eugenpaul.adventofcode.y2016.day17;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 @Getter
 public enum Doors {
     UP("U", 0, -1), //
@@ -13,10 +15,4 @@ public enum Doors {
     private String value;
     private int xChange;
     private int yChange;
-
-    private Doors(String value, int xChange, int yChange) {
-        this.value = value;
-        this.xChange = xChange;
-        this.yChange = yChange;
-    }
 }

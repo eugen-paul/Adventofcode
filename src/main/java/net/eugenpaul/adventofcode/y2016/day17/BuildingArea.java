@@ -5,17 +5,14 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import net.eugenpaul.adventofcode.helper.HexConverter;
 
+@AllArgsConstructor
 public class BuildingArea {
 
     private int xSize;
     private int ySize;
-
-    public BuildingArea(int xSize, int ySize) {
-        this.xSize = xSize;
-        this.ySize = ySize;
-    }
 
     public List<Doors> getOpenDoors(String passcode, int xPos, int yPos) {
         String hash = doMd5(passcode);
