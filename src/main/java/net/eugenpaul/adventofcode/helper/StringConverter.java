@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -161,6 +163,20 @@ public final class StringConverter {
                 var currentPos = new SimplePos(x, y);
                 var value = data.get(y).charAt(x) == trueChar;
                 response.put(currentPos, value);
+            }
+        }
+        return response;
+    }
+
+    public static Set<SimplePos> toSet(List<String> data, char trueChar) {
+        Set<SimplePos> response = new HashSet<>();
+        for (int y = 0; y < data.size(); y++) {
+            for (int x = 0; x < data.get(0).length(); x++) {
+                var currentPos = new SimplePos(x, y);
+                var value = data.get(y).charAt(x) == trueChar;
+                if (value) {
+                    response.add(currentPos);
+                }
             }
         }
         return response;

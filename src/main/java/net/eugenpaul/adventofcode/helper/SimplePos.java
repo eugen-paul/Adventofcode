@@ -52,6 +52,20 @@ public class SimplePos {
         y += b.getY();
     }
 
+    public SimplePos addNew(SimplePos b) {
+        return new SimplePos(//
+                x + b.x, //
+                y + b.y //
+        );
+    }
+
+    public SimplePos subNew(SimplePos b) {
+        return new SimplePos(//
+                x - b.x, //
+                y - b.y //
+        );
+    }
+
     public SimplePos copy() {
         return new SimplePos(x, y);
     }
