@@ -7,7 +7,9 @@ import lombok.Getter;
 public class CircleMemory<T> {
 
     public class CirclePosition {
+        @Getter
         private T data;
+        private CirclePosition prev;
         private CirclePosition next;
     }
 
@@ -22,11 +24,14 @@ public class CircleMemory<T> {
         newPosition.data = data;
 
         if (first == null) {
+            newPosition.prev = newPosition;
             newPosition.next = newPosition;
             first = newPosition;
             last = newPosition;
         } else {
+            newPosition.prev = last;
             newPosition.next = first;
+            first.prev = newPosition;
             first = newPosition;
             last.next = newPosition;
         }
@@ -41,11 +46,14 @@ public class CircleMemory<T> {
         newPosition.data = data;
 
         if (first == null) {
+            newPosition.prev = newPosition;
             newPosition.next = newPosition;
             first = newPosition;
             last = newPosition;
         } else {
+            newPosition.prev = last;
             newPosition.next = first;
+            first.prev = newPosition;
             last.next = newPosition;
             last = newPosition;
         }
@@ -62,7 +70,10 @@ public class CircleMemory<T> {
 
         CirclePosition newPosition = new CirclePosition();
         newPosition.data = data;
-        newPosition.next = after;
+        newPosition.prev = after;
+        newPosition.next = after.next;
+
+        after.next.prev = newPosition;
 
         after.next = newPosition;
 
@@ -85,6 +96,25 @@ public class CircleMemory<T> {
             response = response.next;
         }
         return response;
+    }
+
+    public CirclePosition removeAndMoveNext(CirclePosition pos) {
+        if (size <= 1) {
+            size = 0;
+            first = null;
+            last = null;
+            return null;
+        }
+
+        CirclePosition prev = pos.prev;
+
+        prev.next = pos.next;
+
+        CirclePosition next = pos.next;
+        next.prev = pos.prev;
+
+        size--;
+        return next;
     }
 
     public T getData(CirclePosition pos) {

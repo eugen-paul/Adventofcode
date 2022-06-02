@@ -1,30 +1,14 @@
 package net.eugenpaul.adventofcode.y2016.day19;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import net.eugenpaul.adventofcode.helper.CircleMemory;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day19 {
-
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day19.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day19.class.getName());
+public class Day19 extends SolutionTemplate {
 
     @Getter
     private int elfWithAllPresents;
@@ -36,35 +20,12 @@ public class Day19 {
         puzzle.doPuzzleFromFile("y2016/day19/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        String eventData = FileReaderHelper.readStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(String eventData) {
-        if (!doEvent(eventData)) {
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "elfWithAllPresents " + getElfWithAllPresents());
-        logger.log(Level.INFO, () -> "elfWithAllPresents2 " + getElfWithAllPresents2());
-
-        return true;
-    }
-
-    private boolean doEvent(String eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
+    @Override
+    public boolean doEvent(String eventData) {
         int elfNumber = Integer.parseInt(eventData);
 
         elfWithAllPresents = doPuzzle1(elfNumber);
-        elfWithAllPresents2 = doPuzzle2Fast(elfNumber);
+        elfWithAllPresents2 = doPuzzle2(elfNumber);
 
         // just for testing
         if (elfNumber < 1000) {
@@ -77,79 +38,63 @@ public class Day19 {
             }
         }
 
+        logger.log(Level.INFO, () -> "elfWithAllPresents " + getElfWithAllPresents());
+        logger.log(Level.INFO, () -> "elfWithAllPresents2 " + getElfWithAllPresents2());
+
         return true;
     }
 
     private int doPuzzle1(int elfNumber) {
-        LinkedList<Integer> elfs = new LinkedList<>();
-        for (int i = 1; i <= elfNumber; i++) {
-            elfs.add(i);
+        CircleMemory<Integer> cm = new CircleMemory<>();
+
+        CircleMemory<Integer>.CirclePosition first = cm.addFirst(1);
+        for (int i = 2; i <= elfNumber; i++) {
+            cm.addLast(i);
         }
 
-        boolean removeFirst = false;
-
-        while (elfs.size() > 1) {
-            ListIterator<Integer> iterator = elfs.listIterator();
-            while (iterator.hasNext()) {
-                if (removeFirst) {
-                    iterator.next();
-                    iterator.remove();
-                    removeFirst = false;
-                    continue;
-                }
-
-                iterator.next();
-                if (iterator.hasNext()) {
-                    iterator.next();
-                    iterator.remove();
-                } else {
-                    removeFirst = true;
-                }
-            }
+        CircleMemory<Integer>.CirclePosition position = first;
+        while (cm.getSize() > 1) {
+            position = cm.moveNext(position);
+            position = cm.removeAndMoveNext(position);
         }
 
-        return elfs.get(0);
+        return position.getData();
     }
 
     /**
-     * If the number of elves is even then delete an one elf sitting directly opposite, else delete two elves. Then perform the following step (in a circle) as
+     * If the number of elves is even then delete an two elf sitting directly opposite, else delete one elves. Then perform the following step (in a circle) as
      * long as the number of remaining elves is greater than 1: Skip one elf and delete two next ones.
      * 
      * @param elfNumber
      * @return
      */
-    private int doPuzzle2Fast(int elfNumber) {
-        LinkedList<Integer> elfs = new LinkedList<>();
-        for (int i = 1; i <= elfNumber; i++) {
-            elfs.add(i);
+    private int doPuzzle2(int elfNumber) {
+        CircleMemory<Integer> cm = new CircleMemory<>();
+
+        CircleMemory<Integer>.CirclePosition first = cm.addFirst(1);
+        for (int i = 2; i <= elfNumber; i++) {
+            cm.addLast(i);
         }
 
-        Integer lastElement = null;
+        boolean even = elfNumber % 2 == 0;
+        CircleMemory<Integer>.CirclePosition position = cm.moveNext(first, (elfNumber / 2));
+        if (even) {
+            position = cm.removeAndMoveNext(position);
+            position = cm.removeAndMoveNext(position);
+        } else {
+            position = cm.removeAndMoveNext(position);
+        }
 
-        int cnt = elfs.size() % 2 + 1;
-        int offset = elfs.size() / 2;
-
-        while (elfs.size() > 1) {
-            ListIterator<Integer> iterator = elfs.listIterator();
-            int pos = 0;
-            while (iterator.hasNext()) {
-                lastElement = iterator.next();
-                if (pos >= offset) {
-                    if (cnt % 3 != 0) {
-                        iterator.remove();
-                    }
-                    cnt++;
-                }
-                pos++;
+        while (cm.getSize() > 1) {
+            position = cm.moveNext(position);
+            position = cm.removeAndMoveNext(position);
+            if (cm.getSize() == 1) {
+                break;
             }
-
-            offset = 0;
+            position = cm.removeAndMoveNext(position);
         }
 
-        if (elfs.isEmpty()) {
-            return lastElement;
-        }
-        return elfs.get(0);
+        return position.getData();
     }
 
     private int doPuzzle2Slow(int elfNumber) {

@@ -1,58 +1,31 @@
 package net.eugenpaul.adventofcode.y2016.day18;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Setter;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day18 {
-
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day18.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day18.class.getName());
+public class Day18 extends SolutionTemplate {
 
     @Getter
     private int safeTiles;
 
+    @Setter
+    private int rows;
+
     public static void main(String[] args) {
         Day18 puzzle = new Day18();
-        puzzle.doPuzzleFromFile("y2016/day18/puzzle1.txt", 40);
-        puzzle.doPuzzleFromFile("y2016/day18/puzzle1.txt", 400000);
+        puzzle.rows = 40;
+        puzzle.doPuzzleFromFile("y2016/day18/puzzle1.txt");
+        puzzle.rows = 400000;
+        puzzle.doPuzzleFromFile("y2016/day18/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename, int rows) {
-        String eventData = FileReaderHelper.readStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData, rows);
-    }
-
-    public boolean doPuzzleFromData(String eventData, int rows) {
-        if (!doEvent(eventData, rows)) {
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "safeTiles " + getSafeTiles() + " in " + rows + " rows.");
-
-        return true;
-    }
-
-    private boolean doEvent(String eventData, int rows) {
+    @Override
+    public boolean doEvent(String eventData) {
         if (null == eventData) {
             return false;
         }
@@ -72,6 +45,8 @@ public class Day18 {
             initRow = computeNextRow(initRow);
             rowCounter++;
         }
+
+        logger.log(Level.INFO, () -> "safeTiles " + getSafeTiles() + " in " + rows + " rows.");
 
         return true;
     }
