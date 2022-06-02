@@ -37,13 +37,11 @@ public class Day10 extends SolutionTemplate {
         int maxDetected = 0;
         SimplePos bestPosition = new SimplePos(-1, -1);
 
-        for (int x = 0; x < maxX; x++) {
-            for (int y = 0; y < maxY; y++) {
-                int currentDetected = getDetect(asteroids, new SimplePos(x, y), maxX, maxY);
-                if (currentDetected > maxDetected) {
-                    bestPosition = new SimplePos(x, y);
-                    maxDetected = currentDetected;
-                }
+        for (SimplePos simplePos : asteroids) {
+            int currentDetected = getDetect(asteroids, simplePos, maxX, maxY);
+            if (currentDetected > maxDetected) {
+                bestPosition = simplePos;
+                maxDetected = currentDetected;
             }
         }
 
