@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2019 [22/50]
+## Year 2019 [24/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -15,7 +15,7 @@
 | 9  | ⭐⭐ | [Day 9: Sensor Boost](day9) |
 | 10 | ⭐⭐ | [Day 10: Monitoring Station](day10) |
 | 11 | ⭐⭐ | [Day 11: Space Police](day11) |
-| 12 |  |  |
+| 12 | ⭐⭐ | [Day 12: The N-Body Problem](day12) |
 | 13 |  |  |
 | 14 |  |  |
 | 15 |  |  |

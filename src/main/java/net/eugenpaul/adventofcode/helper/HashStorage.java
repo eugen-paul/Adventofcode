@@ -7,19 +7,19 @@ import lombok.Getter;
 
 public class HashStorage {
 
-    Map<String, Integer> storage;
+    Map<String, Long> storage;
 
     @Getter
-    Integer cycleBegin = null;
+    Long cycleBegin = null;
 
     @Getter
-    Integer cycleEnd = null;
+    Long cycleEnd = null;
 
     public HashStorage() {
         storage = new HashMap<>();
     }
 
-    public boolean add(String hash, Integer step) {
+    public boolean add(String hash, Long step) {
         if (storage.containsKey(hash)) {
             if (cycleBegin == null) {
                 cycleBegin = storage.get(hash);
@@ -36,13 +36,13 @@ public class HashStorage {
             return storage.entrySet().stream().filter(v -> v.getValue() == step).findFirst().orElseThrow().getKey();
         }
 
-        int delta = cycleEnd - cycleBegin + 1;
-        if (delta == 0) {
+        long delta = cycleEnd - cycleBegin + 1L;
+        if (delta == 0L) {
             return "";
         }
-        int rest = step - cycleEnd - 1;
-        int restMod = rest % delta;
-        int responseStep = cycleBegin + restMod;
+        long rest = step - cycleEnd - 1L;
+        long restMod = rest % delta;
+        long responseStep = cycleBegin + restMod;
 
         return storage.entrySet().stream().filter(v -> v.getValue() == responseStep).findFirst().orElseThrow().getKey();
     }
