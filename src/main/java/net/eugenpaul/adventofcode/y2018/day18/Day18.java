@@ -71,7 +71,7 @@ public class Day18 extends SolutionTemplate {
 
             String hash = toHash(area);
 
-            if (storage.add(hash, i)) {
+            if (storage.add(hash, (long) i)) {
                 break;
             }
         }
