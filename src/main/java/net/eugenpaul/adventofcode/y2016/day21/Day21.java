@@ -1,30 +1,16 @@
 package net.eugenpaul.adventofcode.y2016.day21;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Setter;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.y2016.day21.operation.OperationFactory;
 import net.eugenpaul.adventofcode.y2016.day21.operation.ScrambleOperation;
 
-public class Day21 {
-
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day21.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day21.class.getName());
+public class Day21 extends SolutionTemplate {
 
     @Getter
     private String password;
@@ -32,36 +18,18 @@ public class Day21 {
     @Getter
     private String unScrambled;
 
+    @Setter
+    private String text = "abcdefgh";
+    @Setter
+    private String pwd = "fbgdceah";
+
     public static void main(String[] args) {
         Day21 puzzle = new Day21();
         puzzle.doPuzzleFromFile("y2016/day21/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData, "abcdefgh", "fbgdceah");
-    }
-
-    public boolean doPuzzleFromData(List<String> eventData, String text, String pwd) {
-        if (!doEvent(eventData, text, pwd)) {
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "password " + getPassword());
-        logger.log(Level.INFO, () -> "unScrambled " + getUnScrambled());
-
-        return true;
-    }
-
-    private boolean doEvent(List<String> eventData, String text, String pwd) {
-        if (null == eventData) {
-            return false;
-        }
-
+    @Override
+    public boolean doEvent(List<String> eventData) {
         List<ScrambleOperation> op = eventData.stream()//
                 .map(OperationFactory::fromString)//
                 .collect(Collectors.toList());
@@ -81,6 +49,9 @@ public class Day21 {
         }
 
         unScrambled = builder.toString();
+
+        logger.log(Level.INFO, () -> "password " + getPassword());
+        logger.log(Level.INFO, () -> "unScrambled " + getUnScrambled());
 
         return true;
     }

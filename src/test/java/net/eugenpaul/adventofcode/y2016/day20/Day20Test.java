@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+
 class Day20Test {
 
     @Test
@@ -75,9 +77,22 @@ class Day20Test {
     private void testPuzzle1(List<String> inputData, long lowestIp, long allowedIpsCount) {
         Day20 event = new Day20();
 
-        assertTrue(event.doPuzzleFromData(inputData, 0, 15));
+        event.setMin(0);
+        event.setMax(15);
+
+        assertTrue(event.doPuzzleFromData(inputData));
         assertEquals(lowestIp, event.getLowestIp());
         assertEquals(allowedIpsCount, event.getIpCount());
+    }
+
+    @Test
+    void testSolution2016Day20() {
+        Day20 event = new Day20();
+
+        List<String> eventData = FileReaderHelper.readListStringFromFile("y2016/day20/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+        assertEquals(14975795, event.getLowestIp());
+        assertEquals(101, event.getIpCount());
     }
 
 }

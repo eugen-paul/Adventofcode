@@ -1,30 +1,16 @@
 package net.eugenpaul.adventofcode.y2016.day20;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import lombok.Setter;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day20 {
-
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day20.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day20.class.getName());
+public class Day20 extends SolutionTemplate {
 
     @Getter
     private long lowestIp;
@@ -32,36 +18,18 @@ public class Day20 {
     @Getter
     private long ipCount;
 
+    @Setter
+    private long min = 0L;
+    @Setter
+    private long max = 4294967295L;
+
     public static void main(String[] args) {
         Day20 puzzle = new Day20();
         puzzle.doPuzzleFromFile("y2016/day20/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
-        if (null == eventData) {
-            return false;
-        }
-
-        return doPuzzleFromData(eventData, 0, 4294967295L);
-    }
-
-    public boolean doPuzzleFromData(List<String> eventData, long min, long max) {
-        if (!doEvent(eventData, min, max)) {
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "lowestIp " + getLowestIp());
-        logger.log(Level.INFO, () -> "ipCount " + getIpCount());
-
-        return true;
-    }
-
-    private boolean doEvent(List<String> eventData, long min, long max) {
-        if (null == eventData) {
-            return false;
-        }
-
+    @Override
+    public boolean doEvent(List<String> eventData) {
         List<Firewall> firewalls = eventData.stream()//
                 .map(Firewall::fromString)//
                 .collect(Collectors.toList());
@@ -82,6 +50,9 @@ public class Day20 {
         ipCount = allowedIps.stream()//
                 .map(v -> v.getTo() - v.getFrom() + 1)//
                 .reduce(0L, (a, b) -> a + b);
+
+        logger.log(Level.INFO, () -> "lowestIp " + getLowestIp());
+        logger.log(Level.INFO, () -> "ipCount " + getIpCount());
 
         return true;
     }
