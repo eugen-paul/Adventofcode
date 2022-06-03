@@ -37,7 +37,13 @@ public final class MathHelper {
             return a;
         else
             return gcf(b, a % b);
+    }
 
+    public static long gcf(long a, long b) {
+        if (a == b || b == 0)
+            return a;
+        else
+            return gcf(b, a % b);
     }
 
     /**
@@ -48,6 +54,10 @@ public final class MathHelper {
      * @return
      */
     public static int lcm(int a, int b) {
+        return a * (b / gcf(a, b));
+    }
+
+    public static long lcm(long a, long b) {
         return a * (b / gcf(a, b));
     }
 }
