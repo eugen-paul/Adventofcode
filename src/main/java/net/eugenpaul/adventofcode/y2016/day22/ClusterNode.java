@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
+import net.eugenpaul.adventofcode.helper.SimplePos;
 
 @Getter
 @AllArgsConstructor
@@ -25,8 +26,8 @@ public class ClusterNode {
         return used == 0;
     }
 
-    public ClusterPosition getPosition() {
-        return new ClusterPosition(x, y);
+    public SimplePos getPosition() {
+        return new SimplePos(x, y);
     }
 
     public static ClusterNode fromString(String data) {
