@@ -4,19 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import net.eugenpaul.adventofcode.helper.SimplePos;
 
 public class DuctLayout {
-    @AllArgsConstructor
-    @Data
-    public static class Pos {
-        private int x;
-        private int y;
-    }
 
     private boolean[][] layout;
-    private Map<Pos, Integer> numbers = new HashMap<>();
+    private Map<SimplePos, Integer> numbers = new HashMap<>();
 
     public static DuctLayout fromStringList(List<String> data) {
         int w = data.get(0).length();
@@ -38,16 +31,16 @@ public class DuctLayout {
         return response;
     }
 
-    private static void checkAndsetNumber(int x, int y, char c, Map<Pos, Integer> numbers) {
+    private static void checkAndsetNumber(int x, int y, char c, Map<SimplePos, Integer> numbers) {
         if (c < '0' || c > '9') {
             return;
         }
 
-        numbers.put(new Pos(x, y), c - '0');
+        numbers.put(new SimplePos(x, y), c - '0');
     }
 
     public char getCoordinates(int x, int y) {
-        Pos p = new Pos(x, y);
+        SimplePos p = new SimplePos(x, y);
         var number = numbers.get(p);
         if (number != null) {
             return number.toString().charAt(0);
@@ -68,12 +61,12 @@ public class DuctLayout {
         return layout[0].length;
     }
 
-    public Pos getNumberPosition(int n) {
+    public SimplePos getNumberPosition(int n) {
         var iterator = numbers.entrySet().iterator();
         while (iterator.hasNext()) {
             var entry = iterator.next();
             if (entry.getValue().intValue() == n) {
-                return new Pos(entry.getKey().getX(), entry.getKey().getY());
+                return new SimplePos(entry.getKey().getX(), entry.getKey().getY());
             }
         }
         return null;
