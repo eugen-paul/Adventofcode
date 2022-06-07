@@ -18,7 +18,7 @@ import net.eugenpaul.adventofcode.helper.StringConverter;
 public class Day13 extends SolutionTemplate {
 
     @AllArgsConstructor
-    private static enum Tile {
+    private enum Tile {
         EMPTY(0L, ' '), WALL(1L, '#'), BLOCK(2L, '*'), PADDLE(3L, '-'), BALL(4L, 'o');
 
         @Getter

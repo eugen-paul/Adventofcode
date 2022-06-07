@@ -1,30 +1,17 @@
 package net.eugenpaul.adventofcode.y2016.day22;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+import net.eugenpaul.adventofcode.helper.MapOfSimplePos;
+import net.eugenpaul.adventofcode.helper.SimplePos;
+import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day22 {
-
-    static {
-        // must set before the Logger loads logging.properties from the classpath
-        try (InputStream is = Day22.class.getClassLoader().getResourceAsStream("logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Logger logger = Logger.getLogger(Day22.class.getName());
+public class Day22 extends SolutionTemplate {
 
     @Getter
     private int viablePairs;
@@ -34,31 +21,13 @@ public class Day22 {
         puzzle.doPuzzleFromFile("y2016/day22/puzzle1.txt");
     }
 
-    public boolean doPuzzleFromFile(String filename) {
-        List<String> eventData = FileReaderHelper.readListStringFromFile(filename);
+    @Override
+    public boolean doEvent(List<String> eventData) {
         if (null == eventData) {
             return false;
         }
 
-        return doPuzzleFromData(eventData);
-    }
-
-    public boolean doPuzzleFromData(List<String> eventData) {
-        if (!doEvent(eventData)) {
-            return false;
-        }
-
-        logger.log(Level.INFO, () -> "viablePairs " + getViablePairs());
-
-        return true;
-    }
-
-    private boolean doEvent(List<String> eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
-        Map<ClusterPosition, ClusterNode> nodes = eventData//
+        Map<SimplePos, ClusterNode> nodes = eventData//
                 .stream()//
                 .map(ClusterNode::fromString)//
                 .filter(Objects::nonNull) //
@@ -68,10 +37,12 @@ public class Day22 {
 
         printField(nodes);
 
+        logger.log(Level.INFO, () -> "viablePairs " + getViablePairs());
+
         return true;
     }
 
-    private int countViablePairs(Map<ClusterPosition, ClusterNode> nodes) {
+    private int countViablePairs(Map<SimplePos, ClusterNode> nodes) {
         var iteratorA = nodes.entrySet().iterator();
         int counter = 0;
         while (iteratorA.hasNext()) {
@@ -100,15 +71,11 @@ public class Day22 {
                 && a.getUsed() <= b.getFree();
     }
 
-    private void printField(Map<ClusterPosition, ClusterNode> nodes) {
+    private void printField(Map<SimplePos, ClusterNode> nodes) {
         var maxX = nodes.keySet().stream()//
-                .map(ClusterPosition::getX)//
+                .map(SimplePos::getX)//
                 .sorted((a, b) -> b - a)//
                 .collect(Collectors.toList()).get(0);
-
-        if (maxX == 0) {
-            return;
-        }
 
         // the are only one empty node
         var fullSize = nodes.entrySet().stream()//
@@ -117,23 +84,19 @@ public class Day22 {
                 .findFirst()//
                 .orElse(100) * 2;
 
-        for (int y = 0; y < nodes.size() / (maxX + 1); y++) {
-            StringBuilder line = new StringBuilder(maxX);
-            for (int x = 0; x <= maxX; x++) {
-                if (x == 0 && y == 0) {
-                    line.append("0");
-                } else if (x == maxX && y == 0) {
-                    line.append("G");
-                } else if (nodes.get(new ClusterPosition(x, y)).getUsed() == 0) {
-                    line.append("_");
-                } else if (nodes.get(new ClusterPosition(x, y)).getSize() > fullSize) {
-                    line.append("#");
-                } else {
-                    line.append(".");
-                }
+        MapOfSimplePos.printList(MapOfSimplePos.mapToPrintList(nodes, v -> {
+            if (v.getX() == 0 && v.getY() == 0) {
+                return '0';
+            } else if (v.getX() == maxX && v.getY() == 0) {
+                return 'G';
+            } else if (nodes.get(v.getPosition()).getUsed() == 0) {
+                return '_';
+            } else if (nodes.get(v.getPosition()).getSize() > fullSize) {
+                return '#';
+            } else {
+                return '.';
             }
-            logger.log(Level.INFO, line::toString);
-        }
+        }));
     }
 
 }
