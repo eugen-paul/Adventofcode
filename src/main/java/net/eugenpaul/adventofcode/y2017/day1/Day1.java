@@ -20,10 +20,6 @@ public class Day1 extends SolutionTemplate {
 
     @Override
     public boolean doEvent(String eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
         long[] digits = StringConverter.digitsToLongArray(eventData);
 
         doPuzzle1(digits);

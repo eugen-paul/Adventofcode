@@ -3,7 +3,11 @@ package net.eugenpaul.adventofcode.y2017.day3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
+
+import net.eugenpaul.adventofcode.helper.FileReaderHelper;
 
 class Day3Test {
 
@@ -40,6 +44,16 @@ class Day3Test {
 
         assertTrue(event.doPuzzleFromData(inputData));
         assertEquals(solution2, event.getSolution2());
+    }
+
+    @Test
+    void testSolution2017Day3() {
+        Day3 event = new Day3();
+
+        List<String> eventData = FileReaderHelper.readListStringFromFile("y2017/day3/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+        assertEquals(430, event.getSteps());
+        assertEquals(312453, event.getSolution2());
     }
 
 }

@@ -21,10 +21,6 @@ public class Day2 extends SolutionTemplate {
 
     @Override
     public boolean doEvent(List<String> eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
         checksum = 0;
         checksum2 = 0;
         for (String string : eventData) {
