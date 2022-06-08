@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+
 class Day2Test {
 
     @Test
@@ -45,6 +47,16 @@ class Day2Test {
 
         assertTrue(event.doPuzzleFromData(inputData));
         assertEquals(sum2, event.getChecksum2());
+    }
+
+    @Test
+    void testSolution2017Day2() {
+        Day2 event = new Day2();
+
+        List<String> eventData = FileReaderHelper.readListStringFromFile("y2017/day2/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+        assertEquals(44670, event.getChecksum());
+        assertEquals(285, event.getChecksum2());
     }
 
 }

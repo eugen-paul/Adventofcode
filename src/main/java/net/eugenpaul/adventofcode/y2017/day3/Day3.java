@@ -49,14 +49,10 @@ public class Day3 extends SolutionTemplate {
 
     @Override
     public boolean doEvent(String eventData) {
-        if (null == eventData) {
-            return false;
-        }
-
         Integer inputData = Integer.parseInt(eventData);
 
-        steps = duPuzzle1(inputData);
-        solution2 = duPuzzle2(inputData);
+        steps = doPuzzle1(inputData);
+        solution2 = doPuzzle2(inputData);
 
         logger.log(Level.INFO, () -> "steps : " + getSteps());
         logger.log(Level.INFO, () -> "solution2 : " + getSolution2());
@@ -64,7 +60,7 @@ public class Day3 extends SolutionTemplate {
         return true;
     }
 
-    private int duPuzzle1(Integer inputData) {
+    private int doPuzzle1(Integer inputData) {
         int ring = getRing(inputData);
         int m = getMaxOfTheRing(ring);
         int s = ringSideLength(ring);
@@ -73,7 +69,7 @@ public class Day3 extends SolutionTemplate {
         return (ring - 1) + Math.abs(s / 2 - position);
     }
 
-    private int duPuzzle2(Integer inputData) {
+    private int doPuzzle2(Integer inputData) {
         Map<String, Integer> ringsData = new HashMap<>();
         ringsData.put("0:0", 1);
 
