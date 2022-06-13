@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2019 [28/50]
+## Year 2019 [30/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -18,7 +18,7 @@
 | 12 | ⭐⭐ | [Day 12: The N-Body Problem](day12) |
 | 13 | ⭐⭐ | [Day 13: Care Package](day13) |
 | 14 | ⭐⭐ | [Day 14: Space Stoichiometry](day14) |
-| 15 |  |  |
+| 15 | ⭐⭐ | [Day 15: Oxygen System](day15) |
 | 16 |  |  |
 | 17 |  |  |
 | 18 |  |  |
