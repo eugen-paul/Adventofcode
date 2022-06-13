@@ -53,6 +53,27 @@ public class Dijkstra {
         return (int) reachedSteps.values().stream().filter(v -> v <= stepCount).count();
     }
 
+    public int getFullSpreadTime(Maze areaOrigin, SimplePos start) {
+        int responseSpreadTime = 0;
+
+        reachedSteps.put(start, 0);
+
+        checkAndAddNextSteps(areaOrigin, start);
+
+        while (!nextSteps.isEmpty()) {
+            LinkedList<SimplePos> nextStepsToCheck = new LinkedList<>(nextSteps);
+            nextSteps.clear();
+
+            for (SimplePos nextStep : nextStepsToCheck) {
+                checkAndAddNextSteps(areaOrigin, nextStep);
+            }
+
+            responseSpreadTime++;
+        }
+
+        return responseSpreadTime;
+    }
+
     private void checkAndAddNextSteps(Maze area, SimplePos src) {
         List<SimplePos> reachableStepsFromSrc = area.getNextSteps(src);
         int stepCounter = reachedSteps.get(src);
