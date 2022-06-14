@@ -19,7 +19,7 @@
 | 13 | ⭐⭐ | [Day 13: Care Package](day13) |
 | 14 | ⭐⭐ | [Day 14: Space Stoichiometry](day14) |
 | 15 | ⭐⭐ | [Day 15: Oxygen System](day15) |
-| 16 |  |  |
+| 16 | ⭐ | [Day 16: Flawed Frequency Transmission](day16) |
 | 17 |  |  |
 | 18 |  |  |
 | 19 |  |  |
