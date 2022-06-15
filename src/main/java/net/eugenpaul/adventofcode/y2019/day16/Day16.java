@@ -3,7 +3,7 @@ package net.eugenpaul.adventofcode.y2019.day16;
 import java.util.logging.Level;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.HashStorage;
+import lombok.Setter;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.helper.StringConverter;
 
@@ -13,6 +13,9 @@ public class Day16 extends SolutionTemplate {
     private String output;
     @Getter
     private String realOutput;
+
+    @Setter
+    private boolean doStep2 = true;
 
     private int[] basePattern = { 0, 1, 0, -1 };
 
@@ -24,15 +27,11 @@ public class Day16 extends SolutionTemplate {
     @Override
     public boolean doEvent(String eventData) {
 
-        output = doPuzzle(eventData);
+        output = doPuzzle1(eventData);
 
-        // int rep = 2;
-        // StringBuilder realInput = new StringBuilder(rep * eventData.length());
-        // for (int i = 0; i < rep; i++) {
-        //     realInput.append(eventData);
-        // }
-
-        // String realOutputFFT = doPuzzle(realInput.toString());
+        if (doStep2) {
+            realOutput = doPuzzle2(eventData);
+        }
 
         logger.log(Level.INFO, () -> "output     : " + getOutput());
         logger.log(Level.INFO, () -> "realOutput : " + getRealOutput());
@@ -40,10 +39,8 @@ public class Day16 extends SolutionTemplate {
         return true;
     }
 
-    private String doPuzzle(String eventData) {
+    private String doPuzzle1(String eventData) {
         long[] digits = StringConverter.digitsToLongArray(eventData);
-        // HashStorage hs = new HashStorage();
-        // hs.add(digitsToString(digits), 0L);
 
         for (int i = 0; i < 100; i++) {
             long[] outputData = new long[digits.length];
@@ -51,12 +48,7 @@ public class Day16 extends SolutionTemplate {
                 int[] mult = getPattern(j + 1, digits.length);
                 outputData[j] = getDigit(digits, mult);
             }
-            // if (hs.add(digitsToString(outputData), (long) i)) {
-            // System.out.println("FOUND");
-            // }
             digits = outputData;
-            // System.out.println("phase: " + i);
-            // System.out.println(digitsToString(digits));
         }
 
         StringBuilder outputString = new StringBuilder();
@@ -64,16 +56,54 @@ public class Day16 extends SolutionTemplate {
             outputString.append(digits[i]);
         }
 
-        // System.out.println(digitsToString(digits));
-
         return outputString.toString();
     }
 
-    private String digitsToString(long[] digits) {
-        StringBuilder outputString = new StringBuilder();
-        for (long j : digits) {
-            outputString.append(j);
+    /**
+     * The digits from n/2, where n is equal to the total length, are always the sum of all subsequent digits. It is so because of the repetition of the digit 1
+     * in basic pattern. Since the offset is after n/2, you do not have to calculate the whole output but only the last digits from the offset.
+     * 
+     * <code>
+     * Input signal: 12345678
+     * 1*1  + 2*0  + 3*-1 + 4*0  + 5*1  + 6*0  + 7*-1 + 8*0  = 4
+     * 1*0  + 2*1  + 3*1  + 4*0  + 5*0  + 6*-1 + 7*-1 + 8*0  = 8
+     * 1*0  + 2*0  + 3*1  + 4*1  + 5*1  + 6*0  + 7*0  + 8*0  = 2
+     * 1*0  + 2*0  + 3*0  + 4*1  + 5*1  + 6*1  + 7*1  + 8*0  = 2
+     * 1*0  + 2*0  + 3*0  + 4*0  + 5*1  + 6*1  + 7*1  + 8*1  = 6 <- sum of {n-3, n-2, n-1, n}
+     * 1*0  + 2*0  + 3*0  + 4*0  + 5*0  + 6*1  + 7*1  + 8*1  = 1 <- sum of {n-2, n-1, n}
+     * 1*0  + 2*0  + 3*0  + 4*0  + 5*0  + 6*0  + 7*1  + 8*1  = 5 <- sum of {n-1, n}
+     * 1*0  + 2*0  + 3*0  + 4*0  + 5*0  + 6*0  + 7*0  + 8*1  = 8 <- sum of {n}
+     * </code>
+     * 
+     * @param eventData
+     * @return
+     */
+    private String doPuzzle2(String eventData) {
+        long[] digitspart = StringConverter.digitsToLongArray(eventData);
+        long[] digits = new long[digitspart.length * 10_000];
+
+        for (int i = 0; i < 10_000; i++) {
+            System.arraycopy(digitspart, 0, digits, digitspart.length * i, digitspart.length);
         }
+
+        int offset = Integer.parseInt(eventData.substring(0, 7));
+
+        for (int i = 0; i < 100; i++) {
+            long[] outputData = new long[digits.length];
+            long value = 0L;
+            for (int pos = digits.length - 1; pos >= offset; pos--) {
+                value += digits[pos];
+                value = (Math.abs(value) % 10L);
+                outputData[pos] = value;
+            }
+            digits = outputData;
+        }
+
+        StringBuilder outputString = new StringBuilder();
+        for (int i = offset; i < offset + 8; i++) {
+            outputString.append(digits[i]);
+        }
+
         return outputString.toString();
     }
 
