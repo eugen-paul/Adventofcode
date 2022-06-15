@@ -18,16 +18,25 @@ class Day16Test {
         testPuzzle1("69317163492948606335995924319873", "52432133");
     }
 
-    // @Test
-    // void testTest2019Day16_testPuzzle2() {
-    //     testPuzzle1("03036732577212944063491565474664", 24176176);
-    // }
-
     private void testPuzzle1(String inputData, String output) {
+        Day16 event = new Day16();
+        event.setDoStep2(false);
+        assertTrue(event.doEvent(inputData));
+        assertEquals(output, event.getOutput());
+    }
+
+    @Test
+    void testTest2019Day16_testPuzzle2() {
+        testPuzzle2("03036732577212944063491565474664", "84462026");
+        testPuzzle2("02935109699940807407585447034323", "78725270");
+        testPuzzle2("03081770884921959731165446850517", "53553731");
+    }
+
+    private void testPuzzle2(String inputData, String output) {
         Day16 event = new Day16();
 
         assertTrue(event.doEvent(inputData));
-        assertEquals(output, event.getOutput());
+        assertEquals(output, event.getRealOutput());
     }
 
     @Test
@@ -37,7 +46,7 @@ class Day16Test {
         List<String> eventData = FileReaderHelper.readListStringFromFile("y2019/day16/puzzle1.txt");
         assertTrue(event.doPuzzleFromData(eventData));
         assertEquals("37153056", event.getOutput());
-        // assertEquals(13108426, event.getFuel41kkk());
+        assertEquals("60592199", event.getRealOutput());
     }
 
 }
