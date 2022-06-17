@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2019 [32/50]
+## Year 2019 [34/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -20,7 +20,7 @@
 | 14 | ⭐⭐ | [Day 14: Space Stoichiometry](day14) |
 | 15 | ⭐⭐ | [Day 15: Oxygen System](day15) |
 | 16 | ⭐⭐ | [Day 16: Flawed Frequency Transmission](day16) |
-| 17 |  |  |
+| 17 | ⭐⭐ | [Day 17: Set and Forget](day17) |
 | 18 |  |  |
 | 19 |  |  |
 | 20 |  |  |
