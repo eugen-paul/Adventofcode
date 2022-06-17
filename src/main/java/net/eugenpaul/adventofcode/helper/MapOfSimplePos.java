@@ -74,6 +74,40 @@ public final class MapOfSimplePos {
         return response;
     }
 
+    public static <T, E> List<String> mapToPrintList(Map<SimplePos, T> map, Function<T, Character> tToChar, Map<SimplePos, E> mapObj,
+            Function<E, Character> eToChar) {
+        int xMin = Integer.MAX_VALUE;
+        int xMax = Integer.MIN_VALUE;
+        int yMin = Integer.MAX_VALUE;
+        int yMax = Integer.MIN_VALUE;
+
+        for (var entry : map.entrySet()) {
+            xMin = Math.min(xMin, entry.getKey().getX());
+            xMax = Math.max(xMax, entry.getKey().getX());
+            yMin = Math.min(yMin, entry.getKey().getY());
+            yMax = Math.max(yMax, entry.getKey().getY());
+        }
+
+        List<String> response = new LinkedList<>();
+
+        for (int y = yMin; y <= yMax; y++) {
+            StringBuilder line = new StringBuilder();
+            for (int x = xMin; x <= xMax; x++) {
+                SimplePos pos = new SimplePos(x, y);
+                if (mapObj.get(pos) != null) {
+                    var value = eToChar.apply(mapObj.get(pos));
+                    line.append(value);
+                } else {
+                    var value = tToChar.apply(map.get(pos));
+                    line.append(value);
+                }
+            }
+            response.add(line.toString());
+        }
+
+        return response;
+    }
+
     public static <T> List<String> mapToPrintList(Map<SimplePos, T> map, Function<T, Character> tToChar, SimplePos minPos, SimplePos maxPos) {
         int xMin = minPos.getX();
         int xMax = maxPos.getX();
