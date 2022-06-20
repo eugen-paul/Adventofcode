@@ -58,7 +58,7 @@ public class Day17 extends SolutionTemplate {
         // my way is "L12R8L6R8L6R8L12L12R8L12R8L6R8L6L12R8L6R8L6R8L12L12R8L6R6L12R8L12L12R8L6R6L12L6R6L12R8L12L12R8"
         // The chain "R6" occurs three times. From this I have joined adjacent nodes of R6 to functino a. So that the function A is as long as possible.
         // => A = L,6,R,6,L,12 = 76 44 54 44 82 44 54 44 76 44 49 50
-        // In the rest of the episodes you can see the episode "R8L12L12R8". The sequence was merged to function B.
+        // In the rest of the sequence you can see the small sequence "R8L12L12R8". The sequence was merged to function B.
         // => B = R,8,L,12,L,12,R,8 = 82 44 56 44 76 44 49 50 44 76 44 49 50 44 82 44 56
         // Rest is the function C
         // => C = L,12,R,8,L,6,R,8,L,6 = 76 44 49 50 44 82 44 56 44 76 44 54 44 82 44 56 44 76 44 54

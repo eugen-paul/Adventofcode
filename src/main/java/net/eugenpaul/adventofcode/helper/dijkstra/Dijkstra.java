@@ -18,14 +18,15 @@ public class Dijkstra {
         nextSteps = new LinkedList<>();
     }
 
-    public int getSteps(Maze area, SimplePos from, SimplePos to) {
+    public Integer getSteps(Maze area, SimplePos from, SimplePos to) {
+        SimplePos checkPosition = from;
         // set first Position as reached
-        reachedSteps.put(from, 0);
+        reachedSteps.put(checkPosition, 0);
 
         // pathfinding
-        while (!to.equals(from)) {
-            checkAndAddNextSteps(area, from);
-            from = nextSteps.poll();
+        while (checkPosition != null && !to.equals(checkPosition)) {
+            checkAndAddNextSteps(area, checkPosition);
+            checkPosition = nextSteps.poll();
         }
 
         return reachedSteps.get(to);
@@ -51,6 +52,21 @@ public class Dijkstra {
         }
 
         return (int) reachedSteps.values().stream().filter(v -> v <= stepCount).count();
+    }
+
+    public Map<SimplePos, Integer> getReachableFields(Maze area, int fromX, int fromY) {
+        SimplePos from = new SimplePos(fromX, fromY);
+
+        // set first Position as reached
+        reachedSteps.put(from, 0);
+
+        // pathfinding
+        while (from != null) {
+            checkAndAddNextSteps(area, from);
+            from = nextSteps.poll();
+        }
+
+        return new HashMap<>(reachedSteps);
     }
 
     public int getFullSpreadTime(Maze areaOrigin, SimplePos start) {

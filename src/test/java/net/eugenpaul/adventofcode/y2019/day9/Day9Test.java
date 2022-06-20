@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
 import net.eugenpaul.adventofcode.helper.FileReaderHelper;
@@ -39,7 +38,7 @@ class Day9Test {
                 outputs.add(comp.removeOutput());
             }
         }
-        assertArrayEquals(opcodesArray, ArrayUtils.toPrimitive(outputs.toArray(new Long[0])));
+        assertArrayEquals(opcodesArray, outputs.stream().mapToLong(Long::intValue).toArray());
     }
 
     @Test
