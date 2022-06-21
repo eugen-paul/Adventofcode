@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2019 [36/50]
+## Year 2019 [38/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -22,7 +22,7 @@
 | 16 | ⭐⭐ | [Day 16: Flawed Frequency Transmission](day16) |
 | 17 | ⭐⭐ | [Day 17: Set and Forget](day17) |
 | 18 | ⭐⭐ | [Day 18: Many-Worlds Interpretation](day18) |
-| 19 |  |  |
+| 19 | ⭐⭐ | [Day 19: Tractor Beam](day19) |
 | 20 |  |  |
 | 21 |  |  |
 | 22 |  |  |
