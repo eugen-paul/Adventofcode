@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2019 [40/50]
+## Year 2019 [42/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -24,7 +24,7 @@
 | 18 | ⭐⭐ | [Day 18: Many-Worlds Interpretation](day18) |
 | 19 | ⭐⭐ | [Day 19: Tractor Beam](day19) |
 | 20 | ⭐⭐ | [Day 20: Donut Maze](day20) |
-| 21 |  |  |
+| 21 | ⭐⭐ | [Day 21: Springdroid Adventure](day21) |
 | 22 |  |  |
 | 23 |  |  |
 | 24 |  |  |
