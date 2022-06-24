@@ -31,7 +31,7 @@ public class HashStorage {
         return false;
     }
 
-    public String getHashOf(int step) {
+    public String getHashOf(long step) {
         if (cycleBegin == null) {
             return storage.entrySet().stream().filter(v -> v.getValue() == step).findFirst().orElseThrow().getKey();
         }
