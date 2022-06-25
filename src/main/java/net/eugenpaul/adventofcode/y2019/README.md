@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2019 [42/50]
+## Year 2019 [44/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -25,7 +25,7 @@
 | 19 | ⭐⭐ | [Day 19: Tractor Beam](day19) |
 | 20 | ⭐⭐ | [Day 20: Donut Maze](day20) |
 | 21 | ⭐⭐ | [Day 21: Springdroid Adventure](day21) |
-| 22 |  |  |
+| 22 | ⭐⭐ | [Day 22: Slam Shuffle](day22) |
 | 23 |  |  |
 | 24 |  |  |
 | 25 |  |  |
