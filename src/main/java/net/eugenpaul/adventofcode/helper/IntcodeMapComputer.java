@@ -19,6 +19,12 @@ public final class IntcodeMapComputer {
     @Setter
     private boolean waitForInput = false;
 
+    @Setter
+    private boolean emptyInput = false;
+
+    @Setter
+    private Long emptyInputValue = -1L;
+
     private Map<Integer, BiFunction<Map<Long, Long>, Integer, Integer>> codes = Map.ofEntries(//
             Map.entry(1, this::doAdd), //
             Map.entry(2, this::doMult), //
@@ -77,6 +83,10 @@ public final class IntcodeMapComputer {
         return output != null;
     }
 
+    public boolean isInputEmpty() {
+        return input.isEmpty();
+    }
+
     private int doEnd(Map<Long, Long> opcodes, Integer pos) {
         stopped = true;
         return 0;
@@ -117,6 +127,10 @@ public final class IntcodeMapComputer {
     private Integer doInput(Map<Long, Long> opcodes, Integer pos) {
         if (waitForInput && input.isEmpty()) {
             return 0;
+        }
+
+        if (emptyInput && input.isEmpty()) {
+            input.add(emptyInputValue);
         }
 
         long mode = getParamMode1(opcodes.getOrDefault((long) pos, 0L));
