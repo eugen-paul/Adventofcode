@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 
 public final class MapOfSimplePos {
@@ -40,6 +41,36 @@ public final class MapOfSimplePos {
             for (int x = xMin; x <= xMax; x++) {
                 var value = map.getOrDefault(new SimplePos(x, y), false);
                 line.append(value.booleanValue() ? '#' : '.');
+            }
+            response.add(line.toString());
+        }
+
+        return response;
+    }
+
+    public static List<String> mapToPrintList(Set<SimplePos> set) {
+        int xMin = Integer.MAX_VALUE;
+        int xMax = Integer.MIN_VALUE;
+        int yMin = Integer.MAX_VALUE;
+        int yMax = Integer.MIN_VALUE;
+
+        for (var entry : set) {
+            xMin = Math.min(xMin, entry.getX());
+            xMax = Math.max(xMax, entry.getX());
+            yMin = Math.min(yMin, entry.getY());
+            yMax = Math.max(yMax, entry.getY());
+        }
+
+        List<String> response = new LinkedList<>();
+
+        for (int y = yMin; y <= yMax; y++) {
+            StringBuilder line = new StringBuilder();
+            for (int x = xMin; x <= xMax; x++) {
+                if (set.contains(new SimplePos(x, y))) {
+                    line.append('#');
+                } else {
+                    line.append('.');
+                }
             }
             response.add(line.toString());
         }
