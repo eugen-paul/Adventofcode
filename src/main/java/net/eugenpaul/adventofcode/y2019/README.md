@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2019 [46/50]
+## Year 2019 [48/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -27,5 +27,5 @@
 | 21 | ⭐⭐ | [Day 21: Springdroid Adventure](day21) |
 | 22 | ⭐⭐ | [Day 22: Slam Shuffle](day22) |
 | 23 | ⭐⭐ | [Day 23: Category Six](day23) |
-| 24 |  |  |
+| 24 | ⭐⭐ | [Day 24: Planet of Discord](day24) |
 | 25 |  |  |
