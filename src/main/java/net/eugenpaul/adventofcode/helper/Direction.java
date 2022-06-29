@@ -128,7 +128,7 @@ public enum Direction {
      * @return
      */
     public static Direction fromChar(char c) {
-        return charToDirection.get(c);
+        return charToDirection.get(Character.toUpperCase(c));
     }
 
     /**
