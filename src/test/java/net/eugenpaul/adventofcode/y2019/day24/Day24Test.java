@@ -12,7 +12,7 @@ import net.eugenpaul.adventofcode.helper.FileReaderHelper;
 class Day24Test {
 
     @Test
-    void testTest2019Day22_testPuzzle() {
+    void testTest2019Day24_testPuzzle() {
         testShuffle(List.of(//
                 "....#", //
                 "#..#.", //
