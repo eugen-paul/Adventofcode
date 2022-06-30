@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2019 [48/50]
+## Year 2019 [50/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -28,4 +28,6 @@
 | 22 | ⭐⭐ | [Day 22: Slam Shuffle](day22) |
 | 23 | ⭐⭐ | [Day 23: Category Six](day23) |
 | 24 | ⭐⭐ | [Day 24: Planet of Discord](day24) |
-| 25 |  |  |
+| 25 | ⭐⭐ | [Day 25: Cryostasis](day25) |
+
+![Solutions 2019](../../../../../../../doc/img/2019.png "2019 is done")
