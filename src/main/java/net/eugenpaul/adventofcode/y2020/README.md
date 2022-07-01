@@ -1,11 +1,11 @@
 # Solutions
 
-## Year 2020 [2/50]
+## Year 2020 [4/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
 | 1  | ⭐⭐ | [Day 1: Report Repair](day1) |
-| 2  |  |  |
+| 2  | ⭐⭐ | [Day 2: Password Philosophy](day2) |
 | 3  |  |  |
 | 4  |  |  |
 | 5  |  |  |
