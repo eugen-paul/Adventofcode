@@ -1,10 +1,10 @@
 # Solutions
 
-## Year 2020 [0/50]
+## Year 2020 [2/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
-| 1  |  |  |
+| 1  | ⭐⭐ | [Day 1: Report Repair](day1) |
 | 2  |  |  |
 | 3  |  |  |
 | 4  |  |  |
