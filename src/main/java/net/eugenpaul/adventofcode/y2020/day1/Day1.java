@@ -1,6 +1,5 @@
 package net.eugenpaul.adventofcode.y2020.day1;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
@@ -31,12 +30,13 @@ public class Day1 extends SolutionTemplate {
 
         product = getProduct(intData, 2020);
 
-        for (Integer integer : intData) {
-            List<Integer> tempData = new ArrayList<>(intData);
-            tempData.remove(integer);
-            int tmpProduct = getProduct(tempData, 2020-integer);
-            if(tmpProduct != -1){
-                product2 = integer * tmpProduct;
+        var iterator = intData.iterator();
+        while (iterator.hasNext()) {
+            Integer first = iterator.next();
+            iterator.remove();
+            int tmpProduct = getProduct(intData, 2020 - first);
+            if (tmpProduct != -1) {
+                product2 = first * tmpProduct;
                 break;
             }
         }
