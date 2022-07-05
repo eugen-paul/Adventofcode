@@ -1,13 +1,13 @@
 # Solutions
 
-## Year 2020 [6/50]
+## Year 2020 [8/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
 | 1  | ⭐⭐ | [Day 1: Report Repair](day1) |
 | 2  | ⭐⭐ | [Day 2: Password Philosophy](day2) |
 | 3  | ⭐⭐ | [Day 3: Toboggan Trajectory](day3) |
-| 4  |  |  |
+| 4  | ⭐⭐ | [Day 4: Passport Processing](day4) |
 | 5  |  |  |
 | 6  |  |  |
 | 7  |  |  |
