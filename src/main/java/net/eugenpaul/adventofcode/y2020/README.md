@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [8/50]
+## Year 2020 [10/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -8,7 +8,7 @@
 | 2  | ⭐⭐ | [Day 2: Password Philosophy](day2) |
 | 3  | ⭐⭐ | [Day 3: Toboggan Trajectory](day3) |
 | 4  | ⭐⭐ | [Day 4: Passport Processing](day4) |
-| 5  |  |  |
+| 5  | ⭐⭐ | [Day 5: Binary Boarding](day5) |
 | 6  |  |  |
 | 7  |  |  |
 | 8  |  |  |
