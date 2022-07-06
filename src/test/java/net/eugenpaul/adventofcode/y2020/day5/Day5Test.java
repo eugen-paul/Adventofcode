@@ -12,7 +12,7 @@ import net.eugenpaul.adventofcode.helper.FileReaderHelper;
 class Day5Test {
 
     @Test
-    void testTest2020Day4_testPuzzle() {
+    void testTest2020Day5_testPuzzle() {
         testPuzzle(List.of(//
                 "BFFFBBFRRR", //
                 "FFFBBBFRRR", //
@@ -28,7 +28,7 @@ class Day5Test {
     }
 
     @Test
-    void testSolution2020Day4() {
+    void testSolution2020Day5() {
         Day5 event = new Day5();
 
         List<String> eventData = FileReaderHelper.readListStringFromFile("y2020/day5/puzzle1.txt");
