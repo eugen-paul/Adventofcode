@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [10/50]
+## Year 2020 [12/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -9,7 +9,7 @@
 | 3  | ⭐⭐ | [Day 3: Toboggan Trajectory](day3) |
 | 4  | ⭐⭐ | [Day 4: Passport Processing](day4) |
 | 5  | ⭐⭐ | [Day 5: Binary Boarding](day5) |
-| 6  |  |  |
+| 6  | ⭐⭐ | [Day 6: Custom Customs](day6) |
 | 7  |  |  |
 | 8  |  |  |
 | 9  |  |  |
