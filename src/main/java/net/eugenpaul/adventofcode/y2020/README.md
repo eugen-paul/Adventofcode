@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [12/50]
+## Year 2020 [14/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -10,7 +10,7 @@
 | 4  | ⭐⭐ | [Day 4: Passport Processing](day4) |
 | 5  | ⭐⭐ | [Day 5: Binary Boarding](day5) |
 | 6  | ⭐⭐ | [Day 6: Custom Customs](day6) |
-| 7  |  |  |
+| 7  | ⭐⭐ | [Day 7: Handy Haversacks](day7) |
 | 8  |  |  |
 | 9  |  |  |
 | 10 |  |  |
