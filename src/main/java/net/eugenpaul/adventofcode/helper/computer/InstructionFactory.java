@@ -68,6 +68,12 @@ public class InstructionFactory {
         case "rcv":
             response = InstructionRcv.fromString(data);
             break;
+        case "nop":
+            response = InstructionNop.fromString(data);
+            break;
+        case "acc":
+            response = InstructionAcc.fromString(data);
+            break;
         default:
             throw new IllegalArgumentException("Wrong Instruction: " + data);
         }
