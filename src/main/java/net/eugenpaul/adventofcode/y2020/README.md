@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [16/50]
+## Year 2020 [18/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -12,7 +12,7 @@
 | 6  | ⭐⭐ | [Day 6: Custom Customs](day6) |
 | 7  | ⭐⭐ | [Day 7: Handy Haversacks](day7) |
 | 8  | ⭐⭐ | [Day 8: Handheld Halting](day8) |
-| 9  |  |  |
+| 9  | ⭐⭐ | [Day 9: Encoding Error](day9) |
 | 10 |  |  |
 | 11 |  |  |
 | 12 |  |  |
