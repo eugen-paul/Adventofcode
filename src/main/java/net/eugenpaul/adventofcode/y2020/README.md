@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [18/50]
+## Year 2020 [20/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -13,7 +13,7 @@
 | 7  | ⭐⭐ | [Day 7: Handy Haversacks](day7) |
 | 8  | ⭐⭐ | [Day 8: Handheld Halting](day8) |
 | 9  | ⭐⭐ | [Day 9: Encoding Error](day9) |
-| 10 |  |  |
+| 10 | ⭐⭐ | [Day 10: Adapter Array](day10) |
 | 11 |  |  |
 | 12 |  |  |
 | 13 |  |  |
