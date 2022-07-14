@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [20/50]
+## Year 2020 [22/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -14,7 +14,7 @@
 | 8  | ⭐⭐ | [Day 8: Handheld Halting](day8) |
 | 9  | ⭐⭐ | [Day 9: Encoding Error](day9) |
 | 10 | ⭐⭐ | [Day 10: Adapter Array](day10) |
-| 11 |  |  |
+| 11 | ⭐⭐ | [Day 11: Seating System](day11) |
 | 12 |  |  |
 | 13 |  |  |
 | 14 |  |  |
