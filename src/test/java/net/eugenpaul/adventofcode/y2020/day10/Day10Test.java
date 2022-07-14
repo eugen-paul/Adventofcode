@@ -25,7 +25,7 @@ class Day10Test {
                 "6", //
                 "12", //
                 "4" //
-        ), 35, 62);
+        ), 35, 8);
     }
 
     @Test
@@ -62,14 +62,15 @@ class Day10Test {
                 "34", //
                 "10", //
                 "3" //
-        ), 220, 62);
+        ), 220, 19208);
     }
 
-    private void testPuzzle(List<String> inputData, int oneJoltDifferences, long number2) {
+    private void testPuzzle(List<String> inputData, int oneJoltDifferences, long ways) {
         Day10 event = new Day10();
 
         assertTrue(event.doEvent(inputData));
         assertEquals(oneJoltDifferences, event.getSolution1());
+        assertEquals(ways, event.getWays());
     }
 
     @Test
