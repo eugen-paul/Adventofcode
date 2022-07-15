@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [22/50]
+## Year 2020 [24/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -15,7 +15,7 @@
 | 9  | ⭐⭐ | [Day 9: Encoding Error](day9) |
 | 10 | ⭐⭐ | [Day 10: Adapter Array](day10) |
 | 11 | ⭐⭐ | [Day 11: Seating System](day11) |
-| 12 |  |  |
+| 12 | ⭐⭐ | [Day 12: Rain Risk](day12) |
 | 13 |  |  |
 | 14 |  |  |
 | 15 |  |  |

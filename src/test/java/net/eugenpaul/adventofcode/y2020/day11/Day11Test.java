@@ -24,14 +24,15 @@ class Day11Test {
                 "LLLLLLLLLL", //
                 "L.LLLLLL.L", //
                 "L.LLLLL.LL" //
-        ), 37);
+        ), 37, 26);
     }
 
-    private void testPuzzle(List<String> inputData, int occupiedSeats) {
+    private void testPuzzle(List<String> inputData, int occupiedSeats, int occupiedSeats2) {
         Day11 event = new Day11();
 
         assertTrue(event.doEvent(inputData));
         assertEquals(occupiedSeats, event.getOccupiedSeats());
+        assertEquals(occupiedSeats2, event.getOccupiedSeats2());
     }
 
     @Test
