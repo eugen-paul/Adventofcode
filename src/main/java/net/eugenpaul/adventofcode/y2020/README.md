@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [28/50]
+## Year 2020 [30/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -18,7 +18,7 @@
 | 12 | ⭐⭐ | [Day 12: Rain Risk](day12) |
 | 13 | ⭐⭐ | [Day 13: Shuttle Search](day13) |
 | 14 | ⭐⭐ | [Day 14: Docking Data](day14) |
-| 15 |  |  |
+| 15 | ⭐⭐ | [Day 15: Rambunctious Recitation](day15) |
 | 16 |  |  |
 | 17 |  |  |
 | 18 |  |  |
