@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [32/50]
+## Year 2020 [34/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -20,7 +20,7 @@
 | 14 | ⭐⭐ | [Day 14: Docking Data](day14) |
 | 15 | ⭐⭐ | [Day 15: Rambunctious Recitation](day15) |
 | 16 | ⭐⭐ | [Day 16: Ticket Translation](day16) |
-| 17 |  |  |
+| 17 | ⭐⭐ | [Day 17: Conway Cubes](day17) |
 | 18 |  |  |
 | 19 |  |  |
 | 20 |  |  |
