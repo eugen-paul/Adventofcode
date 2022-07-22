@@ -1,5 +1,8 @@
 package net.eugenpaul.adventofcode.helper;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -68,5 +71,21 @@ public class SimplePos {
 
     public SimplePos copy() {
         return new SimplePos(x, y);
+    }
+
+    public List<SimplePos> getNeighbors(boolean diagonal) {
+        List<SimplePos> response = new LinkedList<>();
+        response.add(new SimplePos(x + 1, y));
+        response.add(new SimplePos(x, y + 1));
+        response.add(new SimplePos(x - 1, y));
+        response.add(new SimplePos(x, y - 1));
+
+        if (diagonal) {
+            response.add(new SimplePos(x + 1, y + 1));
+            response.add(new SimplePos(x + 1, y - 1));
+            response.add(new SimplePos(x - 1, y + 1));
+            response.add(new SimplePos(x - 1, y - 1));
+        }
+        return response;
     }
 }
