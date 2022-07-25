@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [34/50]
+## Year 2020 [36/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -21,7 +21,7 @@
 | 15 | ⭐⭐ | [Day 15: Rambunctious Recitation](day15) |
 | 16 | ⭐⭐ | [Day 16: Ticket Translation](day16) |
 | 17 | ⭐⭐ | [Day 17: Conway Cubes](day17) |
-| 18 |  |  |
+| 18 | ⭐⭐ | [Day 18: Operation Order](day18) |
 | 19 |  |  |
 | 20 |  |  |
 | 21 |  |  |
