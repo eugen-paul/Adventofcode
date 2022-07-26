@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [36/50]
+## Year 2020 [38/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -22,7 +22,7 @@
 | 16 | ⭐⭐ | [Day 16: Ticket Translation](day16) |
 | 17 | ⭐⭐ | [Day 17: Conway Cubes](day17) |
 | 18 | ⭐⭐ | [Day 18: Operation Order](day18) |
-| 19 |  |  |
+| 19 | ⭐⭐ | [Day 19: Monster Messages](day19) |
 | 20 |  |  |
 | 21 |  |  |
 | 22 |  |  |
