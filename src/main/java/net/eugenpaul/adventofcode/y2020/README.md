@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [38/50]
+## Year 2020 [40/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -23,7 +23,7 @@
 | 17 | ⭐⭐ | [Day 17: Conway Cubes](day17) |
 | 18 | ⭐⭐ | [Day 18: Operation Order](day18) |
 | 19 | ⭐⭐ | [Day 19: Monster Messages](day19) |
-| 20 |  |  |
+| 20 | ⭐⭐ | [Day 20: Jurassic Jigsaw](day20) |
 | 21 |  |  |
 | 22 |  |  |
 | 23 |  |  |
