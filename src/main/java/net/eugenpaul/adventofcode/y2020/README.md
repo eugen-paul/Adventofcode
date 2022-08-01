@@ -1,6 +1,6 @@
 # Solutions
 
-## Year 2020 [40/50]
+## Year 2020 [42/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -24,7 +24,7 @@
 | 18 | ⭐⭐ | [Day 18: Operation Order](day18) |
 | 19 | ⭐⭐ | [Day 19: Monster Messages](day19) |
 | 20 | ⭐⭐ | [Day 20: Jurassic Jigsaw](day20) |
-| 21 |  |  |
+| 21 | ⭐⭐ | [Day 21: Allergen Assessment](day21) |
 | 22 |  |  |
 | 23 |  |  |
 | 24 |  |  |
