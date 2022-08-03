@@ -73,9 +73,8 @@ public class CircleMemory<T> {
         newPosition.prev = after;
         newPosition.next = after.next;
 
-        after.next.prev = newPosition;
-
         after.next = newPosition;
+        newPosition.next.prev = newPosition;
 
         if (last == after) {
             last = newPosition;
@@ -104,6 +103,14 @@ public class CircleMemory<T> {
             first = null;
             last = null;
             return null;
+        }
+
+        if (pos == first) {
+            first = pos.next;
+        }
+
+        if (pos == last) {
+            last = pos.prev;
         }
 
         CirclePosition prev = pos.prev;
