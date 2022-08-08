@@ -3,21 +3,21 @@ package net.eugenpaul.adventofcode.y2018.day15;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
+import lombok.var;
 import net.eugenpaul.adventofcode.helper.Direction;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-/**
- * It not the cleanest code, but it work. Some times i will refactor it, i hope :D
- */
 public class Day15 extends SolutionTemplate {
 
     @Getter
@@ -40,7 +40,7 @@ public class Day15 extends SolutionTemplate {
     }
 
     private void doPuzzle1(List<String> eventData) {
-        Map<SimplePos, Boolean> grid = new HashMap<>();
+        Set<SimplePos> grid = new HashSet<>();
         List<Entity> players = new ArrayList<>();
 
         initData(eventData, grid, players, 3);
@@ -63,7 +63,7 @@ public class Day15 extends SolutionTemplate {
 
         int elfsAttackPower = 3;
         while (true) {
-            Map<SimplePos, Boolean> grid = new HashMap<>();
+            Set<SimplePos> grid = new HashSet<>();
             List<Entity> players = new ArrayList<>();
 
             initData(eventData, grid, players, elfsAttackPower);
@@ -78,10 +78,11 @@ public class Day15 extends SolutionTemplate {
 
                 sortEntitesByPosList(players);
             }
-            int hitPoints = players.stream().filter(v -> v.getHitPoints() > 0).mapToInt(Entity::getHitPoints).sum();
-            outcome2 = turnCount * hitPoints;
 
             if (elfsCount == players.stream().filter(Entity::isGood).filter(v -> v.getHitPoints() > 0).count()) {
+                // all the elves are alive
+                int hitPoints = players.stream().filter(v -> v.getHitPoints() > 0).mapToInt(Entity::getHitPoints).sum();
+                outcome2 = turnCount * hitPoints;
                 break;
             }
             elfsAttackPower++;
@@ -90,45 +91,7 @@ public class Day15 extends SolutionTemplate {
         logger.log(Level.INFO, () -> "outcome2  : " + getOutcome2());
     }
 
-    private List<String> printBoolMap(Map<SimplePos, Boolean> map, List<Entity> players) {
-        int xMin = Integer.MAX_VALUE;
-        int xMax = Integer.MIN_VALUE;
-        int yMin = Integer.MAX_VALUE;
-        int yMax = Integer.MIN_VALUE;
-
-        Map<SimplePos, Entity> playersPositions = players.stream()//
-                .filter(v -> v.getHitPoints() > 0)//
-                .collect(Collectors.toMap(Entity::getPos, v -> v));
-
-        for (var entry : map.entrySet()) {
-            xMin = Math.min(xMin, entry.getKey().getX());
-            xMax = Math.max(xMax, entry.getKey().getX());
-            yMin = Math.min(yMin, entry.getKey().getY());
-            yMax = Math.max(yMax, entry.getKey().getY());
-        }
-
-        List<String> response = new LinkedList<>();
-
-        for (int y = yMin; y <= yMax; y++) {
-            StringBuilder line = new StringBuilder();
-            for (int x = xMin; x <= xMax; x++) {
-                var value = map.getOrDefault(new SimplePos(x, y), false);
-
-                if (playersPositions.get(new SimplePos(x, y)) != null) {
-                    line.append(playersPositions.get(new SimplePos(x, y)).isGood() ? 'E' : 'G');
-                } else {
-                    line.append(value.booleanValue() ? '#' : '.');
-                }
-
-            }
-            logger.log(Level.INFO, line::toString);
-            response.add(line.toString());
-        }
-
-        return response;
-    }
-
-    private boolean doTurn(Map<SimplePos, Boolean> grid, List<Entity> players) {
+    private boolean doTurn(Set<SimplePos> grid, List<Entity> players) {
         for (Entity player : players) {
             if (player.getHitPoints() <= 0) {
                 continue;
@@ -152,12 +115,8 @@ public class Day15 extends SolutionTemplate {
             }
         }
 
-        var iterator = players.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getHitPoints() <= 0) {
-                iterator.remove();
-            }
-        }
+        // remove death palyers from list
+        players.removeIf(v -> v.getHitPoints() < 0);
 
         return false;
     }
@@ -171,6 +130,11 @@ public class Day15 extends SolutionTemplate {
         });
     }
 
+    /**
+     * The function sorts the possible steps by priority. Priority of the steps: up, left, rigth, down
+     * 
+     * @param pos
+     */
     private void sortPosList(List<SimplePos> pos) {
         Collections.sort(pos, (a, b) -> {
             if (a.getY() == b.getY()) {
@@ -194,49 +158,35 @@ public class Day15 extends SolutionTemplate {
                 .filter(v -> v.getHitPoints() > 0)//
                 .collect(Collectors.toMap(Entity::getPos, v -> v));
 
-        Entity posibleEnemies = null;
+        List<Entity> neighbors = new LinkedList<>();
 
-        SimplePos n = pos.moveNew(Direction.N);
-        Entity e = playersPositions.get(n);
-        if (e != null && e.getHitPoints() > 0 && e.isGood() == isGood) {
-            if (posibleEnemies == null) {
-                posibleEnemies = e;
-            }
-        }
-        n = pos.moveNew(Direction.W);
-        e = playersPositions.get(n);
-        if (e != null && e.getHitPoints() > 0 && e.isGood() == isGood) {
-            if (posibleEnemies == null || posibleEnemies.getHitPoints() > e.getHitPoints()) {
-                posibleEnemies = e;
-            }
-        }
-        n = pos.moveNew(Direction.E);
-        e = playersPositions.get(n);
-        if (e != null && e.getHitPoints() > 0 && e.isGood() == isGood) {
-            if (posibleEnemies == null || posibleEnemies.getHitPoints() > e.getHitPoints()) {
-                posibleEnemies = e;
-            }
-        }
-        n = pos.moveNew(Direction.S);
-        e = playersPositions.get(n);
-        if (e != null && e.getHitPoints() > 0 && e.isGood() == isGood) {
-            if (posibleEnemies == null || posibleEnemies.getHitPoints() > e.getHitPoints()) {
-                posibleEnemies = e;
+        for (Direction d : Direction.values()) {
+            var neighborPos = pos.moveNew(d);
+            var entity = playersPositions.get(neighborPos);
+            if (entity != null) {
+                neighbors.add(entity);
             }
         }
 
-        return posibleEnemies;
-
+        return neighbors.stream()//
+                .filter(v -> v.getHitPoints() > 0) // get only alive neighbors
+                .filter(v -> v.isGood() == isGood) // get only needed neighbors
+                .sorted((a, b) -> a.getHitPoints() - b.getHitPoints()) // get neighbor with min hitPoints
+                .findFirst() //
+                .orElse(null);
     }
 
-    private SimplePos move(Map<SimplePos, Boolean> grid, List<Entity> players, Entity player) {
+    private SimplePos move(Set<SimplePos> grid, List<Entity> players, Entity player) {
         Map<SimplePos, Integer> stepsMap = new HashMap<>();
         stepsMap.put(player.getPos(), 0);
 
+        // Map of all positions that can be reached by the player in x steps.
         TreeMap<Integer, List<SimplePos>> next = new TreeMap<>();
 
+        // add first step to map
         next.put(1, getSteps(grid, stepsMap, player.getPos(), 1, players));
         if (next.get(1).isEmpty()) {
+            // no steps are possible
             return null;
         }
 
@@ -259,72 +209,51 @@ public class Day15 extends SolutionTemplate {
         return null;
     }
 
-    private SimplePos getMoveDirection(Map<SimplePos, Integer> stepsMap, SimplePos pos) {
-        int cost = stepsMap.get(pos);
-        SimplePos response = pos;
+    /**
+     * returns best direction of motion
+     */
+    private SimplePos getMoveDirection(Map<SimplePos, Integer> stepsMap, SimplePos targetPosition) {
+        int cost = stepsMap.get(targetPosition);
+        SimplePos response = targetPosition;
         while (cost > 1) {
-            SimplePos stepN = response.moveNew(Direction.N);
-            Integer costN = stepsMap.get(stepN);
-            if (costN != null && costN < cost) {
-                cost = costN;
-                response = stepN;
-                continue;
+            for (var d : List.of(Direction.N, Direction.W, Direction.E, Direction.S)) {
+                var stepDirection = response.moveNew(d);
+                Integer costDirection = stepsMap.get(stepDirection);
+                if (costDirection != null && costDirection < cost) {
+                    cost = costDirection;
+                    response = stepDirection;
+                    break;
+                }
             }
-            SimplePos stepW = response.moveNew(Direction.W);
-            Integer costW = stepsMap.get(stepW);
-            if (costW != null && costW < cost) {
-                cost = costW;
-                response = stepW;
-                continue;
-            }
-            SimplePos stepO = response.moveNew(Direction.E);
-            Integer costO = stepsMap.get(stepO);
-            if (costO != null && costO < cost) {
-                cost = costO;
-                response = stepO;
-                continue;
-            }
-            SimplePos stepS = response.moveNew(Direction.S);
-            Integer costS = stepsMap.get(stepS);
-            if (costS != null && costS < cost) {
-                cost = costS;
-                response = stepS;
-                continue;
-            }
-            throw new IllegalArgumentException();
         }
         return response;
     }
 
-    private List<SimplePos> getSteps(Map<SimplePos, Boolean> grid, Map<SimplePos, Integer> stepsMap, SimplePos pos, int currentCost, List<Entity> players) {
+    /**
+     * returns positions in which the player can move.
+     */
+    private List<SimplePos> getSteps(Set<SimplePos> grid, Map<SimplePos, Integer> stepsMap, SimplePos pos, int currentCost, List<Entity> players) {
         List<SimplePos> responseSteps = new LinkedList<>();
-        Map<SimplePos, Boolean> playersPositions = players.stream().filter(v -> v.getHitPoints() > 0).collect(Collectors.toMap(Entity::getPos, v -> true));
+        Set<SimplePos> playersPositions = players.stream()//
+                .filter(v -> v.getHitPoints() > 0)//
+                .map(Entity::getPos)//
+                .collect(Collectors.toSet());
 
-        SimplePos stepN = pos.moveNew(Direction.N);
-        if (!grid.get(stepN).booleanValue() && stepsMap.get(stepN) == null && playersPositions.get(stepN) == null) {
-            responseSteps.add(stepN);
-            stepsMap.put(stepN, currentCost);
-        }
-        SimplePos stepW = pos.moveNew(Direction.W);
-        if (!grid.get(stepW).booleanValue() && stepsMap.get(stepW) == null && playersPositions.get(stepW) == null) {
-            responseSteps.add(stepW);
-            stepsMap.put(stepW, currentCost);
-        }
-        SimplePos stepO = pos.moveNew(Direction.E);
-        if (!grid.get(stepO).booleanValue() && stepsMap.get(stepO) == null && playersPositions.get(stepO) == null) {
-            responseSteps.add(stepO);
-            stepsMap.put(stepO, currentCost);
-        }
-        SimplePos stepS = pos.moveNew(Direction.S);
-        if (!grid.get(stepS).booleanValue() && stepsMap.get(stepS) == null && playersPositions.get(stepS) == null) {
-            responseSteps.add(stepS);
-            stepsMap.put(stepS, currentCost);
+        for (Direction d : Direction.values()) {
+            var stepDirection = pos.moveNew(d);
+            if (grid.contains(stepDirection) //
+                    && stepsMap.get(stepDirection) == null //
+                    && !playersPositions.contains(stepDirection) //
+            ) {
+                responseSteps.add(stepDirection);
+                stepsMap.put(stepDirection, currentCost);
+            }
         }
 
         return responseSteps;
     }
 
-    private void initData(List<String> data, Map<SimplePos, Boolean> grid, List<Entity> players, int elfsAttackPower) {
+    private void initData(List<String> data, Set<SimplePos> grid, List<Entity> players, int elfsAttackPower) {
         for (int y = 0; y < data.size(); y++) {
             for (int x = 0; x < data.get(0).length(); x++) {
                 var currentPos = new SimplePos(x, y);
@@ -334,17 +263,18 @@ public class Day15 extends SolutionTemplate {
                     players.add(//
                             new Entity(new SimplePos(x, y), false, 200, 3)//
                     );
-                    grid.put(currentPos, false);
+                    grid.add(currentPos);
                     break;
                 case 'E':
                     players.add(//
                             new Entity(new SimplePos(x, y), true, 200, elfsAttackPower)//
                     );
-                    grid.put(currentPos, false);
+                    grid.add(currentPos);
+                    break;
+                case '.':
+                    grid.add(currentPos);
                     break;
                 default:
-                    var value = data.get(y).charAt(x) == '#';
-                    grid.put(currentPos, value);
                     break;
                 }
             }
