@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
-import lombok.var;
 import net.eugenpaul.adventofcode.helper.Direction;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
@@ -158,22 +157,21 @@ public class Day15 extends SolutionTemplate {
                 .filter(v -> v.getHitPoints() > 0)//
                 .collect(Collectors.toMap(Entity::getPos, v -> v));
 
-        List<Entity> neighbors = new LinkedList<>();
+        Entity bestTarget = null;
 
-        for (Direction d : Direction.values()) {
+        // check all neighbors in prior order
+        for (Direction d : List.of(Direction.N, Direction.W, Direction.E, Direction.S)) {
             var neighborPos = pos.moveNew(d);
             var entity = playersPositions.get(neighborPos);
-            if (entity != null) {
-                neighbors.add(entity);
+            if (entity != null //
+                    && entity.isGood() == isGood //
+                    && (bestTarget == null || bestTarget.getHitPoints() > entity.getHitPoints())//
+            ) {
+                bestTarget = entity;
             }
         }
 
-        return neighbors.stream()//
-                .filter(v -> v.getHitPoints() > 0) // get only alive neighbors
-                .filter(v -> v.isGood() == isGood) // get only needed neighbors
-                .sorted((a, b) -> a.getHitPoints() - b.getHitPoints()) // get neighbor with min hitPoints
-                .findFirst() //
-                .orElse(null);
+        return bestTarget;
     }
 
     private SimplePos move(Set<SimplePos> grid, List<Entity> players, Entity player) {
