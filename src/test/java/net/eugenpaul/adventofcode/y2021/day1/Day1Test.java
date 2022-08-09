@@ -28,7 +28,7 @@ class Day1Test {
     }
 
     private void testPuzzle(List<String> inputData, int increases, int increasesOf3) {
-        Day25 event = new Day25();
+        Day1 event = new Day1();
 
         assertTrue(event.doPuzzleFromData(inputData));
         assertEquals(increases, event.getIncreases());
@@ -37,7 +37,7 @@ class Day1Test {
 
     @Test
     void testSolution2021Day1() {
-        Day25 event = new Day25();
+        Day1 event = new Day1();
 
         List<String> eventData = FileReaderHelper.readListStringFromFile("y2021/day1/puzzle1.txt");
         assertTrue(event.doPuzzleFromData(eventData));
