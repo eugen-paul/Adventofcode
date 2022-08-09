@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
-public class Day25 extends SolutionTemplate {
+public class Day1 extends SolutionTemplate {
 
     @Getter
     private long increases;
@@ -15,7 +15,7 @@ public class Day25 extends SolutionTemplate {
     private long increasesOf3;
 
     public static void main(String[] args) {
-        Day25 puzzle = new Day25();
+        Day1 puzzle = new Day1();
         puzzle.doPuzzleFromFile("y2021/day1/puzzle1.txt");
     }
 
