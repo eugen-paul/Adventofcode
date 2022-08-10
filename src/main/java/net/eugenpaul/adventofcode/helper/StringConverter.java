@@ -146,6 +146,10 @@ public final class StringConverter {
         return data.chars().mapToLong(v -> v - '0').toArray();
     }
 
+    public static List<Long> digitsToLongList(String data) {
+        return data.chars().mapToLong(v -> v - '0').boxed().collect(Collectors.toList());
+    }
+
     /**
      * Convert String to stream of chars
      * 
