@@ -46,7 +46,7 @@ public class Dijkstra {
         reachedSteps.put(from, 0);
 
         // pathfinding
-        while (reachedSteps.get(from) <= stepCount) {
+        while (from != null && reachedSteps.get(from) <= stepCount) {
             checkAndAddNextSteps(area, from);
             from = nextSteps.poll();
         }
@@ -57,6 +57,10 @@ public class Dijkstra {
     public Map<SimplePos, Integer> getReachableFields(Maze area, int fromX, int fromY) {
         SimplePos from = new SimplePos(fromX, fromY);
 
+        return getReachableFields(area, from);
+    }
+
+    public Map<SimplePos, Integer> getReachableFields(Maze area, SimplePos from) {
         // set first Position as reached
         reachedSteps.put(from, 0);
 
