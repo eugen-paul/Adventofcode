@@ -33,6 +33,18 @@ public class SimplePos {
         return this;
     }
 
+    public static SimplePos fromData(String data, String delimer) {
+        var xy = data.split(delimer);
+        if (xy.length != 2) {
+            throw new IllegalArgumentException(data);
+        }
+
+        return new SimplePos(//
+                Integer.parseInt(xy[0]), //
+                Integer.parseInt(xy[1]) //
+        );
+    }
+
     /**
      * Create new position. Move position depending on direction and return new position.
      * 
