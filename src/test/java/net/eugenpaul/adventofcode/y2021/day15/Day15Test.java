@@ -24,14 +24,15 @@ class Day15Test {
                 "3125421639", //
                 "1293138521", //
                 "2311944581" //
-        ), 40, 2_188_189_693_529L);
+        ), 40, 315);
     }
 
-    private void testPuzzle(List<String> inputData, long lowestRisk, long sub2) {
+    private void testPuzzle(List<String> inputData, long lowestRisk, long lowestRisk2) {
         Day15 event = new Day15();
 
         assertTrue(event.doPuzzleFromData(inputData));
         assertEquals(lowestRisk, event.getLowestRisk());
+        assertEquals(lowestRisk2, event.getLowestRisk2());
     }
 
     @Test
