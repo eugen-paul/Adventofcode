@@ -48,6 +48,33 @@ public final class MapOfSimplePos {
         return response;
     }
 
+    public static List<String> mapOfIntsToPrintList(Map<SimplePos, Integer> map) {
+        int xMin = Integer.MAX_VALUE;
+        int xMax = Integer.MIN_VALUE;
+        int yMin = Integer.MAX_VALUE;
+        int yMax = Integer.MIN_VALUE;
+
+        for (var entry : map.entrySet()) {
+            xMin = Math.min(xMin, entry.getKey().getX());
+            xMax = Math.max(xMax, entry.getKey().getX());
+            yMin = Math.min(yMin, entry.getKey().getY());
+            yMax = Math.max(yMax, entry.getKey().getY());
+        }
+
+        List<String> response = new LinkedList<>();
+
+        for (int y = yMin; y <= yMax; y++) {
+            StringBuilder line = new StringBuilder();
+            for (int x = xMin; x <= xMax; x++) {
+                var value = map.getOrDefault(new SimplePos(x, y), 10);
+                line.append(value == 10 ? '.' : value);
+            }
+            response.add(line.toString());
+        }
+
+        return response;
+    }
+
     public static List<String> mapToPrintList(Set<SimplePos> set) {
         int xMin = Integer.MAX_VALUE;
         int xMax = Integer.MIN_VALUE;
@@ -173,5 +200,9 @@ public final class MapOfSimplePos {
         }
 
         return responseMap;
+    }
+
+    public static Map<SimplePos, Integer> initMapOfDigits(List<String> eventData) {
+        return initMap(eventData, v -> v - '0');
     }
 }
