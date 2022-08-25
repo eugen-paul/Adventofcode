@@ -15,31 +15,31 @@ class Day16Test {
     void testTest2021Day16_1a() {
         testPuzzle1(List.of(//
                 "8A004A801A8002F478" //
-        ), 16, 2_188_189_693_529L);
+        ), 16);
     }
 
     @Test
     void testTest2021Day16_1b() {
         testPuzzle1(List.of(//
                 "620080001611562C8802118E34" //
-        ), 12, 2_188_189_693_529L);
+        ), 12);
     }
 
     @Test
     void testTest2021Day16_1c() {
         testPuzzle1(List.of(//
                 "C0015000016115A2E0802F182340" //
-        ), 23, 2_188_189_693_529L);
+        ), 23);
     }
 
     @Test
     void testTest2021Day16_1d() {
         testPuzzle1(List.of(//
                 "A0016C880162017C3686B18A3D4780" //
-        ), 31, 2_188_189_693_529L);
+        ), 31);
     }
 
-    private void testPuzzle1(List<String> inputData, long versionssum, long sub2) {
+    private void testPuzzle1(List<String> inputData, long versionssum) {
         Day16 event = new Day16();
 
         assertTrue(event.doPuzzleFromData(inputData.get(0)));
