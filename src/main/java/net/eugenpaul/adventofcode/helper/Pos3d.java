@@ -23,6 +23,15 @@ public class Pos3d {
         );
     }
 
+    public static Pos3d fromPattern(String data, String delimer) {
+        String[] splits = data.split(delimer);
+        return new Pos3d(//
+                Integer.parseInt(splits[0]), //
+                Integer.parseInt(splits[1]), //
+                Integer.parseInt(splits[2]) //
+        );
+    }
+
     public Pos3d add(Pos3d b) {
         x += b.x;
         y += b.y;
@@ -36,5 +45,17 @@ public class Pos3d {
                 y + b.y, //
                 z + b.z //
         );
+    }
+
+    public Pos3d copy() {
+        return new Pos3d(//
+                x, //
+                y, //
+                z //
+        );
+    }
+
+    public long manhattanDistance(Pos3d b) {
+        return Math.abs(x - b.x) + Math.abs(y - b.y) + Math.abs(z - b.z);
     }
 }
