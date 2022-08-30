@@ -32,7 +32,7 @@ public class Dijkstra {
         return reachedSteps.get(to);
     }
 
-    public int getSteps(Maze area, int fromX, int fromY, int toX, int toY) {
+    public Integer getSteps(Maze area, int fromX, int fromY, int toX, int toY) {
         SimplePos from = new SimplePos(fromX, fromY);
         SimplePos to = new SimplePos(toX, toY);
 

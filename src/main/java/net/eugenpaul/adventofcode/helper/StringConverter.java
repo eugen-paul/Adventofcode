@@ -186,4 +186,24 @@ public final class StringConverter {
         return response;
     }
 
+    public static Set<SimplePos> toSet(List<String> data, char... trueChar) {
+        Set<SimplePos> response = new HashSet<>();
+        for (int y = 0; y < data.size(); y++) {
+            for (int x = 0; x < data.get(0).length(); x++) {
+                var currentPos = new SimplePos(x, y);
+                boolean isTrueChar = false;
+                for (char c : trueChar) {
+                    isTrueChar = data.get(y).charAt(x) == c;
+                    if (isTrueChar) {
+                        break;
+                    }
+                }
+                if (isTrueChar) {
+                    response.add(currentPos);
+                }
+            }
+        }
+        return response;
+    }
+
 }
