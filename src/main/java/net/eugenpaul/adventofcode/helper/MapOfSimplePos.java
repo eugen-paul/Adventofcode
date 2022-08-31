@@ -193,7 +193,10 @@ public final class MapOfSimplePos {
         for (String scan : eventData) {
             int x = 0;
             for (char c : scan.toCharArray()) {
-                responseMap.put(new SimplePos(x, y), toT.apply(c));
+                T value = toT.apply(c);
+                if (value != null) {
+                    responseMap.put(new SimplePos(x, y), toT.apply(c));
+                }
                 x++;
             }
             y++;
