@@ -14,6 +14,12 @@ public class InstructionFactory {
         case "out":
             response = InstructionOut.fromString(data);
             break;
+        case "div":
+            response = InstructionDiv.fromString(data);
+            break;
+        case "eql":
+            response = InstructionEql.fromString(data);
+            break;
         case "tgl":
             response = InstructionTgl.fromString(data);
             break;
@@ -67,6 +73,9 @@ public class InstructionFactory {
             break;
         case "rcv":
             response = InstructionRcv.fromString(data);
+            break;
+        case "inp":
+            response = InstructionInp.fromString(data);
             break;
         case "nop":
             response = InstructionNop.fromString(data);
