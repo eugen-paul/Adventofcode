@@ -1,11 +1,11 @@
 # Solutions
 
-## Progress: Year 2022 [2/50]
+## Progress: Year 2022 [4/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
 | 1  | ⭐⭐ | [Day 1: Calorie Counting](day1) |
-| 2  |  | 
+| 2  | ⭐⭐ | [Day 2: Rock Paper Scissors](day2) |
 | 3  |  | 
 | 4  |  | 
 | 5  |  | 
