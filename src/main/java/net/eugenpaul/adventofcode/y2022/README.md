@@ -1,13 +1,13 @@
 # Solutions
 
-## Progress: Year 2022 [6/50]
+## Progress: Year 2022 [8/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
 | 1  | ⭐⭐ | [Day 1: Calorie Counting](day1) |
 | 2  | ⭐⭐ | [Day 2: Rock Paper Scissors](day2) |
-| 3  | ⭐⭐ | [Day 3: Rucksack Reorganization](day3) | | 
-| 4  |  | 
+| 3  | ⭐⭐ | [Day 3: Rucksack Reorganization](day3) |
+| 4  | ⭐⭐ | [Day 4: Camp Cleanup](day4) |
 | 5  |  | 
 | 6  |  | 
 | 7  |  | 
