@@ -100,11 +100,7 @@ public class Day5 extends SolutionTemplate {
             }
         }
 
-        var response = new StringBuilder();
-        for (int i = 1; i <= stacks.size(); i++) {
-            response.append(stacks.get(i).getFirst());
-        }
-        return response.toString();
+        return compureEnds(stacks);
     }
 
     private String doPuzzle2(Map<Integer, LinkedList<Character>> stacks, List<Move> moves) {
@@ -115,6 +111,10 @@ public class Day5 extends SolutionTemplate {
             }
         }
 
+        return compureEnds(stacks);
+    }
+
+    private String compureEnds(Map<Integer, LinkedList<Character>> stacks) {
         var response = new StringBuilder();
         for (int i = 1; i <= stacks.size(); i++) {
             response.append(stacks.get(i).getFirst());
