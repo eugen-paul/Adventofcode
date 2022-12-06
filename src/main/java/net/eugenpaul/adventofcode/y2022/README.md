@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [10/50]
+## Progress: Year 2022 [12/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -9,7 +9,7 @@
 | 3  | ⭐⭐ | [Day 3: Rucksack Reorganization](day3) |
 | 4  | ⭐⭐ | [Day 4: Camp Cleanup](day4) |
 | 5  | ⭐⭐ | [Day 5: Supply Stacks](day5) |
-| 6  |  | 
+| 6  | ⭐⭐ | [Day 6: Tuning Trouble](day6) |
 | 7  |  | 
 | 8  |  | 
 | 9  |  | 
