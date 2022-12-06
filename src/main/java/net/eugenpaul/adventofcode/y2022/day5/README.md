@@ -1,1 +1,1 @@
-[Advent of Code Year 2022 Day 4](https://adventofcode.com/2022/day/4)
+[Advent of Code Year 2022 Day 5](https://adventofcode.com/2022/day/5)
