@@ -5,7 +5,7 @@ One folder for each year. One folder for each event. Resource folder contains my
 
 ## Progress:
 
-[Solutions 2022 - 12/50⭐](src/main/java/net/eugenpaul/adventofcode/y2022)
+[Solutions 2022 - 14/50⭐](src/main/java/net/eugenpaul/adventofcode/y2022)
 
 [Solutions 2021 - **50/50**⭐](src/main/java/net/eugenpaul/adventofcode/y2021)
 
