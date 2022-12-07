@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [12/50]
+## Progress: Year 2022 [14/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -10,7 +10,7 @@
 | 4  | ⭐⭐ | [Day 4: Camp Cleanup](day4) |
 | 5  | ⭐⭐ | [Day 5: Supply Stacks](day5) |
 | 6  | ⭐⭐ | [Day 6: Tuning Trouble](day6) |
-| 7  |  | 
+| 7  | ⭐⭐ | [Day 7: No Space Left On Device](day7) |
 | 8  |  | 
 | 9  |  | 
 | 10 |  | 
