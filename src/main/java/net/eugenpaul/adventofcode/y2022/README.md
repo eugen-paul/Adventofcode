@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [14/50]
+## Progress: Year 2022 [16/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -11,7 +11,7 @@
 | 5  | ⭐⭐ | [Day 5: Supply Stacks](day5) |
 | 6  | ⭐⭐ | [Day 6: Tuning Trouble](day6) |
 | 7  | ⭐⭐ | [Day 7: No Space Left On Device](day7) |
-| 8  |  | 
+| 8  | ⭐⭐ | [Day 8: Treetop Tree House](day8) |
 | 9  |  | 
 | 10 |  | 
 | 11 |  | 
