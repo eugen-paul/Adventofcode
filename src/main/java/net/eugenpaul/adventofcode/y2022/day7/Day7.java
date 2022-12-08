@@ -81,7 +81,7 @@ public class Day7 extends SolutionTemplate {
         Dir root = new Dir();
         Dir current = root;
 
-        var it = eventData.listIterator(1);
+        var it = eventData.iterator();
         while (it.hasNext()) {
             var data = it.next();
             if (data.startsWith("$ cd")) {
@@ -90,7 +90,8 @@ public class Day7 extends SolutionTemplate {
                 if (cdData[2].equals("..")) {
                     current = current.parent;
                 } else {
-                    current = current.dirs.get(cdData[2]);
+                    Dir parent = current;
+                    current = current.dirs.computeIfAbsent(cdData[2], v -> new Dir(parent));
                 }
             } else if (data.startsWith("$ ls")) {
                 // nothing todo
