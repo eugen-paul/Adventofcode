@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [16/50]
+## Progress: Year 2022 [18/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -12,7 +12,7 @@
 | 6  | ⭐⭐ | [Day 6: Tuning Trouble](day6) |
 | 7  | ⭐⭐ | [Day 7: No Space Left On Device](day7) |
 | 8  | ⭐⭐ | [Day 8: Treetop Tree House](day8) |
-| 9  |  | 
+| 9  | ⭐⭐ | [Day 9: Rope Bridge](day9) |
 | 10 |  | 
 | 11 |  | 
 | 12 |  | 
