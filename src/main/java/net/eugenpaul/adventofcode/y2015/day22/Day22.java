@@ -24,6 +24,10 @@ public class Day22 extends SolutionTemplate {
     @Getter
     private int hardGameLeastAmountOfMana;
 
+    /** set to true, if you wont to get full ballte history at the end of the game */
+    @Setter
+    private boolean doHistory = false;
+
     @Setter
     private Actor player = new Actor("Player", 50, 0, 0, 500);
 
@@ -62,7 +66,7 @@ public class Day22 extends SolutionTemplate {
         }
 
         TurnsStorage tStorage = new TurnsStorage();
-        TurnData initTurn = new TurnData(player, boss, avaiblePlayerSpells);
+        TurnData initTurn = new TurnData(player, boss, avaiblePlayerSpells, doHistory);
         tStorage.addTurnData(initTurn);
 
         lastGameManaCost = Integer.MAX_VALUE;

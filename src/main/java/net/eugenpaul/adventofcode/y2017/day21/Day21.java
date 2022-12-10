@@ -17,6 +17,9 @@ public class Day21 extends SolutionTemplate {
     @Setter
     private int iterations = 5;
 
+    @Setter
+    private boolean doTest2 = true;
+
     public static void main(String[] args) {
         Day21 puzzle = new Day21();
         puzzle.doPuzzleFromFile("y2017/day21/puzzle1.txt");
@@ -30,6 +33,10 @@ public class Day21 extends SolutionTemplate {
 
         pixelsOn = doPuzzle(eventData);
         logger.log(Level.INFO, () -> "pixelsOn after 5: " + getPixelsOn());
+
+        if (!doTest2) {
+            return true;
+        }
 
         iterations = 18;
         pixelsOn = doPuzzle(eventData);

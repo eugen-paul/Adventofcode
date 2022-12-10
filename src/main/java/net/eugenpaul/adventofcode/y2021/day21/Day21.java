@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 
 import lombok.Getter;
-import lombok.var;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day21 extends SolutionTemplate {

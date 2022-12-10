@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
-import lombok.var;
 import net.eugenpaul.adventofcode.helper.MathHelper;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;

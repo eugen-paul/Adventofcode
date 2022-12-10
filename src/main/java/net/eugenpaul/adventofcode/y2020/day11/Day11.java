@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.var;
 import net.eugenpaul.adventofcode.helper.Direction;
 import net.eugenpaul.adventofcode.helper.MapOfSimplePos;
 import net.eugenpaul.adventofcode.helper.SimplePos;

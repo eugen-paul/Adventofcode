@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import lombok.Getter;
-import lombok.var;
 import net.eugenpaul.adventofcode.helper.Direction;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;

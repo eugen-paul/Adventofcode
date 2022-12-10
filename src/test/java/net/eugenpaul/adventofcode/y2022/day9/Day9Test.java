@@ -13,43 +13,25 @@ class Day9Test {
 
     @Test
     void testTest2022Day9_part1() {
-        testPuzzle_1(List.of(//
-                "R 4", //
-                "U 4", //
-                "L 3", //
-                "D 1", //
-                "R 4", //
-                "D 1", //
-                "L 5", //
-                "R 2" //
-        ), 13);
+        testPuzzle_1("y2022/day9/test_puzzle1.txt", 13);
     }
 
-    private void testPuzzle_1(List<String> inputData, int tailPositions) {
+    private void testPuzzle_1(String inputFile, int tailPositions) {
         Day9 event = new Day9();
 
-        assertTrue(event.doPuzzleFromData(inputData));
+        assertTrue(event.doPuzzleFromFile(inputFile));
         assertEquals(tailPositions, event.getTailPositions());
     }
 
     @Test
     void testTest2022Day9_part2() {
-        testPuzzle_2(List.of(//
-                "R 5", //
-                "U 8", //
-                "L 8", //
-                "D 3", //
-                "R 17", //
-                "D 10", //
-                "L 25", //
-                "U 20" //
-        ), 36);
+        testPuzzle_2("y2022/day9/test_puzzle2.txt", 36);
     }
 
-    private void testPuzzle_2(List<String> inputData, int tailPositions10) {
+    private void testPuzzle_2(String inputFile, int tailPositions10) {
         Day9 event = new Day9();
 
-        assertTrue(event.doPuzzleFromData(inputData));
+        assertTrue(event.doPuzzleFromFile(inputFile));
         assertEquals(tailPositions10, event.getTailPositions10());
     }
 

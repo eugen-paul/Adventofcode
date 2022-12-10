@@ -14,6 +14,7 @@ class Day14Test {
     @Test
     void testTest2018Day14_testPuzzle1() {
         testPuzzle1(List.of("5"), "0124515891", 9);
+        testPuzzle1(List.of("9"), "5158916779", 13);
         testPuzzle1(List.of("18"), "9251071085", 48);
         testPuzzle1(List.of("2018"), "5941429882", 86764);
     }
