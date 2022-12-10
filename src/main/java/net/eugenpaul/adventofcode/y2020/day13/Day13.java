@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import lombok.Getter;
-import lombok.var;
 import net.eugenpaul.adventofcode.helper.MathHelper;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 

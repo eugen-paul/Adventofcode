@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import lombok.Getter;
-import lombok.var;
 import net.eugenpaul.adventofcode.helper.Direction;
 import net.eugenpaul.adventofcode.helper.HashStorage;
 import net.eugenpaul.adventofcode.helper.MapOfSimplePos;

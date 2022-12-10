@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
-import lombok.var;
 import net.eugenpaul.adventofcode.helper.Direction;
 import net.eugenpaul.adventofcode.helper.IntcodeMapComputer;
 import net.eugenpaul.adventofcode.helper.MapOfSimplePos;

@@ -14,6 +14,10 @@ configurations.all {
 }
 
 test {
+    // set heap size for the test JVM(s)
+    minHeapSize = "1024m"
+    maxHeapSize = "2048m"
+
     useJUnitPlatform()
 }
 

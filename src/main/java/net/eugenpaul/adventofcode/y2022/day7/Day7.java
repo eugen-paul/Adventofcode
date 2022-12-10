@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import lombok.Getter;
-import lombok.var;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day7 extends SolutionTemplate {

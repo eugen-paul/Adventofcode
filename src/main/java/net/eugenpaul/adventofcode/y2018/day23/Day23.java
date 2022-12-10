@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
-import lombok.var;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day23 extends SolutionTemplate {

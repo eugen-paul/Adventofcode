@@ -11,7 +11,6 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
-import lombok.var;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day7 extends SolutionTemplate {

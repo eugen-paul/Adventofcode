@@ -21,6 +21,7 @@ class Day21Test {
         Day21 event = new Day21();
 
         event.setIterations(2);
+        event.setDoTest2(false);
 
         assertTrue(event.doPuzzleFromData(inputData));
         assertEquals(pixelsOn, event.getPixelsOn());
