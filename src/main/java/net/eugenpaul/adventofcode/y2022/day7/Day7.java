@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import lombok.Getter;
+import lombok.var;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day7 extends SolutionTemplate {
@@ -51,6 +52,7 @@ public class Day7 extends SolutionTemplate {
 
     private int doPuzzle1(List<String> eventData) {
         Dir root = getRoot(eventData);
+        print(root);
         List<Integer> sizes = new LinkedList<>();
         getTotalSizeAndSetSizes(root, sizes);
         return sizes.stream()//
@@ -89,6 +91,8 @@ public class Day7 extends SolutionTemplate {
                 var cdData = data.split(" ");
                 if (cdData[2].equals("..")) {
                     current = current.parent;
+                } else if (cdData[2].equals("/")) {
+                    current = root;
                 } else {
                     Dir parent = current;
                     current = current.dirs.computeIfAbsent(cdData[2], v -> new Dir(parent));
@@ -108,6 +112,25 @@ public class Day7 extends SolutionTemplate {
         }
 
         return root;
+    }
+
+    private void print(Dir root) {
+        if (logger.isLoggable(Level.INFO)) {
+            logger.info("- / (dir)");
+            print(root, "  ");
+        }
+    }
+
+    private void print(Dir root, String offset) {
+        if (logger.isLoggable(Level.INFO)) {
+            for (var d : root.dirs.entrySet()) {
+                logger.info(offset + "- " + d.getKey() + " (dir)");
+                print(d.getValue(), offset + "  ");
+            }
+            for (var f : root.files.entrySet()) {
+                logger.info(offset + "- " + f.getKey() + " (file, size = " + f.getValue() + ")");
+            }
+        }
     }
 
 }
