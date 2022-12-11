@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [20/50]
+## Progress: Year 2022 [22/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -14,7 +14,7 @@
 | 8  | ⭐⭐ | [Day 8: Treetop Tree House](day8) |
 | 9  | ⭐⭐ | [Day 9: Rope Bridge](day9) |
 | 10 | ⭐⭐ | [Day 10: Cathode-Ray Tube](day10) |
-| 11 |  | 
+| 11 | ⭐⭐ | [Day 11: Monkey in the Middle](day11) |
 | 12 |  | 
 | 13 |  | 
 | 14 |  | 
