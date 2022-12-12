@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [22/50]
+## Progress: Year 2022 [24/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -15,7 +15,7 @@
 | 9  | ⭐⭐ | [Day 9: Rope Bridge](day9) |
 | 10 | ⭐⭐ | [Day 10: Cathode-Ray Tube](day10) |
 | 11 | ⭐⭐ | [Day 11: Monkey in the Middle](day11) |
-| 12 |  | 
+| 12 | ⭐⭐ | [Day 12: Hill Climbing Algorithm](day24) |
 | 13 |  | 
 | 14 |  | 
 | 15 |  | 
