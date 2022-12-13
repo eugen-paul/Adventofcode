@@ -206,4 +206,65 @@ public final class StringConverter {
         return response;
     }
 
+    /**
+     * Splits this string around matches. The elements inside the brackets will be not splitted.
+     * <p>
+     * Example:
+     * <p>
+     * <code>
+     * (1,2,3)     -> List.of("1", "2", "3")
+     * <p>
+     * (1,(2,3))   -> List.of("1", "2, 3")
+     * <p>
+     * (1,(2,3),4) -> List.of("1", "(2,3)", "4")
+     * <p>
+     * (1,(),4)    -> List.of("1" , "()" , "4")
+     * <p>
+     * ()          -> Collections.emptyList();
+     * </code>
+     * 
+     * @param data
+     * @param itemSeparator
+     * @param bracketOn
+     * @param bracketClose
+     * @param isOuterBracket
+     * @return
+     */
+    public static List<String> splitStrings(String data, char itemSeparator, char bracketOn, char bracketClose, boolean isOuterBracket) {
+        List<String> response = new LinkedList<>();
+
+        String workData = data;
+
+        if (isOuterBracket //
+                && data.length() >= 2 //
+                && workData.charAt(0) == bracketOn //
+                && workData.charAt(workData.length() - 1) == bracketClose //
+        ) {
+            workData = data.substring(1, workData.length() - 1);
+        }
+
+        if (workData.isBlank()) {
+            return response;
+        }
+
+        int deep = 0;
+        StringBuilder lastData = new StringBuilder("");
+        for (var c : workData.toCharArray()) {
+            if (deep == 0 && c == itemSeparator) {
+                response.add(lastData.toString());
+                lastData.setLength(0);
+            } else {
+                lastData.append(c);
+            }
+
+            if (c == bracketOn) {
+                deep++;
+            } else if (c == bracketClose) {
+                deep--;
+            }
+        }
+        response.add(lastData.toString());
+        return response;
+    }
+
 }

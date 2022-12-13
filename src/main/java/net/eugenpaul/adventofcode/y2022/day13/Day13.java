@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
+import net.eugenpaul.adventofcode.helper.StringConverter;
 
 public class Day13 extends SolutionTemplate {
 
@@ -91,14 +92,15 @@ public class Day13 extends SolutionTemplate {
     }
 
     private Comp isRightOrder(String left, String right) {
-        List<String> leftItems = extraktItems(left);
-        List<String> rightItems = extraktItems(right);
+        List<String> leftItems = extractItems(left);
+        List<String> rightItems = extractItems(right);
 
         int leftPos = 0;
         int rigthPos = 0;
 
         while (leftPos < leftItems.size()) {
             if (rigthPos >= rightItems.size()) {
+                // right list runs out of items
                 return Comp.GR;
             }
 
@@ -133,61 +135,35 @@ public class Day13 extends SolutionTemplate {
         }
 
         if (leftItems.size() < rightItems.size()) {
+            // left list runs out of items first
             return Comp.SM;
         }
 
         if (leftItems.size() > rightItems.size()) {
+            // unreachable
             return Comp.GR;
         }
 
         return Comp.EQ;
     }
 
-    private List<String> extraktItems(String data) {
-        List<String> response = new LinkedList<>();
-
-        try {
-            // if it a single numbe then return it
-            Integer.parseInt(data);
+    private List<String> extractItems(String data) {
+        var singleNumber = toInt(data);
+        if (singleNumber != null) {
+            List<String> response = new LinkedList<>();
             response.add(data);
             return response;
-        } catch (Exception e) {
-            // nothing to do
         }
 
-        int deep = -1;
-        String lastData = "";
-        for (var c : data.toCharArray()) {
-            switch (c) {
-            case ',':
-                if (deep > 0) {
-                    lastData += c;
-                } else if (deep == 0) {
-                    response.add(lastData);
-                    lastData = "";
-                }
-                break;
-            case '[':
-                if (deep >= 0) {
-                    lastData += c;
-                }
-                deep++;
-                break;
-            case ']':
-                if (deep > 0) {
-                    lastData += c;
-                } else if (deep == 0) {
-                    response.add(lastData);
-                    lastData = "";
-                }
-                deep--;
-                break;
-            default:
-                lastData += c;
-                break;
-            }
+        return StringConverter.splitStrings(data, ',', '[', ']', true);
+    }
+
+    private Integer toInt(String data) {
+        try {
+            return Integer.parseInt(data);
+        } catch (Exception e) {
+            return null;
         }
-        return response;
     }
 
 }
