@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import lombok.Getter;
+import lombok.Setter;
+import net.eugenpaul.adventofcode.helper.MapOfSimplePos;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
@@ -19,6 +21,9 @@ public class Day14 extends SolutionTemplate {
     private long unitsOfSand;
     @Getter
     private long unitsOfSand2;
+
+    @Setter
+    private boolean printArea = false;
 
     public static void main(String[] args) {
         Day14 puzzle = new Day14();
@@ -42,6 +47,18 @@ public class Day14 extends SolutionTemplate {
         Map<SimplePos, Value> area = parseMap(eventData);
 
         int counter = 0;
+
+        if (printArea) {
+            MapOfSimplePos.printList(MapOfSimplePos.mapToPrintList(area, v -> {
+                if (v == null || v == Value.EMPTY) {
+                    return ' ';
+                }
+                if (v == Value.SAND) {
+                    return 'o';
+                }
+                return '#';
+            }));
+        }
 
         int maxY = area.keySet().stream().mapToInt(SimplePos::getY).max().orElseThrow();
 
@@ -121,7 +138,7 @@ public class Day14 extends SolutionTemplate {
     }
 
     private void addPath(Map<SimplePos, Value> area, String path) {
-        var points = path.replace(" ->", "").split(" ");
+        var points = path.split(" -> ");
 
         SimplePos last = null;
         for (String p : points) {
@@ -131,24 +148,8 @@ public class Day14 extends SolutionTemplate {
                 continue;
             }
 
-            int deltaX = 0;
-            int deltaY = 0;
-            if (last.getX() > current.getX()) {
-                deltaX = -1;
-            } else if (last.getX() < current.getX()) {
-                deltaX = 1;
-            } else if (last.getY() > current.getY()) {
-                deltaY = -1;
-            } else if (last.getY() < current.getY()) {
-                deltaY = 1;
-            }
+            last.forEach(current, v -> area.put(v, Value.ROCK));
 
-            area.put(last.copy(), Value.ROCK);
-
-            while (!last.equals(current)) {
-                last = last.addNew(new SimplePos(deltaX, deltaY));
-                area.put(last.copy(), Value.ROCK);
-            }
             last = current;
         }
     }

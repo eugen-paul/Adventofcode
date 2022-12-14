@@ -2,6 +2,7 @@ package net.eugenpaul.adventofcode.helper;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -100,4 +101,66 @@ public class SimplePos {
         }
         return response;
     }
+
+    /**
+     * call consumer for each point on box
+     * 
+     * @param to
+     * @param consumer
+     */
+    public void forEach(SimplePos to, Consumer<SimplePos> consumer) {
+        int minX = Math.min(x, to.x);
+        int maxX = Math.max(x, to.x);
+        int minY = Math.min(y, to.y);
+        int maxY = Math.max(y, to.y);
+
+        for (int currentX = minX; currentX <= maxX; currentX++) {
+            for (int currentY = minY; currentY <= maxY; currentY++) {
+                consumer.accept(new SimplePos(currentX, currentY));
+            }
+        }
+    }
+
+    /**
+     * call consumer for each point on box
+     * 
+     * @param to
+     * @param consumer
+     */
+    public void forEachDiagonaly(SimplePos to, Consumer<SimplePos> consumer) {
+        int deltaX = 0;
+        int deltaY = 0;
+        if (x > to.x) {
+            deltaX = -1;
+        } else if (x < to.x) {
+            deltaX = 1;
+        }
+
+        if (y > to.y) {
+            deltaY = -1;
+        } else if (y < to.y) {
+            deltaY = 1;
+        }
+
+        var position = copy();
+        consumer.accept(position);
+
+        while (!position.equals(to)) {
+            position = new SimplePos(position.x + deltaX, position.y + deltaY);
+            consumer.accept(position);
+        }
+    }
+
+    public boolean isHorizontalOrVertical(SimplePos other) {
+        return isHorizontal(other) || isVertical(other);
+    }
+
+    private boolean isHorizontal(SimplePos other) {
+        return y == other.y;
+    }
+
+    private boolean isVertical(SimplePos other) {
+        return x == other.x;
+    }
+
 }

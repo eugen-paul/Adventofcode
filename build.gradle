@@ -23,6 +23,7 @@ test {
 
 dependencies {
     implementation          commonDependencies.apache_commons
+    implementation          commonDependencies.jackson_core
     
 	compileOnly             commonDependencies.lombok
 	annotationProcessor     commonDependencies.lombok
