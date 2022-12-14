@@ -3,6 +3,7 @@ ext {
     junit_version = "5.8.1"
     mockito_version = "4.2.0"
     apache_commons_version = "1.9"
+    jackson_version = "2.14.1"
 
     commonDependencies = [
         apache_commons         : "org.apache.commons:commons-text:$apache_commons_version",
@@ -11,6 +12,8 @@ ext {
 
         junit_api              : "org.junit.jupiter:junit-jupiter-api:$junit_version",
         junit_engine           : "org.junit.jupiter:junit-jupiter-engine:$junit_version",
+
+        jackson_core           : "com.fasterxml.jackson.core:jackson-databind:$jackson_version",
 
         mockito                : "org.mockito:mockito-core:$mockito_version"
     ]
