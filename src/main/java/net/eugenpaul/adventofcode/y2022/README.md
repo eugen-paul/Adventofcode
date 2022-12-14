@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [26/50]
+## Progress: Year 2022 [28/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -17,7 +17,7 @@
 | 11 | ⭐⭐ | [Day 11: Monkey in the Middle](day11) |
 | 12 | ⭐⭐ | [Day 12: Hill Climbing Algorithm](day12) |
 | 13 | ⭐⭐ | [Day 13: Distress Signal](day13) |
-| 14 |  | 
+| 14 | ⭐⭐ | [Day 14: Regolith Reservoir](day14) |
 | 15 |  | 
 | 16 |  | 
 | 17 |  | 
