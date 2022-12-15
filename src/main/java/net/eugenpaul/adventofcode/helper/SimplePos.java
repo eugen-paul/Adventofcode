@@ -86,6 +86,10 @@ public class SimplePos {
         return new SimplePos(x, y);
     }
 
+    public long manhattanDistance(SimplePos b) {
+        return (long) Math.abs(x - b.x) + Math.abs(y - b.y);
+    }
+
     public List<SimplePos> getNeighbors(boolean diagonal) {
         List<SimplePos> response = new LinkedList<>();
         response.add(new SimplePos(x + 1, y));
