@@ -16,14 +16,14 @@ class Day15Test {
         testPuzzle("y2022/day15/test_puzzle1.txt", 26, 56000011);
     }
 
-    private void testPuzzle(String inputFile, long stepsPart1, long stepsPart2) {
+    private void testPuzzle(String inputFile, long part1, long part2) {
         Day15 event = new Day15();
 
         event.setPart1Line(10);
         event.setPart2Size(20);
         assertTrue(event.doPuzzleFromFile(inputFile));
-        assertEquals(stepsPart1, event.getUnitsOfSand());
-        assertEquals(stepsPart2, event.getUnitsOfSand2());
+        assertEquals(part1, event.getPart1());
+        assertEquals(part2, event.getPart2());
     }
 
     @Test
@@ -32,8 +32,8 @@ class Day15Test {
 
         List<String> eventData = FileReaderHelper.readListStringFromFile("y2022/day15/puzzle1.txt");
         assertTrue(event.doPuzzleFromData(eventData));
-        assertEquals(5403290, event.getUnitsOfSand());
-        assertEquals(10291582906626L, event.getUnitsOfSand2());
+        assertEquals(5403290, event.getPart1());
+        assertEquals(10291582906626L, event.getPart2());
     }
 
 }
