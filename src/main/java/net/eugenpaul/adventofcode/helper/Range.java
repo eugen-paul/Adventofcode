@@ -1,14 +1,18 @@
 package net.eugenpaul.adventofcode.helper;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.LongConsumer;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class Range {
 
     @Getter
@@ -56,5 +60,27 @@ public class Range {
         for (long i = from; i <= to; i++) {
             consumer.accept(i);
         }
+    }
+
+    public List<Range> subtract(Range other) {
+        List<Range> response = new LinkedList<>();
+        if (!isOverlap(other)) {
+            response.add(this);
+            return response;
+        }
+
+        if (other.isContain(this)) {
+            return response;
+        }
+
+        if (from < other.from) {
+            response.add(new Range(from, other.from - 1));
+        }
+
+        if (to > other.to) {
+            response.add(new Range(other.to + 1, to));
+        }
+
+        return response;
     }
 }
