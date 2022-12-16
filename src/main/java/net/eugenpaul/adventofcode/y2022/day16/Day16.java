@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -15,8 +15,8 @@ import lombok.Getter;
 import lombok.Setter;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
-import net.eugenpaul.adventofcode.helper.dijkstra.DijkstraGen;
-import net.eugenpaul.adventofcode.helper.dijkstra.MazeGen;
+import net.eugenpaul.adventofcode.helper.dijkstra.Dijkstra;
+import net.eugenpaul.adventofcode.helper.dijkstra.Maze;
 
 public class Day16 extends SolutionTemplate {
 
@@ -34,7 +34,7 @@ public class Day16 extends SolutionTemplate {
     }
 
     @AllArgsConstructor
-    private class Area implements MazeGen<SimplePos> {
+    private class Area implements Maze {
 
         Map<String, Point> mazeArea;
 
@@ -108,6 +108,7 @@ public class Day16 extends SolutionTemplate {
 
         Set<String> mySet = new HashSet<>();
         Set<String> elSet = new HashSet<>();
+        Map<String, Integer> hMap = new HashMap<>();
         for (int i = 1; i < pow; i++) {
             mySet.clear();
             elSet.clear();
@@ -137,13 +138,18 @@ public class Day16 extends SolutionTemplate {
 
             maxRespone = Math.max(//
                     maxRespone, //
-                    computePressure(myArea, "AA", 26) + computePressure(elArea, "AA", 26) //
+                    computePressure(myArea, "AA", 26, hMap) + computePressure(elArea, "AA", 26, hMap) //
             );
 
-            logger.log(Level.FINEST, "step: {0} maxRespone: {1}", new Object[] { i, maxRespone });
+            logger.log(Level.INFO, "step: {0} maxRespone: {1}", new Object[] { i, maxRespone });
         }
 
         return maxRespone;
+    }
+
+    private int computePressure(Map<String, Point> area, String position, int limit, Map<String, Integer> hMap) {
+        dijkstraBuffer = new HashMap<>();
+        return doStepsFaster(area, 1, position, limit, hMap);
     }
 
     private int computePressure(Map<String, Point> area, String position, int limit) {
@@ -152,39 +158,9 @@ public class Day16 extends SolutionTemplate {
         return doStepsFaster(area, 1, position, limit, hMap);
     }
 
-    private int doStepsFaster(Map<String, Point> area, int minute, String position, int limit, Map<String, Integer> hMap) {
+    private int doStepsFaster(Map<String, Point> area, int minute, String position, int limit, Map<String, Integer> cache) {
         if (minute == limit + 1) {
             return 0;
-        }
-
-        int releaseAfterMinute = 0;
-
-        boolean isAllOpen = area.entrySet().stream()//
-                .filter(v -> v.getValue().rate > 0)//
-                .allMatch(v -> v.getValue().isOpen);
-
-        int rateProMinute = 0;
-        for (var entry : area.entrySet()) {
-            if (entry.getValue().isOpen) {
-                rateProMinute += entry.getValue().rate;
-            }
-        }
-
-        if (isAllOpen) {
-            // All valves are already open. Calculate result.
-            releaseAfterMinute += rateProMinute * (limit + 1 - minute);
-            return releaseAfterMinute;
-        }
-
-        releaseAfterMinute += rateProMinute;
-
-        int responseRelease = releaseAfterMinute;
-
-        if (!area.get(position).isOpen && area.get(position).rate != 0) {
-            // if you stand on a node that is not open, open it.
-            var areaCopy = copyArea(area);
-            areaCopy.get(position).isOpen = true;
-            return Math.max(responseRelease, releaseAfterMinute + doStepsFaster(areaCopy, minute + 1, position, limit, hMap));
         }
 
         var toOpen = area.entrySet().stream()//
@@ -193,41 +169,62 @@ public class Day16 extends SolutionTemplate {
                 .collect(Collectors.toList())//
         ;
 
-        // If the input data has already been handled, use the data.
-        String hashPrefix = toOpen.stream().sorted().reduce(position + ":", (a, b) -> a + b);
-        String hash = hashPrefix + minute;
-        if (hMap.containsKey(hash)) {
-            return hMap.get(hash);
+        if (toOpen.isEmpty()) {
+            // All valves are already open. Calculate result.
+            return area.get(position).rate * (limit + 1 - minute);
         }
 
+        if (!area.get(position).isOpen && area.get(position).rate != 0) {
+            // if you stand on a node that is not open, open it.
+            var areaCopy = copyArea(area);
+            areaCopy.get(position).isOpen = true;
+            return doStepsFaster(areaCopy, minute + 1, position, limit, cache);
+        }
+
+        int nodeRate = area.get(position).rate;
+
+        // Compute hash of current state
+        StringBuilder hashBuilder = new StringBuilder(100);
+        hashBuilder.append(position).append(":");
+
+        toOpen.stream().sorted().forEach(hashBuilder::append);
+
+        String hash = hashBuilder.append(minute).toString();
+        if (cache.containsKey(hash)) {
+            // Current state are allready handled. Return cached value
+            return cache.get(hash);
+        }
+
+        int maxRelease = 0;
         for (var target : toOpen) {
             var myMap = new Area(area);
 
-            var targetCost = dijkstraBuffer.computeIfAbsent(position, k -> new HashMap<>())//
+            var stepsToTarget = dijkstraBuffer.computeIfAbsent(position, k -> new HashMap<>())//
                     .get(target);
 
-            if (targetCost == null) {
+            if (stepsToTarget == null) {
                 // the implementation of Dijkstra is to slow. Thats way the data should be cached.
-                var way = DijkstraGen.getPath(myMap, area.get(position).pos, area.get(target).pos);
-                targetCost = way.size();
-                dijkstraBuffer.get(position).put(target, targetCost);
+                var algo = new Dijkstra();
+                stepsToTarget = algo.getSteps(myMap, area.get(position).pos, area.get(target).pos);
+                dijkstraBuffer.get(position).put(target, stepsToTarget);
             }
 
-            if (targetCost < limit + 1 - minute) {
+            if (stepsToTarget < limit + 1 - minute) {
                 var areaCopy = copyArea(area);
-                responseRelease = Math.max(//
-                        responseRelease, //
-                        releaseAfterMinute + rateProMinute * (targetCost - 1) + doStepsFaster(areaCopy, minute + targetCost, target, limit, hMap)//
+                int restMinutes = limit - minute + 1;
+                maxRelease = Math.max(//
+                        maxRelease, //
+                        nodeRate * restMinutes + doStepsFaster(areaCopy, minute + stepsToTarget, target, limit, cache)//
                 );
             } else {
-                int restMinutes = limit - minute;
-                responseRelease = Math.max(responseRelease, rateProMinute * restMinutes + releaseAfterMinute);
+                int restMinutes = limit - minute + 1;
+                maxRelease = Math.max(maxRelease, nodeRate * restMinutes);
             }
         }
 
-        hMap.put(hash, responseRelease);
+        cache.put(hash, maxRelease);
 
-        return responseRelease;
+        return maxRelease;
     }
 
     @SuppressWarnings("unused")
@@ -272,13 +269,14 @@ public class Day16 extends SolutionTemplate {
 
         for (var neightbar : toOpen) {
             var myMap = new Area(area);
-            var way = DijkstraGen.getPath(myMap, area.get(position).pos, area.get(neightbar).pos);
+            var algo = new Dijkstra();
+            var way = algo.getSteps(myMap, area.get(position).pos, area.get(neightbar).pos);
 
-            if (way.size() < limit + 1 - minute) {
+            if (way < limit + 1 - minute) {
                 var areaCopy = copyArea(area);
                 responseRelease = Math.max(//
                         responseRelease, //
-                        doStepsSlow(areaCopy, minute + way.size(), neightbar, releaseAfterMinute + rateProMinute * (way.size() - 1), limit, hMap)//
+                        doStepsSlow(areaCopy, minute + way, neightbar, releaseAfterMinute + rateProMinute * (way - 1), limit, hMap)//
                 );
             } else {
                 int restMinutes = limit - minute;
