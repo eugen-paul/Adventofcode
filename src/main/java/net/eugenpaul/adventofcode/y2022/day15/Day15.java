@@ -29,7 +29,7 @@ public class Day15 extends SolutionTemplate {
 
     public static void main(String[] args) {
         Day15 puzzle = new Day15();
-        puzzle.doPuzzleFromFile("y2022/day14/puzzle1.txt");
+        puzzle.doPuzzleFromFile("y2022/day15/puzzle1.txt");
     }
 
     @Override
