@@ -9,6 +9,7 @@ import java.util.logging.Level;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.eugenpaul.adventofcode.helper.Area;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
@@ -124,26 +125,24 @@ public class Day15 extends SolutionTemplate {
         Set<SimplePos> beacons = new HashSet<>();
         readArea(eventData, distanceToBeacon, beacons);
 
-        var ul = new SimplePos(0, 0);
-        var dr = new SimplePos(max, max);
+        Area fullArea = new Area(0, 0, max + 1, max + 1);
 
-        return doStep(distanceToBeacon, ul, dr);
+        return doStep(distanceToBeacon, fullArea);
     }
 
-    private long doStep(Map<SimplePos, Long> distanceToBeacon, SimplePos ul, SimplePos dr) {
-        if (ul.getX() > dr.getX() || ul.getY() > dr.getY()) {
-            return -1;
-        }
+    private long doStep(Map<SimplePos, Long> distanceToBeacon, Area area) {
 
-        if (ul.equals(dr)) {
-            if (isPlaceForBeacon(distanceToBeacon, dr)) {
-                return dr.getX() * 4000000L + dr.getY();
+        if (area.getWidth() == 1 && area.getHeight() == 1) {
+            if (isPlaceForBeacon(distanceToBeacon, area.getPos())) {
+                return area.getPos().getX() * 4000000L + area.getPos().getY();
             }
             return -1;
         }
 
-        SimplePos ur = new SimplePos(dr.getX(), ul.getY());
-        SimplePos dl = new SimplePos(ul.getX(), dr.getY());
+        SimplePos ul = area.getPosUpLeft();
+        SimplePos ur = area.getPosUpRight();
+        SimplePos dl = area.getPosDownLeft();
+        SimplePos dr = area.getPosDownRight();
 
         for (var entry : distanceToBeacon.entrySet()) {
             long ulToSensor = ul.manhattanDistance(entry.getKey());
@@ -162,50 +161,12 @@ public class Day15 extends SolutionTemplate {
             }
         }
 
-        // Divide the square into four equal areas and repeat the test.
-        int fullX = dr.getX() - ul.getX();
-        int halfX = fullX / 2;
-
-        int fullY = dr.getY() - ul.getY();
-        int halfY = fullY / 2;
-
-        long resp = -1;
-        resp = doStep(//
-                distanceToBeacon, //
-                ul, //
-                ul.addNew(new SimplePos(halfX, halfY)) //
-        );
-        if (resp != -1) {
-            return resp;
+        for (var subArea : area.divide()) {
+            long response = doStep(distanceToBeacon, subArea);
+            if (response != -1) {
+                return response;
+            }
         }
-
-        resp = doStep(//
-                distanceToBeacon, //
-                ul.addNew(new SimplePos(halfX + 1, 0)), //
-                ul.addNew(new SimplePos(fullX, halfY)) //
-        );
-        if (resp != -1) {
-            return resp;
-        }
-
-        resp = doStep(//
-                distanceToBeacon, //
-                ul.addNew(new SimplePos(0, halfY + 1)), //
-                ul.addNew(new SimplePos(halfX, fullY)) //
-        );
-        if (resp != -1) {
-            return resp;
-        }
-
-        resp = doStep(//
-                distanceToBeacon, //
-                ul.addNew(new SimplePos(halfX + 1, halfY + 1)), //
-                dr //
-        );
-        if (resp != -1) {
-            return resp;
-        }
-
         return -1;
     }
 
