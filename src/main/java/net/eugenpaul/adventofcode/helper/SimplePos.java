@@ -6,10 +6,11 @@ import java.util.function.Consumer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import net.eugenpaul.adventofcode.helper.dijkstra.DijkstraStepGen;
 
 @AllArgsConstructor
 @Data
-public class SimplePos {
+public class SimplePos implements DijkstraStepGen{
     private int x;
     private int y;
 
@@ -165,6 +166,16 @@ public class SimplePos {
 
     private boolean isVertical(SimplePos other) {
         return x == other.x;
+    }
+
+    @Override
+    public String compHash() {
+        return toString();
+    }
+
+    @Override
+    public int getCost() {
+        return 1;
     }
 
 }

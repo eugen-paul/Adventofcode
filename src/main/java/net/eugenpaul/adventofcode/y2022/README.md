@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [30/50]
+## Progress: Year 2022 [32/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -19,7 +19,7 @@
 | 13 | ⭐⭐ | [Day 13: Distress Signal](day13) |
 | 14 | ⭐⭐ | [Day 14: Regolith Reservoir](day14) |
 | 15 | ⭐⭐ | [Day 15: Beacon Exclusion Zone](day15) |
-| 16 |  | 
+| 16 | ⭐⭐ | [Day 16: Proboscidea Volcanium](day16) |
 | 17 |  | 
 | 18 |  | 
 | 19 |  | 
