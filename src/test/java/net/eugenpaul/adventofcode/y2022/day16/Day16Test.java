@@ -28,12 +28,10 @@ class Day16Test {
     void testSolution2022Day16() {
         Day16 event = new Day16();
 
-        event.setSkipPart2(true);
         List<String> eventData = FileReaderHelper.readListStringFromFile("y2022/day16/puzzle1.txt");
         assertTrue(event.doPuzzleFromData(eventData));
         assertEquals(1751, event.getPart1());
-        //don't test. Implementation is to slow
-        // assertEquals(2207, event.getPart2());
+        assertEquals(2207, event.getPart2());
     }
 
 }
