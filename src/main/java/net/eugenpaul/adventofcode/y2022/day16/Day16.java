@@ -141,7 +141,7 @@ public class Day16 extends SolutionTemplate {
                     computePressure(myArea, "AA", 26, hMap) + computePressure(elArea, "AA", 26, hMap) //
             );
 
-            logger.log(Level.INFO, "step: {0} maxRespone: {1}", new Object[] { i, maxRespone });
+            logger.log(Level.FINEST, "step: {0} maxRespone: {1}", new Object[] { i, maxRespone });
         }
 
         return maxRespone;
