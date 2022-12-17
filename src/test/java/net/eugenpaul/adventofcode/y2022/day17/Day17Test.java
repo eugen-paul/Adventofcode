@@ -21,7 +21,7 @@ class Day17Test {
 
         assertTrue(event.doPuzzleFromFile(inputFile));
         assertEquals(part1, event.getPart1());
-        // assertEquals(part2, event.getPart2());
+        assertEquals(part2, event.getPart2());
     }
 
     @Test
@@ -31,7 +31,7 @@ class Day17Test {
         List<String> eventData = FileReaderHelper.readListStringFromFile("y2022/day17/puzzle1.txt");
         assertTrue(event.doPuzzleFromData(eventData));
         assertEquals(3135, event.getPart1());
-        // assertEquals(1, event.getPart2());
+        assertEquals(1569054441243L, event.getPart2());
     }
 
 }

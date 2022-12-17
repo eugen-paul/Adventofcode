@@ -25,9 +25,8 @@ public class Day17 extends SolutionTemplate {
     @Override
     public boolean doEvent(String eventData) {
 
-        part1 = doPuzzle1(eventData);
-        part2 = doPuzzle2(eventData, 10000);
-        // part2 = doPuzzle2(eventData, 1000000000000L);
+        part1 = doPuzzle(eventData, 2022L);
+        part2 = doPuzzle(eventData, 1000000000000L);
 
         logger.log(Level.INFO, () -> "part1 : " + getPart1());
         logger.log(Level.INFO, () -> "part2 : " + getPart2());
@@ -35,7 +34,8 @@ public class Day17 extends SolutionTemplate {
         return true;
     }
 
-    private long doPuzzle1(String eventData) {
+    @SuppressWarnings("unused")
+    private long doPuzzleSlow(String eventData) {
         List<List<SimplePos>> allShapes = initShapes();
         Map<SimplePos, Boolean> area = new HashMap<>();
         area.put(new SimplePos(0, 0), true);
@@ -84,11 +84,16 @@ public class Day17 extends SolutionTemplate {
         return getMinY(area) * -1L;
     }
 
-    private long doPuzzle2(String eventData, long rounds) {
-        logger.log(Level.INFO, () -> "-------- new game --------");
+    private long doPuzzle(String eventData, long rounds) {
         List<List<SimplePos>> allShapes = initShapes();
         Map<SimplePos, Boolean> area = new HashMap<>();
-        Map<String, List<Long>> hashs = new HashMap<>();
+        /** Key = Jet+Shape. Value = roundNumber */
+        Map<String, Integer> hashsOfTalls = new HashMap<>();
+        /** Key = roundNumber. Value = tall */
+        List<Long> roundToTalls = new LinkedList<>();
+        roundToTalls.add(0L);
+        Map<String, Long> hashOgDeltas = new HashMap<>();
+
         area.put(new SimplePos(0, 0), true);
         area.put(new SimplePos(1, 0), true);
         area.put(new SimplePos(2, 0), true);
@@ -104,11 +109,6 @@ public class Day17 extends SolutionTemplate {
         shapeI++;
         currentShape = setStartY(0, currentShape);
 
-        String currentHash = "";
-        int hashCount = 0;
-        int falling = 0;
-        long lastH = 0;
-
         while (count < rounds) {
             char j = eventData.charAt(jet);
             switch (j) {
@@ -123,7 +123,6 @@ public class Day17 extends SolutionTemplate {
             }
             if (checkMoveDown(area, currentShape)) {
                 currentShape = moveDown(currentShape);
-                falling++;
             } else {
                 addToMap(area, currentShape);
                 currentShape = allShapes.get(shapeI);
@@ -131,49 +130,24 @@ public class Day17 extends SolutionTemplate {
                 currentShape = setStartY(minAreay, currentShape);
                 count++;
 
-                /**
-                 * The output shows us that there is wine repetition of the data after 1817 steps. The new altitude is always 2738 greater than the altitude
-                 * logged before 1745.
-                 * 
-                 * The following calculation for the determination of the solution:
-                 * 
-                 * limtRounds - first repetition
-                 * 
-                 * 1000000000000 - 1817 = 999.999.998.183
-                 * 
-                 * 999.999.998.183 /1745 = 573.065.901
-                 * 
-                 * 573,065,901 is the number of complete repetitions up to 10000000000.
-                 * 
-                 * 999.999.998.183 mod 1745 = 938
-                 * 
-                 * 938 is the additional rounds we need to skip to calculate better.
-                 * 
-                 * 1817 + 938 = 2.755
-                 * 
-                 * We calculate the final height from round 2.755
-                 * 
-                 * Height in round 2.755 is 4305.
-                 * 
-                 * Result: 573,065,901*2738 + 4305 = 1,569,054,441,243
-                 */
-                currentHash = jet + "";
-                if (hashs.containsKey(currentHash)) {
-                    long currH = (getMinY(area) * -1L);
-                    long delta = currH - hashs.get(currentHash).get(1);
-                    long lastCount = hashs.get(currentHash).get(0);
-                    long deltaCount = count - lastCount;
-                    System.out.println(jet + " " + shapeI + " " + count + " " + lastCount + " " + deltaCount + " " + currH + " " + hashs.get(currentHash).get(1)
-                            + " " + delta);
-                    hashs.put(currentHash, List.of(count, currH));
-                } else {
-                    long currH = (getMinY(area) * -1L);
-                    hashs.put(currentHash, List.of(count, currH));
+                long currentTall = (getMinY(area) * -1L);
+                roundToTalls.add(currentTall);
+
+                var hashResult = checkHash(//
+                        jet + ":" + shapeI, //
+                        hashsOfTalls, //
+                        roundToTalls, //
+                        currentTall, //
+                        hashOgDeltas, //
+                        count, //
+                        rounds //
+                );
+                if (hashResult != -1L) {
+                    return hashResult;
                 }
 
                 shapeI = (shapeI + 1) % allShapes.size();
 
-                falling = 0;
                 if (count % 50 == 0) {
                     reduceMap(area);
                 }
@@ -182,6 +156,34 @@ public class Day17 extends SolutionTemplate {
         }
 
         return getMinY(area) * -1L;
+    }
+
+    private long checkHash(String currentHash, Map<String, Integer> hashsOfTalls, List<Long> roundToTalls, long currentTall, Map<String, Long> hashOgDeltas,
+            long count, long rounds) {
+        if (hashsOfTalls.containsKey(currentHash)) {
+            long historyTall = roundToTalls.get(hashsOfTalls.get(currentHash));
+            long deltaTall = currentTall - historyTall;
+
+            var lastDelta = hashOgDeltas.get(currentHash);
+            if (lastDelta != null && lastDelta == deltaTall) {
+                var restRounds = rounds - count;
+                var deltaRound = count - hashsOfTalls.get(currentHash);
+
+                /** +1, because the offsetOfCompleteRepetition is taken from the past cycle. */
+                var numberOfCompleteRepetitions = restRounds / deltaRound + 1;
+
+                var offsetOfCompleteRepetition = restRounds % deltaRound + count - deltaRound;
+                var tallAtOffset = roundToTalls.get((int) offsetOfCompleteRepetition);
+
+                return numberOfCompleteRepetitions * deltaTall + tallAtOffset;
+            } else {
+                hashsOfTalls.put(currentHash, (int) count);
+                hashOgDeltas.put(currentHash, deltaTall);
+            }
+        } else {
+            hashsOfTalls.put(currentHash, (int) count);
+        }
+        return -1L;
     }
 
     private void reduceMap(Map<SimplePos, Boolean> area) {
