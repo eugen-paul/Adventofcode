@@ -57,15 +57,15 @@ public class Day18 extends SolutionTemplate {
     }
 
     private Set<Pos3d> computeWatter(Set<Pos3d> lavaArea) {
-        int maxX = lavaArea.stream().mapToInt(v -> (int) v.getX()).max().orElseThrow();
-        int minX = lavaArea.stream().mapToInt(v -> (int) v.getX()).min().orElseThrow();
-        int maxY = lavaArea.stream().mapToInt(v -> (int) v.getY()).max().orElseThrow();
-        int minY = lavaArea.stream().mapToInt(v -> (int) v.getY()).min().orElseThrow();
-        int maxZ = lavaArea.stream().mapToInt(v -> (int) v.getZ()).max().orElseThrow();
-        int minZ = lavaArea.stream().mapToInt(v -> (int) v.getZ()).min().orElseThrow();
+        long maxX = lavaArea.stream().mapToLong(Pos3d::getX).max().orElseThrow();
+        long minX = lavaArea.stream().mapToLong(Pos3d::getX).min().orElseThrow();
+        long maxY = lavaArea.stream().mapToLong(Pos3d::getY).max().orElseThrow();
+        long minY = lavaArea.stream().mapToLong(Pos3d::getY).min().orElseThrow();
+        long maxZ = lavaArea.stream().mapToLong(Pos3d::getZ).max().orElseThrow();
+        long minZ = lavaArea.stream().mapToLong(Pos3d::getZ).min().orElseThrow();
 
-        Pos3d min = new Pos3d(minX - 1L, minY - 1L, minZ - 1L);
-        Pos3d max = new Pos3d(maxX + 1L, maxY + 1L, maxZ + 1L);
+        Pos3d min = new Pos3d(minX - 1, minY - 1, minZ - 1);
+        Pos3d max = new Pos3d(maxX + 1, maxY + 1, maxZ + 1);
 
         Set<Pos3d> watterArea = new HashSet<>();
         LinkedList<Pos3d> toCheck = new LinkedList<>();

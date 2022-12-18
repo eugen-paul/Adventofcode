@@ -122,4 +122,82 @@ public class Area3d {
 
         return response;
     }
+
+    public static Area3d fromMinMaxXYZ(int minX, int maxX, int minY, int maxY, int minZ, int maxZ) {
+        return new Area3d(minX, minY, minZ, maxX - minX + 1, maxY - minY + 1, maxZ - minZ + 1);
+    }
+
+    private boolean isOk() {
+        return width > 0 && height > 0 && deep > 0;
+    }
+
+    private void addIfOk(List<Area3d> list, Area3d toAdd) {
+        if (toAdd.isOk()) {
+            list.add(toAdd);
+        }
+    }
+
+    public List<Area3d> substract(Area3d other) {
+        if (x + width - 1 < other.x || x > other.x + other.width - 1 //
+                || y + height - 1 < other.y || y > other.y + other.height - 1 //
+                || z + deep - 1 < other.z || z > other.z + other.deep - 1 //
+        ) {
+            return List.of(this.copy());
+        }
+
+        List<Area3d> response = new LinkedList<>();
+        int x11 = x;
+        int x12 = other.x - 1;
+        int x21 = Math.max(x, other.x);
+        int x22 = Math.min(x + width - 1, other.x + other.width - 1);
+        int x31 = other.x + other.width;
+        int x32 = x + width - 1;
+
+        int y11 = y;
+        int y12 = other.y - 1;
+        int y21 = Math.max(y, other.y);
+        int y22 = Math.min(y + height - 1, other.y + other.height - 1);
+        int y31 = other.y + other.height;
+        int y32 = y + height - 1;
+
+        int z11 = z;
+        int z12 = other.z - 1;
+        int z21 = Math.max(z, other.z);
+        int z22 = Math.min(z + deep - 1, other.z + other.deep - 1);
+        int z31 = other.z + other.deep;
+        int z32 = z + deep - 1;
+
+        // ---------------------------------------
+        addIfOk(response, fromMinMaxXYZ(x11, x12, y11, y12, z11, z12));
+        addIfOk(response, fromMinMaxXYZ(x11, x12, y11, y12, z21, z22));
+        addIfOk(response, fromMinMaxXYZ(x11, x12, y11, y12, z31, z32));
+        addIfOk(response, fromMinMaxXYZ(x11, x12, y21, y22, z11, z12));
+        addIfOk(response, fromMinMaxXYZ(x11, x12, y21, y22, z21, z22));
+        addIfOk(response, fromMinMaxXYZ(x11, x12, y21, y22, z31, z32));
+        addIfOk(response, fromMinMaxXYZ(x11, x12, y31, y32, z11, z12));
+        addIfOk(response, fromMinMaxXYZ(x11, x12, y31, y32, z21, z22));
+        addIfOk(response, fromMinMaxXYZ(x11, x12, y31, y32, z31, z32));
+
+        addIfOk(response, fromMinMaxXYZ(x21, x22, y11, y12, z11, z12));
+        addIfOk(response, fromMinMaxXYZ(x21, x22, y11, y12, z21, z22));
+        addIfOk(response, fromMinMaxXYZ(x21, x22, y11, y12, z31, z32));
+        addIfOk(response, fromMinMaxXYZ(x21, x22, y21, y22, z11, z12));
+        // addIfOk(response, fromMinMaxXYZ(x21, x22, y21, y22, z21, z22));
+        addIfOk(response, fromMinMaxXYZ(x21, x22, y21, y22, z31, z32));
+        addIfOk(response, fromMinMaxXYZ(x21, x22, y31, y32, z11, z12));
+        addIfOk(response, fromMinMaxXYZ(x21, x22, y31, y32, z21, z22));
+        addIfOk(response, fromMinMaxXYZ(x21, x22, y31, y32, z31, z32));
+
+        addIfOk(response, fromMinMaxXYZ(x31, x32, y11, y12, z11, z12));
+        addIfOk(response, fromMinMaxXYZ(x31, x32, y11, y12, z21, z22));
+        addIfOk(response, fromMinMaxXYZ(x31, x32, y11, y12, z31, z32));
+        addIfOk(response, fromMinMaxXYZ(x31, x32, y21, y22, z11, z12));
+        addIfOk(response, fromMinMaxXYZ(x31, x32, y21, y22, z21, z22));
+        addIfOk(response, fromMinMaxXYZ(x31, x32, y21, y22, z31, z32));
+        addIfOk(response, fromMinMaxXYZ(x31, x32, y31, y32, z11, z12));
+        addIfOk(response, fromMinMaxXYZ(x31, x32, y31, y32, z21, z22));
+        addIfOk(response, fromMinMaxXYZ(x31, x32, y31, y32, z31, z32));
+
+        return response;
+    }
 }
