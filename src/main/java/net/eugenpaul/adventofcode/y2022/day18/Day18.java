@@ -55,16 +55,26 @@ public class Day18 extends SolutionTemplate {
     }
 
     private Set<Pos3d> computeWatter(Map<Pos3d, Integer> lavaArea) {
+        int maxX = lavaArea.keySet().stream().mapToInt(v -> (int) v.getX()).max().orElseThrow();
+        int minX = lavaArea.keySet().stream().mapToInt(v -> (int) v.getX()).min().orElseThrow();
+        int maxY = lavaArea.keySet().stream().mapToInt(v -> (int) v.getY()).max().orElseThrow();
+        int minY = lavaArea.keySet().stream().mapToInt(v -> (int) v.getY()).min().orElseThrow();
+        int maxZ = lavaArea.keySet().stream().mapToInt(v -> (int) v.getZ()).max().orElseThrow();
+        int minZ = lavaArea.keySet().stream().mapToInt(v -> (int) v.getZ()).min().orElseThrow();
+
+        Pos3d min = new Pos3d(minX - 1L, minY - 1L, minZ - 1L);
+        Pos3d max = new Pos3d(maxX + 1L, maxY + 1L, maxZ + 1L);
+
         Set<Pos3d> watterArea = new HashSet<>();
         LinkedList<Pos3d> toCheck = new LinkedList<>();
-        toCheck.add(new Pos3d(-1, -1, -1));
-        watterArea.add(new Pos3d(-1, -1, -1));
+        toCheck.add(min);
+        watterArea.add(min);
 
         while (!toCheck.isEmpty()) {
             Pos3d pos = toCheck.removeFirst();
             var neighbors = getNeighbors(pos);
             for (Pos3d nPos : neighbors) {
-                if (isOk(lavaArea, watterArea, nPos)) {
+                if (isOk(lavaArea, watterArea, nPos, min, max)) {
                     watterArea.add(nPos);
                     toCheck.add(nPos);
                 }
@@ -73,9 +83,9 @@ public class Day18 extends SolutionTemplate {
         return watterArea;
     }
 
-    private boolean isOk(Map<Pos3d, Integer> lavaArea, Set<Pos3d> watterArea, Pos3d pos) {
-        if (pos.getX() < -1 || pos.getY() < -1 || pos.getZ() < -1 //
-                || pos.getX() > 22 || pos.getY() > 22 || pos.getZ() > 22 //
+    private boolean isOk(Map<Pos3d, Integer> lavaArea, Set<Pos3d> watterArea, Pos3d pos, Pos3d min, Pos3d max) {
+        if (pos.getX() < min.getX() || pos.getY() < min.getY() || pos.getZ() < min.getZ() //
+                || pos.getX() > max.getX() || pos.getY() > max.getY() || pos.getZ() > max.getZ() //
         ) {
             return false;
         }
