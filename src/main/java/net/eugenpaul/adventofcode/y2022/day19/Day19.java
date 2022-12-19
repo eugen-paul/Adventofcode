@@ -52,7 +52,7 @@ public class Day19 extends SolutionTemplate {
 
         int result = 0;
         for (int i = 0; i < bps.size(); i++) {
-            Map<String, Integer> hh = new HashMap<>();
+            Map<Long, Integer> hh = new HashMap<>();
             int g = getGeode(bps.get(i), 24, 0, 0, 0, 1, 0, 0, hh);
             result += g * (bps.get(i).number);
         }
@@ -69,7 +69,7 @@ public class Day19 extends SolutionTemplate {
 
         int result = 1;
         for (int i = 0; i < bps.size(); i++) {
-            Map<String, Integer> hh = new HashMap<>();
+            Map<Long, Integer> hh = new HashMap<>();
             int g = getGeode(bps.get(i), 32, 0, 0, 0, 1, 0, 0, hh);
             result *= g;
         }
@@ -77,11 +77,13 @@ public class Day19 extends SolutionTemplate {
         return result;
     }
 
-    private int getGeode(Bp bp, int minRest, int ore, int clay, int obs, int oreR, int clayR, int obsR, Map<String, Integer> hh) {
+    private int getGeode(Bp bp, int minRest, int ore, int clay, int obs, int oreR, int clayR, int obsR, Map<Long, Integer> hh) {
 
-        String hash = minRest + ":" + ore + ":" + clay + ":" + obs + ":" + oreR + ":" + clayR + ":" + obsR;
+        Long key = minRest * 1000000000000000000L //
+                + ore * 1000000000000000L + clay * 1000000000000L + obs * 1000000000L //
+                + oreR * 1000000L + clayR * 10000L + obsR * 100L;
 
-        Integer r = hh.get(hash);
+        Integer r = hh.get(key);
         if (r != null) {
             return r;
         }
@@ -146,7 +148,7 @@ public class Day19 extends SolutionTemplate {
                     oreR, clayR, obsR, hh));
         }
 
-        hh.put(hash, maxResp);
+        hh.put(key, maxResp);
 
         return maxResp;
     }
