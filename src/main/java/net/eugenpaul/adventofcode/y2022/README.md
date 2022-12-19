@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [36/50]
+## Progress: Year 2022 [38/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -22,7 +22,7 @@
 | 16 | ⭐⭐ | [Day 16: Proboscidea Volcanium](day16) |
 | 17 | ⭐⭐ | [Day 17: Pyroclastic Flow](day17) |
 | 18 | ⭐⭐ | [Day 18: Boiling Boulders](day18) |
-| 19 |  | 
+| 19 | ⭐⭐ | [Day 19: Not Enough Minerals](day19) |
 | 20 |  | 
 | 21 |  | 
 | 22 |  | 
