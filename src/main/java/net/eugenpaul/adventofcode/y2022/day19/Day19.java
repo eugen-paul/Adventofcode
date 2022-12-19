@@ -1,10 +1,10 @@
 package net.eugenpaul.adventofcode.y2022.day19;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,31 +50,18 @@ public class Day19 extends SolutionTemplate {
     private long doPuzzle1(List<String> eventData) {
         var bps = readBp(eventData);
 
-        int result = 0;
-        for (int i = 0; i < bps.size(); i++) {
-            Map<Long, Integer> hh = new HashMap<>();
-            int g = getGeode(bps.get(i), 24, 0, 0, 0, 1, 0, 0, hh);
-            result += g * (bps.get(i).number);
-        }
-
-        return result;
+        return bps.stream()//
+                .mapToInt(v -> v.number * getGeode(v, 24, 0, 0, 0, 1, 0, 0, new HashMap<>()))//
+                .sum();
     }
 
     private long doPuzzle2(List<String> eventData) {
         var bps = readBp(eventData);
 
-        if (bps.size() > 3) {
-            bps = List.of(bps.get(0), bps.get(1), bps.get(2));
-        }
-
-        int result = 1;
-        for (int i = 0; i < bps.size(); i++) {
-            Map<Long, Integer> hh = new HashMap<>();
-            int g = getGeode(bps.get(i), 32, 0, 0, 0, 1, 0, 0, hh);
-            result *= g;
-        }
-
-        return result;
+        return bps.stream()//
+                .limit(3)//
+                .mapToInt(v -> getGeode(v, 32, 0, 0, 0, 1, 0, 0, new HashMap<>()))//
+                .reduce(1, (a, b) -> a * b);
     }
 
     private int getGeode(Bp bp, int minRest, int ore, int clay, int obs, int oreR, int clayR, int obsR, Map<Long, Integer> hh) {
@@ -97,7 +84,8 @@ public class Day19 extends SolutionTemplate {
         int maxOreNeed = Math.max(Math.max(Math.max(bp.oreOreCost, bp.clayOreCost), bp.obsidianOreCost), bp.geodeOreCost);
         int maxClayNeed = Math.max(bp.clayOreCost, bp.obsidianClayCost);
 
-        if (canBuildGeode(bp, ore, obs)) {
+        boolean canBuildGeode = bp.geodeOreCost <= ore && bp.geodeObsidianCost <= obs;
+        if (canBuildGeode) {
             var nowG = getGeode(bp, minRest - 1, //
                     ore - bp.geodeOreCost + oreR, clay + clayR, obs - bp.geodeObsidianCost + obsR, //
                     oreR, clayR, obsR, hh);
@@ -111,12 +99,15 @@ public class Day19 extends SolutionTemplate {
                     oreR, clayR, obsR, hh));
         }
 
-        if (canBuildObs(bp, ore, clay) && obsR < bp.geodeObsidianCost) {
+        boolean canBuildObs = bp.obsidianOreCost <= ore && bp.obsidianClayCost <= clay;
+        boolean needBuildObs = obsR < bp.geodeObsidianCost;
+
+        if (canBuildObs && needBuildObs) {
             var nowO = getGeode(bp, minRest - 1, //
                     ore - bp.obsidianOreCost + oreR, clay - bp.obsidianClayCost + clayR, obs + obsR, //
                     oreR, clayR, obsR + 1, hh);
             maxResp = Math.max(maxResp, nowO);
-        } else if (oreR > 0 && clayR > 0 && obsR < bp.geodeObsidianCost) {
+        } else if (oreR > 0 && clayR > 0 && needBuildObs) {
             int oreDeltaMin = (int) Math.ceil((double) (bp.obsidianOreCost - ore) / oreR);
             int clayDeltaMin = (int) Math.ceil((double) (bp.obsidianClayCost - clay) / clayR);
             int deltaMin = Math.max(oreDeltaMin, clayDeltaMin);
@@ -125,23 +116,29 @@ public class Day19 extends SolutionTemplate {
                     oreR, clayR, obsR, hh));
         }
 
-        if (canBuildClay(bp, ore) && clayR < maxClayNeed) {
+        boolean canBuildClay = bp.clayOreCost <= ore;
+        boolean needBuildClay = clayR < maxClayNeed;
+
+        if (canBuildClay && needBuildClay) {
             var nowC = getGeode(bp, minRest - 1, //
                     ore - bp.clayOreCost + oreR, clay + clayR, obs + obsR, //
                     oreR, clayR + 1, obsR, hh);
             maxResp = Math.max(maxResp, nowC);
-        } else if (oreR > 0 && clayR < maxClayNeed) {
+        } else if (oreR > 0 && needBuildClay) {
             int oreDeltaMin = (int) Math.ceil((double) (bp.clayOreCost - ore) / oreR);
             maxResp = Math.max(maxResp, getGeode(bp, minRest - oreDeltaMin, //
                     ore + oreR * oreDeltaMin, clay + clayR * oreDeltaMin, obs + obsR * oreDeltaMin, //
                     oreR, clayR, obsR, hh));
         }
 
-        if (canBuildOre(bp, ore) && oreR < maxOreNeed) {
+        boolean canBuildOre = bp.oreOreCost <= ore;
+        boolean needBuildOre = oreR < maxOreNeed;
+
+        if (canBuildOre && needBuildOre) {
             maxResp = Math.max(maxResp, getGeode(bp, minRest - 1, //
                     ore - bp.oreOreCost + oreR, clay + clayR, obs + obsR, //
                     oreR + 1, clayR, obsR, hh));
-        } else if (oreR > 0 && oreR < maxOreNeed) {
+        } else if (oreR > 0 && needBuildOre) {
             int oreDeltaMin = (int) Math.ceil((double) (bp.oreOreCost - ore) / oreR);
             maxResp = Math.max(maxResp, getGeode(bp, minRest - oreDeltaMin, //
                     ore + oreR * oreDeltaMin, clay + clayR * oreDeltaMin, obs + obsR * oreDeltaMin, //
@@ -153,28 +150,10 @@ public class Day19 extends SolutionTemplate {
         return maxResp;
     }
 
-    private boolean canBuildOre(Bp bp, int ore) {
-        return bp.oreOreCost <= ore;
-    }
-
-    private boolean canBuildClay(Bp bp, int ore) {
-        return bp.clayOreCost <= ore;
-    }
-
-    private boolean canBuildObs(Bp bp, int ore, int clay) {
-        return bp.obsidianOreCost <= ore && bp.obsidianClayCost <= clay;
-    }
-
-    private boolean canBuildGeode(Bp bp, int ore, int obs) {
-        return bp.geodeOreCost <= ore && bp.geodeObsidianCost <= obs;
-    }
-
     private List<Bp> readBp(List<String> eventData) {
-        List<Bp> r = new LinkedList<>();
-        for (var dada : eventData) {
-            r.add(fromString(dada));
-        }
-        return r;
+        return eventData.stream()//
+                .map(this::fromString)//
+                .collect(Collectors.toList());
     }
 
     private Bp fromString(String data) {
