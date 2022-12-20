@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [38/50]
+## Progress: Year 2022 [40/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -23,7 +23,7 @@
 | 17 | ⭐⭐ | [Day 17: Pyroclastic Flow](day17) |
 | 18 | ⭐⭐ | [Day 18: Boiling Boulders](day18) |
 | 19 | ⭐⭐ | [Day 19: Not Enough Minerals](day19) |
-| 20 |  | 
+| 20 | ⭐⭐ | [Day 20: Grove Positioning System](day20) |
 | 21 |  | 
 | 22 |  | 
 | 23 |  | 
