@@ -118,14 +118,53 @@ public class CircleMemory<T> {
     }
 
     public CirclePosition moveNext(CirclePosition pos, int steps) {
+        if (steps == 0) {
+            return pos;
+        }
+
+        if (steps > 0) {
+            CirclePosition response = pos;
+            for (int i = 0; i < steps; i++) {
+                response = response.next;
+            }
+            return response;
+        }
+
         CirclePosition response = pos;
-        for (int i = 0; i < steps; i++) {
-            response = response.next;
+        for (int i = 0; i > steps; i--) {
+            response = response.prev;
         }
         return response;
     }
 
-    public CirclePosition removeAndMoveNext(CirclePosition pos) {
+    public CirclePosition removeAndGetPrev(CirclePosition pos) {
+        if (size <= 1) {
+            size = 0;
+            first = null;
+            last = null;
+            return null;
+        }
+
+        if (pos == first) {
+            first = pos.next;
+        }
+
+        if (pos == last) {
+            last = pos.prev;
+        }
+
+        CirclePosition prev = pos.prev;
+
+        prev.next = pos.next;
+
+        CirclePosition next = pos.next;
+        next.prev = pos.prev;
+
+        size--;
+        return prev;
+    }
+
+    public CirclePosition removeAndGetNext(CirclePosition pos) {
         if (size <= 1) {
             size = 0;
             first = null;
