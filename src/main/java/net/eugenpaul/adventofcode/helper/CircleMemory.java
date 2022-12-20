@@ -2,15 +2,23 @@ package net.eugenpaul.adventofcode.helper;
 
 import java.util.function.Consumer;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 public class CircleMemory<T> {
 
+    @AllArgsConstructor
+    @NoArgsConstructor
     public class CirclePosition {
         @Getter
         private T data;
         private CirclePosition prev;
         private CirclePosition next;
+
+        public CirclePosition copy() {
+            return new CirclePosition(data, prev, next);
+        }
     }
 
     private CirclePosition first = null;
@@ -83,6 +91,26 @@ public class CircleMemory<T> {
         size++;
 
         return newPosition;
+    }
+
+    public CirclePosition add(CirclePosition data, CirclePosition after) {
+        if (after == null) {
+            throw new IllegalArgumentException();
+        }
+
+        data.prev = after;
+        data.next = after.next;
+
+        after.next = data;
+        data.next.prev = data;
+
+        if (last == after) {
+            last = data;
+        }
+
+        size++;
+
+        return data;
     }
 
     public CirclePosition moveNext(CirclePosition pos) {
