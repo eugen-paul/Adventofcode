@@ -138,13 +138,13 @@ public class Day23 extends SolutionTemplate {
 
         response.add(next.getData());
 
-        next = memory.removeAndMoveNext(next);
+        next = memory.removeAndGetNext(next);
         response.add(next.getData());
 
-        next = memory.removeAndMoveNext(next);
+        next = memory.removeAndGetNext(next);
         response.add(next.getData());
 
-        memory.removeAndMoveNext(next);
+        memory.removeAndGetNext(next);
 
         return response;
     }

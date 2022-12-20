@@ -55,7 +55,7 @@ public class Day19 extends SolutionTemplate {
         CircleMemory<Integer>.CirclePosition position = first;
         while (cm.getSize() > 1) {
             position = cm.moveNext(position);
-            position = cm.removeAndMoveNext(position);
+            position = cm.removeAndGetNext(position);
         }
 
         return position.getData();
@@ -79,19 +79,19 @@ public class Day19 extends SolutionTemplate {
         boolean even = elfNumber % 2 == 0;
         CircleMemory<Integer>.CirclePosition position = cm.moveNext(first, (elfNumber / 2));
         if (even) {
-            position = cm.removeAndMoveNext(position);
-            position = cm.removeAndMoveNext(position);
+            position = cm.removeAndGetNext(position);
+            position = cm.removeAndGetNext(position);
         } else {
-            position = cm.removeAndMoveNext(position);
+            position = cm.removeAndGetNext(position);
         }
 
         while (cm.getSize() > 1) {
             position = cm.moveNext(position);
-            position = cm.removeAndMoveNext(position);
+            position = cm.removeAndGetNext(position);
             if (cm.getSize() == 1) {
                 break;
             }
-            position = cm.removeAndMoveNext(position);
+            position = cm.removeAndGetNext(position);
         }
 
         return position.getData();
