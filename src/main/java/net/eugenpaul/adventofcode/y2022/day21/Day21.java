@@ -1,14 +1,12 @@
 package net.eugenpaul.adventofcode.y2022.day21;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.CircleMemory;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day21 extends SolutionTemplate {
@@ -83,109 +81,65 @@ public class Day21 extends SolutionTemplate {
         }
 
         mm.get("root").op = '=';
-        long valueSoll = 0;
-        String nameNext = "";
+        long lastMathResult = 0;
+        String nameMonkey = "root";
 
-        String rootL = getFormel(mm.get(mm.get("root").op1), mm);
-        System.out.println("left: " + rootL);
+        while (!nameMonkey.equals("humn")) {
+            var monkey = mm.get(nameMonkey);
 
-        if (rootL.contains("x")) {
-            System.out.println("left has humn");
-            nameNext = mm.get("root").op1;
-        } else {
-            valueSoll = getValue(mm.get(mm.get("root").op1), mm);
-            System.out.println("right value = " + valueSoll);
-        }
+            long currentMathResult;
+            boolean isHumnLeft = hasHumn(mm.get(monkey.op1), mm);
 
-        String rootR = getFormel(mm.get(mm.get("root").op2), mm);
-        System.out.println("right: " + rootR);
-        if (rootR.contains("x")) {
-            System.out.println("right has humn");
-            nameNext = mm.get("root").op2;
-        } else {
-            valueSoll = getValue(mm.get(mm.get("root").op2), mm);
-            System.out.println("right value = " + valueSoll);
-        }
-
-        while (true) {
-            var currentM = mm.get(nameNext);
-            var sollOld = valueSoll;
-            boolean leftHasX = true;
-            if (currentM.name.equals("humn")) {
-                return valueSoll;
-            }
-            String l = getFormel(mm.get(currentM.op1), mm);
-            System.out.println("left: " + l);
-
-            if (l.contains("x")) {
-                System.out.println("left has humn");
-                nameNext = currentM.op1;
-                leftHasX = true;
+            if (isHumnLeft) {
+                currentMathResult = getValue(mm.get(monkey.op2), mm);
+                nameMonkey = monkey.op1;
             } else {
-                valueSoll = getValue(mm.get(currentM.op1), mm);
-                System.out.println("right value = " + valueSoll);
-
+                currentMathResult = getValue(mm.get(monkey.op1), mm);
+                nameMonkey = monkey.op2;
             }
 
-            String r = getFormel(mm.get(currentM.op2), mm);
-            System.out.println("right: " + r);
-            if (r.contains("x")) {
-                System.out.println("right has humn");
-                nameNext = currentM.op2;
-                leftHasX = false;
-            } else {
-                valueSoll = getValue(mm.get(currentM.op2), mm);
-                System.out.println("right value = " + valueSoll);
-            }
-            switch (currentM.op) {
+            switch (monkey.op) {
             case '+':
-                valueSoll = sollOld - valueSoll;
+                lastMathResult = lastMathResult - currentMathResult;
                 break;
             case '-':
-                if (leftHasX) {
-                    valueSoll = sollOld + valueSoll;
+                if (isHumnLeft) {
+                    lastMathResult = lastMathResult + currentMathResult;
                 } else {
-                    valueSoll = valueSoll - sollOld;
+                    lastMathResult = currentMathResult - lastMathResult;
                 }
                 break;
             case '*':
-                valueSoll = sollOld / valueSoll;
+                lastMathResult = lastMathResult / currentMathResult;
                 break;
             case '/':
-                if (leftHasX) {
-                    valueSoll = sollOld * valueSoll;
+                if (isHumnLeft) {
+                    lastMathResult = lastMathResult * currentMathResult;
                 } else {
-                    valueSoll = sollOld / valueSoll;
+                    lastMathResult = lastMathResult / currentMathResult;
                 }
+                break;
+            case '=':
+                lastMathResult = currentMathResult;
                 break;
             default:
                 break;
             }
         }
+
+        return lastMathResult;
     }
 
-    private String getFormel(Monkey m, Map<String, Monkey> mm) {
+    private boolean hasHumn(Monkey m, Map<String, Monkey> mm) {
         if (m.name.equals("humn")) {
-            return " x ";
+            return true;
         }
 
         if (m.value != null) {
-            return m.value + "";
+            return false;
         }
 
-        switch (m.op) {
-        case '+':
-            return "(" + getFormel(mm.get(m.op1), mm) + " + " + getFormel(mm.get(m.op2), mm) + ")";
-        case '-':
-            return "(" + getFormel(mm.get(m.op1), mm) + " + " + getFormel(mm.get(m.op2), mm) + ")";
-        case '*':
-            return "(" + getFormel(mm.get(m.op1), mm) + " * " + getFormel(mm.get(m.op2), mm) + ")";
-        case '/':
-            return "(" + getFormel(mm.get(m.op1), mm) + "/" + getFormel(mm.get(m.op2), mm) + ")";
-        default:
-            break;
-        }
-        throw new IllegalArgumentException();
+        return hasHumn(mm.get(m.op1), mm) || hasHumn(mm.get(m.op2), mm);
     }
 
     private Monkey fromString(String data) {
