@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [40/50]
+## Progress: Year 2022 [42/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -24,7 +24,7 @@
 | 18 | ⭐⭐ | [Day 18: Boiling Boulders](day18) |
 | 19 | ⭐⭐ | [Day 19: Not Enough Minerals](day19) |
 | 20 | ⭐⭐ | [Day 20: Grove Positioning System](day20) |
-| 21 |  | 
+| 21 | ⭐⭐ | [Day 21: Monkey Math](day21) |
 | 22 |  | 
 | 23 |  | 
 | 24 |  | 
