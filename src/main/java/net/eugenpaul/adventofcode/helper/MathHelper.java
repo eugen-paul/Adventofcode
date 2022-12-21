@@ -60,4 +60,20 @@ public final class MathHelper {
     public static long lcm(long a, long b) {
         return a * (b / gcf(a, b));
     }
+
+    public static long max(long a, long... b) {
+        long maxValue = a;
+        for (var c : b) {
+            maxValue = Math.max(maxValue, c);
+        }
+        return maxValue;
+    }
+
+    public static long min(long a, long... b) {
+        long maxValue = a;
+        for (var c : b) {
+            maxValue = Math.min(maxValue, c);
+        }
+        return maxValue;
+    }
 }

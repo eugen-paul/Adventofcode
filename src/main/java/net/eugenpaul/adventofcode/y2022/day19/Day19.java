@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.MathHelper;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day19 extends SolutionTemplate {
@@ -51,7 +52,7 @@ public class Day19 extends SolutionTemplate {
         var bps = readBp(eventData);
 
         return bps.stream()//
-                .mapToInt(v -> v.number * getGeode(v, 24, 0, 0, 0, 1, 0, 0, new HashMap<>()))//
+                .mapToInt(v -> v.number * getGeode(v, 24, 0, 0, 0, 1, 0, 0, new HashMap<>(), false, false, false, false))//
                 .sum();
     }
 
@@ -60,19 +61,26 @@ public class Day19 extends SolutionTemplate {
 
         return bps.stream()//
                 .limit(3)//
-                .mapToInt(v -> getGeode(v, 32, 0, 0, 0, 1, 0, 0, new HashMap<>()))//
+                .mapToInt(v -> getGeode(v, 32, 0, 0, 0, 1, 0, 0, new HashMap<>(), false, false, false, false))//
                 .reduce(1, (a, b) -> a * b);
     }
 
-    private int getGeode(Bp bp, int minRest, int ore, int clay, int obs, int oreR, int clayR, int obsR, Map<Long, Integer> hh) {
+    private int getGeode(Bp bp, int minRest, //
+            int ore, int clay, int obs, //
+            int oreR, int clayR, int obsR, //
+            Map<Long, Integer> hh, //
+            boolean waitForOre, boolean waitForClay, boolean waitForObs, boolean waitForGeode //
+    ) {
 
         Long key = minRest * 1000000000000000000L //
                 + ore * 1000000000000000L + clay * 1000000000000L + obs * 1000000000L //
                 + oreR * 1000000L + clayR * 10000L + obsR * 100L;
 
-        Integer r = hh.get(key);
-        if (r != null) {
-            return r;
+        if (!waitForOre && !waitForClay && !waitForObs && !waitForGeode) {
+            Integer r = hh.get(key);
+            if (r != null) {
+                return r;
+            }
         }
 
         if (minRest <= 0) {
@@ -81,71 +89,81 @@ public class Day19 extends SolutionTemplate {
 
         int maxResp = 0;
 
-        int maxOreNeed = Math.max(Math.max(Math.max(bp.oreOreCost, bp.clayOreCost), bp.obsidianOreCost), bp.geodeOreCost);
-        int maxClayNeed = Math.max(bp.clayOreCost, bp.obsidianClayCost);
+        int maxOreNeed = (int) MathHelper.max(bp.oreOreCost, bp.clayOreCost, bp.obsidianOreCost, bp.geodeOreCost);
+        int maxClayNeed = (int) MathHelper.max(bp.clayOreCost, bp.obsidianClayCost);
 
         boolean canBuildGeode = bp.geodeOreCost <= ore && bp.geodeObsidianCost <= obs;
-        if (canBuildGeode) {
+        if (canBuildGeode && !waitForOre && !waitForClay && !waitForObs) {
             var nowG = getGeode(bp, minRest - 1, //
                     ore - bp.geodeOreCost + oreR, clay + clayR, obs - bp.geodeObsidianCost + obsR, //
-                    oreR, clayR, obsR, hh);
+                    oreR, clayR, obsR, hh, false, false, false, false);
             maxResp = Math.max(maxResp, nowG + (minRest - 1));
-        } else if (oreR > 0 && obsR > 0) {
+        } else if (oreR > 0 && obsR > 0 && !waitForOre && !waitForClay && !waitForObs) {
             int oreDeltaMin = (int) Math.ceil((double) (bp.geodeOreCost - ore) / oreR);
             int obsDeltaMin = (int) Math.ceil((double) (bp.geodeObsidianCost - obs) / obsR);
             int deltaMin = Math.max(oreDeltaMin, obsDeltaMin);
             maxResp = Math.max(maxResp, getGeode(bp, minRest - deltaMin, //
                     ore + oreR * deltaMin, clay + clayR * deltaMin, obs + obsR * deltaMin, //
-                    oreR, clayR, obsR, hh));
+                    oreR, clayR, obsR, hh, //
+                    false, false, false, true //
+            ));
         }
 
         boolean canBuildObs = bp.obsidianOreCost <= ore && bp.obsidianClayCost <= clay;
         boolean needBuildObs = obsR < bp.geodeObsidianCost;
 
-        if (canBuildObs && needBuildObs) {
+        if (canBuildObs && needBuildObs && !waitForOre && !waitForClay && !waitForGeode) {
             var nowO = getGeode(bp, minRest - 1, //
                     ore - bp.obsidianOreCost + oreR, clay - bp.obsidianClayCost + clayR, obs + obsR, //
-                    oreR, clayR, obsR + 1, hh);
+                    oreR, clayR, obsR + 1, hh, false, false, false, false);
             maxResp = Math.max(maxResp, nowO);
-        } else if (oreR > 0 && clayR > 0 && needBuildObs) {
+        } else if (oreR > 0 && clayR > 0 && needBuildObs && !waitForOre && !waitForClay && !waitForGeode) {
             int oreDeltaMin = (int) Math.ceil((double) (bp.obsidianOreCost - ore) / oreR);
             int clayDeltaMin = (int) Math.ceil((double) (bp.obsidianClayCost - clay) / clayR);
             int deltaMin = Math.max(oreDeltaMin, clayDeltaMin);
             maxResp = Math.max(maxResp, getGeode(bp, minRest - deltaMin, //
                     ore + oreR * deltaMin, clay + clayR * deltaMin, obs + obsR * deltaMin, //
-                    oreR, clayR, obsR, hh));
+                    oreR, clayR, obsR, hh, //
+                    false, false, true, false //
+            ));
         }
 
         boolean canBuildClay = bp.clayOreCost <= ore;
         boolean needBuildClay = clayR < maxClayNeed;
 
-        if (canBuildClay && needBuildClay) {
+        if (canBuildClay && needBuildClay && !waitForOre && !waitForObs && !waitForGeode) {
             var nowC = getGeode(bp, minRest - 1, //
                     ore - bp.clayOreCost + oreR, clay + clayR, obs + obsR, //
-                    oreR, clayR + 1, obsR, hh);
+                    oreR, clayR + 1, obsR, hh, false, false, false, false);
             maxResp = Math.max(maxResp, nowC);
-        } else if (oreR > 0 && needBuildClay) {
+        } else if (oreR > 0 && needBuildClay && !waitForOre && !waitForObs && !waitForGeode) {
             int oreDeltaMin = (int) Math.ceil((double) (bp.clayOreCost - ore) / oreR);
             maxResp = Math.max(maxResp, getGeode(bp, minRest - oreDeltaMin, //
                     ore + oreR * oreDeltaMin, clay + clayR * oreDeltaMin, obs + obsR * oreDeltaMin, //
-                    oreR, clayR, obsR, hh));
+                    oreR, clayR, obsR, hh, //
+                    false, true, false, false //
+            ));
         }
 
         boolean canBuildOre = bp.oreOreCost <= ore;
         boolean needBuildOre = oreR < maxOreNeed;
 
-        if (canBuildOre && needBuildOre) {
+        if (canBuildOre && needBuildOre && !waitForClay && !waitForObs && !waitForGeode) {
             maxResp = Math.max(maxResp, getGeode(bp, minRest - 1, //
                     ore - bp.oreOreCost + oreR, clay + clayR, obs + obsR, //
-                    oreR + 1, clayR, obsR, hh));
-        } else if (oreR > 0 && needBuildOre) {
+                    oreR + 1, clayR, obsR, hh, false, false, false, false));
+        } else if (oreR > 0 && needBuildOre && !waitForClay && !waitForObs && !waitForGeode) {
             int oreDeltaMin = (int) Math.ceil((double) (bp.oreOreCost - ore) / oreR);
             maxResp = Math.max(maxResp, getGeode(bp, minRest - oreDeltaMin, //
                     ore + oreR * oreDeltaMin, clay + clayR * oreDeltaMin, obs + obsR * oreDeltaMin, //
-                    oreR, clayR, obsR, hh));
+                    oreR, clayR, obsR, hh, //
+                    true, false, false, false //
+            ));
         }
 
-        hh.put(key, maxResp);
+        if (!waitForOre && !waitForClay && !waitForObs && !waitForGeode) {
+            hh.put(key, maxResp);
+        }
 
         return maxResp;
     }
