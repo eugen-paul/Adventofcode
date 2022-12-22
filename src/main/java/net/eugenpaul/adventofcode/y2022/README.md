@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [42/50]
+## Progress: Year 2022 [44/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -25,7 +25,7 @@
 | 19 | ⭐⭐ | [Day 19: Not Enough Minerals](day19) |
 | 20 | ⭐⭐ | [Day 20: Grove Positioning System](day20) |
 | 21 | ⭐⭐ | [Day 21: Monkey Math](day21) |
-| 22 |  | 
+| 22 | ⭐⭐ | [Day 22: Monkey Map](day22) |
 | 23 |  | 
 | 24 |  | 
 | 25 |  | 
