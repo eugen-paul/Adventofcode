@@ -1,6 +1,5 @@
 package net.eugenpaul.adventofcode.y2022.day22;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -45,30 +44,17 @@ public class Day22 extends SolutionTemplate {
 
         Map<SimplePos, Tile> area = readMap(eventData);
 
-        int startX = 0;
-        int startY = 0;
-        while (area.get(new SimplePos(startX, startY)) != Tile.OPEN) {
-            startX++;
-        }
+        var pos = getStartPoint(area);
 
         Direction facing = Direction.E;
-        var pos = new SimplePos(startX, startY);
 
         String movePath = eventData.get(eventData.size() - 1);
 
         while (!movePath.isBlank()) {
-            int moveLength = 0;
-            String steps = "";
-            for (int i = 0; i < movePath.length(); i++) {
-                if (movePath.charAt(i) >= '0' && movePath.charAt(i) <= '9') {
-                    steps += movePath.charAt(i);
-                } else {
-                    break;
-                }
-            }
+            StringBuilder steps = readTilesToMove(movePath);
             movePath = movePath.substring(steps.length());
 
-            int stepsInt = Integer.parseInt(steps);
+            int stepsInt = Integer.parseInt(steps.toString());
             for (int i = 0; i < stepsInt; i++) {
                 pos = doMove(pos, facing, area);
             }
@@ -76,24 +62,49 @@ public class Day22 extends SolutionTemplate {
             if (!movePath.isBlank()) {
                 char dr = movePath.charAt(0);
                 movePath = movePath.substring(1);
-                switch (dr) {
-                case 'R':
-                    facing = facing.turnRight();
-                    break;
-                case 'L':
-                    facing = facing.turnLeft();
-                    break;
-                default:
-                    throw new IllegalArgumentException(dr + "");
-                }
+                facing = doTurn(facing, dr);
             }
-
-            // System.out.println(pos);
         }
 
-        System.out.println(pos);
-        System.out.println(facing);
+        return computeResult(pos, facing);
+    }
 
+    private Direction doTurn(Direction facing, char dr) {
+        switch (dr) {
+        case 'R':
+            facing = facing.turnRight();
+            break;
+        case 'L':
+            facing = facing.turnLeft();
+            break;
+        default:
+            throw new IllegalArgumentException(dr + "");
+        }
+        return facing;
+    }
+
+    private StringBuilder readTilesToMove(String movePath) {
+        StringBuilder steps = new StringBuilder();
+        for (int i = 0; i < movePath.length(); i++) {
+            if (movePath.charAt(i) >= '0' && movePath.charAt(i) <= '9') {
+                steps.append(movePath.charAt(i));
+            } else {
+                break;
+            }
+        }
+        return steps;
+    }
+
+    private SimplePos getStartPoint(Map<SimplePos, Tile> area) {
+        int startX = 0;
+        int startY = 0;
+        while (area.get(new SimplePos(startX, startY)) != Tile.OPEN) {
+            startX++;
+        }
+        return new SimplePos(startX, startY);
+    }
+
+    private long computeResult(SimplePos pos, Direction facing) {
         int f = 0;
         switch (facing) {
         case E:
@@ -120,93 +131,55 @@ public class Day22 extends SolutionTemplate {
         if (area.get(newPos) == Tile.OPEN) {
             return newPos;
         }
+
         if (area.get(newPos) == Tile.WALL) {
             return pos;
         }
 
-        if (facing == Direction.N) {
-            int startX = pos.getX();
-            int startY = 300;
-            while (area.get(new SimplePos(startX, startY)) == Tile.CLOSE || area.get(new SimplePos(startX, startY)) == null) {
-                startY--;
-            }
-            if (area.get(new SimplePos(startX, startY)) == Tile.WALL) {
-                return pos;
-            }
-            return new SimplePos(startX, startY);
+        SimplePos testPos;
+        switch (facing) {
+        case N:
+            testPos = new SimplePos(pos.getX(), 200);
+            break;
+        case S:
+            testPos = new SimplePos(pos.getX(), 0);
+            break;
+        case W:
+            testPos = new SimplePos(200, pos.getY());
+            break;
+        case E:
+            testPos = new SimplePos(0, pos.getY());
+            break;
+        default:
+            throw new IllegalArgumentException();
         }
 
-        if (facing == Direction.S) {
-            int startX = pos.getX();
-            int startY = 0;
-            while (area.get(new SimplePos(startX, startY)) == Tile.CLOSE || area.get(new SimplePos(startX, startY)) == null) {
-                startY++;
-            }
-            if (area.get(new SimplePos(startX, startY)) == Tile.WALL) {
-                return pos;
-            }
-            return new SimplePos(startX, startY);
+        while (area.getOrDefault(testPos, Tile.CLOSE) == Tile.CLOSE) {
+            testPos.move(facing);
         }
-
-        if (facing == Direction.E) {
-            int startX = 0;
-            int startY = pos.getY();
-            while (area.get(new SimplePos(startX, startY)) == Tile.CLOSE || area.get(new SimplePos(startX, startY)) == null) {
-                startX++;
-            }
-            if (area.get(new SimplePos(startX, startY)) == Tile.WALL) {
-                return pos;
-            }
-            return new SimplePos(startX, startY);
-        }
-
-        int startX = 300;
-        int startY = pos.getY();
-        while (area.get(new SimplePos(startX, startY)) == Tile.CLOSE || area.get(new SimplePos(startX, startY)) == null) {
-            startX--;
-        }
-        if (area.get(new SimplePos(startX, startY)) == Tile.WALL) {
+        if (area.get(testPos) == Tile.WALL) {
             return pos;
         }
-        return new SimplePos(startX, startY);
+        return testPos;
     }
 
     private long doPuzzle2(List<String> eventData) {
 
         Map<SimplePos, Tile> area = readMap(eventData);
 
-        int startX = 0;
-        int startY = 0;
-        while (area.get(new SimplePos(startX, startY)) != Tile.OPEN) {
-            startX++;
-        }
+        var pos = getStartPoint(area);
 
         Direction facing = Direction.E;
-        var pos = new SimplePos(startX, startY);
 
         String movePath = eventData.get(eventData.size() - 1);
 
         while (!movePath.isBlank()) {
-            int moveLength = 0;
-            String steps = "";
-            for (int i = 0; i < movePath.length(); i++) {
-                if (movePath.charAt(i) >= '0' && movePath.charAt(i) <= '9') {
-                    steps += movePath.charAt(i);
-                } else {
-                    break;
-                }
-            }
+            StringBuilder steps = readTilesToMove(movePath);
             movePath = movePath.substring(steps.length());
 
-            int stepsInt = Integer.parseInt(steps);
+            int stepsInt = Integer.parseInt(steps.toString());
             for (int i = 0; i < stepsInt; i++) {
                 var mf = doMove2(pos, facing, area);
-                if(area.get(mf.pos) == Tile.CLOSE){
-                    System.out.println();
-                }
-                if (mf.pos.getY() < 0) {
-                    System.out.println();
-                }
                 pos = mf.pos;
                 facing = mf.facing;
             }
@@ -214,196 +187,116 @@ public class Day22 extends SolutionTemplate {
             if (!movePath.isBlank()) {
                 char dr = movePath.charAt(0);
                 movePath = movePath.substring(1);
-                switch (dr) {
-                case 'R':
-                    facing = facing.turnRight();
-                    break;
-                case 'L':
-                    facing = facing.turnLeft();
-                    break;
-                default:
-                    throw new IllegalArgumentException(dr + "");
-                }
+                facing = doTurn(facing, dr);
             }
-
-            // System.out.println(pos);
         }
 
-        System.out.println(pos);
-        System.out.println(facing);
-
-        int f = 0;
-        switch (facing) {
-        case E:
-            f = 0;
-            break;
-        case S:
-            f = 1;
-            break;
-        case W:
-            f = 2;
-            break;
-        case N:
-            f = 3;
-            break;
-        default:
-            break;
-        }
-
-        return 1000 * (pos.getY() + 1) + 4 * (pos.getX() + 1) + (long) f;
+        return computeResult(pos, facing);
     }
 
     @AllArgsConstructor
-    private class MF {
+    private class PosFacReturn {
         SimplePos pos;
         Direction facing;
     }
 
-    private MF doMove2(SimplePos pos, Direction facing, Map<SimplePos, Tile> area) {
+    private PosFacReturn doMove2(SimplePos pos, Direction facing, Map<SimplePos, Tile> area) {
         SimplePos newPos = pos.moveNew(facing);
         if (area.get(newPos) == Tile.OPEN) {
-            return new MF(newPos, facing);
+            return new PosFacReturn(newPos, facing);
         }
         if (area.get(newPos) == Tile.WALL) {
-            return new MF(pos, facing);
+            return new PosFacReturn(pos, facing);
         }
 
+        Direction newFacing = null;
+        SimplePos posAfterWrap = null;
         if (facing == Direction.N) {
-
             if (pos.getX() >= 0 && pos.getX() <= 49) {
-                Direction nf = Direction.E;
-                SimplePos np = new SimplePos(50, pos.getX() + 50);
-                if (area.get(np) == Tile.WALL) {
-                    return new MF(pos, facing);
-                }
-                return new MF(np, nf);
+                newFacing = Direction.E;
+                posAfterWrap = new SimplePos(50, pos.getX() + 50);
             }
 
             if (pos.getX() >= 50 && pos.getX() <= 99) {
-                Direction nf = Direction.E;
-                SimplePos np = new SimplePos(0, pos.getX() - 50 + 150);
-                if (area.get(np) == Tile.WALL) {
-                    return new MF(pos, facing);
-                }
-                return new MF(np, nf);
+                newFacing = Direction.E;
+                posAfterWrap = new SimplePos(0, pos.getX() - 50 + 150);
             }
 
             if (pos.getX() >= 100 && pos.getX() <= 149) {
-                Direction nf = Direction.N;
-                SimplePos np = new SimplePos(pos.getX() - 100, 199);
-                if (area.get(np) == Tile.WALL) {
-                    return new MF(pos, facing);
-                }
-                return new MF(np, nf);
+                newFacing = Direction.N;
+                posAfterWrap = new SimplePos(pos.getX() - 100, 199);
             }
-
         }
 
         if (facing == Direction.S) {
-
             if (pos.getX() >= 0 && pos.getX() <= 49) {
-                Direction nf = Direction.S;
-                SimplePos np = new SimplePos(pos.getX() + 100, 0);
-                if (area.get(np) == Tile.WALL) {
-                    return new MF(pos, facing);
-                }
-                return new MF(np, nf);
+                newFacing = Direction.S;
+                posAfterWrap = new SimplePos(pos.getX() + 100, 0);
             }
 
             if (pos.getX() >= 50 && pos.getX() <= 99) {
-                Direction nf = Direction.W;
-                SimplePos np = new SimplePos(49, pos.getX() - 50 + 150);
-                if (area.get(np) == Tile.WALL) {
-                    return new MF(pos, facing);
-                }
-                return new MF(np, nf);
+                newFacing = Direction.W;
+                posAfterWrap = new SimplePos(49, pos.getX() - 50 + 150);
             }
 
             if (pos.getX() >= 100 && pos.getX() <= 149) {
-                Direction nf = Direction.W;
-                SimplePos np = new SimplePos(99, pos.getX() - 100 + 50);
-                if (area.get(np) == Tile.WALL) {
-                    return new MF(pos, facing);
-                }
-                return new MF(np, nf);
+                newFacing = Direction.W;
+                posAfterWrap = new SimplePos(99, pos.getX() - 100 + 50);
             }
         }
 
         if (facing == Direction.E) {
             if (pos.getY() >= 0 && pos.getY() <= 49) {
-                Direction nf = Direction.W;
-                SimplePos np = new SimplePos(99, (49 - pos.getY()) + 100);
-                if (area.get(np) == Tile.WALL) {
-                    return new MF(pos, facing);
-                }
-                return new MF(np, nf);
+                newFacing = Direction.W;
+                posAfterWrap = new SimplePos(99, (49 - pos.getY()) + 100);
             }
 
             if (pos.getY() >= 50 && pos.getY() <= 99) {
-                Direction nf = Direction.N;
-                SimplePos np = new SimplePos(pos.getY() - 50 + 100, 49);
-                if (area.get(np) == Tile.WALL) {
-                    return new MF(pos, facing);
-                }
-                return new MF(np, nf);
+                newFacing = Direction.N;
+                posAfterWrap = new SimplePos(pos.getY() - 50 + 100, 49);
             }
 
             if (pos.getY() >= 100 && pos.getY() <= 149) {
-                Direction nf = Direction.W;
-                SimplePos np = new SimplePos(149, 49 - (pos.getY() - 100));
-                if (area.get(np) == Tile.WALL) {
-                    return new MF(pos, facing);
-                }
-                return new MF(np, nf);
+                newFacing = Direction.W;
+                posAfterWrap = new SimplePos(149, 49 - (pos.getY() - 100));
             }
 
             if (pos.getY() >= 150 && pos.getY() <= 199) {
-                Direction nf = Direction.N;
-                SimplePos np = new SimplePos(pos.getY() - 150 + 50, 149);
-                if (area.get(np) == Tile.WALL) {
-                    return new MF(pos, facing);
-                }
-                return new MF(np, nf);
+                newFacing = Direction.N;
+                posAfterWrap = new SimplePos(pos.getY() - 150 + 50, 149);
             }
         }
 
-        if (pos.getY() >= 0 && pos.getY() <= 49) {
-            Direction nf = Direction.E;
-            SimplePos np = new SimplePos(0, (49 - pos.getY()) + 100);
-            if (area.get(np) == Tile.WALL) {
-                return new MF(pos, facing);
+        if (facing == Direction.W) {
+            if (pos.getY() >= 0 && pos.getY() <= 49) {
+                newFacing = Direction.E;
+                posAfterWrap = new SimplePos(0, (49 - pos.getY()) + 100);
             }
-            return new MF(np, nf);
+
+            if (pos.getY() >= 50 && pos.getY() <= 99) {
+                newFacing = Direction.S;
+                posAfterWrap = new SimplePos(pos.getY() - 50, 100);
+            }
+
+            if (pos.getY() >= 100 && pos.getY() <= 149) {
+                newFacing = Direction.E;
+                posAfterWrap = new SimplePos(50, 49 - (pos.getY() - 100));
+            }
+
+            if (pos.getY() >= 150 && pos.getY() <= 199) {
+                newFacing = Direction.S;
+                posAfterWrap = new SimplePos(pos.getY() - 150 + 50, 0);
+            }
         }
 
-        if (pos.getY() >= 50 && pos.getY() <= 99) {
-            Direction nf = Direction.S;
-            SimplePos np = new SimplePos(pos.getY() - 50, 100);
-            if (area.get(np) == Tile.WALL) {
-                return new MF(pos, facing);
-            }
-            return new MF(np, nf);
+        if (posAfterWrap == null || newFacing == null) {
+            throw new IllegalArgumentException();
         }
 
-        if (pos.getY() >= 100 && pos.getY() <= 149) {
-            Direction nf = Direction.E;
-            SimplePos np = new SimplePos(50, 49 - (pos.getY() - 100));
-            if (area.get(np) == Tile.WALL) {
-                return new MF(pos, facing);
-            }
-            return new MF(np, nf);
+        if (area.get(posAfterWrap) == Tile.WALL) {
+            return new PosFacReturn(pos, facing);
         }
-
-        if (pos.getY() >= 150 && pos.getY() <= 199) {
-            Direction nf = Direction.S;
-            SimplePos np = new SimplePos(pos.getY() - 150 + 50, 0);
-            if (area.get(np) == Tile.WALL) {
-                return new MF(pos, facing);
-            }
-            return new MF(np, nf);
-        }
-
-        throw new IllegalArgumentException();
+        return new PosFacReturn(posAfterWrap, newFacing);
     }
 
     private Map<SimplePos, Tile> readMap(List<String> eventData) {
@@ -416,7 +309,7 @@ public class Day22 extends SolutionTemplate {
             m.add(string);
         }
 
-        Map<SimplePos, Tile> area = MapOfSimplePos.initMap(m, //
+        return MapOfSimplePos.initMap(m, //
                 v -> {
                     switch (v) {
                     case ' ':
@@ -427,10 +320,7 @@ public class Day22 extends SolutionTemplate {
                         return Tile.WALL;
                     default:
                         throw new IllegalArgumentException(v + "");
-
                     }
                 });
-
-        return area;
     }
 }
