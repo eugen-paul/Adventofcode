@@ -1,24 +1,19 @@
 package net.eugenpaul.adventofcode.y2022.day23;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.Direction;
-import net.eugenpaul.adventofcode.helper.MapOfSimplePos;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
+import net.eugenpaul.adventofcode.helper.StringConverter;
 
 public class Day23 extends SolutionTemplate {
-
-    private class Elf {
-        private LinkedList<Direction> d = new LinkedList<>(List.of(Direction.N, Direction.S, Direction.W, Direction.E));
-    }
 
     @Getter
     private long part1;
@@ -44,94 +39,69 @@ public class Day23 extends SolutionTemplate {
 
     private long doPuzzle1(List<String> eventData) {
         var area = readMap(eventData);
-        var elfCount = area.values().stream().filter(v -> v != null).count();
+        var moveDirections = new LinkedList<>(List.of(Direction.N, Direction.S, Direction.W, Direction.E));
 
-        SimplePos checkPos = new SimplePos(0, 0);
         for (int i = 0; i < 10; i++) {
-            int xMin = area.keySet().stream().mapToInt(v -> v.getX()).min().orElseThrow();
-            int xMax = area.keySet().stream().mapToInt(v -> v.getX()).max().orElseThrow();
-            int yMin = area.keySet().stream().mapToInt(v -> v.getY()).min().orElseThrow();
-            int yMax = area.keySet().stream().mapToInt(v -> v.getY()).max().orElseThrow();
-
-            Set<SimplePos> willMove = new HashSet<>();
-            for (int y = yMin; y <= yMax; y++) {
-                checkPos.setY(y);
-
-                for (int x = xMin; x <= xMax; x++) {
-                    checkPos.setX(x);
-                    if (area.get(checkPos) == null) {
-                        continue;
-                    }
-                    var n = checkPos.getNeighbors(true);
-                    boolean wm = false;
-                    for (SimplePos nPos : n) {
-                        if (area.get(nPos) != null) {
-                            wm = true;
-                            break;
-                        }
-                    }
-                    if (!wm) {
-                        continue;
-                    }
-                    willMove.add(checkPos.copy());
-                }
-
-            }
-
-            Map<SimplePos, Integer> moveTarget = new HashMap<>();
-            for (SimplePos moveElf : willMove) {
-                var d = getMoving(area, moveElf);
-                if (d == null) {
-                    continue;
-                }
-                moveTarget.compute(moveElf.moveNew(d), (k, v) -> (v == null) ? 1 : (v + 1));
-            }
-
-            Map<SimplePos, Elf> areaCopy = new HashMap<>(area);
-
-            for (SimplePos moveElf : willMove) {
-                var d = getMoving(area, moveElf);
-                if (d == null) {
-                    continue;
-                }
-                if (moveTarget.get(moveElf.moveNew(d)) == 1) {
-                    var elf = areaCopy.remove(moveElf);
-                    areaCopy.put(moveElf.moveNew(d), elf);
-                }
-            }
-            area = areaCopy;
-
-            areaCopy.values().forEach(v -> {
-                var b = v.d.pollFirst();
-                v.d.addLast(b);
-            });
+            doRound(area, moveDirections);
         }
 
-        int xMin = area.keySet().stream().mapToInt(v -> v.getX()).min().orElseThrow();
-        int xMax = area.keySet().stream().mapToInt(v -> v.getX()).max().orElseThrow();
-        int yMin = area.keySet().stream().mapToInt(v -> v.getY()).min().orElseThrow();
-        int yMax = area.keySet().stream().mapToInt(v -> v.getY()).max().orElseThrow();
+        int xMin = area.stream().mapToInt(SimplePos::getX).min().orElseThrow();
+        int xMax = area.stream().mapToInt(SimplePos::getX).max().orElseThrow();
+        int yMin = area.stream().mapToInt(SimplePos::getY).min().orElseThrow();
+        int yMax = area.stream().mapToInt(SimplePos::getY).max().orElseThrow();
 
-        return (xMax - xMin + 1) * (yMax - yMin + 1) - elfCount;
+        return (xMax - xMin + 1) * (yMax - yMin + 1) - (long) area.size();
     }
 
-    private Direction getMoving(Map<SimplePos, Elf> area, SimplePos moveElf) {
-        var elf = area.get(moveElf);
+    private boolean doRound(Set<SimplePos> area, LinkedList<Direction> moveDirections) {
+        // All elves that want to move.
+        Set<SimplePos> wantToMove = area.stream() //
+                .filter(v -> v.getNeighbors(true).stream().anyMatch(area::contains)) //
+                .collect(Collectors.toSet());
 
-        for (var d : elf.d) {
+        // All elves that can move.
+        Set<SimplePos> cannMove = wantToMove.stream() //
+                .filter(v -> getMoving(area, v, moveDirections) != null) //
+                .collect(Collectors.toSet());
+
+        // Moving target of that elfs.
+        Map<SimplePos, Integer> moveTarget = cannMove.stream()//
+                .map(v -> v.moveNew(getMoving(area, v, moveDirections))) //
+                .collect(Collectors.toMap(k -> k, v -> 1, (v1, v2) -> v1 + v2));
+
+        // All elves that will move.
+        Set<SimplePos> willMove = cannMove.stream()//
+                .filter(v -> moveTarget.get(v.moveNew(getMoving(area, v, moveDirections))) == 1) //
+                .collect(Collectors.toSet());
+
+        // Move elf if the target ist unique
+        Set<SimplePos> afterMove = willMove.stream()//
+                .map(v -> v.moveNew(getMoving(area, v, moveDirections))) //
+                .collect(Collectors.toSet());
+
+        area.removeIf(willMove::contains);
+        area.addAll(afterMove);
+
+        moveDirections.addLast(moveDirections.pollFirst());
+
+        return !willMove.isEmpty();
+    }
+
+    private Direction getMoving(Set<SimplePos> area, SimplePos moveElf, List<Direction> moveDirections) {
+        for (var d : moveDirections) {
             switch (d) {
             case N, S:
-                if (area.get(moveElf.moveNew(d)) == null //
-                        && area.get(moveElf.moveNew(d).move(Direction.E)) == null //
-                        && area.get(moveElf.moveNew(d).move(Direction.W)) == null //
+                if (!area.contains(moveElf.moveNew(d)) //
+                        && !area.contains(moveElf.moveNew(d).move(Direction.E)) //
+                        && !area.contains(moveElf.moveNew(d).move(Direction.W)) //
                 ) {
                     return d;
                 }
                 break;
             case W, E:
-                if (area.get(moveElf.moveNew(d)) == null //
-                        && area.get(moveElf.moveNew(d).move(Direction.N)) == null //
-                        && area.get(moveElf.moveNew(d).move(Direction.S)) == null //
+                if (!area.contains(moveElf.moveNew(d)) //
+                        && !area.contains(moveElf.moveNew(d).move(Direction.N)) //
+                        && !area.contains(moveElf.moveNew(d).move(Direction.S)) //
                 ) {
                     return d;
                 }
@@ -145,86 +115,15 @@ public class Day23 extends SolutionTemplate {
 
     private long doPuzzle2(List<String> eventData) {
         var area = readMap(eventData);
-
-        SimplePos checkPos = new SimplePos(0, 0);
-        for (int i = 0;; i++) {
-            int xMin = area.keySet().stream().mapToInt(v -> v.getX()).min().orElseThrow();
-            int xMax = area.keySet().stream().mapToInt(v -> v.getX()).max().orElseThrow();
-            int yMin = area.keySet().stream().mapToInt(v -> v.getY()).min().orElseThrow();
-            int yMax = area.keySet().stream().mapToInt(v -> v.getY()).max().orElseThrow();
-
-            Set<SimplePos> willMove = new HashSet<>();
-            for (int y = yMin; y <= yMax; y++) {
-                checkPos.setY(y);
-
-                for (int x = xMin; x <= xMax; x++) {
-                    checkPos.setX(x);
-                    if (area.get(checkPos) == null) {
-                        continue;
-                    }
-                    var n = checkPos.getNeighbors(true);
-                    boolean wm = false;
-                    for (SimplePos nPos : n) {
-                        if (area.get(nPos) != null) {
-                            wm = true;
-                            break;
-                        }
-                    }
-                    if (!wm) {
-                        continue;
-                    }
-                    willMove.add(checkPos.copy());
-                }
-
-            }
-
-            Map<SimplePos, Integer> moveTarget = new HashMap<>();
-            for (SimplePos moveElf : willMove) {
-                var d = getMoving(area, moveElf);
-                if (d == null) {
-                    continue;
-                }
-                moveTarget.compute(moveElf.moveNew(d), (k, v) -> (v == null) ? 1 : (v + 1));
-            }
-
-            Map<SimplePos, Elf> areaCopy = new HashMap<>(area);
-
-            boolean isMove = false;
-            for (SimplePos moveElf : willMove) {
-                var d = getMoving(area, moveElf);
-                if (d == null) {
-                    continue;
-                }
-                if (moveTarget.get(moveElf.moveNew(d)) == 1) {
-                    var elf = areaCopy.remove(moveElf);
-                    areaCopy.put(moveElf.moveNew(d), elf);
-                    isMove = true;
-                }
-            }
-
-            if (!isMove) {
-                return i + 1;
-            }
-
-            area = areaCopy;
-
-            areaCopy.values().forEach(v -> {
-                var b = v.d.pollFirst();
-                v.d.addLast(b);
-            });
+        var moveDirections = new LinkedList<>(List.of(Direction.N, Direction.S, Direction.W, Direction.E));
+        int response = 1;
+        while (doRound(area, moveDirections)) {
+            response++;
         }
+        return response;
     }
 
-    private Map<SimplePos, Elf> readMap(List<String> eventData) {
-        return MapOfSimplePos.initMap(eventData, v -> {
-            switch (v) {
-            case '.':
-                return null;
-            case '#':
-                return new Elf();
-            default:
-                throw new IllegalArgumentException();
-            }
-        });
+    private Set<SimplePos> readMap(List<String> eventData) {
+        return StringConverter.toSet(eventData, '#');
     }
 }
