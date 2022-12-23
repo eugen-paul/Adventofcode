@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [44/50]
+## Progress: Year 2022 [46/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -26,6 +26,6 @@
 | 20 | ⭐⭐ | [Day 20: Grove Positioning System](day20) |
 | 21 | ⭐⭐ | [Day 21: Monkey Math](day21) |
 | 22 | ⭐⭐ | [Day 22: Monkey Map](day22) |
-| 23 |  | 
+| 23 | ⭐⭐ | [Day 23: Unstable Diffusion](day23) |
 | 24 |  | 
 | 25 |  | 
