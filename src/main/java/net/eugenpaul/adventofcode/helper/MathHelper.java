@@ -5,7 +5,7 @@ public final class MathHelper {
 
     }
 
-    public static long sum(Long from, long to) {
+    public static long sum(long from, long to) {
         return (to * to + to - (from - 1L) * (from - 1L) - (from - 1L)) / 2L;
     }
 
