@@ -27,5 +27,5 @@
 | 21 | ⭐⭐ | [Day 21: Monkey Math](day21) |
 | 22 | ⭐⭐ | [Day 22: Monkey Map](day22) |
 | 23 | ⭐⭐ | [Day 23: Unstable Diffusion](day23) |
-| 24 |  | 
+| 24 | ⭐⭐ | [Day 24: Blizzard Basin](day24) |
 | 25 |  | 
