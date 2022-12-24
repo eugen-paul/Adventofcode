@@ -10,7 +10,7 @@ import net.eugenpaul.adventofcode.helper.dijkstra.DijkstraStepGen;
 
 @AllArgsConstructor
 @Data
-public class SimplePos implements DijkstraStepGen{
+public class SimplePos implements DijkstraStepGen {
     private int x;
     private int y;
 
@@ -32,6 +32,55 @@ public class SimplePos implements DijkstraStepGen{
             break;
         }
 
+        return this;
+    }
+
+    public SimplePos move(Direction direction, int count) {
+        switch (direction) {
+        case N:
+            y -= count;
+            break;
+        case S:
+            y += count;
+            break;
+        case E:
+            x += count;
+            break;
+        case W:
+            x -= count;
+            break;
+        default:
+            break;
+        }
+
+        return this;
+    }
+
+    public SimplePos wrapAround(int xMin, int xMax, int yMin, int yMax) {
+        return wrapAroundX(xMin, xMax).wrapAroundY(yMin, yMax);
+    }
+
+    public SimplePos wrapAroundX(int xMin, int xMax) {
+        int deltaX = xMax - xMin + 1;
+        x = x % deltaX;
+        if (x < xMin) {
+            x = x + deltaX;
+        }
+        if (x > xMax) {
+            x = x - deltaX;
+        }
+        return this;
+    }
+
+    public SimplePos wrapAroundY(int yMin, int yMax) {
+        int deltaY = yMax - yMin + 1;
+        y = y % deltaY;
+        if (y < yMin) {
+            y = y + deltaY;
+        }
+        if (y > yMax) {
+            y = y - deltaY;
+        }
         return this;
     }
 
