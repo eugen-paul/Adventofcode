@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2022 [46/50]
+## Progress: Year 2022 [50/50]
 
 | Day  | Status | Link |
 | --- | --- | --- |
@@ -28,4 +28,6 @@
 | 22 | ⭐⭐ | [Day 22: Monkey Map](day22) |
 | 23 | ⭐⭐ | [Day 23: Unstable Diffusion](day23) |
 | 24 | ⭐⭐ | [Day 24: Blizzard Basin](day24) |
-| 25 |  | 
+| 25 | ⭐⭐ | [Day 25: Full of Hot Air](day25) |
+
+![Solutions 2022](../../../../../../../doc/img/2022.png "2022 is done")
