@@ -8,9 +8,9 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.IntcodeMapComputer;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.helper.StringConverter;
+import net.eugenpaul.adventofcode.helper.computer.IntcodeMapComputer;
 
 public class Day21 extends SolutionTemplate {
 

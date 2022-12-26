@@ -1,4 +1,4 @@
-package net.eugenpaul.adventofcode.helper;
+package net.eugenpaul.adventofcode.helper.computer;
 
 import lombok.Getter;
 

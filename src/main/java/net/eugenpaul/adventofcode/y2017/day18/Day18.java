@@ -11,8 +11,8 @@ import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.helper.computer.Computer;
 import net.eugenpaul.adventofcode.helper.computer.Instruction;
 import net.eugenpaul.adventofcode.helper.computer.InstructionFactory;
-import net.eugenpaul.adventofcode.helper.computer.InstructionRcv;
-import net.eugenpaul.adventofcode.helper.computer.InstructionSnd;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionRcv;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionSnd;
 
 public class Day18 extends SolutionTemplate {
 

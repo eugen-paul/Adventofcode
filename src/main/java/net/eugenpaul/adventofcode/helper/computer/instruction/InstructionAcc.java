@@ -1,7 +1,9 @@
-package net.eugenpaul.adventofcode.helper.computer;
+package net.eugenpaul.adventofcode.helper.computer.instruction;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.computer.Computer;
+import net.eugenpaul.adventofcode.helper.computer.Instruction;
 
 @AllArgsConstructor
 public class InstructionAcc implements Instruction {

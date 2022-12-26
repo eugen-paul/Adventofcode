@@ -9,10 +9,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.eugenpaul.adventofcode.helper.computer.Computer;
-import net.eugenpaul.adventofcode.helper.computer.InstructionCpy;
-import net.eugenpaul.adventofcode.helper.computer.InstructionDec;
-import net.eugenpaul.adventofcode.helper.computer.InstructionInc;
-import net.eugenpaul.adventofcode.helper.computer.InstructionJnz;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionCpy;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionDec;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionInc;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionJnz;
 
 /**
  * Test2016Day12RegisterTest

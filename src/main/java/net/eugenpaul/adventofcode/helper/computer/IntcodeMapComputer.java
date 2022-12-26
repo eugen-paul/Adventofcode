@@ -1,4 +1,4 @@
-package net.eugenpaul.adventofcode.helper;
+package net.eugenpaul.adventofcode.helper.computer;
 
 import java.util.LinkedList;
 import java.util.Map;

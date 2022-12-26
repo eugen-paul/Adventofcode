@@ -14,8 +14,8 @@ import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.helper.computer.Computer;
 import net.eugenpaul.adventofcode.helper.computer.Instruction;
 import net.eugenpaul.adventofcode.helper.computer.InstructionFactory;
-import net.eugenpaul.adventofcode.helper.computer.InstructionJmp;
-import net.eugenpaul.adventofcode.helper.computer.InstructionNop;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionJmp;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionNop;
 
 public class Day8 extends SolutionTemplate {
 
