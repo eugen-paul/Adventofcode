@@ -6,8 +6,8 @@ import java.util.Set;
 import java.util.logging.Level;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.DevicesOpcodes;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
+import net.eugenpaul.adventofcode.helper.computer.DevicesOpcodes;
 
 public class Day21 extends SolutionTemplate {
 

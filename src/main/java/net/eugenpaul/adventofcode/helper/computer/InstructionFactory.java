@@ -1,5 +1,30 @@
 package net.eugenpaul.adventofcode.helper.computer;
 
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionAcc;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionAdd;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionCpy;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionDec;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionDiv;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionEql;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionHlf;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionInc;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionInp;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionJgz;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionJie;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionJio;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionJmp;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionJnz;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionMod;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionMul;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionNop;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionOut;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionRcv;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionSet;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionSnd;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionSub;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionTgl;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionTpl;
+
 public class InstructionFactory {
 
     private InstructionFactory() {

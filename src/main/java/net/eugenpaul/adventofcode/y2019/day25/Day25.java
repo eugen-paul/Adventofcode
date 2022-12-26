@@ -11,10 +11,10 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.Direction;
-import net.eugenpaul.adventofcode.helper.IntcodeMapComputer;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.helper.StringConverter;
+import net.eugenpaul.adventofcode.helper.computer.IntcodeMapComputer;
 
 public class Day25 extends SolutionTemplate {
 

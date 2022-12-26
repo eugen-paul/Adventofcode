@@ -1,21 +1,23 @@
-package net.eugenpaul.adventofcode.helper.computer;
+package net.eugenpaul.adventofcode.helper.computer.instruction;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.computer.Computer;
+import net.eugenpaul.adventofcode.helper.computer.Instruction;
 
 @AllArgsConstructor
-public class InstructionInp implements Instruction {
+public class InstructionRcv implements Instruction {
 
     public static final String WAITING_NAME = "WAIT";
 
     @Getter
     private char register;
 
-    public static InstructionInp fromString(String data) {
-        if (!data.startsWith("inp ")) {
-            throw new IllegalArgumentException("Wrong InstructionInp: " + data);
+    public static InstructionRcv fromString(String data) {
+        if (!data.startsWith("rcv ")) {
+            throw new IllegalArgumentException("Wrong InstructionRcv: " + data);
         }
-        return new InstructionInp(data.charAt(4));
+        return new InstructionRcv(data.charAt(4));
     }
 
     @Override

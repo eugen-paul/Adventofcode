@@ -8,12 +8,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import net.eugenpaul.adventofcode.helper.computer.Computer;
-import net.eugenpaul.adventofcode.helper.computer.InstructionHlf;
-import net.eugenpaul.adventofcode.helper.computer.InstructionInc;
-import net.eugenpaul.adventofcode.helper.computer.InstructionJie;
-import net.eugenpaul.adventofcode.helper.computer.InstructionJio;
-import net.eugenpaul.adventofcode.helper.computer.InstructionJmp;
-import net.eugenpaul.adventofcode.helper.computer.InstructionTpl;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionHlf;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionInc;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionJie;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionJio;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionJmp;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionTpl;
 
 /**
  * Test2015Day23RegisterTest

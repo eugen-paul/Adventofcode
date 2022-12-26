@@ -12,7 +12,7 @@ import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.helper.computer.Computer;
 import net.eugenpaul.adventofcode.helper.computer.Instruction;
 import net.eugenpaul.adventofcode.helper.computer.InstructionFactory;
-import net.eugenpaul.adventofcode.helper.computer.InstructionMul;
+import net.eugenpaul.adventofcode.helper.computer.instruction.InstructionMul;
 
 public class Day23 extends SolutionTemplate {
 

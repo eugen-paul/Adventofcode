@@ -6,10 +6,10 @@ import java.util.logging.Level;
 
 import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.Direction;
-import net.eugenpaul.adventofcode.helper.IntcodeMapComputer;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.helper.StringConverter;
+import net.eugenpaul.adventofcode.helper.computer.IntcodeMapComputer;
 
 public class Day19 extends SolutionTemplate {
 

@@ -3,9 +3,9 @@ package net.eugenpaul.adventofcode.y2019.day5;
 import java.util.logging.Level;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.IntcodeComputer;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.helper.StringConverter;
+import net.eugenpaul.adventofcode.helper.computer.IntcodeComputer;
 
 public class Day5 extends SolutionTemplate {
 

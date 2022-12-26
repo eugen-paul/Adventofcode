@@ -11,8 +11,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.DevicesOpcodes;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
+import net.eugenpaul.adventofcode.helper.computer.DevicesOpcodes;
 
 public class Day16 extends SolutionTemplate {
     private static final String BEFOR_FORMAT = "^Before: \\[([0-9]*), ([0-9]*), ([0-9]*), ([0-9]*)\\]$";

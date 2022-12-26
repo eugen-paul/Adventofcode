@@ -12,8 +12,8 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import net.eugenpaul.adventofcode.helper.FileReaderHelper;
-import net.eugenpaul.adventofcode.helper.IntcodeMapComputer;
 import net.eugenpaul.adventofcode.helper.StringConverter;
+import net.eugenpaul.adventofcode.helper.computer.IntcodeMapComputer;
 
 class Day9Test {
 

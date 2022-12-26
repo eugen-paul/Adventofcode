@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.Direction;
-import net.eugenpaul.adventofcode.helper.IntcodeMapComputer;
 import net.eugenpaul.adventofcode.helper.MapOfSimplePos;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.helper.StringConverter;
+import net.eugenpaul.adventofcode.helper.computer.IntcodeMapComputer;
 
 public class Day17 extends SolutionTemplate {
 
