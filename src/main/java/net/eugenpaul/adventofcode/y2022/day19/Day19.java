@@ -1,8 +1,6 @@
 package net.eugenpaul.adventofcode.y2022.day19;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -52,7 +50,7 @@ public class Day19 extends SolutionTemplate {
         var bps = readBp(eventData);
 
         return bps.stream()//
-                .mapToInt(v -> v.number * getGeode(v, 24, 0, 0, 0, 0, 1, 0, 0, 0, new HashMap<>(), new int[25]))//
+                .mapToInt(v -> v.number * getGeode(v, 24, 0, 0, 0, 0, 1, 0, 0, 0, new int[25]))//
                 .sum();
     }
 
@@ -61,7 +59,7 @@ public class Day19 extends SolutionTemplate {
 
         return bps.stream()//
                 .limit(3)//
-                .mapToInt(v -> getGeode(v, 32, 0, 0, 0, 0, 1, 0, 0, 0, new HashMap<>(), new int[33]))//
+                .mapToInt(v -> getGeode(v, 32, 0, 0, 0, 0, 1, 0, 0, 0, new int[33]))//
                 .reduce(1, (a, b) -> a * b);
     }
 
@@ -80,7 +78,6 @@ public class Day19 extends SolutionTemplate {
     private int getGeode(Bp bp, int minRest, //
             int ore, int clay, int obs, int geode, //
             int oreR, int clayR, int obsR, int geodeR, //
-            Map<Long, Integer> hh, //
             int[] maxBuffer //
     ) {
         if (minRest <= 0) {
@@ -105,7 +102,7 @@ public class Day19 extends SolutionTemplate {
                 var nowG = getGeode(bp, minRest - deltaMin, //
                         ore + oreR * deltaMin - bp.geodeOreCost, clay + clayR * deltaMin, obs + obsR * deltaMin - bp.geodeObsidianCost,
                         geode + geodeR * deltaMin, //
-                        oreR, clayR, obsR, geodeR + 1, hh, maxBuffer //
+                        oreR, clayR, obsR, geodeR + 1, maxBuffer //
                 );
                 maxResp = Math.max(maxResp, nowG + (minRest - deltaMin));
             }
@@ -122,7 +119,7 @@ public class Day19 extends SolutionTemplate {
                             bp, minRest - deltaMin, //
                             ore + oreR * deltaMin - bp.obsidianOreCost, clay + clayR * deltaMin - bp.obsidianClayCost, obs + obsR * deltaMin,
                             geode + geodeR * deltaMin, //
-                            oreR, clayR, obsR + 1, geodeR, hh, maxBuffer //
+                            oreR, clayR, obsR + 1, geodeR, maxBuffer //
                     )//
             );
         }
@@ -134,7 +131,7 @@ public class Day19 extends SolutionTemplate {
                     maxResp, //
                     getGeode(bp, minRest - oreDeltaMin, //
                             ore + oreR * oreDeltaMin - bp.clayOreCost, clay + clayR * oreDeltaMin, obs + obsR * oreDeltaMin, geode + geodeR * oreDeltaMin, //
-                            oreR, clayR + 1, obsR, geodeR, hh, maxBuffer //
+                            oreR, clayR + 1, obsR, geodeR, maxBuffer //
                     )//
             );
         }
@@ -146,7 +143,7 @@ public class Day19 extends SolutionTemplate {
                     maxResp, //
                     getGeode(bp, minRest - oreDeltaMin, //
                             ore + oreR * oreDeltaMin - bp.oreOreCost, clay + clayR * oreDeltaMin, obs + obsR * oreDeltaMin, geode + geodeR * oreDeltaMin, //
-                            oreR + 1, clayR, obsR, geodeR, hh, maxBuffer //
+                            oreR + 1, clayR, obsR, geodeR, maxBuffer //
                     ) //
             );
         }
