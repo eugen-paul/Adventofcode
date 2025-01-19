@@ -1,20 +1,22 @@
 ext {
-    lombok_version = "1.18.22"
-    junit_version = "5.8.1"
-    mockito_version = "4.2.0"
-    apache_commons_version = "1.9"
-    jackson_version = "2.14.1"
+    lombok_version = "1.18.36"
+    junit_version = "5.11.4"
+    mockito_version = "5.15.2"
+    apache_commons_version = "1.13.0"
+    jackson_version = "2.18.2"
 
     commonDependencies = [
         apache_commons         : "org.apache.commons:commons-text:$apache_commons_version",
         
         lombok                 : "org.projectlombok:lombok:$lombok_version",
 
-        junit_api              : "org.junit.jupiter:junit-jupiter-api:$junit_version",
-        junit_engine           : "org.junit.jupiter:junit-jupiter-engine:$junit_version",
+        junit_bom              : "org.junit:junit-bom:$junit_version",
+        junit_api              : "org.junit.jupiter:junit-jupiter-api",
+        junit_engine           : "org.junit.jupiter:junit-jupiter-engine",
 
         jackson_core           : "com.fasterxml.jackson.core:jackson-databind:$jackson_version",
 
-        mockito                : "org.mockito:mockito-core:$mockito_version"
+        mockito_bom            : "org.mockito:mockito-bom:$mockito_version",
+        mockito                : "org.mockito:mockito-core"
     ]
 }
