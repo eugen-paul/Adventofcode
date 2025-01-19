@@ -12,7 +12,7 @@ import net.eugenpaul.adventofcode.helper.FileReaderHelper;
 class Day1Test {
 
     @Test
-    void testTest2022Day1() {
+    void testTest2023Day1() {
         testPuzzle(FileReaderHelper.readListStringFromFile("y2023/day1/test_puzzle.txt"));
         testPuzzle2(FileReaderHelper.readListStringFromFile("y2023/day1/test_puzzle2.txt"));
     }
@@ -28,7 +28,7 @@ class Day1Test {
     }
 
     @Test
-    void testSolution2022Day1() {
+    void testSolution2023Day1() {
         Day1 event = new Day1();
 
         List<String> eventData = FileReaderHelper.readListStringFromFile("y2023/day1/puzzle1.txt");
