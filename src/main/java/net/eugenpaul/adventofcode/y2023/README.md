@@ -1,10 +1,10 @@
 # Solutions
 
-## Progress: Year 2023 [0/50]
+## Progress: Year 2023 [2/50]
 
 | Day | Status | Link                       |
 | --- | ------ | -------------------------- |
-| 1   |        | [Day 1: Trebuchet?!](day1) |
+| 1   | ⭐⭐  | [Day 1: Trebuchet?!](day1) |
 | 2   |        |                            |
 | 3   |        |                            |
 | 4   |        |                            |
