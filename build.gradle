@@ -2,7 +2,7 @@ apply from: 'dependencies.gradle'
 
 apply plugin: 'java'
 
-sourceCompatibility=14
+sourceCompatibility=21
 
 repositories {
     mavenCentral()
@@ -32,8 +32,11 @@ dependencies {
 	testCompileOnly         commonDependencies.lombok
 	testAnnotationProcessor commonDependencies.lombok
 
+    testImplementation      platform(commonDependencies.junit_bom)
     testImplementation      commonDependencies.junit_api
     testRuntimeOnly         commonDependencies.junit_engine
 
+    testImplementation      platform(commonDependencies.mockito_bom)
     testImplementation      commonDependencies.mockito
+
 }
