@@ -46,7 +46,6 @@ public class Day3 extends SolutionTemplate {
             response += number(start, eventData.get(0).length() - 1, y, eventData);
             start = 999_999;
         }
-        response += number(start, eventData.get(0).length() - 1, eventData.size(), eventData);
 
         return response;
     }
