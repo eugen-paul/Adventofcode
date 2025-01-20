@@ -4,9 +4,9 @@
 
 | Day | Status | Link                          |
 | --- | ------ | ----------------------------- |
-| 1   | ⭐⭐  | [Day 1: Trebuchet?!](day1)    |
-| 2   | ⭐⭐  | [Day 2: Cube Conundrum](day2) |
-| 3   |        |                               |
+| 1   | ⭐⭐   | [Day 1: Trebuchet?!](day1)    |
+| 2   | ⭐⭐   | [Day 2: Cube Conundrum](day2) |
+| 3   | ⭐⭐   | [Day 3: Gear Ratios](day3)    |
 | 4   |        |                               |
 | 5   |        |                               |
 | 6   |        |                               |

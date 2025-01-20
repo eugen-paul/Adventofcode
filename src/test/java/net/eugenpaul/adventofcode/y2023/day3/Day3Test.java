@@ -23,6 +23,22 @@ class Day3Test {
     }
 
     @Test
+    void testTest2023Day3My() {
+        testPuzzleMy(FileReaderHelper.readListStringFromFile("y2023/day3/test_puzzle_my.txt"));
+    }
+
+    @Test
+    void testTest2023Day3My2() {
+        testPuzzleMy(FileReaderHelper.readListStringFromFile("y2023/day3/test_puzzle_my2.txt"));
+    }
+
+    private void testPuzzleMy(List<String> testFilePath) {
+        Day3 event = new Day3();
+        assertEquals(300, event.doPuzzle1(testFilePath));
+        assertEquals(0, event.doPuzzle2(testFilePath));
+    }
+
+    @Test
     void testSolution2023Day3() {
         Day3 event = new Day3();
 
