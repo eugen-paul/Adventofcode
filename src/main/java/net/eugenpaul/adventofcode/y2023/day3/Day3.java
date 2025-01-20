@@ -43,10 +43,10 @@ public class Day3 extends SolutionTemplate {
                     start = 999_999;
                 }
             }
-            response += number(start, eventData.size() - 1, y, eventData);
+            response += number(start, eventData.get(0).length() - 1, y, eventData);
             start = 999_999;
         }
-        response += number(start, eventData.size() - 1, eventData.size() - 1, eventData);
+        response += number(start, eventData.get(0).length() - 1, eventData.size(), eventData);
 
         return response;
     }
