@@ -18,8 +18,8 @@ class Day2Test {
 
     private void testPuzzle(List<String> testFilePath) {
         Day2 event = new Day2();
-        System.out.println(event.doPuzzle1(testFilePath));
-        System.out.println(event.doPuzzle2(testFilePath));
+        assertEquals(8, event.doPuzzle1(testFilePath));
+        assertEquals(2286, event.doPuzzle2(testFilePath));
     }
 
     @Test

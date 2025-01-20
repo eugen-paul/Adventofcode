@@ -19,12 +19,14 @@ class Day1Test {
 
     private void testPuzzle(List<String> testFilePath) {
         Day1 event = new Day1();
-        System.out.println(event.doPuzzle1(testFilePath));
+        long result = event.doPuzzle1(testFilePath);
+        assertEquals(142, result);
     }
     
     private void testPuzzle2(List<String> testFilePath) {
         Day1 event = new Day1();
-        System.out.println(event.doPuzzle2(testFilePath));
+        long result = event.doPuzzle2(testFilePath);
+        assertEquals(281, result);
     }
 
     @Test
