@@ -1,9 +1,12 @@
 # Adventofcode
+
 My Java-solutions for [Advent of Code](https://adventofcode.com/).
 
 One folder for each year. One folder for each event. Resource folder contains my input for the events.
 
-## Progress:
+## Progress
+
+[Solutions 2023 - **8/50**⭐](src/main/java/net/eugenpaul/adventofcode/y2023)
 
 [Solutions 2022 - **50/50**⭐](src/main/java/net/eugenpaul/adventofcode/y2022)
 
@@ -19,6 +22,6 @@ One folder for each year. One folder for each event. Resource folder contains my
 
 [Solutions 2016 - **50/50**⭐](src/main/java/net/eugenpaul/adventofcode/y2016)
 
-[Solutions 2015 - **50/50**⭐](src/main/java/net/eugenpaul/adventofcode/y2015) 
+[Solutions 2015 - **50/50**⭐](src/main/java/net/eugenpaul/adventofcode/y2015)
 
 ![Stars](doc/img/total.png "Total stars!")
