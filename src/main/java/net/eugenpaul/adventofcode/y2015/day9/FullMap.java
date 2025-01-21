@@ -13,34 +13,8 @@ public class FullMap {
     }
 
     public void addRoute(Route data) {
-        if (data.getCity1().compareToIgnoreCase(data.getCity2()) > 0) {
-            cityDistances.compute(data.getCity1(), //
-                    (k, v) -> {
-                        if (null == v) {
-                            Map<String, Integer> distances = new HashMap<>();
-                            distances.put(data.getCity2(), data.getDistance());
-                            return distances;
-                        } else {
-                            v.put(data.getCity2(), data.getDistance());
-                            return v;
-                        }
-                    });
-            cityDistances.computeIfAbsent(data.getCity2(), k -> new HashMap<>());
-        } else {
-            cityDistances.compute(data.getCity2(), //
-                    (k, v) -> {
-                        if (null == v) {
-                            Map<String, Integer> distances = new HashMap<>();
-                            distances.put(data.getCity1(), data.getDistance());
-                            return distances;
-                        } else {
-                            v.put(data.getCity1(), data.getDistance());
-                            return v;
-                        }
-                    });
-            cityDistances.computeIfAbsent(data.getCity1(), k -> new HashMap<>());
-        }
-
+        cityDistances.computeIfAbsent(data.getCity1(), k->new HashMap<>()).put(data.getCity2(), data.getDistance());
+        cityDistances.computeIfAbsent(data.getCity2(), k->new HashMap<>()).put(data.getCity1(), data.getDistance());
     }
 
     public List<String> getLocationList() {
@@ -50,11 +24,7 @@ public class FullMap {
     public int getDistance(String[] route) {
         int fullDistance = 0;
         for (int i = 0; i <= route.length - 2; i++) {
-            if (route[i].compareToIgnoreCase(route[i + 1]) > 0) {
-                fullDistance += cityDistances.get(route[i]).get(route[i + 1]);
-            } else {
-                fullDistance += cityDistances.get(route[i + 1]).get(route[i]);
-            }
+            fullDistance += cityDistances.get(route[i]).get(route[i + 1]);
         }
         return fullDistance;
     }
