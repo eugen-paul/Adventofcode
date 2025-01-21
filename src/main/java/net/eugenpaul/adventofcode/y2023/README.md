@@ -1,13 +1,13 @@
 # Solutions
 
-## Progress: Year 2023 [4/50]
+## Progress: Year 2023 [8/50]
 
 | Day | Status | Link                          |
 | --- | ------ | ----------------------------- |
 | 1   | ⭐⭐   | [Day 1: Trebuchet?!](day1)    |
 | 2   | ⭐⭐   | [Day 2: Cube Conundrum](day2) |
 | 3   | ⭐⭐   | [Day 3: Gear Ratios](day3)    |
-| 4   |        |                               |
+| 4   | ⭐⭐   | [Day 4: Scratchcards](day4)   |
 | 5   |        |                               |
 | 6   |        |                               |
 | 7   |        |                               |
