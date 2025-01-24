@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import net.eugenpaul.adventofcode.helper.FileReaderHelper;
 
-class Day4Test {
+class Day5Test {
 
     @Test
     void testTest2023Day5() {
