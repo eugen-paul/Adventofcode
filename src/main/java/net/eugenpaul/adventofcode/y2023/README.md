@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2023 [10/50]
+## Progress: Year 2023 [12/50]
 
 | Day | Status | Link                                           |
 | --- | ------ | ---------------------------------------------- |
@@ -9,7 +9,7 @@
 | 3   | ⭐⭐   | [Day 3: Gear Ratios](day3)                     |
 | 4   | ⭐⭐   | [Day 4: Scratchcards](day4)                    |
 | 5   | ⭐⭐   | [Day 5: If You Give A Seed A Fertilizer](day5) |
-| 6   |        |                                                |
+| 6   | ⭐⭐   | [Day 6: Wait For It](day6)                     |
 | 7   |        |                                                |
 | 8   |        |                                                |
 | 9   |        |                                                |
