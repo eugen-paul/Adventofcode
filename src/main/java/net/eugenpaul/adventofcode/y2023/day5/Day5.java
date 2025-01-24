@@ -2,15 +2,12 @@ package net.eugenpaul.adventofcode.y2023.day5;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import lombok.Getter;
@@ -36,33 +33,11 @@ public class Day5 extends SolutionTemplate {
     }
 
     public long doPuzzle1(List<String> eventData) {
-        Set<Long> seeds = new HashSet<>();
+        List<Long> seeds = new ArrayList<>();
         Map<String, TreeMap<Long, List<Long>>> convertMap = new HashMap<>();
         Map<String, String> fromTo = new HashMap<>();
 
-        boolean first = true;
-        boolean readNames = false;
-        String name = "";
-        for (String line : eventData) {
-            if (first) {
-                seeds = Stream.of(line.split(" ")).filter(s -> !s.startsWith("seeds")).map(Long::parseLong).collect(Collectors.toSet());
-                first = false;
-            } else {
-                if (line.isBlank()) {
-                    readNames = true;
-                    continue;
-                }
-                if (readNames) {
-                    var n = line.split(" ")[0].split("-");
-                    name = n[0] + " " + n[2];
-                    fromTo.put(n[0], n[2]);
-                    readNames = false;
-                } else {
-                    var d = Stream.of(line.split(" ")).map(Long::parseLong).toList();
-                    convertMap.computeIfAbsent(name, k -> new TreeMap<>()).put(d.get(1), List.of(d.get(0), d.get(2)));
-                }
-            }
-        }
+        init(eventData, seeds, convertMap, fromTo);
 
         Long minLoc = Long.MAX_VALUE;
         String pos = "seed";
@@ -73,8 +48,7 @@ public class Day5 extends SolutionTemplate {
 
             do {
                 dest = fromTo.get(pos);
-                name = pos + " " + dest;
-                var targets = convertMap.get(name);
+                var targets = convertMap.get(pos);
                 var tt = targets.floorEntry(curPos);
                 if (tt == null) {
                     tt = Map.entry(0L, List.of(0L, 0L));
@@ -101,29 +75,80 @@ public class Day5 extends SolutionTemplate {
         Map<String, TreeMap<Long, List<Long>>> convertMap = new HashMap<>();
         Map<String, String> fromTo = new HashMap<>();
 
-        boolean first = true;
-        boolean readNames = false;
-        String name = "";
-        for (String line : eventData) {
-            if (first) {
-                seeds = Stream.of(line.split(" ")).filter(s -> !s.startsWith("seeds")).map(Long::parseLong).toList();
-                first = false;
+        init(eventData, seeds, convertMap, fromTo);
+
+        Long minLoc = Long.MAX_VALUE;
+        for (int i = 0; i < seeds.size(); i += 2) {
+            Long start = seeds.get(i);
+            Long end = seeds.get(i + 1) + start;
+
+            minLoc = Math.min(minLoc, findMin(start, end, "seed", convertMap, fromTo));
+        }
+
+        logger.info("Solution 2: " + minLoc.toString());
+        return minLoc;
+    }
+
+    private long findMin(long start, long end, String pos, Map<String, TreeMap<Long, List<Long>>> convertMap, Map<String, String> fromTo) {
+        if (start > end) {
+            return Long.MAX_VALUE;
+        }
+
+        if (pos.equals("location")) {
+            return start;
+        }
+
+        TreeMap<Long, List<Long>> curMap = convertMap.get(pos);
+        Long minLoc = Long.MAX_VALUE;
+        long locStart = start;
+        for (var entry : curMap.entrySet()) {
+            long checkStart = entry.getKey();
+            long checkEnd = checkStart + entry.getValue().get(1) - 1;
+
+            long targetStart = entry.getValue().get(0);
+            long targetEnd = targetStart + entry.getValue().get(1) - 1;
+
+            if (locStart > checkEnd) {
+                continue;
+            }
+
+            if (checkStart > end) {
+                minLoc = Math.min(minLoc, findMin(locStart, end, fromTo.get(pos), convertMap, fromTo));
+                break;
+            }
+
+            if (locStart < checkStart) {
+                minLoc = Math.min(minLoc, findMin(locStart, checkStart - 1, fromTo.get(pos), convertMap, fromTo));
+                locStart = checkStart;
+            }
+
+            long deltaStart = locStart - checkStart;
+
+            if (end <= checkEnd) {
+                long delta = end - checkStart;
+                minLoc = Math.min(minLoc, findMin(targetStart + deltaStart, targetStart + delta, fromTo.get(pos), convertMap, fromTo));
+                locStart = end + 1;
+                break;
             } else {
-                if (line.isBlank()) {
-                    readNames = true;
-                    continue;
-                }
-                if (readNames) {
-                    var n = line.split(" ")[0].split("-");
-                    name = n[0];
-                    fromTo.put(n[0], n[2]);
-                    readNames = false;
-                } else {
-                    var d = Stream.of(line.split(" ")).map(Long::parseLong).toList();
-                    convertMap.computeIfAbsent(name, k -> new TreeMap<>()).put(d.get(1), List.of(d.get(0), d.get(2)));
-                }
+                minLoc = Math.min(minLoc, findMin(targetStart + deltaStart, targetEnd, fromTo.get(pos), convertMap, fromTo));
+                locStart = checkEnd + 1;
             }
         }
+
+        if (locStart <= end) {
+            minLoc = Math.min(minLoc, findMin(locStart, end, fromTo.get(pos), convertMap, fromTo));
+        }
+
+        return minLoc;
+
+    }
+
+    public long doPuzzle2Bf(List<String> eventData) {
+        List<Long> seeds = new ArrayList<>();
+        Map<String, TreeMap<Long, List<Long>>> convertMap = new HashMap<>();
+        Map<String, String> fromTo = new HashMap<>();
+
+        init(eventData, seeds, convertMap, fromTo);
 
         AtomicLong minLoc = new AtomicLong(Long.MAX_VALUE);
         Object lock = new Object();
@@ -155,7 +180,33 @@ public class Day5 extends SolutionTemplate {
         return minLoc.get();
     }
 
-    public long step(Long start, Long end, Map<String, String> fromTo, Map<String, TreeMap<Long, List<Long>>> convertMap) {
+    private void init(List<String> eventData, List<Long> seeds, Map<String, TreeMap<Long, List<Long>>> convertMap, Map<String, String> fromTo) {
+        boolean first = true;
+        boolean readNames = false;
+        String name = "";
+        for (String line : eventData) {
+            if (first) {
+                seeds.addAll(Stream.of(line.split(" ")).filter(s -> !s.startsWith("seeds")).map(Long::parseLong).toList());
+                first = false;
+            } else {
+                if (line.isBlank()) {
+                    readNames = true;
+                    continue;
+                }
+                if (readNames) {
+                    var n = line.split(" ")[0].split("-");
+                    name = n[0];
+                    fromTo.put(n[0], n[2]);
+                    readNames = false;
+                } else {
+                    var d = Stream.of(line.split(" ")).map(Long::parseLong).toList();
+                    convertMap.computeIfAbsent(name, k -> new TreeMap<>()).put(d.get(1), List.of(d.get(0), d.get(2)));
+                }
+            }
+        }
+    }
+
+    private long step(Long start, Long end, Map<String, String> fromTo, Map<String, TreeMap<Long, List<Long>>> convertMap) {
         var std = Map.entry(0L, List.of(0L, 0L));
         long localMin = Long.MAX_VALUE;
         String pos = "seed";
