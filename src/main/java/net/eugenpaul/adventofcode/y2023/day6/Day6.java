@@ -61,7 +61,7 @@ public class Day6 extends SolutionTemplate {
 
         long start = 0;
         long end = race.time;
-        while (start < end) {
+        while (start <= end) {
             long mid = (start + end) / 2;
             if (isWin(race, mid)) {
                 end = mid - 1;
@@ -69,11 +69,11 @@ public class Day6 extends SolutionTemplate {
                 start = mid + 1;
             }
         }
-        minValue = end + 1;
+        minValue = start;
 
         start = 0;
         end = race.time;
-        while (start < end) {
+        while (start <= end) {
             long mid = (start + end) / 2;
             if (isWin(race, mid)) {
                 start = mid + 1;
