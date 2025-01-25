@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2023 [14/50]
+## Progress: Year 2023 [16/50]
 
 | Day | Status | Link                                           |
 | --- | ------ | ---------------------------------------------- |
@@ -11,7 +11,7 @@
 | 5   | ⭐⭐   | [Day 5: If You Give A Seed A Fertilizer](day5) |
 | 6   | ⭐⭐   | [Day 6: Wait For It](day6)                     |
 | 7   | ⭐⭐   | [Day 7: Camel Cards](day7)                     |
-| 8   |        |                                                |
+| 8   | ⭐⭐   | [Day 8: Haunted Wasteland](day8)               |
 | 9   |        |                                                |
 | 10  |        |                                                |
 | 11  |        |                                                |
