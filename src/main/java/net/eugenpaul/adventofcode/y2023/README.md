@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2023 [12/50]
+## Progress: Year 2023 [14/50]
 
 | Day | Status | Link                                           |
 | --- | ------ | ---------------------------------------------- |
@@ -10,7 +10,7 @@
 | 4   | ⭐⭐   | [Day 4: Scratchcards](day4)                    |
 | 5   | ⭐⭐   | [Day 5: If You Give A Seed A Fertilizer](day5) |
 | 6   | ⭐⭐   | [Day 6: Wait For It](day6)                     |
-| 7   |        |                                                |
+| 7   | ⭐⭐   | [Day 7: Camel Cards](day7)                     |
 | 8   |        |                                                |
 | 9   |        |                                                |
 | 10  |        |                                                |
