@@ -12,7 +12,7 @@
 | 6   | ⭐⭐   | [Day 6: Wait For It](day6)                     |
 | 7   | ⭐⭐   | [Day 7: Camel Cards](day7)                     |
 | 8   | ⭐⭐   | [Day 8: Haunted Wasteland](day8)               |
-| 9   |        |                                                |
+| 9   | ⭐⭐   | [Day 9: Mirage Maintenance](day9)              |
 | 10  |        |                                                |
 | 11  |        |                                                |
 | 12  |        |                                                |
