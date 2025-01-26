@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2023 [16/50]
+## Progress: Year 2023 [20/50]
 
 | Day | Status | Link                                           |
 | --- | ------ | ---------------------------------------------- |
@@ -13,7 +13,7 @@
 | 7   | ⭐⭐   | [Day 7: Camel Cards](day7)                     |
 | 8   | ⭐⭐   | [Day 8: Haunted Wasteland](day8)               |
 | 9   | ⭐⭐   | [Day 9: Mirage Maintenance](day9)              |
-| 10  |        |                                                |
+| 10  | ⭐⭐   | [Day 10: Pipe Maze](day10)                     |
 | 11  |        |                                                |
 | 12  |        |                                                |
 | 13  |        |                                                |

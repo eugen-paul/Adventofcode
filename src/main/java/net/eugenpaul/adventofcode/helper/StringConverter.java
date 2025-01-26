@@ -145,9 +145,15 @@ public final class StringConverter {
     public static long[] digitsToLongArray(String data) {
         return data.chars().mapToLong(v -> v - '0').toArray();
     }
-
+    
+    /**
+     * Convert digits in String to Array of Numbers: "213" => List.of{2,1,3}
+     * 
+     * @param data
+     * @return
+     */
     public static List<Long> digitsToLongList(String data) {
-        return data.chars().mapToLong(v -> v - '0').boxed().collect(Collectors.toList());
+        return data.chars().mapToLong(v -> v - '0').boxed().toList();
     }
 
     /**
@@ -181,6 +187,17 @@ public final class StringConverter {
                 if (value) {
                     response.add(currentPos);
                 }
+            }
+        }
+        return response;
+    }
+
+    public static Map<SimplePos, Character> toMap(List<String> data) {
+        Map<SimplePos, Character> response = new HashMap<>();
+        for (int y = 0; y < data.size(); y++) {
+            for (int x = 0; x < data.get(0).length(); x++) {
+                var currentPos = new SimplePos(x, y);
+                response.put(currentPos, data.get(y).charAt(x));
             }
         }
         return response;
