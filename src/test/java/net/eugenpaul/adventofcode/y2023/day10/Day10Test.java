@@ -57,7 +57,7 @@ class Day10Test {
     }
 
     @Test
-    void testSolution2023Day9() {
+    void testSolution2023Day10() {
         Day10 event = new Day10();
 
         List<String> eventData = FileReaderHelper.readListStringFromFile("y2023/Day10/puzzle1.txt");

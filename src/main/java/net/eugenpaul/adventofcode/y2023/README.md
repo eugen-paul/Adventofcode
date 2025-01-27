@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2023 [20/50]
+## Progress: Year 2023 [22/50]
 
 | Day | Status | Link                                           |
 | --- | ------ | ---------------------------------------------- |
@@ -14,7 +14,7 @@
 | 8   | ⭐⭐   | [Day 8: Haunted Wasteland](day8)               |
 | 9   | ⭐⭐   | [Day 9: Mirage Maintenance](day9)              |
 | 10  | ⭐⭐   | [Day 10: Pipe Maze](day10)                     |
-| 11  |        |                                                |
+| 11  | ⭐⭐   | [Day 11: Cosmic Expansion](day11)              |
 | 12  |        |                                                |
 | 13  |        |                                                |
 | 14  |        |                                                |
