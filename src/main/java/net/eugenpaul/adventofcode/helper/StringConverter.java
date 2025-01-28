@@ -34,6 +34,7 @@ public final class StringConverter {
 
     /**
      * Convert Numbers in String to ArrayList: "1 2 3" => new ArrayList(List.of(1,2,3))
+     * Convert Numbers in String to ArrayList: "1,2,3" => new ArrayList(List.of(1,2,3))
      * 
      * @param data
      * @return
