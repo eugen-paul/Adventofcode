@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2023 [24/50]
+## Progress: Year 2023 [26/50]
 
 | Day | Status | Link                                           |
 | --- | ------ | ---------------------------------------------- |
@@ -16,7 +16,7 @@
 | 10  | ⭐⭐   | [Day 10: Pipe Maze](day10)                     |
 | 11  | ⭐⭐   | [Day 11: Cosmic Expansion](day11)              |
 | 12  | ⭐⭐   | [Day 12: Hot Springs](day12)                   |
-| 13  |        |                                                |
+| 13  | ⭐⭐   | [Day 13: Point of Incidence](day13)            |
 | 14  |        |                                                |
 | 15  |        |                                                |
 | 16  |        |                                                |
