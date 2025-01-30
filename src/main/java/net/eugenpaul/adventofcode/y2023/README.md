@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2023 [26/50]
+## Progress: Year 2023 [28/50]
 
 | Day | Status | Link                                           |
 | --- | ------ | ---------------------------------------------- |
@@ -17,7 +17,7 @@
 | 11  | ⭐⭐   | [Day 11: Cosmic Expansion](day11)              |
 | 12  | ⭐⭐   | [Day 12: Hot Springs](day12)                   |
 | 13  | ⭐⭐   | [Day 13: Point of Incidence](day13)            |
-| 14  |        |                                                |
+| 14  | ⭐⭐   | [Day 14: Parabolic Reflector Dish](day14)      |
 | 15  |        |                                                |
 | 16  |        |                                                |
 | 17  |        |                                                |
