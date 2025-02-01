@@ -10,10 +10,10 @@ import java.nio.file.Path;
 public class CreateFiles {
     public static void main(String[] args) throws IOException {
         System.out.print("Enter year:");
-        int year = Integer.valueOf(System.console().readLine());
+        int year = Integer.parseInt(System.console().readLine());
 
         System.out.print("Enter day:");
-        int day = Integer.valueOf(System.console().readLine());
+        int day = Integer.parseInt(System.console().readLine());
 
         createFiles(year, day);
     }

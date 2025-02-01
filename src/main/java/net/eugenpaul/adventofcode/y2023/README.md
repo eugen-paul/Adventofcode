@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2023 [28/50]
+## Progress: Year 2023 [30/50]
 
 | Day | Status | Link                                           |
 | --- | ------ | ---------------------------------------------- |
@@ -18,8 +18,8 @@
 | 12  | ⭐⭐   | [Day 12: Hot Springs](day12)                   |
 | 13  | ⭐⭐   | [Day 13: Point of Incidence](day13)            |
 | 14  | ⭐⭐   | [Day 14: Parabolic Reflector Dish](day14)      |
-| 15  |        |                                                |
-| 16  |        |                                                |
+| 15  | ⭐⭐   | [Day 15: Lens Library](day15)                  |
+| 16  | ⭐⭐   | [Day 16: The Floor Will Be Lava](day16)        |
 | 17  |        |                                                |
 | 18  |        |                                                |
 | 19  |        |                                                |
