@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2023 [30/50]
+## Progress: Year 2023 [34/50]
 
 | Day | Status | Link                                           |
 | --- | ------ | ---------------------------------------------- |
@@ -20,7 +20,7 @@
 | 14  | ⭐⭐   | [Day 14: Parabolic Reflector Dish](day14)      |
 | 15  | ⭐⭐   | [Day 15: Lens Library](day15)                  |
 | 16  | ⭐⭐   | [Day 16: The Floor Will Be Lava](day16)        |
-| 17  |        |                                                |
+| 17  | ⭐⭐   | [Day 17: Clumsy Crucible](day17)               |
 | 18  |        |                                                |
 | 19  |        |                                                |
 | 20  |        |                                                |
