@@ -81,24 +81,8 @@ public class Day16 extends SolutionTemplate {
             ) {
                 toCheck.add(new Step(next.getPos().moveNew(next.dir.turnLeft()), next.dir.turnLeft()));
                 toCheck.add(new Step(next.getPos().moveNew(next.dir.turnRight()), next.dir.turnRight()));
-            } else if (c == '\\' && next.dir == Direction.S) {
-                toCheck.add(new Step(next.getPos().moveNew(Direction.E), Direction.E));
-            } else if (c == '\\' && next.dir == Direction.N) {
-                toCheck.add(new Step(next.getPos().moveNew(Direction.W), Direction.W));
-            } else if (c == '\\' && next.dir == Direction.E) {
-                toCheck.add(new Step(next.getPos().moveNew(Direction.S), Direction.S));
-            } else if (c == '\\' && next.dir == Direction.W) {
-                toCheck.add(new Step(next.getPos().moveNew(Direction.N), Direction.N));
-            } else if (c == '/' && next.dir == Direction.S) {
-                toCheck.add(new Step(next.getPos().moveNew(Direction.W), Direction.W));
-            } else if (c == '/' && next.dir == Direction.N) {
-                toCheck.add(new Step(next.getPos().moveNew(Direction.E), Direction.E));
-            } else if (c == '/' && next.dir == Direction.E) {
-                toCheck.add(new Step(next.getPos().moveNew(Direction.N), Direction.N));
-            } else if (c == '/' && next.dir == Direction.W) {
-                toCheck.add(new Step(next.getPos().moveNew(Direction.S), Direction.S));
             } else {
-                throw new IllegalArgumentException();
+                toCheck.add(new Step(next.getPos().moveNew(next.dir.turnOnCurve(c)), next.dir.turnOnCurve(c)));
             }
         }
         return seen.stream().map(v -> v.pos).collect(Collectors.toSet()).size();
@@ -118,7 +102,7 @@ public class Day16 extends SolutionTemplate {
             response = Math.max(response, check(eventData, new SimplePos(0, y), Direction.E));
             response = Math.max(response, check(eventData, new SimplePos(maxX - 1, y), Direction.W));
         }
-        
+
         logger.log(Level.INFO, "Solution 2 " + response);
         return response;
     }
