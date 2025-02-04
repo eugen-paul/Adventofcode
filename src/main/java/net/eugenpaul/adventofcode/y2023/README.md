@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2023 [38/50]
+## Progress: Year 2023 [40/50]
 
 | Day | Status | Link                                           |
 | --- | ------ | ---------------------------------------------- |
@@ -23,7 +23,7 @@
 | 17  | ⭐⭐   | [Day 17: Clumsy Crucible](day17)               |
 | 18  | ⭐⭐   | [Day 18: Lavaduct Lagoon](day18)               |
 | 19  | ⭐⭐   | [Day 19: Aplenty](day19)                       |
-| 20  |        |                                                |
+| 20  | ⭐⭐   | [Day 20: Pulse Propagation](day20)             |
 | 21  |        |                                                |
 | 22  |        |                                                |
 | 23  |        |                                                |
