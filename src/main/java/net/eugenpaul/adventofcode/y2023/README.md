@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2023 [44/50]
+## Progress: Year 2023 [46/50]
 
 | Day | Status | Link                                           |
 | --- | ------ | ---------------------------------------------- |
@@ -26,6 +26,6 @@
 | 20  | ⭐⭐   | [Day 20: Pulse Propagation](day20)             |
 | 21  | ⭐⭐   | [Day 21: Step Counter](day21)                  |
 | 22  | ⭐⭐   | [Day 22: Sand Slabs](day22)                    |
-| 23  |        |                                                |
+| 23  | ⭐⭐   | [Day 23: A Long Walk](day23)                   |
 | 24  |        |                                                |
 | 25  |        |                                                |
