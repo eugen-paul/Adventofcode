@@ -20,18 +20,18 @@ public class Pos3d implements DijkstraStepGen {
         Matcher m = pattern.matcher(data);
         m.find();
         return new Pos3d(//
-                Integer.parseInt(m.group(1)), //
-                Integer.parseInt(m.group(2)), //
-                Integer.parseInt(m.group(3)) //
+                Long.parseLong(m.group(1)), //
+                Long.parseLong(m.group(2)), //
+                Long.parseLong(m.group(3)) //
         );
     }
 
     public static Pos3d fromPattern(String data, String delimer) {
         String[] splits = data.split(delimer);
         return new Pos3d(//
-                Integer.parseInt(splits[0]), //
-                Integer.parseInt(splits[1]), //
-                Integer.parseInt(splits[2]) //
+                Long.parseLong(splits[0]), //
+                Long.parseLong(splits[1]), //
+                Long.parseLong(splits[2]) //
         );
     }
 
