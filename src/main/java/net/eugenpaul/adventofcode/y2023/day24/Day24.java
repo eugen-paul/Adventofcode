@@ -1,6 +1,8 @@
 package net.eugenpaul.adventofcode.y2023.day24;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 
 import lombok.Getter;
@@ -94,44 +96,93 @@ public class Day24 extends SolutionTemplate {
     public long doPuzzle2(List<String> eventData) {
         long response = 0;
 
-        long minX = Long.MAX_VALUE;
-        long maxX = Long.MIN_VALUE;
-        long minY = Long.MAX_VALUE;
-        long maxY = Long.MIN_VALUE;
-        long minZ = Long.MAX_VALUE;
-        long maxZ = Long.MIN_VALUE;
+        Set<Integer> xVelocitys = new HashSet<>();
+        Set<Integer> yVelocitys = new HashSet<>();
+        Set<Integer> zVelocitys = new HashSet<>();
 
         for (int a = 0; a < eventData.size(); a++) {
             String dataA = eventData.get(a);
             var splitsA = dataA.replace(" ", "").split("@");
             Pos3d posA = Pos3d.fromPattern(splitsA[0], ",");
             Pos3d velA = Pos3d.fromPattern(splitsA[1], ",");
-            if (velA.getX() < 0) {
-                minX = Math.min(minX, posA.getX());
-            }
-            if (velA.getX() > 0) {
-                maxX = Math.max(maxX, posA.getX());
-            }
-            if (velA.getY() < 0) {
-                minY = Math.min(minY, posA.getY());
-            }
-            if (velA.getY() > 0) {
-                maxY = Math.max(maxY, posA.getY());
-            }
-            if (velA.getZ() < 0) {
-                minZ = Math.min(minZ, posA.getZ());
-            }
-            if (velA.getZ() > 0) {
-                maxZ = Math.max(maxZ, posA.getZ());
+            for (int b = a + 1; b < eventData.size(); b++) {
+                String dataB = eventData.get(b);
+                var splitsB = dataB.replace(" ", "").split("@");
+                Pos3d posB = Pos3d.fromPattern(splitsB[0], ",");
+                Pos3d velB = Pos3d.fromPattern(splitsB[1], ",");
+
+                // if X-Velocity of A and B are equal, then stone X-Velocity is divisor of X-Distance.
+                // Same for Y and Z
+                if (velA.getX() == velB.getX() && xVelocitys.size() != 1) {
+                    if (xVelocitys.isEmpty()) {
+                        xVelocitys.addAll(computeVelocities(posA.getX(), posB.getX(), (int)velA.getX()));
+                    } else {
+                        xVelocitys.retainAll(computeVelocities(posA.getX(), posB.getX(), (int)velA.getX()));
+                    }
+                }
+                if (velA.getY() == velB.getY() && yVelocitys.size() != 1) {
+                    if (yVelocitys.isEmpty()) {
+                        yVelocitys.addAll(computeVelocities(posA.getY(), posB.getY(), (int)velA.getY()));
+                    } else {
+                        yVelocitys.retainAll(computeVelocities(posA.getY(), posB.getY(), (int)velA.getY()));
+                    }
+                }
+                if (velA.getZ() == velB.getZ() && zVelocitys.size() != 1) {
+                    if (zVelocitys.isEmpty()) {
+                        zVelocitys.addAll(computeVelocities(posA.getZ(), posB.getZ(), (int)velA.getZ()));
+                    } else {
+                        zVelocitys.retainAll(computeVelocities(posA.getZ(), posB.getZ(), (int)velA.getZ()));
+                    }
+                }
             }
         }
 
-        System.out.println(minX + " " + maxX);
-        System.out.println(minY + " " + maxY);
-        System.out.println(minZ + " " + maxZ);
+        
+        String dataA = eventData.get(0);
+        var splitsA = dataA.replace(" ", "").split("@");
+        Pos3d posA = Pos3d.fromPattern(splitsA[0], ",");
+        Pos3d velA = Pos3d.fromPattern(splitsA[1], ",");
 
+        String dataB = eventData.get(1);
+        var splitsB = dataB.replace(" ", "").split("@");
+        Pos3d posB = Pos3d.fromPattern(splitsB[0], ",");
+        Pos3d velB = Pos3d.fromPattern(splitsB[1], ",");
+
+        long vx = xVelocitys.iterator().next();
+        long vy = yVelocitys.iterator().next();
+        long vz = zVelocitys.iterator().next();
+
+        long c = (velB.getX() - vx) * (velA.getY() - vy);
+        long d = (posB.getX() - posA.getX()) * (velA.getY() - vy);
+        long e = (velB.getY() - vy) * (velA.getX() - vx);
+        long f = (posB.getY() - posA.getY()) * (velA.getX() - vx);
+        
+        long t2 = (f-d)/ (c-e);
+
+        long x = (posB.getX() + t2 * velB.getX()) - (vx * t2);
+        long y = (posB.getY() + t2 * velB.getY()) - (vy * t2);
+        long z = (posB.getZ() + t2 * velB.getZ()) - (vz * t2);
+        
+        response = x+y+z;
         logger.log(Level.INFO, "Solution 2 " + response);
         return response;
+    }
+
+    private Set<Integer> computeVelocities(long posA, long posB, int velA) {
+        Set<Integer> velocitys = new HashSet<>();
+
+        long distance = Math.abs(posA - posB);
+        long sqrtDistance = (long) Math.sqrt(distance);
+        for (int v = 1; v <= sqrtDistance; v++) {
+            if (distance % v == 0) {
+                velocitys.add(v + velA);
+                velocitys.add((int) (distance / v) + velA);
+                velocitys.add(-v + velA);
+                velocitys.add(-(int) (distance / v) + velA);
+            }
+        }
+
+        return velocitys;
     }
 
 }
