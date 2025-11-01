@@ -31,6 +31,6 @@ class Day24Test {
         assertTrue(event.doPuzzleFromData(eventData));
 
         assertEquals(20963, event.getTotalScore());
-        // assertEquals(0, event.getTotalScore2());
+        assertEquals(999782576459892L, event.getTotalScore2());
     }
 }
