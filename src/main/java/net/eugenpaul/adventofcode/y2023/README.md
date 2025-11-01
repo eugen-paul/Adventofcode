@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2023 [46/50]
+## Progress: Year 2023 [50/50]
 
 | Day | Status | Link                                           |
 | --- | ------ | ---------------------------------------------- |
@@ -27,5 +27,7 @@
 | 21  | ⭐⭐   | [Day 21: Step Counter](day21)                  |
 | 22  | ⭐⭐   | [Day 22: Sand Slabs](day22)                    |
 | 23  | ⭐⭐   | [Day 23: A Long Walk](day23)                   |
-| 24  |        |                                                |
-| 25  |        |                                                |
+| 24  | ⭐⭐   | [Day 24: Never Tell Me The Odds](day24)        |
+| 25  | ⭐⭐   | [Day 25: Snowverload](day25)                   |
+
+![Solutions 2023](../../../../../../../doc/img/2023.png "2023 is done")
