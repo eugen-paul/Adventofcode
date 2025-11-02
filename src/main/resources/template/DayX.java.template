@@ -15,7 +15,7 @@ public class Day#DAY# extends SolutionTemplate {
 
     public static void main(String[] args) {
         Day#DAY# puzzle = new Day#DAY#();
-        puzzle.doPuzzleFromFile("y2023/day#DAY#/puzzle1.txt");
+        puzzle.doPuzzleFromFile("y#YEAR#/day#DAY#/puzzle1.txt");
     }
 
     @Override
