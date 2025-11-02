@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [8/50]
+## Progress: Year 2024 [10/50]
 
 | Day | Status | Link                              |
 | --- | ------ | --------------------------------- |
@@ -8,7 +8,7 @@
 | 2   | ⭐⭐   | [Day 2: Red-Nosed Reports](day2)  |
 | 3   | ⭐⭐   | [Day 3: Mull It Over](day3)       |
 | 4   | ⭐⭐   | [Day 4: Ceres Search](day4)       |
-| 5   |        |                                   |
+| 5   | ⭐⭐   | [Day 5: Print Queue](day5)        |
 | 6   |        |                                   |
 | 7   |        |                                   |
 | 8   |        |                                   |
