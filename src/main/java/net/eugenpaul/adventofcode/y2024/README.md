@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [10/50]
+## Progress: Year 2024 [12/50]
 
 | Day | Status | Link                              |
 | --- | ------ | --------------------------------- |
@@ -9,7 +9,7 @@
 | 3   | ⭐⭐   | [Day 3: Mull It Over](day3)       |
 | 4   | ⭐⭐   | [Day 4: Ceres Search](day4)       |
 | 5   | ⭐⭐   | [Day 5: Print Queue](day5)        |
-| 6   |        |                                   |
+| 6   | ⭐⭐   | [Day 6: Guard Gallivant](day6)    |
 | 7   |        |                                   |
 | 8   |        |                                   |
 | 9   |        |                                   |

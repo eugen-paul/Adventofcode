@@ -146,7 +146,7 @@ public final class StringConverter {
     public static long[] digitsToLongArray(String data) {
         return data.chars().mapToLong(v -> v - '0').toArray();
     }
-    
+
     /**
      * Convert digits in String to Array of Numbers: "213" => List.of{2,1,3}
      * 
@@ -177,6 +177,17 @@ public final class StringConverter {
             }
         }
         return response;
+    }
+
+    public static SimplePos posOfChar(List<String> data, char trueChar) {
+        for (int y = 0; y < data.size(); y++) {
+            for (int x = 0; x < data.get(0).length(); x++) {
+                if (data.get(y).charAt(x) == trueChar) {
+                    return new SimplePos(x, y);
+                }
+            }
+        }
+        throw new IllegalArgumentException("Char not found: " + trueChar);
     }
 
     public static Set<SimplePos> toSet(List<String> data, char trueChar) {
