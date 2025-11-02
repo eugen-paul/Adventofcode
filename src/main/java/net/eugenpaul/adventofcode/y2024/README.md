@@ -5,7 +5,7 @@
 | Day | Status | Link                              |
 | --- | ------ | --------------------------------- |
 | 1   | ⭐⭐   | [Day 1: Historian Hysteria](day1) |
-| 2   |        |                                   |
+| 2   | ⭐⭐   | [Day 2: Red-Nosed Reports](day2)  |
 | 3   |        |                                   |
 | 4   |        |                                   |
 | 5   |        |                                   |
