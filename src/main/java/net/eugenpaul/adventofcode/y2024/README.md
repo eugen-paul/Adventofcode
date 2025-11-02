@@ -1,13 +1,13 @@
 # Solutions
 
-## Progress: Year 2024 [6/50]
+## Progress: Year 2024 [8/50]
 
 | Day | Status | Link                              |
 | --- | ------ | --------------------------------- |
 | 1   | ⭐⭐   | [Day 1: Historian Hysteria](day1) |
 | 2   | ⭐⭐   | [Day 2: Red-Nosed Reports](day2)  |
 | 3   | ⭐⭐   | [Day 3: Mull It Over](day3)       |
-| 4   |        |                                   |
+| 4   | ⭐⭐   | [Day 4: Ceres Search](day4)       |
 | 5   |        |                                   |
 | 6   |        |                                   |
 | 7   |        |                                   |
