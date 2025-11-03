@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [18/50]
+## Progress: Year 2024 [20/50]
 
 | Day | Status | Link                                 |
 | --- | ------ | ------------------------------------ |
@@ -13,7 +13,7 @@
 | 7   | ⭐⭐   | [Day 7: Bridge Repair](day7)         |
 | 8   | ⭐⭐   | [Day 8: Resonant Collinearity](day8) |
 | 9   | ⭐⭐   | [Day 9: Disk Fragmenter](day9)       |
-| 10  |        |                                      |
+| 10  | ⭐⭐   | [Day 10: Hoof It](day10)             |
 | 11  |        |                                      |
 | 12  |        |                                      |
 | 13  |        |                                      |
