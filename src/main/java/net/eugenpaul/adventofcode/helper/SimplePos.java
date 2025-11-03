@@ -227,4 +227,11 @@ public class SimplePos implements DijkstraStepGen {
         return 1;
     }
 
+    public boolean inRange(long xMin, long xMax, long yMin, long yMax){
+        return    xMin <= x //
+               && x <= xMax //
+               && yMin <= y //
+               && y <= yMax;
+    }
+
 }
