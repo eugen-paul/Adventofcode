@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [20/50]
+## Progress: Year 2024 [22/50]
 
 | Day | Status | Link                                 |
 | --- | ------ | ------------------------------------ |
@@ -14,7 +14,7 @@
 | 8   | ⭐⭐   | [Day 8: Resonant Collinearity](day8) |
 | 9   | ⭐⭐   | [Day 9: Disk Fragmenter](day9)       |
 | 10  | ⭐⭐   | [Day 10: Hoof It](day10)             |
-| 11  |        |                                      |
+| 11  | ⭐⭐   | [Day 11: Plutonian Pebbles](day11)   |
 | 12  |        |                                      |
 | 13  |        |                                      |
 | 14  |        |                                      |
