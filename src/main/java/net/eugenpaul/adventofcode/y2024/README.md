@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [12/50]
+## Progress: Year 2024 [14/50]
 
 | Day | Status | Link                              |
 | --- | ------ | --------------------------------- |
@@ -10,7 +10,7 @@
 | 4   | ⭐⭐   | [Day 4: Ceres Search](day4)       |
 | 5   | ⭐⭐   | [Day 5: Print Queue](day5)        |
 | 6   | ⭐⭐   | [Day 6: Guard Gallivant](day6)    |
-| 7   |        |                                   |
+| 7   | ⭐⭐   | [Day 7: Bridge Repair](day7)      |
 | 8   |        |                                   |
 | 9   |        |                                   |
 | 10  |        |                                   |
