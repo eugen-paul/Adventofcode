@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [22/50]
+## Progress: Year 2024 [24/50]
 
 | Day | Status | Link                                 |
 | --- | ------ | ------------------------------------ |
@@ -15,7 +15,7 @@
 | 9   | ⭐⭐   | [Day 9: Disk Fragmenter](day9)       |
 | 10  | ⭐⭐   | [Day 10: Hoof It](day10)             |
 | 11  | ⭐⭐   | [Day 11: Plutonian Pebbles](day11)   |
-| 12  |        |                                      |
+| 12  | ⭐⭐   | [Day 12: Garden Groups](day12)       |
 | 13  |        |                                      |
 | 14  |        |                                      |
 | 15  |        |                                      |
