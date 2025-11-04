@@ -123,6 +123,27 @@ public class Day13 extends SolutionTemplate {
         }
 
         for (var game : games) {
+            /**
+             * to reach the Target we do push A 'k' times and B 'n' times. <br/>
+             * Button A: X+94, Y+34 => ax = 94, ay = 34 <br/>
+             * Button B: X+22, Y+67 => bx = 22, by = 67 <br/>
+             * Prize: X=8400, Y=5400 => px=8400, py = 5400 <br/>
+             * let total cost be 'c'
+             * <p>
+             * we know that: <br/>
+             * (1) ax * k + bx * n = px <br/>
+             * (2) ay * k + by * n = py <br/>
+             * (3) 3 * k + n = c <br/>
+             * in 1 and 2 move n to left: <br/>
+             * (1) n = (px - ax*k) / bx <br/>
+             * (2) n = (py - ay*k) / by <br/>
+             * put 1 and 2 in 3: <br/>
+             * (1) 3*k + px/bx - ax/bx * k = c <br/>
+             * (2) 3*k + py/by - ay/by * k = c <br/>
+             * sub 1 from 2 and move k to left: <br/>
+             * k=(py*bx - px*by) / (ay*bx - ax*by) <--- solution <br/>
+             * check if k i ok.
+             */
             long aCount = (game.prizeY * game.bX - game.prizeX * game.bY) / (game.aY * game.bX - game.aX * game.bY);
             long bCount = (game.prizeX - game.aX * aCount) / game.bX;
             if (//
