@@ -1,0 +1,1 @@
+[Advent of Code Year 2024 Day 13](https://adventofcode.com/2024/day/13)
