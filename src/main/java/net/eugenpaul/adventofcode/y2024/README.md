@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [28/50]
+## Progress: Year 2024 [30/50]
 
 | Day | Status | Link                                 |
 | --- | ------ | ------------------------------------ |
@@ -18,7 +18,7 @@
 | 12  | ⭐⭐   | [Day 12: Garden Groups](day12)       |
 | 13  | ⭐⭐   | [Day 13: Claw Contraption](day13)    |
 | 14  | ⭐⭐   | [Day 14: Restroom Redoubt](day14)    |
-| 15  |        |                                      |
+| 15  | ⭐⭐   | [Day 15: Warehouse Woes](day15)      |
 | 16  |        |                                      |
 | 17  |        |                                      |
 | 18  |        |                                      |
