@@ -1,6 +1,7 @@
 package net.eugenpaul.adventofcode.helper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -33,8 +34,8 @@ public final class StringConverter {
     }
 
     /**
-     * Convert Numbers in String to ArrayList: "1 2 3" => new ArrayList(List.of(1,2,3))
-     * Convert Numbers in String to ArrayList: "1,2,3" => new ArrayList(List.of(1,2,3))
+     * Convert Numbers in String to ArrayList: "1 2 3" => new ArrayList(List.of(1,2,3)) Convert Numbers in String to ArrayList: "1,2,3" => new
+     * ArrayList(List.of(1,2,3))
      * 
      * @param data
      * @return
@@ -173,6 +174,22 @@ public final class StringConverter {
             for (int x = 0; x < data.get(0).length(); x++) {
                 var currentPos = new SimplePos(x, y);
                 var value = data.get(y).charAt(x) == trueChar;
+                response.put(currentPos, value);
+            }
+        }
+        return response;
+    }
+
+    public static Map<SimplePos, Boolean> toBoolMap(List<String> data, char... trueChar) {
+        Set<Character> tc = new HashSet<>();
+        for (char c : trueChar) {
+            tc.add(c);
+        }
+        Map<SimplePos, Boolean> response = new HashMap<>();
+        for (int y = 0; y < data.size(); y++) {
+            for (int x = 0; x < data.get(0).length(); x++) {
+                var currentPos = new SimplePos(x, y);
+                var value = tc.contains(data.get(y).charAt(x));
                 response.put(currentPos, value);
             }
         }
