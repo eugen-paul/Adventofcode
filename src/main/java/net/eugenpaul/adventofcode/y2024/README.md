@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [34/50]
+## Progress: Year 2024 [36/50]
 
 | Day | Status | Link                                    |
 | --- | ------ | --------------------------------------- |
@@ -21,7 +21,7 @@
 | 15  | ⭐⭐   | [Day 15: Warehouse Woes](day15)         |
 | 16  | ⭐⭐   | [Day 16: Reindeer Maze](day16)          |
 | 17  | ⭐⭐   | [Day 17: Chronospatial Computer](day17) |
-| 18  |        |                                         |
+| 18  | ⭐⭐   | [Day 18: RAM Run](day18)                |
 | 19  |        |                                         |
 | 20  |        |                                         |
 | 21  |        |                                         |
