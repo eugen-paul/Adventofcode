@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [30/50]
+## Progress: Year 2024 [32/50]
 
 | Day | Status | Link                                 |
 | --- | ------ | ------------------------------------ |
@@ -19,7 +19,7 @@
 | 13  | ⭐⭐   | [Day 13: Claw Contraption](day13)    |
 | 14  | ⭐⭐   | [Day 14: Restroom Redoubt](day14)    |
 | 15  | ⭐⭐   | [Day 15: Warehouse Woes](day15)      |
-| 16  |        |                                      |
+| 16  | ⭐⭐   | [Day 16: Reindeer Maze](day16)       |
 | 17  |        |                                      |
 | 18  |        |                                      |
 | 19  |        |                                      |
