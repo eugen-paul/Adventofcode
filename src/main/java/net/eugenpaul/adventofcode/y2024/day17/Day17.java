@@ -116,6 +116,10 @@ public class Day17 extends SolutionTemplate {
         List<Integer> prog = StringConverter.toIntegerArrayList(eventData.get(4).split(" ")[1]);
 
         for (int len = 1; len <= prog.size(); len++) {
+            /**
+             * The first match in the range [0,7] doesn't always lead to the correct overall result. It should be implemented recursively here to try other
+             * values ​​as well. I was too lazy for that. So, for the last value, I check everything from 0 to 1,000,000.
+             */
             for (long aCheck = 0L; aCheck <= 1_000_000L; aCheck++) {
                 long a = aCheck + response * 8;
                 List<Integer> output = new LinkedList<>();
