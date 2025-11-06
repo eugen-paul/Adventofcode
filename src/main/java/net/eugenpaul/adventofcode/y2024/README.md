@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [40/50]
+## Progress: Year 2024 [42/50]
 
 | Day | Status | Link                                    |
 | --- | ------ | --------------------------------------- |
@@ -24,7 +24,7 @@
 | 18  | ⭐⭐   | [Day 18: RAM Run](day18)                |
 | 19  | ⭐⭐   | [Day 19: Linen Layout](day19)           |
 | 20  | ⭐⭐   | [Day 20: Race Condition](day20)         |
-| 21  |        |                                         |
+| 21  | ⭐⭐   | [Day 21: Keypad Conundrum](day21)       |
 | 22  |        |                                         |
 | 23  |        |                                         |
 | 24  |        |                                         |
