@@ -27,7 +27,7 @@ public final class SubSet {
      * @param callback
      */
     public static <T> void subset(List<T> list, Consumer<List<T>> callback) {
-        int n = list.size();
+        final int n = list.size();
         // 1 << n = 2^n mögliche Kombinationen
         for (int mask = 1; mask < (1 << n); mask++) {
             List<T> subset = new LinkedList<>();

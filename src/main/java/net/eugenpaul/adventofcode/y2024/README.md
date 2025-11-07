@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [46/50]
+## Progress: Year 2024 [48/50]
 
 | Day | Status | Link                                    |
 | --- | ------ | --------------------------------------- |
@@ -27,5 +27,5 @@
 | 21  | ⭐⭐   | [Day 21: Keypad Conundrum](day21)       |
 | 22  | ⭐⭐   | [Day 22: Monkey Market](day22)          |
 | 23  | ⭐⭐   | [Day 23: LAN Party](day23)              |
-| 24  |        |                                         |
+| 24  | ⭐⭐   | [Day 24: Crossed Wires](day24)          |
 | 25  |        |                                         |
