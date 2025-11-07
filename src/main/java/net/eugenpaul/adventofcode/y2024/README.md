@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [44/50]
+## Progress: Year 2024 [46/50]
 
 | Day | Status | Link                                    |
 | --- | ------ | --------------------------------------- |
@@ -26,6 +26,6 @@
 | 20  | ⭐⭐   | [Day 20: Race Condition](day20)         |
 | 21  | ⭐⭐   | [Day 21: Keypad Conundrum](day21)       |
 | 22  | ⭐⭐   | [Day 22: Monkey Market](day22)          |
-| 23  |        |                                         |
+| 23  | ⭐⭐   | [Day 23: LAN Party](day23)              |
 | 24  |        |                                         |
 | 25  |        |                                         |
