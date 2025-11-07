@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [42/50]
+## Progress: Year 2024 [44/50]
 
 | Day | Status | Link                                    |
 | --- | ------ | --------------------------------------- |
@@ -25,7 +25,7 @@
 | 19  | ⭐⭐   | [Day 19: Linen Layout](day19)           |
 | 20  | ⭐⭐   | [Day 20: Race Condition](day20)         |
 | 21  | ⭐⭐   | [Day 21: Keypad Conundrum](day21)       |
-| 22  |        |                                         |
+| 22  | ⭐⭐   | [Day 22: Monkey Market](day22)          |
 | 23  |        |                                         |
 | 24  |        |                                         |
 | 25  |        |                                         |
