@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2024 [48/50]
+## Progress: Year 2024 [50/50]
 
 | Day | Status | Link                                    |
 | --- | ------ | --------------------------------------- |
@@ -28,4 +28,6 @@
 | 22  | ⭐⭐   | [Day 22: Monkey Market](day22)          |
 | 23  | ⭐⭐   | [Day 23: LAN Party](day23)              |
 | 24  | ⭐⭐   | [Day 24: Crossed Wires](day24)          |
-| 25  |        |                                         |
+| 25  | ⭐⭐   | [Day 25: Code Chronicle](day25)         |
+
+![Solutions 2024](../../../../../../../doc/img/2024.png "2024 is done")
