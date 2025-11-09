@@ -22,7 +22,8 @@ test {
 }
 
 dependencies {
-    implementation          commonDependencies.apache_commons
+    implementation          commonDependencies.apache_commons_text
+    implementation          commonDependencies.apache_commons_math3
     implementation          commonDependencies.jackson_core
     
 	compileOnly             commonDependencies.lombok
