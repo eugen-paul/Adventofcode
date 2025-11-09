@@ -3,27 +3,26 @@ package net.eugenpaul.adventofcode.helper;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.LongConsumer;
-import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Range {
 
-    @Getter
-    @Setter
     private long from;
-
-    @Getter
-    @Setter
     private long to;
 
+    /**
+     * Create Range from string
+     * 
+     * @param data
+     * @param delimer
+     * @return
+     */
     public static Range fromString(String data, String delimer) {
         var xy = data.split(delimer);
         if (xy.length != 2) {
@@ -36,6 +35,9 @@ public class Range {
         );
     }
 
+    /**
+     * Ensure from <= to
+     */
     public void sort() {
         if (to < from) {
             long temp = from;
@@ -44,11 +46,23 @@ public class Range {
         }
     }
 
+    /**
+     * Check if this range contain other range
+     * 
+     * @param other
+     * @return
+     */
     public boolean isContain(Range other) {
         return from <= other.from//
                 && to >= other.to;
     }
 
+    /**
+     * Check if this range overlap other range
+     * 
+     * @param other
+     * @return
+     */
     public boolean isOverlap(Range other) {
         if (to < other.from) {
             return false;
@@ -63,6 +77,12 @@ public class Range {
         }
     }
 
+    /**
+     * Subtract other range from this range
+     * 
+     * @param other
+     * @return list of ranges after subtraction
+     */
     public List<Range> subtract(Range other) {
         List<Range> response = new LinkedList<>();
         if (!isOverlap(other)) {
@@ -89,6 +109,13 @@ public class Range {
         return new Range(from, to);
     }
 
+    /**
+     * Merge two ranges
+     * 
+     * @param a
+     * @param b
+     * @return list of merged ranges
+     */
     public static List<Range> merge(Range a, Range b) {
         if (a.isOverlap(b)) {
             return List.of(new Range(Math.min(a.from, b.from), Math.max(a.to, b.to)));
@@ -97,10 +124,17 @@ public class Range {
         return List.of(a.copy(), b.copy());
     }
 
+    /**
+     * Merge range b into list of ranges a
+     * 
+     * @param a
+     * @param b
+     * @return list of merged ranges
+     */
     public static List<Range> merge(List<Range> a, Range b) {
         var aSorted = a.stream()//
                 .sorted((v1, v2) -> (int) (v1.from - v2.from))//
-                .collect(Collectors.toList());
+                .toList();
 
         List<Range> response = new LinkedList<>();
         Range currentMerge = b.copy();

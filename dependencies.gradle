@@ -5,10 +5,13 @@ ext {
     apache_commons_text_version = "1.13.0"
     apache_commons_math3_version = "3.6.1"
     jackson_version = "2.18.2"
+    matheclipse_core_version = "3.0.0"
 
     commonDependencies = [
         apache_commons_text    : "org.apache.commons:commons-text:$apache_commons_text_version",
         apache_commons_math3   : "org.apache.commons:commons-math3:$apache_commons_math3_version",
+
+        matheclipse_core       : "org.matheclipse:matheclipse-core:$matheclipse_core_version",
         
         lombok                 : "org.projectlombok:lombok:$lombok_version",
 
