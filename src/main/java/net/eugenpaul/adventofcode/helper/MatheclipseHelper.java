@@ -6,6 +6,10 @@ import java.util.List;
 import org.matheclipse.core.eval.ExprEvaluator;
 import org.matheclipse.core.interfaces.IExpr;
 
+/**
+ * Helper class for Matheclipse operations<br>
+ * online: https://symjaweb.appspot.com/
+ */
 public class MatheclipseHelper {
 
     private List<String> equations;
