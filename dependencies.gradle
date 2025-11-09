@@ -2,11 +2,13 @@ ext {
     lombok_version = "1.18.36"
     junit_version = "5.11.4"
     mockito_version = "5.15.2"
-    apache_commons_version = "1.13.0"
+    apache_commons_text_version = "1.13.0"
+    apache_commons_math3_version = "3.6.1"
     jackson_version = "2.18.2"
 
     commonDependencies = [
-        apache_commons         : "org.apache.commons:commons-text:$apache_commons_version",
+        apache_commons_text    : "org.apache.commons:commons-text:$apache_commons_text_version",
+        apache_commons_math3   : "org.apache.commons:commons-math3:$apache_commons_math3_version",
         
         lombok                 : "org.projectlombok:lombok:$lombok_version",
 
