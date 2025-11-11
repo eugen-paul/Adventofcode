@@ -89,7 +89,7 @@ public class Day12 extends SolutionTemplate {
                 // each generation the plants will be moved one step to right
                 int minPlant = pots.firstKey();
                 long minPlantAfterMaxGenerations = minPlant + maxGenerations - generation - 1;
-                return MathHelper.sum(minPlantAfterMaxGenerations, minPlantAfterMaxGenerations + 193L);
+                return MathHelper.sumRange(minPlantAfterMaxGenerations, minPlantAfterMaxGenerations + 193L);
             }
 
         }

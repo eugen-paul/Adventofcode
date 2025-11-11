@@ -1,5 +1,8 @@
 package net.eugenpaul.adventofcode.y2018.day17;
 
+import static net.eugenpaul.adventofcode.helper.ConvertHelper.*;
+import static net.eugenpaul.adventofcode.helper.MathHelper.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +46,8 @@ public class Day17 extends SolutionTemplate {
 
         Map<SimplePos, Type> tiles = initTiles(eventData);
 
-        int yMin = tiles.keySet().stream().mapToInt(SimplePos::getY).min().getAsInt();
-        int yMax = tiles.keySet().stream().mapToInt(SimplePos::getY).max().getAsInt();
+        int yMin = (int) min(tiles.keySet(), v -> (long) v.getY());
+        int yMax = (int) max(tiles.keySet(), v -> (long) v.getY());
 
         doPuzzle(tiles, new SimplePos(500, 1), yMax, Direction.S);
 

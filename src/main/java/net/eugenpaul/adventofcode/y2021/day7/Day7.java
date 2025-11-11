@@ -27,7 +27,7 @@ public class Day7 extends SolutionTemplate {
         List<Integer> horizontalPositions = StringConverter.toIntegerLinkedList(eventData);
 
         fuel = getFuelCost(horizontalPositions, (pos, target) -> (long) Math.abs(pos - target));
-        fuel2 = getFuelCost(horizontalPositions, (pos, target) -> MathHelper.sum(1L, Math.abs(pos - target)));
+        fuel2 = getFuelCost(horizontalPositions, (pos, target) -> MathHelper.sumRange(1L, Math.abs(pos - target)));
 
         logger.log(Level.INFO, () -> "fuel  : " + getFuel());
         logger.log(Level.INFO, () -> "fuel2  : " + getFuel2());

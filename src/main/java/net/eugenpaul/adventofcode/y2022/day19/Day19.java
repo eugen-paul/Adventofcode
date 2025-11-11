@@ -84,7 +84,7 @@ public class Day19 extends SolutionTemplate {
             return 0;
         }
 
-        int maxPosible = geode + (int) MathHelper.sum(1, minRest);
+        int maxPosible = geode + (int) MathHelper.sumRange(1, minRest);
         if (maxBuffer[minRest] > maxPosible) {
             return 0;
         }

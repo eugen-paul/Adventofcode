@@ -1,5 +1,8 @@
 package net.eugenpaul.adventofcode.y2024.day22;
 
+import static net.eugenpaul.adventofcode.helper.ConvertHelper.*;
+import static net.eugenpaul.adventofcode.helper.MathHelper.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -96,7 +99,7 @@ public class Day22 extends SolutionTemplate {
             }
         }
 
-        response = seqToPrize.values().stream().mapToInt(v -> v).max().orElseThrow();
+        response = max(seqToPrize.values());
         logger.log(Level.INFO, "Solution 2 " + response);
         return response;
     }

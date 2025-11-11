@@ -9,7 +9,6 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public abstract class SolutionTemplateV2 {
 
@@ -58,24 +57,24 @@ public abstract class SolutionTemplateV2 {
         public List<Integer> asIntList(int matchPos, String delimer) {
             return Arrays.stream(m.group(matchPos).split(delimer))//
                     .map(v -> Integer.parseInt(v.trim()))//
-                    .collect(Collectors.toList());
+                    .toList();
         }
 
         public List<Long> asLongList(int matchPos, String delimer) {
             return Arrays.stream(m.group(matchPos).split(delimer))//
                     .map(v -> Long.parseLong(v.trim()))//
-                    .collect(Collectors.toList());
+                    .toList();
         }
 
         public List<String> asStringListTrim(int matchPos, String delimer) {
             return Arrays.stream(m.group(matchPos).split(delimer))//
                     .map(String::trim)//
-                    .collect(Collectors.toList());
+                    .toList();
         }
 
         public List<String> asStringList(int matchPos, String delimer) {
             return Arrays.stream(m.group(matchPos).split(delimer))//
-                    .collect(Collectors.toList());
+                    .toList();
         }
     }
 
@@ -102,7 +101,7 @@ public abstract class SolutionTemplateV2 {
     public abstract void doEvent(List<String> eventData);
 
     public List<Long> inputAsLongList(List<String> eventData) {
-        return eventData.stream().mapToLong(Long::parseLong).boxed().collect(Collectors.toList());
+        return eventData.stream().mapToLong(Long::parseLong).boxed().toList();
     }
 
     public Long inputAsLong(List<String> eventData) {

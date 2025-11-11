@@ -1,13 +1,25 @@
 package net.eugenpaul.adventofcode.y2023.day3;
 
+import static net.eugenpaul.adventofcode.helper.ConvertHelper.*;
+import static net.eugenpaul.adventofcode.helper.MathHelper.*;
+
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 
 import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day3 extends SolutionTemplate {
+
+    private record N(int n, Set<SimplePos> poss) {
+
+    }
 
     @Getter
     private long totalScore;
@@ -33,6 +45,52 @@ public class Day3 extends SolutionTemplate {
 
     public long doPuzzle1(List<String> eventData) {
         int response = 0;
+
+        List<N> numbers = new LinkedList<>();
+        Map<SimplePos, Character> others = new HashMap<>();
+
+        int y = 0;
+        for (var line : eventData) {
+            int x = 0;
+            Integer cur = null;
+            Set<SimplePos> p = new HashSet<>();
+            for (var c : line.toCharArray()) {
+                if (Character.isDigit(c)) {
+                    if (cur == null) {
+                        cur = c - '0';
+                    } else {
+                        cur = cur * 10 + c - '0';
+                    }
+                    p.addAll(new SimplePos(x, y).getNeighbors(true));
+                } else {
+                    if (cur != null) {
+                        numbers.add(new N(cur, p));
+                        cur = null;
+                        p = new HashSet<>();
+                    }
+                    if (c != '.') {
+                        others.put(new SimplePos(x, y), c);
+                    }
+                }
+                x++;
+            }
+            if (cur != null) {
+                numbers.add(new N(cur, p));
+            }
+            y++;
+        }
+
+        for (var e : numbers) {
+            if (e.poss.stream().anyMatch(others::containsKey)) {
+                response += e.n;
+            }
+        }
+
+        return response;
+    }
+
+    public long doPuzzle1_old(List<String> eventData) {
+        int response = 0;
         int start = 999_999;
         for (int y = 0; y < eventData.size(); y++) {
             for (int x = 0; x < eventData.get(0).length(); x++) {
@@ -52,6 +110,63 @@ public class Day3 extends SolutionTemplate {
 
     public long doPuzzle2(List<String> eventData) {
         int response = 0;
+
+        List<N> numbers = new LinkedList<>();
+        Map<SimplePos, Character> others = new HashMap<>();
+
+        int y = 0;
+        for (var line : eventData) {
+            int x = 0;
+            Integer cur = null;
+            Set<SimplePos> p = new HashSet<>();
+            for (var c : line.toCharArray()) {
+                if (Character.isDigit(c)) {
+                    if (cur == null) {
+                        cur = toInt(c);
+                    } else {
+                        cur = cur * 10 + toInt(c);
+                    }
+                    p.add(new SimplePos(x, y));
+                } else {
+                    if (cur != null) {
+                        numbers.add(new N(cur, p));
+                        cur = null;
+                        p = new HashSet<>();
+                    }
+                    if (c != '.') {
+                        others.put(new SimplePos(x, y), c);
+                    }
+                }
+                x++;
+            }
+            if (cur != null) {
+                numbers.add(new N(cur, p));
+            }
+            y++;
+        }
+
+        for (var e : others.entrySet()) {
+            if (e.getValue() != '*') {
+                continue;
+            }
+            Set<N> n = new HashSet<>();
+            for (var pos : e.getKey().getNeighbors(true)) {
+                N nn = numbers.stream().filter(v -> v.poss.contains(pos)).findFirst().orElse(null);
+                if (nn != null) {
+                    n.add(nn);
+                }
+            }
+            var nList = new ArrayList<>(n);
+            if (nList.size() == 2) {
+                response += nList.get(0).n * nList.get(1).n;
+            }
+        }
+
+        return response;
+    }
+
+    public long doPuzzle2_old(List<String> eventData) {
+        int response = 0;
         for (int y = 0; y < eventData.size(); y++) {
             int gear = -1;
             while (true) {
@@ -70,11 +185,7 @@ public class Day3 extends SolutionTemplate {
         long a = -1L;
         long b = -1L;
 
-        int[][] offsets = { 
-            { -1, -1 }, { 0, -1 }, { 1, -1 }, 
-            { -1, 0 }, { 1, 0 }, 
-            { -1, 1 }, { 0, 1 }, { 1, 1 } 
-        };
+        int[][] offsets = { { -1, -1 }, { 0, -1 }, { 1, -1 }, { -1, 0 }, { 1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
 
         for (int[] offset : offsets) {
             int offsetX = offset[0];
@@ -98,18 +209,18 @@ public class Day3 extends SolutionTemplate {
     private boolean isOk(int startX, int endX, int y, List<String> eventData) {
         boolean response = false;
         for (int x = startX - 1; x <= endX + 1; x++) {
-            if (isNotDotAt(x, y - 1, eventData)) {
+            if (isSymbol(x, y - 1, eventData)) {
                 response = true;
                 break;
             }
         }
         for (int x = startX - 1; x <= endX + 1; x++) {
-            if (isNotDotAt(x, y + 1, eventData)) {
+            if (isSymbol(x, y + 1, eventData)) {
                 response = true;
                 break;
             }
         }
-        response = response || isNotDotAt(startX - 1, y, eventData) || isNotDotAt(endX + 1, y, eventData);
+        response = response || isSymbol(startX - 1, y, eventData) || isSymbol(endX + 1, y, eventData);
         return response;
     }
 
@@ -141,14 +252,14 @@ public class Day3 extends SolutionTemplate {
         return Character.isDigit(eventData.get(y).charAt(x));
     }
 
-    private boolean isNotDotAt(int x, int y, List<String> eventData) {
+    private boolean isSymbol(int x, int y, List<String> eventData) {
         if (y < 0 || y >= eventData.size()) {
             return false;
         }
         if (x < 0 || x >= eventData.get(y).length()) {
             return false;
         }
-        return eventData.get(y).charAt(x) != '.';
+        return eventData.get(y).charAt(x) != '.' && !Character.isDigit(eventData.get(y).charAt(x));
     }
 
 }

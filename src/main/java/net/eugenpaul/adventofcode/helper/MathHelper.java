@@ -1,11 +1,15 @@
 package net.eugenpaul.adventofcode.helper;
 
+import java.util.Collection;
+import java.util.function.Function;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MathHelper {
-    private MathHelper() {
 
-    }
-
-    public static long sum(long from, long to) {
+    public static long sumRange(long from, long to) {
         return (to * to + to - (from - 1L) * (from - 1L) - (from - 1L)) / 2L;
     }
 
@@ -23,6 +27,10 @@ public final class MathHelper {
         }
 
         return response;
+    }
+
+    public static long pow(long number, long exp, long mod) {
+        return modularExponentiation(number, exp, mod);
     }
 
     /**
@@ -67,6 +75,30 @@ public final class MathHelper {
             maxValue = Math.max(maxValue, c);
         }
         return maxValue;
+    }
+
+    public static <T extends Number> long max(Collection<T> d) {
+        return d.stream().mapToLong(Number::longValue).max().orElseThrow();
+    }
+
+    public static <T> long max(Collection<T> d, Function<T, Long> convToLong) {
+        return d.stream().map(convToLong).mapToLong(v -> v).max().orElseThrow();
+    }
+
+    public static <T extends Number> long min(Collection<T> d) {
+        return d.stream().mapToLong(Number::longValue).min().orElseThrow();
+    }
+
+    public static <T> long min(Collection<T> d, Function<T, Long> convToLong) {
+        return d.stream().map(convToLong).mapToLong(v -> v).min().orElseThrow();
+    }
+
+    public static <T extends Number> long sum(Collection<T> d) {
+        return d.stream().mapToLong(Number::longValue).sum();
+    }
+
+    public static <T> long sum(Collection<T> d, Function<T, Long> convToLong) {
+        return d.stream().map(convToLong).mapToLong(v -> v).sum();
     }
 
     public static long min(long a, long... b) {
