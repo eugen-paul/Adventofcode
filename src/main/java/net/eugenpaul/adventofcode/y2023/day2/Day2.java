@@ -1,5 +1,7 @@
 package net.eugenpaul.adventofcode.y2023.day2;
 
+import static net.eugenpaul.adventofcode.helper.ConvertHelper.*;
+
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -26,7 +28,7 @@ public class Day2 extends SolutionTemplate {
 
         public Game(String data) {
             var gameSplit = data.split(" ");
-            id = Integer.valueOf(gameSplit[1].substring(0, gameSplit[1].length() - 1));
+            id = toInt(gameSplit[1].substring(0, gameSplit[1].length() - 1));
             gameSets = new ArrayList<>();
 
             var onlySets = data.substring(data.indexOf(":") + 1);
@@ -40,13 +42,13 @@ public class Day2 extends SolutionTemplate {
                     var sc = col.split(" ");
                     switch (sc[1]) {
                     case "blue":
-                        setMap.put(Cubes.B, Integer.valueOf(sc[0]));
+                        setMap.put(Cubes.B, toInt(sc[0]));
                         break;
                     case "red":
-                        setMap.put(Cubes.R, Integer.valueOf(sc[0]));
+                        setMap.put(Cubes.R, toInt(sc[0]));
                         break;
                     case "green":
-                        setMap.put(Cubes.G, Integer.valueOf(sc[0]));
+                        setMap.put(Cubes.G, toInt(sc[0]));
                         break;
                     default:
                         break;

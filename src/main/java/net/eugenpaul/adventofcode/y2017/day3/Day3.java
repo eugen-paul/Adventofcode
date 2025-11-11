@@ -142,7 +142,7 @@ public class Day3 extends SolutionTemplate {
     }
 
     private int getMaxOfTheRing(int ring) {
-        return 2 * 4 * (int) MathHelper.sum(1L, ring - 1L) + 1;
+        return 2 * 4 * (int) MathHelper.sumRange(1L, ring - 1L) + 1;
     }
 
     private int ringSideLength(int ring) {

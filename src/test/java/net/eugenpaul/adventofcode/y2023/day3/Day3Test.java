@@ -19,7 +19,9 @@ class Day3Test {
     private void testPuzzle(List<String> testFilePath) {
         Day3 event = new Day3();
         assertEquals(4361, event.doPuzzle1(testFilePath));
+        assertEquals(4361, event.doPuzzle1_old(testFilePath));
         assertEquals(467835, event.doPuzzle2(testFilePath));
+        assertEquals(467835, event.doPuzzle2_old(testFilePath));
     }
 
     @Test
@@ -31,11 +33,18 @@ class Day3Test {
     void testTest2023Day3My2() {
         testPuzzleMy(FileReaderHelper.readListStringFromFile("y2023/day3/test_puzzle_my2.txt"));
     }
-
+    
     private void testPuzzleMy(List<String> testFilePath) {
         Day3 event = new Day3();
-        assertEquals(300, event.doPuzzle1(testFilePath));
+        assertEquals(0, event.doPuzzle1(testFilePath));
         assertEquals(0, event.doPuzzle2(testFilePath));
+    }
+    
+    @Test
+    void testTest2023Day3My3() {
+        Day3 event = new Day3();
+        assertEquals(200, event.doPuzzle1(FileReaderHelper.readListStringFromFile("y2023/day3/test_puzzle_my3.txt")));
+        assertEquals(10000, event.doPuzzle2(FileReaderHelper.readListStringFromFile("y2023/day3/test_puzzle_my3.txt")));
     }
 
     @Test

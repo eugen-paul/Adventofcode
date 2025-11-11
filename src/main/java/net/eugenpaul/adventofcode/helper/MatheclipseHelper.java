@@ -195,7 +195,7 @@ public class MatheclipseHelper {
      * @param unknowns  Unbekannte (kommagetrennt)
      * @return Roher Ergebnisstring
      */
-    public static String Solve(String equations, String unknowns) {
+    public static String solve(String equations, String unknowns) {
         ExprEvaluator evaluator = new ExprEvaluator();
         StringBuilder sb = new StringBuilder();
         sb.append("Solve({");

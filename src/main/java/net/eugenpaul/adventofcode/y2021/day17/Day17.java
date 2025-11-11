@@ -117,7 +117,7 @@ public class Day17 extends SolutionTemplate {
 
         while (from != to) {
             int current = from + (to - from) / 2;
-            int maxX = (int) MathHelper.sum(1L, current);
+            int maxX = (int) MathHelper.sumRange(1L, current);
             if (maxX >= area.xMin) {
                 to = current;
             } else {

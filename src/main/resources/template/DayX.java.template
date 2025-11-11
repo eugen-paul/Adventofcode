@@ -1,5 +1,8 @@
 package net.eugenpaul.adventofcode.y#YEAR#.day#DAY#;
 
+import static net.eugenpaul.adventofcode.helper.ConvertHelper.*;
+import static net.eugenpaul.adventofcode.helper.MathHelper.*;
+
 import java.util.List;
 import java.util.logging.Level;
 
