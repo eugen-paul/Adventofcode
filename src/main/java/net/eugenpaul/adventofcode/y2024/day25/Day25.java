@@ -1,8 +1,14 @@
 package net.eugenpaul.adventofcode.y2024.day25;
 
+import static net.eugenpaul.adventofcode.helper.ConvertHelper.*;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
+
+import com.google.common.collect.Lists;
 
 import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
@@ -35,6 +41,66 @@ public class Day25 extends SolutionTemplate {
     }
 
     public long doPuzzle1(List<String> eventData) {
+        var ll = asListList(eventData);
+        List<List<String>> keys = new LinkedList<>();
+        List<List<String>> locks = new LinkedList<>();
+
+        for (var d : ll) {
+            if (d.get(0).equals("#####"))
+                locks.add(d);
+            else
+                keys.add(d);
+        }
+
+        var r = Lists.cartesianProduct(keys, locks).stream()
+        .map(v->v.stream().flatMap(Collection::stream).toList())
+        .map(v->turnRightStrings(v))
+        .map(v->v.stream().mapToInt(z->z.replace(".", "").length()).max().orElseGet(null))
+        .filter(v->v <= 7)
+        .count()
+        ;
+
+        logger.log(Level.INFO, "Solution 1 " + r);
+        return r;
+    }
+
+    public long doPuzzle1_b(List<String> eventData) {
+        var ll = asListList(eventData);
+        List<List<String>> keys = new LinkedList<>();
+        List<List<String>> locks = new LinkedList<>();
+
+        for (var d : ll) {
+            if (d.get(0).equals("#####"))
+                locks.add(d);
+            else
+                keys.add(d);
+        }
+
+        long r = 0;
+        for (var k : keys) {
+            for (var l : locks) {
+                boolean ok = true;
+                for (int col = 0; col < k.get(0).length(); col++) {
+                    int sum = 0;
+                    for (String row : k)
+                        sum += row.charAt(col) == '#' ? 1 : 0;
+
+                    for (String row : l)
+                        sum += row.charAt(col) == '#' ? 1 : 0;
+
+                    ok &= (sum <= 7);
+                }
+                if (ok)
+                    r++;
+
+            }
+        }
+
+        logger.log(Level.INFO, "Solution 1 " + r);
+        return r;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
         long response = 0;
 
         List<Comb> keys = new ArrayList<>();
