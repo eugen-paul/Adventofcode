@@ -1,6 +1,7 @@
 package net.eugenpaul.adventofcode.y2024.day25;
 
 import static net.eugenpaul.adventofcode.helper.ConvertHelper.*;
+import static net.eugenpaul.adventofcode.helper.MatrixHelper.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,7 +56,8 @@ public class Day25 extends SolutionTemplate {
         var r = Lists.cartesianProduct(keys, locks).stream()
         .map(v->v.stream().flatMap(Collection::stream).toList())
         .map(v->turnRightStrings(v))
-        .map(v->v.stream().mapToInt(z->z.replace(".", "").length()).max().orElseGet(null))
+        // .map(v->v.stream().mapToInt(z->z.replace(".", "").length()).max().orElseGet(null))
+        .map(v->v.stream().mapToLong(z->z.chars().filter(c -> c == '#').count()).max().orElseGet(null))
         .filter(v->v <= 7)
         .count()
         ;
