@@ -5,7 +5,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MatrixHelper {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class MatrixHelper {
 
     public static <T> T[][] turnRight(T[][] in) {
         if (in == null) {

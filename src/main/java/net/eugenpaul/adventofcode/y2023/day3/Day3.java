@@ -61,7 +61,7 @@ public class Day3 extends SolutionTemplate {
                     } else {
                         cur = cur * 10 + c - '0';
                     }
-                    p.addAll(new SimplePos(x, y).getNeighbors(true));
+                    p.add(new SimplePos(x, y));
                 } else {
                     if (cur != null) {
                         numbers.add(new N(cur, p));
@@ -81,7 +81,7 @@ public class Day3 extends SolutionTemplate {
         }
 
         for (var e : numbers) {
-            if (e.poss.stream().anyMatch(others::containsKey)) {
+            if (e.poss.stream().flatMap(v->v.getNeighbors(true).stream()).anyMatch(others::containsKey)) {
                 response += e.n;
             }
         }

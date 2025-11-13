@@ -1,10 +1,14 @@
 package net.eugenpaul.adventofcode.y2023.day2;
 
 import static net.eugenpaul.adventofcode.helper.ConvertHelper.*;
+import static net.eugenpaul.adventofcode.helper.MathHelper.*;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -72,6 +76,40 @@ public class Day2 extends SolutionTemplate {
     }
 
     public long doPuzzle1(List<String> eventData) {
+        long response = eventData.stream()
+        .map(v->{
+            //Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+            var st = v.split(":");
+            //Game 1
+            var id = st[0].split(" ")[1];
+            Map<String, Integer> r = new HashMap<>();
+            r.put("id", toInt(id));
+
+            // 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+            var gg = st[1].trim().split(";");
+            for(var g: gg){
+                // 3 blue, 4 red
+                var g1 = g.trim().split(",");
+                for(var gg1: g1){
+                    // 3 blue
+                    var g2 = gg1.trim().split(" ");
+                    // [3, blue]
+                    r.compute(g2[1], (k,v1) -> v1 == null?toInt(g2[0]): max(v1, toInt(g2[0])));
+                }
+            }
+            return r;
+        })
+                .filter(v -> v.getOrDefault("red", 0) <= 12)
+                .filter(v -> v.getOrDefault("green", 0) <= 13)
+                .filter(v -> v.getOrDefault("blue", 0) <= 14)
+                .mapToLong(v -> v.get("id"))
+                .sum()
+        ;
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
         int response = 0;
         List<Game> games = eventData.stream().map(Game::new).toList();
         response = games.stream().filter(this::isOk).mapToInt(g -> g.id).sum();
@@ -79,6 +117,31 @@ public class Day2 extends SolutionTemplate {
     }
 
     public long doPuzzle2(List<String> eventData) {
+        long response = eventData.stream()
+        .map(v->{
+            var st = v.split(":");
+            var id = st[0].split(" ")[1];
+            // System.out.println("id:"+id);
+            var gg = st[1].trim().split(";");
+            Map<String, Integer> r = new HashMap<>();
+            r.put("id", toInt(id));
+            for(var g: gg){
+                var g1 = g.trim().split(",");
+                for(var gg1: g1){
+                    var g2 = gg1.trim().split(" ");
+                    r.compute(g2[1], (k,v1) -> v1 == null?toInt(g2[0]): max(v1, toInt(g2[0])));
+                    // System.out.println(g2[0] + ":" + g2[1]);
+                }
+            }
+            return r;
+        })
+                .mapToLong(v -> v.getOrDefault("red", 1) * v.getOrDefault("green", 1) * v.getOrDefault("blue", 1))
+                .sum()
+        ;
+        logger.log(Level.INFO, "Solution 2: " + response);
+        return response;
+    }
+    public long doPuzzle2_a(List<String> eventData) {
         List<Game> games = eventData.stream().map(Game::new).toList();
         return games.stream().mapToLong(this::getPower).sum();
     }
