@@ -106,6 +106,7 @@ public final class StringConverter {
     public static <T extends Number & Comparable<T>> List<T> toNumberList(String data, Function<String, T> mapper, Supplier<Collection<T>> supplier,
             boolean sort) {
         var response = (List<T>) Stream.of(data.split(NUMBER_SEPARATOR_REGEX))//
+                .filter(v->!v.isBlank())
                 .map(mapper::apply)//
                 .collect(Collectors.toCollection(supplier));
 
@@ -113,6 +114,28 @@ public final class StringConverter {
             Collections.sort(response);
         }
         return response;
+    }
+
+    /**
+     * Convert Numbers in String to Set: "1 2 3" => new HashSet(Set.of(1,2,3))<br>
+     * Convert Numbers in String to Set: "3 3 3" => new HashSet(Set.of(3))
+     * 
+     * @param data
+     * @return
+     */
+    public static Set<Integer> toIntegerSet(String data) {
+        return new HashSet<>(toIntegerArrayList(data));
+    }
+
+    /**
+     * Convert Numbers in String to Set: "1 2 3" => new HashSet(Set.of(1,2,3))<br>
+     * Convert Numbers in String to Set: "3 3 3" => new HashSet(Set.of(3))
+     * 
+     * @param data
+     * @return
+     */
+    public static Set<Long> toLongSet(String data) {
+        return new HashSet<>(toLongArrayList(data));
     }
 
     /**
