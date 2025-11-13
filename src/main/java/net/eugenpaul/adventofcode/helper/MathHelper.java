@@ -77,6 +77,14 @@ public final class MathHelper {
         return maxValue;
     }
 
+    public static int max(int a, int... b) {
+        int maxValue = a;
+        for (var c : b) {
+            maxValue = Math.max(maxValue, c);
+        }
+        return maxValue;
+    }
+
     public static <T extends Number> long max(Collection<T> d) {
         return d.stream().mapToLong(Number::longValue).max().orElseThrow();
     }
