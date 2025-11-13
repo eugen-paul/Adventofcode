@@ -17,6 +17,7 @@ import it.unimi.dsi.fastutil.Hash;
 import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.MathHelper;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
+import net.eugenpaul.adventofcode.helper.StringConverter;
 
 public class Day4 extends SolutionTemplate {
 
@@ -38,6 +39,23 @@ public class Day4 extends SolutionTemplate {
     }
 
     public long doPuzzle1(List<String> eventData) {
+        long response = eventData.stream()
+                .mapToLong(v -> {
+                   //Card 1: 41 48 83 86 17 | 83 86 6 31 17 9 48 53
+                    var cc = v.split(":")[1].split("\\|");
+                    // 41 48 83 86 17 , 83 86 6 31 17 9 48 53
+                    Set<Integer> w = StringConverter.toIntegerSet(cc[0]);
+                    Set<Integer> c = StringConverter.toIntegerSet(cc[1]);
+                    long e = (c.stream().filter(w::contains).count() - 1);
+                    return e >= 0 ? 1 << e : 0;
+                })
+                .sum();
+
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle1_b(List<String> eventData) {
         long response = eventData.stream()
                 .mapToLong(v -> {
                    //Card 1: 41 48 83 86 17 | 83 86 6 31 17 9 48 53
