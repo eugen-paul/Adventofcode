@@ -1,5 +1,9 @@
 package net.eugenpaul.adventofcode.y2023.day5;
 
+import static net.eugenpaul.adventofcode.helper.ConvertHelper.*;
+import static net.eugenpaul.adventofcode.helper.MathHelper.*;
+import static net.eugenpaul.adventofcode.helper.StringConverter.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +37,42 @@ public class Day5 extends SolutionTemplate {
     }
 
     public long doPuzzle1(List<String> eventData) {
+        long r = Long.MAX_VALUE;
+
+        var ll = asListList(eventData);
+        var seeds = toLongArrayList(ll.get(0).get(0).split(":")[1]);
+
+        List<TreeMap<Long, List<Long>>> cc = new ArrayList<>();
+        for (int i = 1; i < ll.size(); i++) {
+            List<String> table = ll.get(i);
+            TreeMap<Long, List<Long>> sub = new TreeMap<>();
+            for (int line = 1; line < table.size(); line++) {
+                var p = toLongArrayList(table.get(line));
+                sub.put(p.get(1), List.of(p.get(0), p.get(2)));
+            }
+            cc.add(sub);
+        }
+
+        for (var seed : seeds) {
+            long cur = seed;
+            for (var tt : cc) {
+                var ttVal = tt.floorEntry(cur);
+                if (ttVal == null) {
+                    continue;
+                }
+                var deltaToKey = cur - ttVal.getKey() + 1;
+                if (deltaToKey <= ttVal.getValue().get(1)) {
+                    cur = ttVal.getValue().get(0) + deltaToKey - 1;
+                }
+            }
+            r = min(r, cur);
+        }
+
+        logger.info("Solution 1: " + r);
+        return r;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
         List<Long> seeds = new ArrayList<>();
         Map<String, TreeMap<Long, List<Long>>> convertMap = new HashMap<>();
         Map<String, String> fromTo = new HashMap<>();
@@ -80,7 +120,7 @@ public class Day5 extends SolutionTemplate {
         Long minLoc = Long.MAX_VALUE;
         for (int i = 0; i < seeds.size(); i += 2) {
             Long start = seeds.get(i);
-            Long end = seeds.get(i + 1) + start;
+            Long end = seeds.get(i + 1) + start - 1;
 
             minLoc = Math.min(minLoc, findMin(start, end, "seed", convertMap, fromTo));
         }
