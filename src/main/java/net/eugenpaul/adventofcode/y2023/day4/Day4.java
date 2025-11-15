@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import it.unimi.dsi.fastutil.Hash;
 import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.MathHelper;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
@@ -46,7 +45,8 @@ public class Day4 extends SolutionTemplate {
                     // 41 48 83 86 17 , 83 86 6 31 17 9 48 53
                     Set<Integer> w = StringConverter.toIntegerSet(cc[0]);
                     Set<Integer> c = StringConverter.toIntegerSet(cc[1]);
-                    long e = (c.stream().filter(w::contains).count() - 1);
+                    c.retainAll(w);
+                    long e = c.size() - 1L;
                     return e >= 0 ? 1 << e : 0;
                 })
                 .sum();
