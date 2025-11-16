@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.BooleanNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
-import com.fasterxml.jackson.databind.node.IntNode;
-import com.fasterxml.jackson.databind.node.TextNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.BooleanNode;
+import tools.jackson.databind.node.DoubleNode;
+import tools.jackson.databind.node.IntNode;
+import tools.jackson.databind.node.StringNode;
 
 class JacksonHelperTest {
 
@@ -48,7 +48,7 @@ class JacksonHelperTest {
 
         assertTrue(childs.get(0) instanceof IntNode);
         assertTrue(childs.get(1) instanceof ArrayNode);
-        assertTrue(childs.get(2) instanceof TextNode);
+        assertTrue(childs.get(2) instanceof StringNode);
         assertTrue(childs.get(3) instanceof BooleanNode);
         assertTrue(childs.get(4) instanceof DoubleNode);
     }

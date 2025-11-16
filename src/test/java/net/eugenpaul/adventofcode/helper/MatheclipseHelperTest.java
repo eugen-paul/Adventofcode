@@ -109,4 +109,22 @@ class MatheclipseHelperTest {
 
         assertEquals("{1+16*x+4*y,-2+5*x+2*y}", r);
     }
+
+    @Test
+    void testNumerischeAuswertung1() {
+        Double r = MatheclipseHelper.numerischD("Pi");
+        assertEquals(3.14159, r, 0.001);
+    }
+
+    @Test
+    void testNumerischeAuswertung2() {
+        Double r = MatheclipseHelper.numerischD("1/2*(5-Sqrt(157))");
+        assertEquals(-3.76498, r, 0.00001);
+    }
+
+    @Test
+    void testNumerischeAuswertung3() {
+        Long r = MatheclipseHelper.numerischL("1/2*(5-Sqrt(157))");
+        assertEquals(-3L, r);
+    }
 }
