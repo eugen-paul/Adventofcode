@@ -35,8 +35,8 @@ dependencies {
 	testAnnotationProcessor commonDependencies.lombok
 
     testImplementation      platform(commonDependencies.junit_bom)
-    testImplementation      commonDependencies.junit_api
-    testRuntimeOnly         commonDependencies.junit_engine
+    testImplementation      commonDependencies.junit_jupiter
+    testRuntimeOnly         commonDependencies.junit_launcher
 
     testImplementation      platform(commonDependencies.mockito_bom)
     testImplementation      commonDependencies.mockito

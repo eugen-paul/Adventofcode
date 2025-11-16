@@ -310,4 +310,38 @@ public class MatheclipseHelper {
         IExpr evalResult = evaluator.eval(sb.toString());
         return evalResult.toString();
     }
+
+    /**
+     * Numerische Auswertung: N(Pi) → 3.14159<br>
+     * 
+     * @param equation
+     * @param variable
+     * @return Numerische Auswertung
+     */
+    public static double numerischD(String equation) {
+        ExprEvaluator evaluator = new ExprEvaluator();
+        StringBuilder sb = new StringBuilder();
+        sb.append("N(");
+        sb.append(equation);
+        sb.append(")");
+        IExpr evalResult = evaluator.eval(sb.toString());
+        return Double.parseDouble(evalResult.toString());
+    }
+
+    /**
+     * Numerische Auswertung: N(Pi) → 3.14159<br>
+     * 
+     * @param equation
+     * @param variable
+     * @return Numerische Auswertung
+     */
+    public static Long numerischL(String equation) {
+        ExprEvaluator evaluator = new ExprEvaluator();
+        StringBuilder sb = new StringBuilder();
+        sb.append("N(");
+        sb.append(equation);
+        sb.append(")");
+        IExpr evalResult = evaluator.eval(sb.toString());
+        return Double.valueOf(evalResult.toString()).longValue();
+    }
 }

@@ -1,10 +1,10 @@
 ext {
-    lombok_version = "1.18.36"
-    junit_version = "5.11.4"
-    mockito_version = "5.15.2"
-    apache_commons_text_version = "1.13.0"
+    lombok_version = "1.18.42"
+    junit_version = "5.14.1"
+    mockito_version = "5.20.0"
+    apache_commons_text_version = "1.14.0"
     apache_commons_math3_version = "3.6.1"
-    jackson_version = "2.18.2"
+    jackson_version = "3.0.2"
     matheclipse_core_version = "3.0.0"
 
     commonDependencies = [
@@ -16,10 +16,10 @@ ext {
         lombok                 : "org.projectlombok:lombok:$lombok_version",
 
         junit_bom              : "org.junit:junit-bom:$junit_version",
-        junit_api              : "org.junit.jupiter:junit-jupiter-api",
-        junit_engine           : "org.junit.jupiter:junit-jupiter-engine",
+        junit_jupiter          : "org.junit.jupiter:junit-jupiter",
+        junit_launcher         : "org.junit.platform:junit-platform-launcher",
 
-        jackson_core           : "com.fasterxml.jackson.core:jackson-databind:$jackson_version",
+        jackson_core           : "tools.jackson.core:jackson-databind:$jackson_version",
 
         mockito_bom            : "org.mockito:mockito-bom:$mockito_version",
         mockito                : "org.mockito:mockito-core"
