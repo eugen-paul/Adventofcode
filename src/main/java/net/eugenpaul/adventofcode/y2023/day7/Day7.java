@@ -1,13 +1,16 @@
 package net.eugenpaul.adventofcode.y2023.day7;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.ConvertHelper;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day7 extends SolutionTemplate {
@@ -53,8 +56,7 @@ public class Day7 extends SolutionTemplate {
                 cardCount.put(card, cardCount.getOrDefault(card, 0) + 1);
             }
             if (cardCount.containsKey('J') && cardCount.get('J') != 5) {
-                int count = cardCount.get('J');
-                cardCount.remove('J');
+                int count = cardCount.remove('J');
                 char maxChar = cardCount.entrySet().stream().max((e1, e2) -> e1.getValue() - e2.getValue()).orElseThrow().getKey();
                 cardCount.put(maxChar, cardCount.getOrDefault(maxChar, 0) + count);
             }
@@ -148,6 +150,155 @@ public class Day7 extends SolutionTemplate {
     }
 
     public long doPuzzle1(List<String> eventData) {
+        long resp = 0;
+
+        List<String> cc = new ArrayList<>(eventData);
+        cc.sort((a, b) -> {
+            var tA = getType(a);
+            var tB = getType(b);
+            if (tA != tB) {
+                return tA - tB;
+            }
+            return getCmp(a, b);
+        });
+
+        for (int i = 0; i < cc.size(); i++) {
+            resp += ConvertHelper.toLong(cc.get(i).split(" ")[1]) * (i + 1);
+        }
+
+        logger.info("Solution 1: " + resp);
+        return resp;
+    }
+
+    private int getCmp(String ca, String cb) {
+        String rank = "AKQJT98765432";
+        for (int i = 0; i < 5; i++) {
+            char a = ca.charAt(i);
+            char b = cb.charAt(i);
+            if (a != b) {
+                return rank.indexOf(b) - rank.indexOf(a);
+            }
+        }
+        throw new IllegalArgumentException(ca + cb);
+    }
+
+    private int getCmp2(String ca, String cb) {
+        String rank = "AKQT98765432J";
+        for (int i = 0; i < 5; i++) {
+            char a = ca.charAt(i);
+            char b = cb.charAt(i);
+            if (a != b) {
+                return rank.indexOf(b) - rank.indexOf(a);
+            }
+        }
+        throw new IllegalArgumentException(ca + cb);
+    }
+
+    private int getType(String full) {
+        // 32T3K 765
+        String cards = full.substring(0, 5);
+        Map<Integer, Integer> cnt = cards.chars().boxed().collect(Collectors.toMap(v -> v, k -> 1, (a, b) -> a + b));
+
+        if (cnt.size() == 1) {
+            // Five of a kind
+            return 7;
+        }
+        if (cnt.values().contains(4)) {
+            // Four of a kind
+            return 6;
+        }
+        if (cnt.values().contains(3) && cnt.values().contains(2)) {
+            // Full house
+            return 5;
+        }
+        if (cnt.values().contains(3)) {
+            // Three of a kind
+            return 4;
+        }
+        if (cnt.values().stream().filter(v -> v == 2).count() == 2) {
+            // Two pair
+            return 3;
+        }
+        if (cnt.values().contains(2)) {
+            // One pair
+            return 2;
+        }
+        if (cnt.size() == 5) {
+            // High card
+            return 1;
+        }
+        throw new IllegalArgumentException(cards);
+    }
+
+    private int getType2(String full) {
+        // 32T3K 765
+        String cards = full.substring(0, 5);
+        Map<Integer, Integer> cnt = cards.chars().boxed().collect(Collectors.toMap(v -> v, k -> 1, (a, b) -> a + b));
+
+        if (cnt.size() == 1) {
+            // Five of a kind
+            return 7;
+        }
+        if (cards.contains("J")) {
+            var jCnt = cnt.remove((int) 'J');
+            var mChr = cnt.entrySet().stream().max((a, b) -> a.getValue() - b.getValue()).orElseThrow();
+            cnt.put(mChr.getKey(), mChr.getValue() + jCnt);
+        }
+        if (cnt.size() == 1) {
+            // Five of a kind
+            return 7;
+        }
+        if (cnt.values().contains(4)) {
+            // Four of a kind
+            return 6;
+        }
+        if (cnt.values().contains(3) && cnt.values().contains(2)) {
+            // Full house
+            return 5;
+        }
+        if (cnt.values().contains(3)) {
+            // Three of a kind
+            return 4;
+        }
+        if (cnt.values().stream().filter(v -> v == 2).count() == 2) {
+            // Two pair
+            return 3;
+        }
+        if (cnt.values().contains(2)) {
+            // One pair
+            return 2;
+        }
+        if (cnt.size() == 5) {
+            // High card
+            return 1;
+        }
+        throw new IllegalArgumentException(cards);
+    }
+
+    private int getType2_slow(String full) {
+        return getTypeRec(full, 0);
+    }
+
+    private int getTypeRec(String cards, int pos) {
+        if (pos == 5) {
+            return getType(cards);
+        }
+        var jPos = cards.indexOf('J', pos);
+        if (jPos == -1) {
+            return getType(cards);
+        }
+        String rank = "AKQT98765432J";
+        var resp = 0;
+        for (char c : rank.toCharArray()) {
+            resp = Math.max(resp, getTypeRec( //
+                    cards.substring(0, jPos) + c + cards.substring(jPos + 1), //
+                    jPos + 1 //
+            ));
+        }
+        return resp;
+    }
+
+    public long doPuzzle1a(List<String> eventData) {
         long response = 0;
 
         List<Hand> hands = eventData.stream().map(Hand::new).sorted(new HandComparator()).toList();
@@ -158,6 +309,27 @@ public class Day7 extends SolutionTemplate {
     }
 
     public long doPuzzle2(List<String> eventData) {
+        long resp = 0;
+
+        List<String> cc = new ArrayList<>(eventData);
+        cc.sort((a, b) -> {
+            var tA = getType2(a);
+            var tB = getType2(b);
+            if (tA != tB) {
+                return tA - tB;
+            }
+            return getCmp2(a, b);
+        });
+
+        for (int i = 0; i < cc.size(); i++) {
+            resp += ConvertHelper.toLong(cc.get(i).split(" ")[1]) * (i + 1);
+        }
+
+        logger.info("Solution 2: " + resp);
+        return resp;
+    }
+
+    public long doPuzzle2_b(List<String> eventData) {
         long response = 0;
 
         List<Hand> hands = eventData.stream().map(Hand::new).sorted(new HandComparator2()).toList();
