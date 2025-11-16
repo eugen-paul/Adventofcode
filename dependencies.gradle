@@ -1,6 +1,6 @@
 ext {
     lombok_version = "1.18.42"
-    junit_version = "5.14.1"
+    junit_version = "6.0.1"
     mockito_version = "5.20.0"
     apache_commons_text_version = "1.14.0"
     apache_commons_math3_version = "3.6.1"
