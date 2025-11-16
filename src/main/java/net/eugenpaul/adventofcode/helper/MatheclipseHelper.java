@@ -42,6 +42,7 @@ public class MatheclipseHelper {
     }
 
     /**
+     * Löst Gleichungssysteme symbolisch. Antwort köntne sein: x = 1/2*(71530-10*Sqrt(51203017))<br>
      * Vorbereitung fuer den Aufruf:
      * <ul>
      * <li>Gleichungen mit addEquation(String equation) hinzufuegen (entwender einzeln oder als Liste (kommagetrennt))
@@ -63,7 +64,29 @@ public class MatheclipseHelper {
     }
 
     /**
-     * Gibt den Wert der Unbekannten zurueck. Zuvor muss solve aufgerufen werden<br>
+     * Numerische Lösung. Antwort könnte sein: x -> ±1.41421<br>
+     * Vorbereitung fuer den Aufruf:
+     * <ul>
+     * <li>Gleichungen mit addEquation(String equation) hinzufuegen (entwender einzeln oder als Liste (kommagetrennt))
+     * <li>Unbekannte mit addUnknown(String unknown) hinzufuegen (entwender einzeln oder als Liste (kommagetrennt))
+     * </ul>
+     * 
+     * Loest Gleichungssysteme numerische NSolve (x^2 == 2, x) → {x -> ±1.41421}<br>
+     * Ergebnis: {{x->2, y->1}}
+     */
+    public void nSolve() {
+        ExprEvaluator evaluator = new ExprEvaluator();
+        StringBuilder sb = new StringBuilder();
+        sb.append("NSolve({");
+        sb.append(String.join(", ", equations));
+        sb.append("}, {");
+        sb.append(String.join(", ", unknowns));
+        sb.append("})");
+        result = evaluator.eval(sb.toString());
+    }
+
+    /**
+     * Gibt den ersten Wert der Unbekannten zurueck. Zuvor muss solve oder nsolve aufgerufen werden<br>
      * Beispiel: getResult("x") -> 2
      * 
      * @param unknown Name der Unbekannten
@@ -80,12 +103,54 @@ public class MatheclipseHelper {
             throw new IllegalArgumentException("Unknown variable not found in result: " + unknown);
         }
         int startIndex = index + searchStr.length();
-        int endIndex = resultStr.indexOf(",", startIndex);
-        if (endIndex == -1) {
-            endIndex = resultStr.indexOf("}", startIndex);
+        int endIndex1 = resultStr.indexOf(",", startIndex);
+        if (endIndex1 == -1) {
+            endIndex1 = Integer.MAX_VALUE;
         }
+        int endIndex2 = resultStr.indexOf("}", startIndex);
+        if (endIndex2 == -1) {
+            endIndex2 = Integer.MAX_VALUE;
+        }
+        int endIndex = Math.min(endIndex1, endIndex2);
         String valueStr = resultStr.substring(startIndex, endIndex).trim();
         return Long.parseLong(valueStr);
+    }
+
+    /**
+     * Gibt den alle Werte der Unbekannten zurueck. Zuvor muss solve oder nsolve aufgerufen werden<br>
+     * Beispiel: getResult("x") -> 2
+     * 
+     * @param unknown Name der Unbekannten
+     * @return Werte der Unbekannten
+     */
+    public List<String> getResults(String unknown) {
+        if (result == null) {
+            throw new IllegalStateException("No result available. Call solve() first.");
+        }
+        List<String> response = new ArrayList<>();
+        int startPos = 0;
+        while (true) {
+            String resultStr = result.toString();
+            String searchStr = unknown + "->";
+            int index = resultStr.indexOf(searchStr, startPos);
+            if (index == -1) {
+                break;
+            }
+            int startIndex = index + searchStr.length();
+            int endIndex1 = resultStr.indexOf(",", startIndex);
+            if (endIndex1 == -1) {
+                endIndex1 = Integer.MAX_VALUE;
+            }
+            int endIndex2 = resultStr.indexOf("}", startIndex);
+            if (endIndex2 == -1) {
+                endIndex2 = Integer.MAX_VALUE;
+            }
+            int endIndex = Math.min(endIndex1, endIndex2);
+            String valueStr = resultStr.substring(startIndex, endIndex).trim();
+            response.add(valueStr);
+            startPos = endIndex;
+        }
+        return response;
     }
 
     /**
@@ -199,6 +264,26 @@ public class MatheclipseHelper {
         ExprEvaluator evaluator = new ExprEvaluator();
         StringBuilder sb = new StringBuilder();
         sb.append("Solve({");
+        sb.append(equations);
+        sb.append("}, {");
+        sb.append(unknowns);
+        sb.append("})");
+        IExpr evalResult = evaluator.eval(sb.toString());
+        return evalResult.toString();
+    }
+
+    /**
+     * Loest Gleichungssysteme numerisch NSolve(x^2 == 2, x)<br>
+     * Ergebnis: {x -> ±1.41421}
+     * 
+     * @param equations Gleichungen (kommagetrennt)
+     * @param unknowns  Unbekannte (kommagetrennt)
+     * @return Roher Ergebnisstring
+     */
+    public static String nSolve(String equations, String unknowns) {
+        ExprEvaluator evaluator = new ExprEvaluator();
+        StringBuilder sb = new StringBuilder();
+        sb.append("NSolve({");
         sb.append(equations);
         sb.append("}, {");
         sb.append(unknowns);
