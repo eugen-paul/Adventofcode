@@ -1,6 +1,7 @@
 package net.eugenpaul.adventofcode.helper;
 
 import static net.eugenpaul.adventofcode.helper.MatrixHelper.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -21,8 +22,8 @@ class MatrixHelperTest {
             {"3", "1"},
             {"4", "2"}
         };
-        String[][] out = turnRight(in);
-        org.junit.jupiter.api.Assertions.assertArrayEquals(expected, out);
+        String[][] out = rotateR(in);
+        assertArrayEquals(expected, out);
     }
 
     @Test
@@ -36,8 +37,8 @@ class MatrixHelperTest {
             {"e", "b"},
             {"f", "c"}
         };
-        String[][] out = turnRight(in);
-        org.junit.jupiter.api.Assertions.assertArrayEquals(expected, out);
+        String[][] out = rotateR(in);
+        assertArrayEquals(expected, out);
     }
     
     @Test
@@ -50,8 +51,8 @@ class MatrixHelperTest {
             {"b"},
             {"c"}
         };
-        String[][] out = turnRight(in);
-        org.junit.jupiter.api.Assertions.assertArrayEquals(expected, out);
+        String[][] out = rotateR(in);
+        assertArrayEquals(expected, out);
     }
     
     
@@ -64,18 +65,18 @@ class MatrixHelperTest {
         String[][] expected = {
             {"d", "a"}
         };
-        String[][] out = turnRight(in);
-        org.junit.jupiter.api.Assertions.assertArrayEquals(expected, out);
+        String[][] out = rotateR(in);
+        assertArrayEquals(expected, out);
     }
 
     @Test
     void testTurnLeft_emptyAndNull() {
         String[][] empty = new String[0][0];
-        String[][] outEmpty = turnRight(empty);
-        org.junit.jupiter.api.Assertions.assertEquals(0, outEmpty.length);
+        String[][] outEmpty = rotateR(empty);
+        assertEquals(0, outEmpty.length);
 
-        String[][] outNull = turnRight((String[][])null);
-        org.junit.jupiter.api.Assertions.assertNull(outNull);
+        String[][] outNull = rotateR((String[][])null);
+        assertNull(outNull);
     }
     
     @Test
@@ -88,7 +89,7 @@ class MatrixHelperTest {
             List.of("3", "1"),
             List.of("4", "2")
         );
-        List<List<String>> out = turnRight(in);
+        List<List<String>> out = rotateR(in);
         assertEquals(expected, out);
     }
 
@@ -103,7 +104,7 @@ class MatrixHelperTest {
             List.of("e", "b"),
             List.of("f", "c")
         );
-        List<List<String>> out = turnRight(in);
+        List<List<String>> out = rotateR(in);
         assertEquals(expected, out);
     }
 
@@ -117,7 +118,7 @@ class MatrixHelperTest {
             List.of("b"),
             List.of("c")
         );
-        List<List<String>> out = turnRight(in);
+        List<List<String>> out = rotateR(in);
         assertEquals(expected, out);
     }
 
@@ -130,7 +131,7 @@ class MatrixHelperTest {
         List<List<String>> expected = List.of(
             List.of("d", "a")
         );
-        List<List<String>> out = turnRight(in);
+        List<List<String>> out = rotateR(in);
         assertEquals(expected, out);
     }
 
@@ -138,10 +139,10 @@ class MatrixHelperTest {
     @Test
     void testTurnLeftList_emptyAndNull() {
         List<List<String>> empty = Collections.emptyList();
-        List<List<String>> outEmpty = turnRight(empty);
+        List<List<String>> outEmpty = rotateR(empty);
         assertEquals(0, outEmpty.size());
 
-        List<List<String>> outNull = turnRight((List<List<String>> )null);
+        List<List<String>> outNull = rotateR((List<List<String>> )null);
         assertNull(outNull);
     }
     
@@ -155,7 +156,7 @@ class MatrixHelperTest {
             "31",
             "42"
         );
-        List<String> out = turnRightStrings(in);
+        List<String> out = rotateRStrings(in);
         assertEquals(expected, out);
     }
 
@@ -170,7 +171,7 @@ class MatrixHelperTest {
             "eb",
             "fc"
         );
-        List<String> out = turnRightStrings(in);
+        List<String> out = rotateRStrings(in);
         assertEquals(expected, out);
     }
 
@@ -184,7 +185,7 @@ class MatrixHelperTest {
             "b",
             "c"
         );
-        List<String> out = turnRightStrings(in);
+        List<String> out = rotateRStrings(in);
         assertEquals(expected, out);
     }
 
@@ -197,7 +198,7 @@ class MatrixHelperTest {
         List<String> expected = List.of(
             "da"
         );
-        List<String> out = turnRightStrings(in);
+        List<String> out = rotateRStrings(in);
         assertEquals(expected, out);
     }
 
@@ -205,10 +206,38 @@ class MatrixHelperTest {
     @Test
     void testTurnLeftString_emptyAndNull() {
         List<String> empty = Collections.emptyList();
-        List<String> outEmpty = turnRightStrings(empty);
+        List<String> outEmpty = rotateRStrings(empty);
         assertEquals(0, outEmpty.size());
 
-        List<String> outNull = turnRightStrings((List<String> )null);
+        List<String> outNull = rotateRStrings((List<String> )null);
         assertNull(outNull);
+    }
+
+    @Test
+    void testFlipH(){
+        String[][] in = {
+            {"1", "2", "3"},
+            {"4", "5", "6"}
+        };
+        String[][] expected = {
+            {"4", "5", "6"},
+            {"1", "2", "3"}
+        };
+        String[][] out = flipH(in);
+        assertArrayEquals(expected, out);
+    }
+
+    @Test
+    void testFlipV(){
+        String[][] in = {
+            {"1", "2", "3"},
+            {"4", "5", "6"}
+        };
+        String[][] expected = {
+            {"3", "2", "1"},
+            {"6", "5", "4"}
+        };
+        String[][] out = flipV(in);
+        assertArrayEquals(expected, out);
     }
 }

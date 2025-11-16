@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.eugenpaul.adventofcode.helper.ArrayMod;
+import net.eugenpaul.adventofcode.helper.MatrixHelper;
 import net.eugenpaul.adventofcode.helper.Direction;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
@@ -276,22 +276,22 @@ public class Day20 extends SolutionTemplate {
         List<Tile> tilesRotatedAndFliped = new LinkedList<>();
         tilesRotatedAndFliped.add(tile);
 
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.flipH(Character.class, tile.data)));
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.flipV(Character.class, tile.data)));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.flipH(tile.data)));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.flipV(tile.data)));
 
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.rotateR(Character.class, tile.data, 1)));
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.rotateR(Character.class, tile.data, 2)));
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.rotateR(Character.class, tile.data, 3)));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.rotateR(tile.data, 1)));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.rotateR(tile.data, 2)));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.rotateR(tile.data, 3)));
 
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.rotateR(Character.class, ArrayMod.flipV(Character.class, tile.data))));
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.rotateR(Character.class, ArrayMod.flipV(Character.class, tile.data), 1)));
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.rotateR(Character.class, ArrayMod.flipV(Character.class, tile.data), 2)));
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.rotateR(Character.class, ArrayMod.flipV(Character.class, tile.data), 3)));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.rotateR(MatrixHelper.flipV(tile.data))));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.rotateR(MatrixHelper.flipV(tile.data), 1)));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.rotateR(MatrixHelper.flipV(tile.data), 2)));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.rotateR(MatrixHelper.flipV(tile.data), 3)));
 
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.rotateR(Character.class, ArrayMod.flipH(Character.class, tile.data))));
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.rotateR(Character.class, ArrayMod.flipH(Character.class, tile.data), 1)));
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.rotateR(Character.class, ArrayMod.flipH(Character.class, tile.data), 2)));
-        tilesRotatedAndFliped.add(new Tile(tile.number, ArrayMod.rotateR(Character.class, ArrayMod.flipH(Character.class, tile.data), 3)));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.rotateR(MatrixHelper.flipH(tile.data))));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.rotateR(MatrixHelper.flipH(tile.data), 1)));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.rotateR(MatrixHelper.flipH(tile.data), 2)));
+        tilesRotatedAndFliped.add(new Tile(tile.number, MatrixHelper.rotateR(MatrixHelper.flipH(tile.data), 3)));
         return tilesRotatedAndFliped;
     }
 
