@@ -17,6 +17,10 @@ public final class ConvertHelper {
         return Long.parseLong(d);
     }
 
+    public static Double toDouble(String d) {
+        return Double.parseDouble(d);
+    }
+
     public static int toInt(String d) {
         return Integer.parseInt(d);
     }

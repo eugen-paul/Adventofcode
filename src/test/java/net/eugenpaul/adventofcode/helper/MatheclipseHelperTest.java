@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class MatheclipseHelperTest {
 
     @Test
-    void testLinear() {
+    void testSolve() {
         MatheclipseHelper helper = new MatheclipseHelper();
         helper.addEquation("x + y == 10");
         helper.addEquation("x - y == 4");
@@ -22,7 +22,7 @@ class MatheclipseHelperTest {
     }
 
     @Test
-    void testLinear2() {
+    void testSolve2() {
         MatheclipseHelper helper = new MatheclipseHelper();
         helper.addEquation("t1 * dx0 + x == t1 * 64   + 232488932265751");
         helper.addEquation("t1 * dy0 + y == t1 * 273  + 93844132799095 ");
@@ -46,6 +46,45 @@ class MatheclipseHelperTest {
         Long r = helper.getResult("res");
 
         assertEquals(999782576459892L, r);
+    }
+
+    @Test
+    void testSolve3() {
+        MatheclipseHelper helper = new MatheclipseHelper();
+        helper.addEquation("x * x - 5 * x - 33 == 0");
+        helper.addUnknown("x");
+        helper.solve();
+        var r = helper.getResults("x");
+
+        assertEquals(2, r.size());
+        assertEquals("1/2*(5-Sqrt(157))", r.get(0));
+        assertEquals("1/2*(5+Sqrt(157))", r.get(1));
+    }
+
+    @Test
+    void testNSolve1() {
+        MatheclipseHelper helper = new MatheclipseHelper();
+        helper.addEquation("x * x - 5 * x - 33 == 0");
+        helper.addUnknown("x");
+        helper.nSolve();
+        var r = helper.getResults("x");
+
+        assertEquals(2, r.size());
+        assertEquals("-3.764982043070834", r.get(0));
+        assertEquals("8.764982043070834", r.get(1));
+    }
+
+    @Test
+    void testNSolve2() {
+        MatheclipseHelper helper = new MatheclipseHelper();
+        helper.addEquation("x^2 == 2");
+        helper.addUnknown("x");
+        helper.nSolve();
+        var r = helper.getResults("x");
+
+        assertEquals(2, r.size());
+        assertEquals("-1.4142135623730951", r.get(0));
+        assertEquals("1.4142135623730951", r.get(1));
     }
 
     @Test

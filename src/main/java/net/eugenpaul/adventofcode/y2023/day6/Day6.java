@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.ConvertHelper;
+import net.eugenpaul.adventofcode.helper.MathHelper;
+import net.eugenpaul.adventofcode.helper.MatheclipseHelper;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
+import net.eugenpaul.adventofcode.helper.StringConverter;
 
 public class Day6 extends SolutionTemplate {
 
@@ -30,6 +34,28 @@ public class Day6 extends SolutionTemplate {
     }
 
     public long doPuzzle1(List<String> eventData) {
+        long r = 1;
+        var times = StringConverter.toLongArrayList(eventData.get(0).split(":")[1]);
+        var dist = StringConverter.toLongArrayList(eventData.get(1).split(":")[1]);
+
+        for (int i = 0; i < times.size(); i++) {
+            int cnt = 0;
+            for (int dt = 1; dt < times.get(i); dt++) {
+                var d = (times.get(i) - dt) * dt;
+                if (d > dist.get(i)) {
+                    cnt++;
+                }
+            }
+            if (cnt > 0) {
+                r *= cnt;
+            }
+        }
+
+        logger.info("Solution 1: " + r);
+        return r;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
         List<Race> races = readRaces(eventData);
         long response = 1;
 
@@ -49,6 +75,48 @@ public class Day6 extends SolutionTemplate {
     }
 
     public long doPuzzle2(List<String> eventData) {
+        long r = 1;
+        var times = ConvertHelper.toLong(eventData.get(0).split(":")[1].replace(" ", ""));
+        var dist = ConvertHelper.toLong(eventData.get(1).split(":")[1].replace(" ", ""));
+
+        MatheclipseHelper m = new MatheclipseHelper();
+        var eq = "- x * x + " + times + " * x - " + dist + " == 0";
+        m.addEquation(eq);
+        m.addUnknown("x");
+        m.nSolve();
+        var res = m.getResults("x");
+
+        var from = (long) Math.ceil(ConvertHelper.toDouble(res.get(0)));
+        var to = (long) Math.floor(ConvertHelper.toDouble(res.get(1)));
+        to = MathHelper.min(to, times);
+
+        r = to - from + 1;
+
+        logger.info("Solution 2: " + r);
+        return r;
+    }
+
+    public long doPuzzle2_b(List<String> eventData) {
+        long r = 1;
+        var times = ConvertHelper.toLong(eventData.get(0).split(":")[1].replace(" ", ""));
+        var dist = ConvertHelper.toLong(eventData.get(1).split(":")[1].replace(" ", ""));
+
+        int cnt = 0;
+        for (int dt = 1; dt < times; dt++) {
+            var d = (times - dt) * dt;
+            if (d > dist) {
+                cnt++;
+            }
+        }
+        if (cnt > 0) {
+            r *= cnt;
+        }
+
+        logger.info("Solution 2: " + r);
+        return r;
+    }
+
+    public long doPuzzle2_a(List<String> eventData) {
         Race race = readSinleRaces(eventData);
         long minValue = 0;
         long maxValue = 0;
