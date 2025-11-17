@@ -1,5 +1,6 @@
 package net.eugenpaul.adventofcode.y2023.day8;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.ConvertHelper;
 import net.eugenpaul.adventofcode.helper.MathHelper;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
@@ -45,6 +47,31 @@ public class Day8 extends SolutionTemplate {
     }
 
     public long doPuzzle1(List<String> eventData) {
+        long resp = 0;
+
+        Map<String, List<String>> allNodes = new HashMap<>();
+        String way = eventData.get(0);
+        for (var node : ConvertHelper.asListList(eventData).get(1)) {
+            // AAA = (BBB, CCC)
+            allNodes.put(node.substring(0, 3), List.of(node.substring(7, 10), node.substring(12, 15)));
+        }
+
+        String cur = "AAA";
+        while (!cur.equals("ZZZ")) {
+            var w = allNodes.get(cur);
+            if (way.charAt((int) (resp % way.length())) == 'L') {
+                cur = w.get(0);
+            } else {
+                cur = w.get(1);
+            }
+            resp++;
+        }
+
+        logger.info("Solution 1: " + resp);
+        return resp;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
         char[] way = eventData.get(0).toCharArray();
         Map<String, Node> nodes = readNodes(eventData);
 
@@ -63,6 +90,63 @@ public class Day8 extends SolutionTemplate {
     }
 
     public long doPuzzle2(List<String> eventData) {
+        Map<String, List<String>> allNodes = new HashMap<>();
+        List<String> allStarts = new ArrayList<>();
+        String way = eventData.get(0);
+        for (var node : ConvertHelper.asListList(eventData).get(1)) {
+            // AAA = (BBB, CCC)
+            String s = node.substring(0, 3);
+            allNodes.put(s, List.of(node.substring(7, 10), node.substring(12, 15)));
+            if (s.endsWith("A")) {
+                allStarts.add(s);
+            }
+        }
+
+        long resp = 1;
+
+        for (int i = 0; i < allStarts.size(); i++) {
+            long step = 0;
+            String cur = allStarts.get(i);
+            while (!cur.endsWith("Z")) {
+                var w = allNodes.get(cur);
+                if (way.charAt((int) (step % way.length())) == 'L') {
+                    cur = w.get(0);
+                } else {
+                    cur = w.get(1);
+                }
+                step++;
+            }
+
+            long step2 = step;
+            if (way.charAt((int) (step2 % way.length())) == 'L') {
+                cur = allNodes.get(cur).get(0);
+            } else {
+                cur = allNodes.get(cur).get(1);
+            }
+            step2++;
+
+            while (!cur.endsWith("Z")) {
+                var w = allNodes.get(cur);
+                if (way.charAt((int) (step2 % way.length())) == 'L') {
+                    cur = w.get(0);
+                } else {
+                    cur = w.get(1);
+                }
+                step2++;
+            }
+
+            if (step2 == step * 2) {
+                resp = MathHelper.lcm(resp, step);
+            } else {
+                throw new IllegalArgumentException("What to do?");
+            }
+        }
+
+        logger.info("Solution 2: " + resp);
+        return resp;
+    }
+
+    public long doPuzzle2_a(List<String> eventData) {
         char[] way = eventData.get(0).toCharArray();
         Map<String, Node> nodes = readNodes(eventData);
         List<String> startNodes = nodes.keySet().stream().filter(n -> n.endsWith("A")).toList();
