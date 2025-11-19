@@ -39,6 +39,26 @@ i = A - b // 2 + 1
 FullArea = i + b
 ```
 
+```Java
+List<SimplePos> way = new ArrayList<>();
+
+//add all points to way
+//...
+
+//Add first point to end of the way or edit next for-loop
+way.add(way.get(0));
+
+long areaTmp = 0;
+for(int i = 0; i < way.size() - 1; i++){
+    areaTmp += way.get(i).getX() * way.get(i+1).getY() - way.get(i+1).getX() * way.get(i).getY();
+}
+areaTmp = Math.abs(areaTmp) / 2;
+
+i = area - (way.size() - 1) / 2 + 1;
+
+long fullArea = i + (way.size() - 1);
+```
+
 ### Example
 
 ```text
