@@ -1,5 +1,6 @@
 package net.eugenpaul.adventofcode.y2023.day10;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -62,7 +63,241 @@ public class Day10 extends SolutionTemplate {
         return true;
     }
 
+    private Set<Character> toN = Set.of('S', '|', 'L', 'J');
+    private Set<Character> toE = Set.of('S', '-', 'L', 'F');
+    private Set<Character> toS = Set.of('S', '|', '7', 'F');
+    private Set<Character> toW = Set.of('S', '-', '7', 'J');
+
+    private boolean isConnected(Direction d, Character from, Character to) {
+        if(from == null || to == null){
+            return false;
+        }
+        return switch (d) {
+        case Direction.N -> toN.contains(from) && toS.contains(to);
+        case Direction.E -> toE.contains(from) && toW.contains(to);
+        case Direction.S -> toS.contains(from) && toN.contains(to);
+        case Direction.W -> toW.contains(from) && toE.contains(to);
+        };
+    }
+
     public long doPuzzle1(List<String> eventData) {
+        long response = 0;
+
+        var m = StringConverter.toMap(eventData);
+        var start = StringConverter.posOfChar(eventData, 'S');
+        var cur = start;
+        var lastD = Direction.N;
+
+        do {
+            for (var d : Direction.values()) {
+                var nb = cur.moveNew(d);
+                if (d.reverse() != lastD && isConnected(d, m.get(cur), m.get(nb))) {
+                    cur = nb;
+                    response++;
+                    lastD = d;
+                    break;
+                }
+            }
+        } while (!cur.equals(start));
+
+        response /= 2;
+
+        logger.info("Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle2(List<String> eventData) {
+        //solution with shoelace formula
+        long response = 0;
+
+        var m = StringConverter.toMap(eventData);
+        var start = StringConverter.posOfChar(eventData, 'S');
+        var cur = start;
+        var lastD = Direction.N;
+
+        List<SimplePos> way = new ArrayList<>();
+
+        do {
+            for (var d : Direction.values()) {
+                var nb = cur.moveNew(d);
+                if (d.reverse() != lastD && isConnected(d, m.get(cur), m.get(nb))) {
+                    way.add(cur);
+                    cur = nb;
+                    lastD = d;
+                    break;
+                }
+            }
+        } while (!cur.equals(start));
+
+        way.add(way.get(0));
+
+        long area = 0;
+        for(int i = 0; i < way.size() - 1; i++){
+            area += way.get(i).getX() * way.get(i+1).getY() - way.get(i+1).getX() * way.get(i).getY();
+        }
+        area = Math.abs(area) / 2;
+
+        response = area - (way.size() - 1) / 2 + 1;
+
+        logger.info("Solution 2 (Shoelace) " + response);
+        return response;
+    }
+
+    public long doPuzzle2_c(List<String> eventData) {
+        long response = 0;
+
+        var m = StringConverter.toMap(eventData);
+        var start = StringConverter.posOfChar(eventData, 'S');
+
+        var pN = m.getOrDefault(start.moveNew(Direction.N), '.');
+        var pE = m.getOrDefault(start.moveNew(Direction.E), '.');
+        var pS = m.getOrDefault(start.moveNew(Direction.S), '.');
+        var pW = m.getOrDefault(start.moveNew(Direction.W), '.');
+
+        if (isConnected(Direction.N, 'S', pN) && isConnected(Direction.S, 'S', pS)) {
+            m.put(start, '|');
+        }
+        if (isConnected(Direction.E, 'S', pE) && isConnected(Direction.W, 'S', pW)) {
+            m.put(start, '-');
+        }
+        if (isConnected(Direction.N, 'S', pN) && isConnected(Direction.E, 'S', pE)) {
+            m.put(start, 'L');
+        }
+        if (isConnected(Direction.N, 'S', pN) && isConnected(Direction.W, 'S', pW)) {
+            m.put(start, 'J');
+        }
+        if (isConnected(Direction.W, 'S', pW) && isConnected(Direction.S, 'S', pS)) {
+            m.put(start, '7');
+        }
+        if (isConnected(Direction.E, 'S', pE) && isConnected(Direction.S, 'S', pS)) {
+            m.put(start, 'F');
+        }
+
+        var cur = start;
+        var lastD = Direction.N;
+        // mb enthaehlt nur die Punkte auf dem Weg
+        var mb = new HashMap<SimplePos, Boolean>();
+
+        long maxX = eventData.get(0).length() - 1;
+        long maxY = eventData.size() - 1;
+
+        do {
+            for (var d : Direction.values()) {
+                var nb = cur.moveNew(d);
+                if (d.reverse() != lastD && isConnected(d, m.get(cur), m.get(nb))) {
+                    mb.put(cur, Boolean.TRUE);
+                    cur = nb;
+                    lastD = d;
+                    break;
+                }
+            }
+        } while (!cur.equals(start));
+
+        for (int x = 0; x <= maxX; x++) {
+            boolean cnt = false;
+            for (int y = 0; y <= maxY; y++) {
+                if (mb.containsKey(new SimplePos(x, y))) {
+                    var cChar = m.get(new SimplePos(x, y));
+                    // Zaehle entweder die Verbindungen nach Links oder nach Rechts (nicht beides)
+                    if (cChar == '7' || cChar == 'J' || cChar == '-') {
+                        cnt = !cnt;
+                    }
+                } else if (cnt) {
+                    response++;
+                }
+            }
+        }
+
+        logger.info("Solution 2 " + response);
+        return response;
+    }
+
+    public long doPuzzle2b(List<String> eventData) {
+        long response = 0;
+
+        var m = StringConverter.toMap(eventData);
+        var start = StringConverter.posOfChar(eventData, 'S');
+
+        var pN = m.getOrDefault(start.moveNew(Direction.N), '.');
+        var pE = m.getOrDefault(start.moveNew(Direction.E), '.');
+        var pS = m.getOrDefault(start.moveNew(Direction.S), '.');
+        var pW = m.getOrDefault(start.moveNew(Direction.W), '.');
+
+        if (isConnected(Direction.N, 'S', pN) && isConnected(Direction.S, 'S', pS)) {
+            m.put(start, '|');
+        }
+        if (isConnected(Direction.E, 'S', pE) && isConnected(Direction.W, 'S', pW)) {
+            m.put(start, '-');
+        }
+        if (isConnected(Direction.N, 'S', pN) && isConnected(Direction.E, 'S', pE)) {
+            m.put(start, 'L');
+        }
+        if (isConnected(Direction.N, 'S', pN) && isConnected(Direction.W, 'S', pW)) {
+            m.put(start, 'J');
+        }
+        if (isConnected(Direction.W, 'S', pW) && isConnected(Direction.S, 'S', pS)) {
+            m.put(start, '7');
+        }
+        if (isConnected(Direction.E, 'S', pE) && isConnected(Direction.S, 'S', pS)) {
+            m.put(start, 'F');
+        }
+
+        var cur = start;
+        var lastD = Direction.N;
+        var md = new HashMap<SimplePos, Boolean>();
+
+        long maxX = eventData.get(0).length() - 1;
+        long maxY = eventData.size() - 1;
+
+        do {
+            for (var d : Direction.values()) {
+                var nb = cur.moveNew(d);
+                if (d.reverse() != lastD && isConnected(d, m.get(cur), m.get(nb))) {
+                    md.put(cur, Boolean.TRUE);
+                    cur = nb;
+                    lastD = d;
+                    break;
+                }
+            }
+        } while (!cur.equals(start));
+
+        List<Character> lastChar = new ArrayList<>();
+        List<Integer> cnt = new ArrayList<>();
+        for (int x = 0; x <= maxX; x++) {
+            cnt.add(0);
+            lastChar.add('.');
+        }
+
+        for (int y = 0; y <= maxY; y++) {
+            for (int x = 0; x <= maxX; x++) {
+                if (md.containsKey(new SimplePos(x, y))) {
+                    var cChar = m.get(new SimplePos(x, y));
+                    if (cChar != '|') {
+                        var lChar = lastChar.get(x);
+                        if (lChar == 'F' && cChar == 'J') {
+                            cnt.set(x, cnt.get(x) + 1);
+                        }
+                        if (lChar == '7' && cChar == 'L') {
+                            cnt.set(x, cnt.get(x) + 1);
+                        }
+                        if (cChar == '-') {
+                            cnt.set(x, cnt.get(x) + 1);
+                        }
+                        lastChar.set(x, cChar);
+                    }
+                } else {
+                    if (cnt.get(x) % 2 != 0) {
+                        response++;
+                    }
+                }
+            }
+        }
+
+        logger.info("Solution 2 " + response);
+        return response;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
         long response = 0;
 
         Map<SimplePos, Tiles> m = StringConverter.toMap(eventData).entrySet().stream()//
@@ -111,7 +346,7 @@ public class Day10 extends SolutionTemplate {
         return response;
     }
 
-    public long doPuzzle2(List<String> eventData) {
+    public long doPuzzle2_a(List<String> eventData) {
         long response = 0;
         Map<SimplePos, Tiles> m = StringConverter.toMap(eventData).entrySet().stream()//
                 .collect(Collectors.toMap(Entry::getKey, e -> Tiles.fromChar(e.getValue())));
@@ -144,13 +379,14 @@ public class Day10 extends SolutionTemplate {
             }
         }
 
-        //Remove not connected pipes from loop
-        for(var entry:m.entrySet()){
-            if(!seen.contains(entry.getKey())){
+        // Remove not connected pipes from loop
+        for (var entry : m.entrySet()) {
+            if (!seen.contains(entry.getKey())) {
                 entry.setValue(Tiles.GROUND);
             }
         }
 
+        // better: Go along the path, but take two steps for every step. You cann do it in the first while-loop.
         Map<SimplePos, Tiles> tmp = expandH(m);
         Map<SimplePos, Tiles> exp = expandV(tmp);
 
@@ -166,7 +402,7 @@ public class Day10 extends SolutionTemplate {
             exp.put(new SimplePos(maxX, y), Tiles.GROUND);
         }
 
-        //Mark ground fields outside the loop
+        // Mark ground fields outside the loop
         seen.clear();
         SimplePos s = new SimplePos(-1, -1);
         LinkedList<SimplePos> next = new LinkedList<>();
@@ -186,8 +422,8 @@ public class Day10 extends SolutionTemplate {
                 }
             }
         }
-        
-        //count gound fields inside the loop
+
+        // count gound fields inside the loop
         for (int x = 0; x <= maxX; x += 2) {
             for (int y = 0; y <= maxY; y += 2) {
                 var check = new SimplePos(x, y);
