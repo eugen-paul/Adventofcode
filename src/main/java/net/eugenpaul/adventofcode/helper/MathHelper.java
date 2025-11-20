@@ -117,6 +117,14 @@ public final class MathHelper {
         return maxValue;
     }
 
+    public static int min(int a, int... b) {
+        int maxValue = a;
+        for (var c : b) {
+            maxValue = Math.min(maxValue, c);
+        }
+        return maxValue;
+    }
+
     public static long pow(long base, long exp) {
         long response = 1;
         for (int i = 0; i < exp; i++) {

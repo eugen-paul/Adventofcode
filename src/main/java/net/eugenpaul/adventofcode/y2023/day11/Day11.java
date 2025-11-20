@@ -1,11 +1,16 @@
 package net.eugenpaul.adventofcode.y2023.day11;
 
+import static net.eugenpaul.adventofcode.helper.MathHelper.*;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.eugenpaul.adventofcode.helper.Range;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 import net.eugenpaul.adventofcode.helper.StringConverter;
@@ -33,6 +38,48 @@ public class Day11 extends SolutionTemplate {
 
     public long doPuzzle1(List<String> eventData) {
         long response = 0;
+
+        var m = StringConverter.toSet(eventData, '#').stream().toList();
+        var notEmptyRows = m.stream().map(v -> v.getY()).collect(Collectors.toSet());
+        var notEmptyColl = m.stream().map(v -> v.getX()).collect(Collectors.toSet());
+
+        for (int i = 0; i < m.size(); i++) {
+            for (int k = i + 1; k < m.size(); k++) {
+                var a = m.get(i);
+                var b = m.get(k);
+                response += a.manhattanDistance(b);
+                response += Range.stream(a.getY(), b.getY()).filter(v -> !notEmptyRows.contains(v)).count();
+                response += Range.stream(a.getX(), b.getX()).filter(v -> !notEmptyColl.contains(v)).count();
+            }
+        }
+
+        logger.info("Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle2(List<String> eventData) {
+        long response = 0;
+
+        var m = StringConverter.toSet(eventData, '#').stream().toList();
+        var notEmptyRows = m.stream().map(v -> v.getY()).collect(Collectors.toSet());
+        var notEmptyColl = m.stream().map(v -> v.getX()).collect(Collectors.toSet());
+
+        for (int i = 0; i < m.size(); i++) {
+            for (int k = i + 1; k < m.size(); k++) {
+                var a = m.get(i);
+                var b = m.get(k);
+                response += a.manhattanDistance(b);
+                response += Range.stream(a.getY(), b.getY()).filter(v -> !notEmptyRows.contains(v)).count() * (exp - 1);
+                response += Range.stream(a.getX(), b.getX()).filter(v -> !notEmptyColl.contains(v)).count() * (exp - 1);
+            }
+        }
+
+        logger.info("Solution 2 " + response);
+        return response;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
+        long response = 0;
         int maxX = eventData.get(0).length();
         int maxY = eventData.size();
 
@@ -47,7 +94,7 @@ public class Day11 extends SolutionTemplate {
         return response;
     }
 
-    public long doPuzzle2(List<String> eventData) {
+    public long doPuzzle2_a(List<String> eventData) {
         long response = 0;
         int maxX = eventData.get(0).length();
         int maxY = eventData.size();
