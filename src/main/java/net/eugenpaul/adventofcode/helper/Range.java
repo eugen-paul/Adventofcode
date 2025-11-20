@@ -3,6 +3,8 @@ package net.eugenpaul.adventofcode.helper;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.LongConsumer;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,12 +40,25 @@ public class Range {
     /**
      * Ensure from <= to
      */
-    public void sort() {
+    public Range sort() {
         if (to < from) {
             long temp = from;
             from = to;
             to = temp;
         }
+        return this;
+    }
+
+    public static IntStream stream(int from, int to) {
+        int f = Math.min(from, to);
+        int t = Math.max(from, to);
+        return IntStream.rangeClosed(f, t);
+    }
+
+    public LongStream stream() {
+        long f = Math.min(from, to);
+        long t = Math.max(from, to);
+        return LongStream.rangeClosed(f, t);
     }
 
     /**
