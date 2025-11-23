@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.ConvertHelper;
+import net.eugenpaul.adventofcode.helper.MatrixHelper;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day13 extends SolutionTemplate {
@@ -26,6 +28,128 @@ public class Day13 extends SolutionTemplate {
     }
 
     public long doPuzzle1(List<String> eventData) {
+        long response = 0;
+
+        var all = ConvertHelper.asListList(eventData);
+        for (var p : all) {
+            var rr = check(p, -1);
+            if (rr > 0) {
+                response += rr;
+                continue;
+            }
+
+            p = MatrixHelper.rotateRStrings(p, 3);
+            rr = check(p, -1);
+            if (rr > 0) {
+                response += rr * 100;
+            }
+        }
+
+        logger.info("Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle2(List<String> eventData) {
+        long response = 0;
+
+        var all = ConvertHelper.asListList(eventData);
+        for (var p : all) {
+            int rr = check(p, -1);
+            if (rr > 0) {
+                boolean f = false;
+                for (int x = 0; x < p.get(0).length() && !f; x++) {
+                    for (int y = 0; y < p.size() && !f; y++) {
+                        String old = p.get(y);
+                        StringBuilder string = new StringBuilder(p.get(y));
+                        string.setCharAt(x, old.charAt(x) == '.' ? '#' : '.');
+                        p.set(y, string.toString());
+
+                        var rrr = check(p, rr);
+                        if (rrr > 0) {
+                            response += rrr;
+                            f = true;
+                            break;
+                        }
+
+                        p = MatrixHelper.rotateRStrings(p, 3);
+
+                        rrr = check(p, -1);
+                        if (rrr > 0) {
+                            response += rrr * 100;
+                            f = true;
+                            break;
+                        }
+
+                        p = MatrixHelper.rotateRStrings(p);
+                        p.set(y, old);
+                    }
+                }
+            } else {
+                boolean f = false;
+                p = MatrixHelper.rotateRStrings(p, 3);
+                rr = check(p, -1);
+
+                for (int x = 0; x < p.get(0).length() && !f; x++) {
+                    for (int y = 0; y < p.size() && !f; y++) {
+                        String old = p.get(y);
+                        StringBuilder string = new StringBuilder(p.get(y));
+                        string.setCharAt(x, old.charAt(x) == '.' ? '#' : '.');
+                        p.set(y, string.toString());
+
+                        var rrr = check(p, rr);
+                        if (rrr > 0) {
+                            response += rrr * 100;
+                            f = true;
+                            break;
+                        }
+
+                        p = MatrixHelper.rotateRStrings(p);
+
+                        rrr = check(p, -1);
+                        if (rrr > 0) {
+                            response += rrr;
+                            f = true;
+                            break;
+                        }
+
+                        p = MatrixHelper.rotateRStrings(p, 3);
+                        p.set(y, old);
+                    }
+                }
+            }
+        }
+
+        logger.info("Solution 2 " + response);
+        return response;
+    }
+
+    private int check(List<String> p, int dn) {
+        for (int i = 1; i < p.get(0).length(); i++) {
+            if (i == dn) {
+                continue;
+            }
+            boolean ok = true;
+            for (var line : p) {
+                var left = new StringBuilder(line.substring(0, i)).reverse().toString();
+                var right = line.substring(i);
+                if (left.length() < right.length()) {
+                    ok = right.startsWith(left);
+                }
+                if (left.length() >= right.length()) {
+                    ok = left.startsWith(right);
+                }
+                if (!ok) {
+                    break;
+                }
+            }
+            if (ok) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
         long response = 0;
 
         List<String> area = new ArrayList<>();
@@ -136,7 +260,7 @@ public class Day13 extends SolutionTemplate {
         return checkHor2(lines2);
     }
 
-    public long doPuzzle2(List<String> eventData) {
+    public long doPuzzle2_a(List<String> eventData) {
         long response = 0;
 
         List<String> area = new ArrayList<>();
