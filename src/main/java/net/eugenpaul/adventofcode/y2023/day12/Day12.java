@@ -1,5 +1,6 @@
 package net.eugenpaul.adventofcode.y2023.day12;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,6 +47,83 @@ public class Day12 extends SolutionTemplate {
     public long doPuzzle1(List<String> eventData) {
         long response = 0;
 
+        for (var data : eventData) {
+            var in = data.split(" ")[0];
+            var cnt = StringConverter.toIntegerArrayList(data.split(" ")[1]);
+            response += cnt(in, cnt, 0, new HashMap<>());
+        }
+
+        logger.info("Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle2(List<String> eventData) {
+        long response = 0;
+
+        for (var data : eventData) {
+            var in = data.split(" ")[0];
+            in = String.join("?", Collections.nCopies(5, in));
+            var cnt = StringConverter.toIntegerArrayList(data.split(" ")[1]);
+            cnt = Collections.nCopies(5, cnt).stream().flatMap(v -> v.stream()).toList();
+            response += cnt(in, cnt, 0, new HashMap<>());
+        }
+
+        logger.info("Solution 2 " + response);
+        return response;
+    }
+
+    private long cnt(String data, List<Integer> numbers, int posNumbers, Map<Integer, Map<Integer, Long>> cache) {
+        if (cache.computeIfAbsent(data.length(), k -> new HashMap<>()) //
+                .containsKey(posNumbers)) //
+        {
+            return cache.computeIfAbsent(data.length(), k -> new HashMap<>())//
+                    .get(posNumbers);
+        }
+
+        if (posNumbers == numbers.size()) {
+            if (data.isEmpty() || data.indexOf('#') == -1) {
+                cache.get(data.length()).put(posNumbers, 1L);
+                return 1;
+            }
+            cache.get(data.length()).put(posNumbers, 0L);
+            return 0;
+        }
+
+        if (data.isEmpty()) {
+            cache.get(data.length()).put(posNumbers, 0L);
+            return 0;
+        }
+
+        long r = 0;
+        if (data.charAt(0) != '#') {
+            r = cnt(data.substring(1), numbers, posNumbers, cache);
+        }
+
+        int curLen = numbers.get(posNumbers);
+        if (data.charAt(0) != '.' && isOk(data, curLen)) {
+            if (curLen == data.length()) {
+                r += cnt("", numbers, posNumbers + 1, cache);
+            } else {
+                r += cnt(data.substring(curLen + 1), numbers, posNumbers + 1, cache);
+            }
+        }
+
+        cache.get(data.length()).put(posNumbers, r);
+
+        return r;
+    }
+
+    private boolean isOk(String in, int len) {
+        if (in.length() < len) {
+            return false;
+        }
+        String sub = in.substring(0, len);
+        return sub.replace(".", "").length() == len && (len == in.length() || in.charAt(len) != '#');
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
+        long response = 0;
+
         List<Line> lines = eventData.stream().map(Line::fromString).toList();
         long delta;
         for (var line : lines) {
@@ -58,7 +136,7 @@ public class Day12 extends SolutionTemplate {
         return response;
     }
 
-    public long doPuzzle2(List<String> eventData) {
+    public long doPuzzle2_a(List<String> eventData) {
         long response = 0;
         List<Line> lines = eventData.stream().map(Line::fromString).toList();
         long delta;
