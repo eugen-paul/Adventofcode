@@ -172,6 +172,14 @@ public final class MatrixHelper {
         return out;
     }
 
+    public static List<String> rotateRStrings(List<String> in, int cnt) {
+        List<String> r = rotateRStrings(in);
+        for (int i = 1; i < cnt; i++) {
+            r = rotateRStrings(r);
+        }
+        return r;
+    }
+
     /**
      * Rotiert die Matrix (List of Lists) in Uhrzeigerrichtung:<br>
      * List<List<String>> in = List.of( <br>
