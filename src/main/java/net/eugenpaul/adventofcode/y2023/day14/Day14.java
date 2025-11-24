@@ -1,9 +1,11 @@
 package net.eugenpaul.adventofcode.y2023.day14;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Level;
 
 import lombok.Getter;
@@ -35,6 +37,133 @@ public class Day14 extends SolutionTemplate {
     }
 
     public long doPuzzle1(List<String> eventData) {
+        long response = 0;
+
+        int maxX = eventData.get(0).length();
+        int maxY = eventData.size();
+
+        for (int x = 0; x < maxX; x++) {
+            int cnt = eventData.size();
+            for (int y = 0; y < maxY; y++) {
+                switch (eventData.get(y).charAt(x)) {
+                case 'O':
+                    response += cnt;
+                    cnt--;
+                    break;
+                case '.':
+                    break;
+                case '#':
+                    cnt = maxY - y - 1;
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+
+        logger.log(Level.INFO, "Solution 1 {0}", response);
+        return response;
+    }
+
+    public long doPuzzle2(List<String> eventData) {
+        long response = 0;
+
+        int maxX = eventData.get(0).length();
+        int maxY = eventData.size();
+
+        var o = StringConverter.toSet(eventData, 'O');
+        var m = StringConverter.toSet(eventData, '#');
+
+        Map<String, Long> cache = new HashMap<>();
+        boolean f = false;
+        for (long i = 0; i < 1_000_000_000L; i++) {
+            o = cycle(o, m, maxX, maxY);
+            if (!f) {
+                String h = o.stream()//
+                        .map(v -> v.getX() * 1000 + v.getY()) //
+                        .sorted() //
+                        .map(Object::toString) //
+                        .reduce("", (a, b) -> a + "," + b);
+                if (cache.containsKey(h)) {
+                    long c = i - cache.get(h);
+                    long rest = 1_000_000_000L - i;
+                    i += rest / c * c;
+                    f = true;
+                } else {
+                    cache.put(h, i);
+                }
+            }
+        }
+
+        response = o.stream().mapToLong(v -> maxY - v.getY()).sum();
+        logger.log(Level.INFO, "Solution 2 {0}", response);
+        return response;
+    }
+
+    public Set<SimplePos> cycle(Set<SimplePos> in, Set<SimplePos> m, int maxX, int maxY) {
+        Set<SimplePos> cur = in;
+        Set<SimplePos> r = new HashSet<>();
+
+        // N
+        Direction d = Direction.N;
+        for (int x = 0; x < maxX; x++) {
+            for (int y = 0; y < maxY; y++) {
+                movePoint(cur, m, maxX, maxY, r, d, x, y);
+            }
+        }
+
+        cur = r;
+        r = new HashSet<>();
+
+        // W
+        d = Direction.W;
+        for (int y = 0; y < maxY; y++) {
+            for (int x = 0; x < maxX; x++) {
+                movePoint(cur, m, maxX, maxY, r, d, x, y);
+            }
+        }
+
+        cur = r;
+        r = new HashSet<>();
+
+        // S
+        d = Direction.S;
+        for (int x = 0; x < maxX; x++) {
+            for (int y = maxY - 1; y >= 0; y--) {
+                movePoint(cur, m, maxX, maxY, r, d, x, y);
+            }
+        }
+
+        cur = r;
+        r = new HashSet<>();
+
+        // E
+        d = Direction.E;
+        for (int y = 0; y < maxY; y++) {
+            for (int x = maxX - 1; x >= 0; x--) {
+                movePoint(cur, m, maxX, maxY, r, d, x, y);
+            }
+        }
+
+        return r;
+    }
+
+    private void movePoint(Set<SimplePos> in, Set<SimplePos> m, int maxX, int maxY, Set<SimplePos> r, Direction d, int x, int y) {
+        var pos = new SimplePos(x, y);
+        if (!in.contains(pos)) {
+            return;
+        }
+        while (true) {
+            var nxt = pos.moveNew(d);
+            if (!nxt.inRange(0, maxX - 1, 0, maxY - 1) || r.contains(nxt) || m.contains(nxt)) {
+                break;
+            }
+            pos = nxt;
+        }
+        r.add(pos);
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
         long response = 0;
 
         maxX = eventData.get(0).length();
@@ -174,7 +303,7 @@ public class Day14 extends SolutionTemplate {
         }
     }
 
-    public long doPuzzle2(List<String> eventData) {
+    public long doPuzzle2_a(List<String> eventData) {
         long response = 0;
 
         maxX = eventData.get(0).length();
