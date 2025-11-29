@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -52,7 +53,125 @@ public class Day17 extends SolutionTemplate {
         return true;
     }
 
+    private record Step(SimplePos pos, Direction dir, Long cost) {
+    }
+
+    private record PD(SimplePos pos, Direction dir) {
+    }
+
     public long doPuzzle1(List<String> eventData) {
+        long response = -1;
+
+        int maxX = eventData.get(0).length() - 1;
+        int maxY = eventData.size() - 1;
+        var end = new SimplePos(maxX, maxY);
+
+        PriorityQueue<Step> way = new PriorityQueue<>((a, b) -> Long.compare(a.cost, b.cost));
+        way.add(new Step(new SimplePos(0, 0), Direction.E, 0L));
+        way.add(new Step(new SimplePos(0, 0), Direction.S, 0L));
+
+        Set<PD> seen = new HashSet<>();
+
+        while (true) {
+            var cur = way.poll();
+            if (seen.contains(new PD(cur.pos, cur.dir))) {
+                continue;
+            }
+            seen.add(new PD(cur.pos, cur.dir));
+
+            if (cur.pos.equals(end)) {
+                response = cur.cost;
+                break;
+            }
+            var nxt = cur.pos;
+            var c = cur.cost;
+
+            // 1
+            nxt = nxt.moveNew(cur.dir);
+            if (!nxt.inRange(0, maxY, 0, maxY)) {
+                continue;
+            }
+            c = doStep(eventData, way, seen, cur, nxt, c);
+
+            // 2
+            nxt = nxt.moveNew(cur.dir);
+            if (!nxt.inRange(0, maxY, 0, maxY)) {
+                continue;
+            }
+            c = doStep(eventData, way, seen, cur, nxt, c);
+
+            // 3
+            nxt = nxt.moveNew(cur.dir);
+            if (!nxt.inRange(0, maxY, 0, maxY)) {
+                continue;
+            }
+            c = doStep(eventData, way, seen, cur, nxt, c);
+        }
+
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle2(List<String> eventData) {
+        long response = -1;
+
+        int maxX = eventData.get(0).length() - 1;
+        int maxY = eventData.size() - 1;
+        var end = new SimplePos(maxX, maxY);
+
+        PriorityQueue<Step> way = new PriorityQueue<>((a, b) -> Long.compare(a.cost, b.cost));
+        way.add(new Step(new SimplePos(0, 0), Direction.E, 0L));
+        way.add(new Step(new SimplePos(0, 0), Direction.S, 0L));
+
+        Set<PD> seen = new HashSet<>();
+
+        while (true) {
+            var cur = way.poll();
+            if (seen.contains(new PD(cur.pos, cur.dir))) {
+                continue;
+            }
+            seen.add(new PD(cur.pos, cur.dir));
+
+            if (cur.pos.equals(end)) {
+                response = cur.cost;
+                break;
+            }
+            var nxt = cur.pos;
+            var c = cur.cost;
+
+            for (int i = 0; i < 3; i++) {
+                nxt = nxt.moveNew(cur.dir);
+                if (!nxt.inRange(0, maxY, 0, maxY)) {
+                    break;
+                }
+                c += eventData.get(nxt.getY()).charAt(nxt.getX()) - '0';
+            }
+
+            for (int i = 3; i < 10; i++) {
+                nxt = nxt.moveNew(cur.dir);
+                if (!nxt.inRange(0, maxY, 0, maxY)) {
+                    break;
+                }
+                c = doStep(eventData, way, seen, cur, nxt, c);
+            }
+        }
+
+        logger.log(Level.INFO, "Solution 2 " + response);
+        return response;
+    }
+
+    private Long doStep(List<String> eventData, PriorityQueue<Step> way, Set<PD> seen, Step cur, SimplePos nxt, Long c) {
+        c += eventData.get(nxt.getY()).charAt(nxt.getX()) - '0';
+        if (!seen.contains(new PD(nxt, cur.dir.turnLeft()))) {
+            way.add(new Step(nxt, cur.dir.turnLeft(), c));
+        }
+        if (!seen.contains(new PD(nxt, cur.dir.turnRight()))) {
+            way.add(new Step(nxt, cur.dir.turnRight(), c));
+        }
+        return c;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
         long response = 0;
 
         final int maxX = eventData.get(0).length();
@@ -107,7 +226,7 @@ public class Day17 extends SolutionTemplate {
         return response;
     }
 
-    public long doPuzzle2(List<String> eventData) {
+    public long doPuzzle2_a(List<String> eventData) {
         long response = 0;
 
         final int maxX = eventData.get(0).length();
