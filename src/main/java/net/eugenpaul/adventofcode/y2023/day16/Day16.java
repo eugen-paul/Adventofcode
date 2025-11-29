@@ -46,8 +46,7 @@ public class Day16 extends SolutionTemplate {
         return true;
     }
 
-    private record MyStep(SimplePos pos, Direction dir) {
-
+    private record Step2(SimplePos pos, Direction dir) {
     }
 
     public long doPuzzle1(List<String> eventData) {
@@ -81,12 +80,10 @@ public class Day16 extends SolutionTemplate {
         int maxX = eventData.get(0).length() - 1;
         int maxY = eventData.size() - 1;
 
-        var s = new MyStep(start, d);
-        LinkedList<MyStep> all = new LinkedList<>();
+        var s = new Step2(start, d);
+        LinkedList<Step2> all = new LinkedList<>();
         all.push(s);
-        Set<SimplePos> w = new HashSet<>();
-        w.add(start);
-        Set<MyStep> visited = new HashSet<>();
+        Set<Step2> visited = new HashSet<>();
 
         while (!all.isEmpty()) {
             var cur = all.pollFirst();
@@ -96,53 +93,52 @@ public class Day16 extends SolutionTemplate {
             visited.add(cur);
             var c = eventData.get(cur.pos.getY()).charAt(cur.pos.getX());
             if (c == '.') {
-                doStep(cur.pos, cur.dir, all, w, maxX, maxY);
+                doStep(cur.pos, cur.dir, all, maxX, maxY);
             } else if (c == '|') {
                 if (cur.dir == Direction.N || cur.dir == Direction.S) {
-                    doStep(cur.pos, cur.dir, all, w, maxX, maxY);
+                    doStep(cur.pos, cur.dir, all, maxX, maxY);
                 } else {
-                    doStep(cur.pos, Direction.N, all, w, maxX, maxY);
-                    doStep(cur.pos, Direction.S, all, w, maxX, maxY);
+                    doStep(cur.pos, Direction.N, all, maxX, maxY);
+                    doStep(cur.pos, Direction.S, all, maxX, maxY);
                 }
             } else if (c == '-') {
                 if (cur.dir == Direction.W || cur.dir == Direction.E) {
-                    doStep(cur.pos, cur.dir, all, w, maxX, maxY);
+                    doStep(cur.pos, cur.dir, all, maxX, maxY);
                 } else {
-                    doStep(cur.pos, Direction.W, all, w, maxX, maxY);
-                    doStep(cur.pos, Direction.E, all, w, maxX, maxY);
+                    doStep(cur.pos, Direction.W, all, maxX, maxY);
+                    doStep(cur.pos, Direction.E, all, maxX, maxY);
                 }
             } else if (c == '\\') {
                 if (cur.dir == Direction.N) {
-                    doStep(cur.pos, Direction.W, all, w, maxX, maxY);
+                    doStep(cur.pos, Direction.W, all, maxX, maxY);
                 } else if (cur.dir == Direction.E) {
-                    doStep(cur.pos, Direction.S, all, w, maxX, maxY);
+                    doStep(cur.pos, Direction.S, all, maxX, maxY);
                 } else if (cur.dir == Direction.S) {
-                    doStep(cur.pos, Direction.E, all, w, maxX, maxY);
+                    doStep(cur.pos, Direction.E, all, maxX, maxY);
                 } else if (cur.dir == Direction.W) {
-                    doStep(cur.pos, Direction.N, all, w, maxX, maxY);
+                    doStep(cur.pos, Direction.N, all, maxX, maxY);
                 }
             } else if (c == '/') {
                 if (cur.dir == Direction.N) {
-                    doStep(cur.pos, Direction.E, all, w, maxX, maxY);
+                    doStep(cur.pos, Direction.E, all, maxX, maxY);
                 } else if (cur.dir == Direction.E) {
-                    doStep(cur.pos, Direction.N, all, w, maxX, maxY);
+                    doStep(cur.pos, Direction.N, all, maxX, maxY);
                 } else if (cur.dir == Direction.S) {
-                    doStep(cur.pos, Direction.W, all, w, maxX, maxY);
+                    doStep(cur.pos, Direction.W, all, maxX, maxY);
                 } else if (cur.dir == Direction.W) {
-                    doStep(cur.pos, Direction.S, all, w, maxX, maxY);
+                    doStep(cur.pos, Direction.S, all, maxX, maxY);
                 }
             }
         }
 
-        response = w.size();
+        response = visited.stream().map(v -> v.pos).distinct().count();
         return response;
     }
 
-    private void doStep(SimplePos pos, Direction dir, LinkedList<MyStep> all, Set<SimplePos> w, int maxX, int maxY) {
+    private void doStep(SimplePos pos, Direction dir, LinkedList<Step2> all, int maxX, int maxY) {
         var next = pos.moveNew(dir);
         if (next.inRange(0, maxX, 0, maxY)) {
-            w.add(next);
-            all.addLast(new MyStep(next, dir));
+            all.addLast(new Step2(next, dir));
         }
     }
 
