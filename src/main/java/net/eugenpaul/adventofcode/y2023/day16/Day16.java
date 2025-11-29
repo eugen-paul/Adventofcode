@@ -46,7 +46,107 @@ public class Day16 extends SolutionTemplate {
         return true;
     }
 
+    private record MyStep(SimplePos pos, Direction dir) {
+
+    }
+
     public long doPuzzle1(List<String> eventData) {
+        long response = 0;
+
+        response = getVisited(eventData, new SimplePos(0, 0), Direction.E);
+
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle2(List<String> eventData) {
+        long response = 0;
+
+        for (int x = 0; x < eventData.get(0).length(); x++) {
+            response = Math.max(response, getVisited(eventData, new SimplePos(x, 0), Direction.S));
+            response = Math.max(response, getVisited(eventData, new SimplePos(x, eventData.size() - 1), Direction.N));
+        }
+
+        for (int y = 0; y < eventData.size(); y++) {
+            response = Math.max(response, getVisited(eventData, new SimplePos(0, y), Direction.E));
+            response = Math.max(response, getVisited(eventData, new SimplePos(eventData.get(0).length() - 1, 0), Direction.W));
+        }
+
+        logger.log(Level.INFO, "Solution 2 " + response);
+        return response;
+    }
+
+    private long getVisited(List<String> eventData, SimplePos start, Direction d) {
+        long response;
+        int maxX = eventData.get(0).length() - 1;
+        int maxY = eventData.size() - 1;
+
+        var s = new MyStep(start, d);
+        LinkedList<MyStep> all = new LinkedList<>();
+        all.push(s);
+        Set<SimplePos> w = new HashSet<>();
+        w.add(start);
+        Set<MyStep> visited = new HashSet<>();
+
+        while (!all.isEmpty()) {
+            var cur = all.pollFirst();
+            if (visited.contains(cur)) {
+                continue;
+            }
+            visited.add(cur);
+            var c = eventData.get(cur.pos.getY()).charAt(cur.pos.getX());
+            if (c == '.') {
+                doStep(cur.pos, cur.dir, all, w, maxX, maxY);
+            } else if (c == '|') {
+                if (cur.dir == Direction.N || cur.dir == Direction.S) {
+                    doStep(cur.pos, cur.dir, all, w, maxX, maxY);
+                } else {
+                    doStep(cur.pos, Direction.N, all, w, maxX, maxY);
+                    doStep(cur.pos, Direction.S, all, w, maxX, maxY);
+                }
+            } else if (c == '-') {
+                if (cur.dir == Direction.W || cur.dir == Direction.E) {
+                    doStep(cur.pos, cur.dir, all, w, maxX, maxY);
+                } else {
+                    doStep(cur.pos, Direction.W, all, w, maxX, maxY);
+                    doStep(cur.pos, Direction.E, all, w, maxX, maxY);
+                }
+            } else if (c == '\\') {
+                if (cur.dir == Direction.N) {
+                    doStep(cur.pos, Direction.W, all, w, maxX, maxY);
+                } else if (cur.dir == Direction.E) {
+                    doStep(cur.pos, Direction.S, all, w, maxX, maxY);
+                } else if (cur.dir == Direction.S) {
+                    doStep(cur.pos, Direction.E, all, w, maxX, maxY);
+                } else if (cur.dir == Direction.W) {
+                    doStep(cur.pos, Direction.N, all, w, maxX, maxY);
+                }
+            } else if (c == '/') {
+                if (cur.dir == Direction.N) {
+                    doStep(cur.pos, Direction.E, all, w, maxX, maxY);
+                } else if (cur.dir == Direction.E) {
+                    doStep(cur.pos, Direction.N, all, w, maxX, maxY);
+                } else if (cur.dir == Direction.S) {
+                    doStep(cur.pos, Direction.W, all, w, maxX, maxY);
+                } else if (cur.dir == Direction.W) {
+                    doStep(cur.pos, Direction.S, all, w, maxX, maxY);
+                }
+            }
+        }
+
+        response = w.size();
+        return response;
+    }
+
+    private void doStep(SimplePos pos, Direction dir, LinkedList<MyStep> all, Set<SimplePos> w, int maxX, int maxY) {
+        var next = pos.moveNew(dir);
+        if (next.inRange(0, maxX, 0, maxY)) {
+            w.add(next);
+            all.addLast(new MyStep(next, dir));
+        }
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
         long response = 0;
 
         response = check(eventData, new SimplePos(0, 0), Direction.E);
@@ -88,7 +188,7 @@ public class Day16 extends SolutionTemplate {
         return seen.stream().map(v -> v.pos).collect(Collectors.toSet()).size();
     }
 
-    public long doPuzzle2(List<String> eventData) {
+    public long doPuzzle2_a(List<String> eventData) {
         long response = 0;
 
         final int maxX = eventData.get(0).length();
