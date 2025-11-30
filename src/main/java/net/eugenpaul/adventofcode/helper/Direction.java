@@ -122,6 +122,16 @@ public enum Direction {
     }
 
     /**
+     * Convert direction-String (^v<>) to Direction
+     * 
+     * @param arrow
+     * @return
+     */
+    public static Direction fromArrow(String arrow) {
+        return fromArrow(arrow.charAt(0));
+    }
+
+    /**
      * Convert direction-char (NWES) to Direction
      * 
      * @param Direction
@@ -132,6 +142,16 @@ public enum Direction {
     }
 
     /**
+     * Convert direction-String (NWES) to Direction
+     * 
+     * @param Direction
+     * @return
+     */
+    public static Direction fromChar(String c) {
+        return fromChar(c.charAt(0));
+    }
+
+    /**
      * Convert direction-char (UDRL) to Direction
      * 
      * @param Direction
@@ -139,5 +159,15 @@ public enum Direction {
      */
     public static Direction fromUdrl(char c) {
         return udrlToDirection.get(c);
+    }
+
+    /**
+     * Convert direction-String (UDRL) to Direction
+     * 
+     * @param Direction
+     * @return
+     */
+    public static Direction fromUdrl(String c) {
+        return fromUdrl(c.charAt(0));
     }
 }
