@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import lombok.Data;
 import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.Direction;
+import net.eugenpaul.adventofcode.helper.Line2d;
 import net.eugenpaul.adventofcode.helper.MapOfSimplePos;
 import net.eugenpaul.adventofcode.helper.SimplePos;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
@@ -67,6 +68,118 @@ public class Day18 extends SolutionTemplate {
     }
 
     public long doPuzzle1(List<String> eventData) {
+        long response = 0;
+
+        List<Line2d> lines = new ArrayList<>();
+
+        long x = 0;
+        long y = 0;
+
+        for (var d : eventData) {
+            var dir = Direction.fromUdrl(d.split(" ")[0]);
+            var len = Long.parseLong(d.split(" ")[1]);
+            var dx = 0L;
+            var dy = 0L;
+            switch (dir) {
+            case E: dx =  len; break;
+            case W: dx = -len; break;
+            case S: dy =  len; break;
+            case N: dy = -len; break;
+            }
+            var line = new Line2d(x, y, dx, dy);
+            x += dx;
+            y += dy;
+            lines.add(line.norm());
+        }
+
+        lines.sort((a, b) -> Long.compare(a.getPointX(), b.getPointX()));
+
+        response = solutionV3(response, lines);
+
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    private long solutionV3(long response, List<Line2d> lines) {
+        long x;
+        List<Line2d> hLines = lines.stream().filter(v -> v.getDeltaY() == 0).sorted((a, b) -> Long.compare(a.getPointY(), b.getPointY())).toList();
+        List<Line2d> vLines = lines.stream().filter(v -> v.getDeltaX() == 0).toList();
+
+        x = Long.MIN_VALUE;
+        while (true) {
+            var lastX = x;
+            //bestimme die naechten vertikalen Strecken
+            List<Line2d> tmpVLines = vLines.stream().filter(v -> v.getPointX() > lastX).toList();
+            if (tmpVLines.isEmpty()) {
+                break;
+            }
+            x = tmpVLines.get(0).getPointX();
+            var curX = x;
+            List<Line2d> curVLines = vLines.stream().filter(v -> v.getPointX() == curX).toList();
+            //die Laengen allen aktuellen vertikalen Strecken muessen zum Ergaebnis addiert werden
+            response += curVLines.stream().mapToLong(v -> v.getDeltaY() + 1).sum();
+            
+            var endlessV = new Line2d(x, Long.MIN_VALUE / 2, 0, Long.MAX_VALUE);
+            List<Line2d> tmpHLines = hLines.stream().filter(hl -> hl.isSegmentIntersecting(endlessV)).toList();
+            var lastH = tmpHLines.get(0);
+            //Raeume zwischen den horisontalen Strecken, die innnerhalb des Lochs liegen, muessen zum Ergaebnis addiert werden
+            for (int i = 1; i < tmpHLines.size(); i++) {
+                if (isIn(tmpHLines, curVLines, curX, lastH.getPointY() + 1)) {
+                    var curH = tmpHLines.get(i);
+                    response += curH.getPointY() - lastH.getPointY() - 1;
+                    var up = new SimplePos((int) x, (int) lastH.getPointY());
+                    if (curVLines.stream().noneMatch(v -> v.isPointOnSegment(up))) {
+                        //obere Punkt liegt nicht auf einer Vertikale Strecke und muss addiert werden
+                        response++;
+                    }
+                    var dp = new SimplePos((int) x, (int) curH.getPointY());
+                    if (curVLines.stream().noneMatch(v -> v.isPointOnSegment(dp))) {
+                        //untere Punkt liegt nicht auf einer Vertikale Strecke und muss addiert werden
+                        response++;
+                    }
+                }
+                lastH = tmpHLines.get(i);
+            }
+
+            if (lastX + 1 < curX) {
+                //Raeume zwischen den horisontalen Strecken, die innnerhalb des Lochs liegen, muessen zum Ergaebnis addiert werden
+                var tmpEndlessV = new Line2d(x - 1, Long.MIN_VALUE / 2, 0, Long.MAX_VALUE);
+                tmpHLines = hLines.stream().filter(hl -> hl.isSegmentIntersecting(tmpEndlessV)).toList();
+                if (!tmpHLines.isEmpty()) {
+                    lastH = tmpHLines.get(0);
+                    var dx = curX - lastX - 1;
+                    for (int i = 1; i < tmpHLines.size(); i++) {
+                        if (isIn(tmpHLines, curVLines, curX - 1, lastH.getPointY() + 1)) {
+                            var curH = tmpHLines.get(i);
+                            response += dx * (curH.getPointY() - lastH.getPointY() + 1);
+                        }
+                        lastH = tmpHLines.get(i);
+                    }
+                }
+            }
+        }
+        return response;
+    }
+
+    private boolean isIn(List<Line2d> hLines, List<Line2d> curVLines, long x, long y) {
+        if (curVLines.stream().anyMatch(v -> v.isPointOnSegment(new SimplePos((int) x, (int) y)))) {
+            return false;
+        }
+
+        var lines = hLines.stream() //
+                .filter(v -> v.getPointY() < y) //
+                .sorted((a, b) -> Long.compare(a.getPointX(), b.getPointX())) //
+                .toList();
+        var cnt = 0;
+        for (var ll : lines) {
+            if (ll.getPointX() < x) {
+                cnt++;
+            }
+        }
+        return cnt % 2 == 1;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
         long response = 0;
 
         g.clear();
@@ -135,6 +248,41 @@ public class Day18 extends SolutionTemplate {
     }
 
     public long doPuzzle2(List<String> eventData) {
+        long response = 0;
+
+        List<Line2d> lines = new ArrayList<>();
+
+        long x = 0;
+        long y = 0;
+
+        for (var d : eventData) {
+            var dir = d.charAt(d.length() - 2) - '0';
+            var len = Long.parseLong(d.split(" ")[2].substring(2, 7), 16);
+            var dx = 0L;
+            var dy = 0L;
+            switch (dir) {
+            case 0: dx =  len; break;
+            case 2: dx = -len; break;
+            case 1: dy =  len; break;
+            case 3: dy = -len; break;
+            default:
+                throw new IllegalArgumentException();
+            }
+            var line = new Line2d(x, y, dx, dy);
+            x += dx;
+            y += dy;
+            lines.add(line.norm());
+        }
+
+        lines.sort((a, b) -> Long.compare(a.getPointX(), b.getPointX()));
+
+        response = solutionV3(response, lines);
+
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle2_a(List<String> eventData) {
         debug = false;
 
         var lines = new ArrayList<Line>();

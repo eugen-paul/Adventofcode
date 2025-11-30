@@ -96,4 +96,62 @@ class Line2dTest {
         assertFalse(line1.isIntersecting(line2));
         assertFalse(line2.isIntersecting(line1));
     }
+    @Test
+    void testNorm_noChange() {
+        Line2d line = Line2d.fromPointVector(new SimplePos(2, 3), new SimplePos(4, 5));
+        Line2d result = line.norm();
+
+        assertEquals(2L, result.getPointX());
+        assertEquals(3L, result.getPointY());
+        assertEquals(4L, result.getDeltaX());
+        assertEquals(5L, result.getDeltaY());
+    }
+
+    @Test
+    void testNorm_dxNegative() {
+        Line2d line = Line2d.fromPointVector(new SimplePos(5, 7), new SimplePos(-2, 3));
+        Line2d result = line.norm();
+
+        // pointX should be shifted by dx (-2) -> 5 + (-2) = 3
+        assertEquals(3L, result.getPointX());
+        assertEquals(7L, result.getPointY());
+        assertEquals(2L, result.getDeltaX());
+        assertEquals(3L, result.getDeltaY());
+    }
+
+    @Test
+    void testNorm_dyNegative() {
+        Line2d line = Line2d.fromPointVector(new SimplePos(5, 7), new SimplePos(2, -3));
+        Line2d result = line.norm();
+
+        // pointY should be shifted by dy (-3) -> 7 + (-3) = 4
+        assertEquals(5L, result.getPointX());
+        assertEquals(4L, result.getPointY());
+        assertEquals(2L, result.getDeltaX());
+        assertEquals(3L, result.getDeltaY());
+    }
+
+    @Test
+    void testNorm_bothNegative() {
+        Line2d line = Line2d.fromPointVector(new SimplePos(5, 7), new SimplePos(-2, -3));
+        Line2d result = line.norm();
+
+        // both coordinates shifted by negative deltas
+        assertEquals(3L, result.getPointX());
+        assertEquals(4L, result.getPointY());
+        assertEquals(2L, result.getDeltaX());
+        assertEquals(3L, result.getDeltaY());
+    }
+
+    @Test
+    void testNorm_zeroAndNegative() {
+        Line2d line = Line2d.fromPointVector(new SimplePos(5, 7), new SimplePos(0, -3));
+        Line2d result = line.norm();
+
+        // dx is zero -> no change; dy negative -> shift Y and make positive
+        assertEquals(5L, result.getPointX());
+        assertEquals(4L, result.getPointY());
+        assertEquals(0L, result.getDeltaX());
+        assertEquals(3L, result.getDeltaY());
+    }
 }
