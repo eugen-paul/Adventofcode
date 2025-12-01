@@ -109,23 +109,18 @@ public class Day1 extends SolutionTemplate {
                 if (r == 0) {
                     response++;
                 } else if (r < 0) {
-                    while (r < 0) {
-                        r += 100;
-                        response++;
-                        if (r == 0) {
-                            response++;
-                        }
-                    }
                     if (z) {
-                        response--;
+                        response += Math.abs(r) / 100;
+                    } else {
+                        response += (Math.abs(r) + 100) / 100;
                     }
+                    r = ((r % 100) + 100) % 100;
                 }
             } else {
                 r += d;
                 if (r == 0) {
                     response++;
-                }
-                else if (r > 99) {
+                } else if (r > 99) {
                     response += r / 100;
                     r = r % 100;
                 }
