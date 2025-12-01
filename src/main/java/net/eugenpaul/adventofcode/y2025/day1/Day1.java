@@ -43,6 +43,27 @@ public class Day1 extends SolutionTemplate {
             var d = toInt(s.substring(1));
             if (s.charAt(0) == 'L') {
                 r -= d;
+            } else {
+                r += d;
+            }
+            r = Math.floorMod(r, 100);
+            if (r == 0) {
+                response++;
+            }
+        }
+
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
+        long response = 0;
+
+        var r = 50;
+        for (var s : eventData) {
+            var d = toInt(s.substring(1));
+            if (s.charAt(0) == 'L') {
+                r -= d;
                 if (r == 0) {
                     response++;
                 }
@@ -75,30 +96,33 @@ public class Day1 extends SolutionTemplate {
     public long doPuzzle2(List<String> eventData) {
         long response = 0;
 
-        // var r = 50;
-        // for (var s : eventData) {
-        // var d = toInt(s.substring(1));
-        // if (s.charAt(0) == 'L') {
-        // for (int i = 0; i < d; i++) {
-        // r--;
-        // if (Math.abs(r) % 100 == 0) {
-        // response++;
-        // }
-        // }
-        // while (r < 0) {
-        // r += 100;
-        // }
-        // } else {
-        // r += d;
-        // if (r == 0) {
-        // response++;
-        // }
-        // if (r > 99) {
-        // response += r / 100;
-        // r = r % 100;
-        // }
-        // }
-        // }
+        var r = 50;
+        for (var s : eventData) {
+            var d = toInt(s.substring(1));
+            var old = r;
+            if (s.charAt(0) == 'L') {
+                r -= d;
+            } else {
+                r += d;
+            }
+            if (r > 0) {
+                response += r / 100;
+            } else {
+                if (old == 0) {
+                    response += d / 100;
+                } else {
+                    response += -r / 100 + 1;
+                }
+            }
+            r = Math.floorMod(r, 100);
+        }
+
+        logger.log(Level.INFO, "Solution 2 " + response);
+        return response;
+    }
+
+    public long doPuzzle2a(List<String> eventData) {
+        long response = 0;
 
         var r = 50;
         for (var s : eventData) {
