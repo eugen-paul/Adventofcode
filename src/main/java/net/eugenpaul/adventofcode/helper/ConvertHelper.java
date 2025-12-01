@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ConvertHelper {
 
+    /**
+     * Convert literal char to long.
+     * @param d - char : '0', '1', ... , '9'
+     * @return long value
+     */
     public static long toLong(char d) {
         return (d - '0');
     }
@@ -17,14 +22,19 @@ public final class ConvertHelper {
         return Long.parseLong(d);
     }
 
-    public static Double toDouble(String d) {
+    public static double toDouble(String d) {
         return Double.parseDouble(d);
     }
 
     public static int toInt(String d) {
         return Integer.parseInt(d);
     }
-
+    
+    /**
+     * Convert literal char to int.
+     * @param d - char : '0', '1', ... , '9'
+     * @return int value
+     */
     public static int toInt(char d) {
         return d - '0';
     }
