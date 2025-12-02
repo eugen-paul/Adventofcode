@@ -49,12 +49,22 @@ public class Range {
         return this;
     }
 
+    /**
+     * Returns a sequential ordered LongStream from "from" (inclusive) to "to" (inclusive) by an incremental step of 1.
+     * 
+     * @return
+     */
     public static IntStream stream(int from, int to) {
         int f = Math.min(from, to);
         int t = Math.max(from, to);
         return IntStream.rangeClosed(f, t);
     }
 
+    /**
+     * Returns a sequential ordered LongStream from "from" (inclusive) to "to" (inclusive) by an incremental step of 1.
+     * 
+     * @return
+     */
     public LongStream stream() {
         long f = Math.min(from, to);
         long t = Math.max(from, to);
