@@ -7,8 +7,10 @@ import static net.eugenpaul.adventofcode.helper.StringConverter.*;
 
 import java.util.List;
 import java.util.logging.Level;
+import java.util.stream.LongStream;
 
 import lombok.Getter;
+import net.eugenpaul.adventofcode.helper.Range;
 import net.eugenpaul.adventofcode.helper.SolutionTemplate;
 
 public class Day2 extends SolutionTemplate {
@@ -37,6 +39,34 @@ public class Day2 extends SolutionTemplate {
 
     public long doPuzzle1(List<String> eventData) {
         long response = 0;
+        for (var d : eventData.get(0).split(",")) {
+            response += LongStream.rangeClosed(toLong(d.split("-")[0]), toLong(d.split("-")[1]))//
+                    .filter(v -> {
+                        var s = v + "";
+                        return s.substring(0, s.length() / 2).equals(s.substring(s.length() / 2));
+                    }).sum();
+        }
+
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle1_b(List<String> eventData) {
+        long response = 0;
+        for (var d : eventData.get(0).split(",")) {
+            var r = Range.fromString(d, "-");
+            response += r.stream().filter(v -> {
+                var s = v + "";
+                return s.substring(0, s.length() / 2).equals(s.substring(s.length() / 2));
+            }).sum();
+        }
+
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
+        long response = 0;
 
         for (var d : eventData.get(0).split(",")) {
             var a = toLong(d.split("-")[0]);
@@ -55,7 +85,40 @@ public class Day2 extends SolutionTemplate {
         return response;
     }
 
+    public long doPuzzle2_c(List<String> eventData) {
+        long response = 0;
+        for (var d : eventData.get(0).split(",")) {
+            var r = Range.fromString(d, "-");
+            response += r.stream().filter(v -> {
+                var s = v + "";
+                return (s + s).indexOf(s, 1) != s.length(); // solution megathread tipp
+            }).sum();
+        }
+
+        logger.log(Level.INFO, "Solution 2 " + response);
+        return response;
+    }
+
     public long doPuzzle2(List<String> eventData) {
+        long response = 0;
+        for (var d : eventData.get(0).split(",")) {
+            var r = Range.fromString(d, "-");
+            response += r.stream().filter(v -> {
+                var s = v + "";
+                for (int i = 1; i <= s.length() / 2; i++) {
+                    if (/*s.length() % i == 0 &&*/ s.substring(0, i).repeat(s.length() / i).equals(s)) {
+                        return true;
+                    }
+                }
+                return false;
+            }).sum();
+        }
+
+        logger.log(Level.INFO, "Solution 2 " + response);
+        return response;
+    }
+
+    public long doPuzzle2_b(List<String> eventData) {
         long response = 0;
 
         for (var d : eventData.get(0).split(",")) {
