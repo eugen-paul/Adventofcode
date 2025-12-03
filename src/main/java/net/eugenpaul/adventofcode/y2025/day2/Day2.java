@@ -42,6 +42,19 @@ public class Day2 extends SolutionTemplate {
         for (var d : eventData.get(0).split(",")) {
             response += LongStream.rangeClosed(toLong(d.split("-")[0]), toLong(d.split("-")[1]))//
                     .filter(v -> {
+                        return (v + "").matches("^(.+)\\1$"); // reddit tipp
+                    }).sum();
+        }
+
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle1_c(List<String> eventData) {
+        long response = 0;
+        for (var d : eventData.get(0).split(",")) {
+            response += LongStream.rangeClosed(toLong(d.split("-")[0]), toLong(d.split("-")[1]))//
+                    .filter(v -> {
                         var s = v + "";
                         return s.substring(0, s.length() / 2).equals(s.substring(s.length() / 2));
                     }).sum();
@@ -85,7 +98,20 @@ public class Day2 extends SolutionTemplate {
         return response;
     }
 
-    public long doPuzzle2_c(List<String> eventData) {
+    public long doPuzzle2(List<String> eventData) {
+        long response = 0;
+        for (var d : eventData.get(0).split(",")) {
+            response += LongStream.rangeClosed(toLong(d.split("-")[0]), toLong(d.split("-")[1]))//
+                    .filter(v -> {
+                        return (v + "").matches("^(.+)\\1+$"); // reddit tipp
+                    }).sum();
+        }
+
+        logger.log(Level.INFO, "Solution 2 " + response);
+        return response;
+    }
+
+    public long doPuzzle2_d(List<String> eventData) {
         long response = 0;
         for (var d : eventData.get(0).split(",")) {
             var r = Range.fromString(d, "-");
@@ -99,14 +125,14 @@ public class Day2 extends SolutionTemplate {
         return response;
     }
 
-    public long doPuzzle2(List<String> eventData) {
+    public long doPuzzle2_c(List<String> eventData) {
         long response = 0;
         for (var d : eventData.get(0).split(",")) {
             var r = Range.fromString(d, "-");
             response += r.stream().filter(v -> {
                 var s = v + "";
                 for (int i = 1; i <= s.length() / 2; i++) {
-                    if (/*s.length() % i == 0 &&*/ s.substring(0, i).repeat(s.length() / i).equals(s)) {
+                    if (/* s.length() % i == 0 && */ s.substring(0, i).repeat(s.length() / i).equals(s)) {
                         return true;
                     }
                 }
