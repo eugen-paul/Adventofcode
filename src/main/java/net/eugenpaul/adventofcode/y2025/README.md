@@ -1,12 +1,12 @@
 # Solutions
 
-## Progress: Year 2025 [4/24]
+## Progress: Year 2025 [6/24]
 
 | Day | Status | Link                           |
 | --- | ------ | ------------------------------ |
 | 1   | ⭐⭐   | [Day 1: Secret Entrance](day1) |
 | 2   | ⭐⭐   | [Day 2 : Gift Shop](day2)      |
-| 3   |        | [Day 3 : ...](day3)            |
+| 3   | ⭐⭐   | [Day 3 : Lobby](day3)          |
 | 4   |        | [Day 4 : ...](day4)            |
 | 5   |        | [Day 5 : ...](day5)            |
 | 6   |        | [Day 6 : ...](day6)            |
