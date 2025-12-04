@@ -44,6 +44,17 @@ public class Day4 extends SolutionTemplate {
 
         Set<SimplePos> m = StringConverter.toSet(eventData, '@');
 
+        response = m.stream().map(v -> v.getNeighbors(true).stream().filter(m::contains).count()).filter(v -> v < 4L).count();
+
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle1_b(List<String> eventData) {
+        long response = 0;
+
+        Set<SimplePos> m = StringConverter.toSet(eventData, '@');
+
         for (var p : m) {
             long c = p.getNeighbors(true).stream().filter(m::contains).count();
             if (c < 4) {
