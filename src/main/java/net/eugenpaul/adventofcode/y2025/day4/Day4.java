@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 import net.eugenpaul.adventofcode.helper.SimplePos;
@@ -88,6 +89,21 @@ public class Day4 extends SolutionTemplate {
     }
 
     public long doPuzzle2(List<String> eventData) {
+        long response = 0;
+
+        Set<SimplePos> m = StringConverter.toSet(eventData, '@');
+        response = m.size();
+
+        while (m.removeIf(v -> v.getNeighbors(true).stream().filter(m::contains).count() < 4)) {
+        }
+
+        response -= m.size();
+
+        logger.log(Level.INFO, "Solution 2 " + response);
+        return response;
+    }
+
+    public long doPuzzle2_a(List<String> eventData) {
         long response = 0;
 
         Set<SimplePos> m = StringConverter.toSet(eventData, '@');
