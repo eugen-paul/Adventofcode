@@ -68,6 +68,38 @@ public class Day5 extends SolutionTemplate {
             ranges.add(Range.fromString(r, "-"));
         }
 
+        response = Range.merge(ranges).stream().mapToLong(Range::size).sum();
+
+        logger.log(Level.INFO, "Solution 2 " + response);
+        return response;
+    }
+
+    public long doPuzzle2_b(List<String> eventData) {
+        long response = 0;
+
+        var ll = asListList(eventData);
+
+        List<Range> ranges = new ArrayList<>();
+        for (var r : ll.get(0)) {
+            ranges.add(Range.fromString(r, "-"));
+        }
+
+        response = Range.merge2(ranges).stream().mapToLong(Range::size).sum();
+
+        logger.log(Level.INFO, "Solution 2 " + response);
+        return response;
+    }
+
+    public long doPuzzle2_a(List<String> eventData) {
+        long response = 0;
+
+        var ll = asListList(eventData);
+
+        List<Range> ranges = new ArrayList<>();
+        for (var r : ll.get(0)) {
+            ranges.add(Range.fromString(r, "-"));
+        }
+
         List<Range> all = new ArrayList<>();
         for (var r : ranges) {
             all = Range.merge(all, r);

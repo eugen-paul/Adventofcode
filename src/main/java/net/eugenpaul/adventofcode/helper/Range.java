@@ -1,7 +1,12 @@
 package net.eugenpaul.adventofcode.helper;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.LongConsumer;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -93,6 +98,15 @@ public class Range {
     }
 
     /**
+     * Calculates the size of the range.
+     * 
+     * @return the number of elements in this range, inclusive of both endpoints
+     */
+    public long size(){
+        return to - from + 1;
+    }
+
+    /**
      * Check if this range overlap other range
      * 
      * @param other
@@ -157,6 +171,65 @@ public class Range {
         }
 
         return List.of(a.copy(), b.copy());
+    }
+    
+    /**
+     * Merge all input ranges
+     * 
+     * @param b
+     * @return list of merged ranges
+     */
+    public static List<Range> merge(List<Range> a) {
+        if(a.isEmpty()){
+            return Collections.emptyList();
+        }
+
+        List<Range> response = new ArrayList<>();
+        var aSorted = a.stream()//
+                .sorted((v1, v2) -> Long.compare(v1.from, v2.from))//
+                .toList();
+
+        Range current = aSorted.get(0);
+        for(var r: aSorted){
+            if(current.getTo() < r.getFrom() - 1){
+                response.add(current);
+                current = r;
+            } else {
+                current = new Range(current.from, Math.max(current.to, r.to));
+            }
+        }
+        response.add(current);
+        return response;
+    }
+
+    /**
+     * Merge all input ranges. Adjacent regions are not joined together.
+     * 
+     * @param b
+     * @return list of merged ranges
+     */
+    public static List<Range> merge2(List<Range> a) {
+        if(a.isEmpty()){
+            return Collections.emptyList();
+        }
+
+        TreeSet<Long> all = new TreeSet<>();
+
+        for(var r: a){
+            all.add(r.from);
+            all.add(r.to + 1);
+        }
+
+        List<Range> response = new ArrayList<>();
+        long start = all.pollFirst();
+        while(!all.isEmpty()){
+            long end = all.pollFirst();
+            if(a.stream().anyMatch(v->v.contain(end-1))){ 
+                response.add(new Range(start, end - 1));
+            }
+            start = end;
+        }
+        return response;
     }
 
     /**
