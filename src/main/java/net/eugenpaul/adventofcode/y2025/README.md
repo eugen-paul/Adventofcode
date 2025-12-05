@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2025 [8/24]
+## Progress: Year 2025 [10/24]
 
 | Day | Status | Link                                |
 | --- | ------ | ----------------------------------- |
@@ -8,7 +8,7 @@
 | 2   | ⭐⭐   | [Day 2 : Gift Shop](day2)           |
 | 3   | ⭐⭐   | [Day 3 : Lobby](day3)               |
 | 4   | ⭐⭐   | [Day 4 : Printing Department](day4) |
-| 5   |        | [Day 5 : ...](day5)                 |
+| 5   | ⭐⭐   | [Day 5 : Cafeteria](day5)           |
 | 6   |        | [Day 6 : ...](day6)                 |
 | 7   |        | [Day 7 : ...](day7)                 |
 | 8   |        | [Day 8 : ...](day8)                 |
