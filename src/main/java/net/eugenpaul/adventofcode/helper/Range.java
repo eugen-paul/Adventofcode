@@ -76,10 +76,20 @@ public class Range {
      * 
      * @param other
      * @return
-     */
+    */
     public boolean isContain(Range other) {
         return from <= other.from//
                 && to >= other.to;
+    }
+        
+    /**
+     * Check if this range contain a point
+     * 
+     * @param a
+     * @return
+     */
+    public boolean contain(long a) {
+        return from <= a && a <= to;
     }
 
     /**
@@ -158,7 +168,7 @@ public class Range {
      */
     public static List<Range> merge(List<Range> a, Range b) {
         var aSorted = a.stream()//
-                .sorted((v1, v2) -> (int) (v1.from - v2.from))//
+                .sorted((v1, v2) -> Long.compare(v1.from, v2.from))//
                 .toList();
 
         List<Range> response = new LinkedList<>();
@@ -168,7 +178,13 @@ public class Range {
         while (aIt.hasNext()) {
             var aNext = aIt.next();
             if (aNext.isOverlap(currentMerge)) {
-                currentMerge = new Range(Math.min(aNext.from, b.from), Math.max(aNext.to, b.to));
+                long f = Math.min(aNext.from, b.from);
+                f = Math.min(currentMerge.from, f);
+                
+                long t = Math.max(aNext.to, b.to);
+                t = Math.max(currentMerge.to, t);
+
+                currentMerge = new Range(f, t);
             } else {
                 response.add(aNext);
             }

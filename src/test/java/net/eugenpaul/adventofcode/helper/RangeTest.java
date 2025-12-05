@@ -3,6 +3,7 @@ package net.eugenpaul.adventofcode.helper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -219,5 +220,146 @@ class RangeTest {
         assertNotNull(merge);
         assertEquals(1, merge.size());
         assertEquals(1, merge.stream().filter(v -> v.equals(new Range(-5, 50))).count());
+    }
+
+    @Test
+    void testMergeListAoc2025d5() {
+        Range a1 = new Range(3, 5);
+        Range a2 = new Range(10, 14);
+        Range a3 = new Range(16, 20);
+        Range a4 = new Range(12, 18);
+
+        List<Range> all = new ArrayList<>();
+        for (var r : List.of(a1, a2, a3, a4)) {
+            all = Range.merge(all, r);
+        }
+
+        assertEquals(2, all.size());
+        assertEquals(1, all.stream().filter(v -> v.equals(new Range(3, 5))).count());
+        assertEquals(1, all.stream().filter(v -> v.equals(new Range(10, 20))).count());
+    }
+
+    @Test
+    void testMergeListAdjacentRanges() {
+        Range a1 = new Range(0, 10);
+        Range a2 = new Range(11, 20);
+        Range b = new Range(5, 15);
+
+        var merge = Range.merge(List.of(a1, a2), b);
+        assertNotNull(merge);
+        assertEquals(1, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(0, 20))).count());
+    }
+
+    @Test
+    void testMergeListMultipleOverlaps() {
+        Range a1 = new Range(0, 5);
+        Range a2 = new Range(10, 15);
+        Range a3 = new Range(20, 25);
+        Range b = new Range(3, 22);
+
+        var merge = Range.merge(List.of(a1, a2, a3), b);
+        assertNotNull(merge);
+        assertEquals(1, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(0, 25))).count());
+    }
+
+    @Test
+    void testMergeListEmptyList() {
+        Range b = new Range(5, 15);
+
+        var merge = Range.merge(List.of(), b);
+        assertNotNull(merge);
+        assertEquals(1, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(5, 15))).count());
+    }
+
+    @Test
+    void testMergeListBelowAll() {
+        Range a1 = new Range(20, 30);
+        Range a2 = new Range(40, 50);
+        Range b = new Range(0, 10);
+
+        var merge = Range.merge(List.of(a1, a2), b);
+        assertNotNull(merge);
+        assertEquals(3, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(0, 10))).count());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(20, 30))).count());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(40, 50))).count());
+    }
+
+    @Test
+    void testMergeListAboveAll() {
+        Range a1 = new Range(0, 10);
+        Range a2 = new Range(20, 30);
+        Range b = new Range(50, 60);
+
+        var merge = Range.merge(List.of(a1, a2), b);
+        assertNotNull(merge);
+        assertEquals(3, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(0, 10))).count());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(20, 30))).count());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(50, 60))).count());
+    }
+
+    @Test
+    void testMergeListPartialOverlapFirst() {
+        Range a1 = new Range(0, 15);
+        Range a2 = new Range(25, 30);
+        Range b = new Range(10, 20);
+
+        var merge = Range.merge(List.of(a1, a2), b);
+        assertNotNull(merge);
+        assertEquals(2, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(0, 20))).count());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(25, 30))).count());
+    }
+    
+    @Test
+    void testContainPointInside() {
+        Range a = new Range(0, 10);
+        
+        assertEquals(true, a.contain(0));
+        assertEquals(true, a.contain(5));
+        assertEquals(true, a.contain(10));
+    }
+
+    @Test
+    void testContainPointOutside() {
+        Range a = new Range(0, 10);
+        
+        assertEquals(false, a.contain(-1));
+        assertEquals(false, a.contain(11));
+        assertEquals(false, a.contain(100));
+    }
+
+    @Test
+    void testContainPointBoundary() {
+        Range a = new Range(5, 15);
+        
+        assertEquals(true, a.contain(5));
+        assertEquals(true, a.contain(15));
+        assertEquals(false, a.contain(4));
+        assertEquals(false, a.contain(16));
+    }
+
+    @Test
+    void testContainPointNegativeRange() {
+        Range a = new Range(-10, -5);
+        
+        assertEquals(true, a.contain(-10));
+        assertEquals(true, a.contain(-7));
+        assertEquals(true, a.contain(-5));
+        assertEquals(false, a.contain(-11));
+        assertEquals(false, a.contain(-4));
+    }
+
+    @Test
+    void testContainPointSingleElementRange() {
+        Range a = new Range(5, 5);
+        
+        assertEquals(true, a.contain(5));
+        assertEquals(false, a.contain(4));
+        assertEquals(false, a.contain(6));
     }
 }
