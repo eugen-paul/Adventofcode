@@ -362,4 +362,137 @@ class RangeTest {
         assertEquals(false, a.contain(4));
         assertEquals(false, a.contain(6));
     }
+
+    @Test
+    void testNoOverlaps(){
+        List<Range> all = List.of(
+            new Range(0, 10), 
+            new Range(20, 30),
+            new Range(50, 60)
+        );
+
+        List<Range> merge = Range.merge(all);
+        assertNotNull(merge);
+        assertEquals(3, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(0, 10))).count());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(20, 30))).count());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(50, 60))).count());
+    }
+
+    @Test
+    void testAllSame(){
+        List<Range> all = List.of(
+            new Range(0, 10), 
+            new Range(0, 10),
+            new Range(0, 10)
+        );
+
+        List<Range> merge = Range.merge(all);
+        assertNotNull(merge);
+        assertEquals(1, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(0, 10))).count());
+    }
+
+    @Test
+    void testAllOverlaps(){
+        List<Range> all = List.of(
+            new Range(10, 20), 
+            new Range(0, 12),
+            new Range(18, 30)
+        );
+
+        List<Range> merge = Range.merge(all);
+        assertNotNull(merge);
+        assertEquals(1, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(0, 30))).count());
+    }
+
+    @Test
+    void testAllOverlaps2(){
+        List<Range> all = List.of(
+            new Range(10, 20), 
+            new Range(0, 10),
+            new Range(20, 30)
+        );
+
+        List<Range> merge = Range.merge(all);
+        assertNotNull(merge);
+        assertEquals(1, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(0, 30))).count());
+    }
+
+    @Test
+    void testTwoOverlapsAndThird(){
+        List<Range> all = List.of(
+            new Range(10, 20), 
+            new Range(0, 12),
+            new Range(25, 30)
+        );
+
+        List<Range> merge = Range.merge(all);
+        assertNotNull(merge);
+        assertEquals(2, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(0, 20))).count());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(25, 30))).count());
+    }
+
+    @Test
+    void testTwoOverlaps(){
+        List<Range> all = List.of(
+            new Range(10, 20), 
+            new Range(0, 12),
+            new Range(30, 50),
+            new Range(25, 30)
+        );
+
+        List<Range> merge = Range.merge(all);
+        assertNotNull(merge);
+        assertEquals(2, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(0, 20))).count());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(25, 50))).count());
+    }
+
+    @Test
+    void testOneContainsOther(){
+        List<Range> all = List.of(
+            new Range(10, 20), 
+            new Range(5, 12),
+            new Range(0, 30)
+        );
+
+        List<Range> merge = Range.merge(all);
+        assertNotNull(merge);
+        assertEquals(1, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(0, 30))).count());
+    }
+
+    @Test
+    void testTwoTouch(){
+        List<Range> all = List.of(
+            new Range(10, 20), 
+            new Range(21, 30),
+            new Range(31, 40)
+        );
+
+        List<Range> merge = Range.merge(all);
+        assertNotNull(merge);
+        assertEquals(1, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(10, 40))).count());
+    }
+
+    @Test
+    void testDontTouch(){
+        List<Range> all = List.of(
+            new Range(10, 20), 
+            new Range(22, 30),
+            new Range(32, 40)
+        );
+
+        List<Range> merge = Range.merge(all);
+        assertNotNull(merge);
+        assertEquals(3, merge.size());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(10, 20))).count());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(22, 30))).count());
+        assertEquals(1, merge.stream().filter(v -> v.equals(new Range(32, 40))).count());
+    }
 }
