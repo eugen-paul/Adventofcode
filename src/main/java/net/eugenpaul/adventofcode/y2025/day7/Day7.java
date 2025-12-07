@@ -5,6 +5,7 @@ import static net.eugenpaul.adventofcode.helper.MatrixHelper.*;
 import static net.eugenpaul.adventofcode.helper.MathHelper.*;
 import static net.eugenpaul.adventofcode.helper.StringConverter.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -45,6 +46,65 @@ public class Day7 extends SolutionTemplate {
     public long doPuzzle1(List<String> eventData) {
         long response = 0;
 
+        char[][] m = eventData.stream().map(String::toCharArray).toArray(char[][]::new);
+
+        for (int x = 0; x < eventData.get(0).length(); x++) {
+            if (m[0][x] == 'S') {
+                m[0][x] = '|';
+            }
+        }
+
+        for (int y = 1; y < eventData.size(); y++) {
+            for (int x = 1; x < eventData.get(0).length() - 1; x++) {
+                if (m[y - 1][x] == '|') {
+                    if (m[y][x] == '^') {
+                        m[y][x - 1] = '|';
+                        m[y][x + 1] = '|';
+                        response++;
+                    } else {
+                        m[y][x] = '|';
+                    }
+                }
+            }
+        }
+
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle2(List<String> eventData) {
+        long response = 0;
+
+        long[][] dp = new long[eventData.size()][eventData.get(0).length()];
+        for (var row : dp) {
+            Arrays.fill(row, 0);
+        }
+
+        int maxX = eventData.get(0).length() - 1;
+        int maxY = eventData.size() - 1;
+
+        Arrays.fill(dp[maxY], 1);
+
+        for (int y = maxY - 1; y > 0; y--) {
+            for (int x = 0; x <= maxX; x++) {
+                var c = eventData.get(y).charAt(x);
+                if (c == '.') {
+                    dp[y][x] = dp[y + 1][x];
+                } else {
+                    dp[y][x] = dp[y + 1][x - 1] + dp[y + 1][x + 1];
+                }
+            }
+        }
+
+        response = Arrays.stream(dp[1]).max().orElseThrow();
+
+        logger.log(Level.INFO, "Solution 2 " + response);
+        return response;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
+        long response = 0;
+
         Map<SimplePos, Character> m = StringConverter.toMap(eventData);
         var start = StringConverter.posOfChar(eventData, 'S');
 
@@ -72,7 +132,7 @@ public class Day7 extends SolutionTemplate {
         return response;
     }
 
-    public long doPuzzle2(List<String> eventData) {
+    public long doPuzzle2_a(List<String> eventData) {
         long response = 0;
 
         Map<SimplePos, Character> m = StringConverter.toMap(eventData);

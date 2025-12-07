@@ -33,6 +33,16 @@ public final class StringConverter {
     }
 
     /**
+     * Convert List of Strings to char[][]: List.of("abc", "def") => new char[][]{{'a','b','c'}, {'d','e','f'}}
+     * 
+     * @param data
+     * @return
+     */
+    public static char[][] toCharArray(List<String> data) {
+        return data.stream().map(String::toCharArray).toArray(char[][]::new);
+    }
+
+    /**
      * Convert Numbers in String to ArrayList: "1 2 3" => new ArrayList(List.of(1,2,3)) Convert Numbers in String to ArrayList: "1,2,3" => new
      * ArrayList(List.of(1,2,3))
      * 
