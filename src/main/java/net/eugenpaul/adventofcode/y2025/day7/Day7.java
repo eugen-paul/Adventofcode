@@ -46,7 +46,7 @@ public class Day7 extends SolutionTemplate {
     public long doPuzzle1(List<String> eventData) {
         long response = 0;
 
-        char[][] m = eventData.stream().map(String::toCharArray).toArray(char[][]::new);
+        char[][] m = toCharArray(eventData);
 
         for (int x = 0; x < eventData.get(0).length(); x++) {
             if (m[0][x] == 'S') {
