@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2025 [14/24]
+## Progress: Year 2025 [16/24]
 
 | Day | Status | Link                                |
 | --- | ------ | ----------------------------------- |
@@ -11,7 +11,7 @@
 | 5   | ⭐⭐   | [Day 5 : Cafeteria](day5)           |
 | 6   | ⭐⭐   | [Day 6 : Trash Compactor](day6)     |
 | 7   | ⭐⭐   | [Day 7 : Laboratories](day7)        |
-| 8   |        | [Day 8 : ...](day8)                 |
+| 8   | ⭐⭐   | [Day 8 : Playground](day8)          |
 | 9   |        | [Day 9 : ...](day9)                 |
 | 10  |        | [Day 10: ...](day10)                |
 | 11  |        | [Day 11: ...](day11)                |

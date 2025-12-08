@@ -62,6 +62,14 @@ public class Pos3d implements DijkstraStepGen {
         return Math.abs(x - b.x) + Math.abs(y - b.y) + Math.abs(z - b.z);
     }
 
+    public double euclideanDistance(Pos3d b) {
+        return Math.sqrt(//
+                (double) Math.abs(x - b.x) * Math.abs(x - b.x) //
+                        + Math.abs(y - b.y) * Math.abs(y - b.y) //
+                        + Math.abs(z - b.z) * Math.abs(z - b.z) //
+        );
+    }
+
     @Override
     public String compHash() {
         return x + ";" + ";" + z;
