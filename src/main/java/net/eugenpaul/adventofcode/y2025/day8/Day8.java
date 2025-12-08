@@ -61,6 +61,42 @@ public class Day8 extends SolutionTemplate {
 
         dd.sort((a, b) -> Double.compare(a.dist, b.dist));
 
+        UnionSetsByRank uf = new UnionSetsByRank(all.size());
+
+        for (int i = 0; i < s1; i++) {
+            InnerDay8 o = dd.get(i);
+            uf.union(o.a, o.b);
+        }
+
+        HashMap<Integer, Long> mm = new HashMap<>();
+        for (int i = 0; i < all.size(); i++) {
+            mm.compute(uf.find(i), (k, v) -> v == null ? 1 : v + 1);
+        }
+        response = mm.values().stream()//
+                .sorted((a, b) -> Long.compare(b, a))//
+                .limit(3)//
+                .reduce(1L, (a, b) -> a * b);
+
+        logger.log(Level.INFO, "Solution 1 " + response);
+        return response;
+    }
+
+    public long doPuzzle1_a(List<String> eventData) {
+        long response = 0;
+
+        List<Pos3d> all = eventData.stream().map(v -> Pos3d.fromPattern(v, ",")).toList();
+        List<InnerDay8> dd = new ArrayList<>();
+
+        for (int a = 0; a < all.size(); a++) {
+            for (int b = a + 1; b < all.size(); b++) {
+                var ak = all.get(a);
+                var bk = all.get(b);
+                dd.add(new InnerDay8(ak.euclideanDistance(bk), a, b));
+            }
+        }
+
+        dd.sort((a, b) -> Double.compare(a.dist, b.dist));
+
         UnionFind uf = new UnionFind(all.size());
 
         for (int i = 0; i < s1; i++) {

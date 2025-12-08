@@ -140,6 +140,13 @@ public class SimplePos implements DijkstraStepGen {
         return (long) Math.abs(x - b.x) + Math.abs(y - b.y);
     }
 
+    public double euclideanDistance(SimplePos b) {
+        return Math.sqrt(//
+                (double) Math.abs(x - b.x) * Math.abs(x - b.x) //
+                        + Math.abs(y - b.y) * Math.abs(y - b.y) //
+        );
+    }
+
     public List<SimplePos> getNeighbors(boolean diagonal) {
         List<SimplePos> response = new LinkedList<>();
         response.add(new SimplePos(x + 1, y));
