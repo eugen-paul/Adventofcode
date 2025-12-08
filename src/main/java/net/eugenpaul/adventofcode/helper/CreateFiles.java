@@ -19,7 +19,7 @@ public class CreateFiles {
     }
 
     private static void createFiles(int year, int day) throws IOException, FileNotFoundException {
-        String daySrc = Files.readString(Path.of("src\\main\\resources\\template\\DayX.java.template"));
+        String daySrc = Files.readString(Path.of("template\\DayX.java.template"));
         daySrc = daySrc.replace("#YEAR#", year + "").replace("#DAY#", day + "");
         new File("src\\main\\java\\net\\eugenpaul\\adventofcode\\y" + year + "\\day" + day).mkdirs();
         PrintWriter out = new PrintWriter("src\\main\\java\\net\\eugenpaul\\adventofcode\\y" + year + "\\day" + day + "\\Day" + day + ".java");
@@ -34,7 +34,7 @@ public class CreateFiles {
         PrintWriter outRes = new PrintWriter("src\\main\\resources\\y" + year + "\\day" + day + "\\puzzle1.txt");
         outRes.close();
 
-        String testDay = Files.readString(Path.of("src\\main\\resources\\template\\DayXTest.java.template"));
+        String testDay = Files.readString(Path.of("template\\DayXTest.java.template"));
         testDay = testDay.replace("#YEAR#", year + "").replace("#DAY#", day + "");
         new File("src\\test\\java\\net\\eugenpaul\\adventofcode\\y" + year + "\\day" + day).mkdirs();
         PrintWriter outTest = new PrintWriter("src\\test\\java\\net\\eugenpaul\\adventofcode\\y" + year + "\\day" + day + "\\Day" + day + "Test.java");

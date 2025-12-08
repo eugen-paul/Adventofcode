@@ -1,0 +1,36 @@
+package net.eugenpaul.adventofcode.y#YEAR#.day#DAY#;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import net.eugenpaul.adventofcode.helper.FileReaderHelper;
+
+class Day#DAY#Test {
+
+    @Test
+    void testTest#YEAR#Day#DAY#_1() {
+        Day#DAY# event = new Day#DAY#();
+        assertEquals(0, event.doPuzzle1(FileReaderHelper.readListStringFromFile("y#YEAR#/day#DAY#/test_puzzle.txt")));
+    }
+
+    @Test
+    void testTest#YEAR#Day#DAY#_2() {
+        Day#DAY# event = new Day#DAY#();
+        assertEquals(0, event.doPuzzle2(FileReaderHelper.readListStringFromFile("y#YEAR#/day#DAY#/test_puzzle.txt")));
+    }
+
+    @Test
+    void testSolution#YEAR#Day#DAY#() {
+        Day#DAY# event = new Day#DAY#();
+
+        List<String> eventData = FileReaderHelper.readListStringFromFile("y#YEAR#/Day#DAY#/puzzle1.txt");
+        assertTrue(event.doPuzzleFromData(eventData));
+
+        assertEquals(0, event.getTotalScore());
+        //assertEquals(0, event.getTotalScore2());
+    }
+}
