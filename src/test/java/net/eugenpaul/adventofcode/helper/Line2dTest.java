@@ -154,4 +154,49 @@ class Line2dTest {
         assertEquals(0L, result.getDeltaX());
         assertEquals(3L, result.getDeltaY());
     }
+
+    @Test
+    void testSegmentInterseptionTouch(){
+        Line2d a = Line2d.fromPointPoint(new SimplePos(0, 10), new SimplePos(10, 10));
+        Line2d b = Line2d.fromPointPoint(new SimplePos(5, 10), new SimplePos(5, 20));
+
+        assertTrue(a.isSegmentIntersecting(b));
+        assertTrue(b.isSegmentIntersecting(a));
+        assertEquals(new SimplePos(5,10), a.intersection(b));
+        assertEquals(new SimplePos(5,10), b.intersection(a));
+    
+    }
+    
+    @Test
+    void testSegmentInterseptionTouch2(){
+        Line2d a = Line2d.fromPointPoint(new SimplePos(0, 10), new SimplePos(10, 10));
+        Line2d b = Line2d.fromPointPoint(new SimplePos(5, 3), new SimplePos(5, 10));
+
+        assertTrue(a.isSegmentIntersecting(b));
+        assertTrue(b.isSegmentIntersecting(a));
+        assertEquals(new SimplePos(5,10), a.intersection(b));
+        assertEquals(new SimplePos(5,10), b.intersection(a));
+    }
+
+    @Test
+    void testSegmentInterseptionTouch3(){
+        Line2d a = Line2d.fromPointPoint(new SimplePos(10, 0), new SimplePos(10, 30));
+        Line2d b = Line2d.fromPointPoint(new SimplePos(5, 15), new SimplePos(10, 15));
+
+        assertTrue(a.isSegmentIntersecting(b));
+        assertTrue(b.isSegmentIntersecting(a));
+        assertEquals(new SimplePos(10,15), a.intersection(b));
+        assertEquals(new SimplePos(10,15), b.intersection(a));
+    }
+
+    @Test
+    void testSegmentInterseptionTouch4(){
+        Line2d a = Line2d.fromPointPoint(new SimplePos(10, 0), new SimplePos(10, 30));
+        Line2d b = Line2d.fromPointPoint(new SimplePos(10, 15), new SimplePos(20, 15));
+
+        assertTrue(a.isSegmentIntersecting(b));
+        assertTrue(b.isSegmentIntersecting(a));
+        assertEquals(new SimplePos(10,15), a.intersection(b));
+        assertEquals(new SimplePos(10,15), b.intersection(a));
+    }
 }

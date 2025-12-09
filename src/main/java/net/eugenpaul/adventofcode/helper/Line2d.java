@@ -118,12 +118,23 @@ public class Line2d {
     }
 
     public SimplePos intersection(Line2d other) {
-        // Handle special cases where one of the deltas is zero
-        if (deltaX == 0 && other.deltaY == 0) {
-            // Both lines are vertical/horizontal
-            if (pointX == other.pointX) {
-                return new SimplePos((int) pointX, (int) other.pointY);
-            }
+        // this is vertical and other is horizontal
+        if(deltaX == 0 && other.deltaY == 0){
+            return new SimplePos((int) pointX, (int) other.pointY);
+        }
+        
+        // this is horizontal and other is vertical
+        if(deltaY == 0 && other.deltaX == 0){
+            return new SimplePos((int) other.pointX, (int) pointY);
+        }
+
+        // both are vertical (parallel, no intersection unless collinear)
+        if(deltaX == 0 && other.deltaX == 0){
+            return null;
+        }
+        
+        // both are horizontal (parallel, no intersection unless collinear)
+        if(deltaY == 0 && other.deltaY == 0){
             return null;
         }
         

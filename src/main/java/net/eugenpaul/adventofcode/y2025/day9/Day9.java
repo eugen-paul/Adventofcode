@@ -125,10 +125,12 @@ public class Day9 extends SolutionTemplate {
     public boolean lineInterception(Line2d a, Line2d b){
         if(a.getDeltaY() == 0){
             //a is h
+            //The lengths of all segments must be shortened at the front and rear. That is why < and not <=.
             return a.getPointX() < b.getPointX() && b.getPointX() < a.getPointX() + a.getDeltaX()
-                && b.getPointY() < a.getPointY() && a.getPointY() < b.getPointY() + b.getDeltaY();
+            && b.getPointY() < a.getPointY() && a.getPointY() < b.getPointY() + b.getDeltaY();
         }
         //a is v
+        //The lengths of all segments must be shortened at the front and rear. That is why < and not <=.
         return a.getPointY() < b.getPointY() && b.getPointY() < a.getPointY() + a.getDeltaY()
             && b.getPointX() < a.getPointX() && a.getPointX() < b.getPointX() + b.getDeltaX();
     }
