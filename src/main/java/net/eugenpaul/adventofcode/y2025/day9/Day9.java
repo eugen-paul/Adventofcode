@@ -63,20 +63,10 @@ public class Day9 extends SolutionTemplate {
     public long doPuzzle2(List<String> eventData) {
         long response = 0;
 
-        int minX = Integer.MAX_VALUE;
-        int maxX = 0;
-        int minY = Integer.MAX_VALUE;
-        int maxY = 0;
         List<SimplePos> m = new ArrayList<>();
         for (var d : eventData) {
             var p = SimplePos.fromData(d, ",");
             m.add(p);
-
-            minX = min(minX, p.getX());
-            minY = min(minY, p.getY());
-
-            maxX = max(maxX, p.getY());
-            maxY = max(maxY, p.getY());
         }
 
         List<Line2d> lines = new ArrayList<>();
@@ -88,13 +78,18 @@ public class Day9 extends SolutionTemplate {
         lines.add(l.norm());
 
         lines.sort((a, b) -> Long.compare(a.getPointX(), b.getPointX()));
-        List<Line2d> hLines = lines.stream().filter(v -> v.getDeltaY() == 0).sorted((a, b) -> Long.compare(a.getPointY(), b.getPointY())).toList();
+        List<Line2d> hLines = lines.stream().filter(v -> v.getDeltaY() == 0).toList();
         List<Line2d> vLines = lines.stream().filter(v -> v.getDeltaX() == 0).toList();
 
         for (int i = 0; i < m.size(); i++) {
             for (int k = i + 1; k < m.size(); k++) {
                 var a = m.get(i);
                 var b = m.get(k);
+
+                long area = (long) (Math.abs(a.getX() - b.getX()) + 1) * (long) (Math.abs(a.getY() - b.getY()) + 1);
+                if(area <= response){
+                    continue;
+                }
 
                 int fromX = min(a.getX(), b.getX());
                 int toX   = max(a.getX(), b.getX());
@@ -118,9 +113,7 @@ public class Day9 extends SolutionTemplate {
                 ok = ok && hLines.stream().noneMatch(h -> lineInterception(h,lRht));
 
                 if (ok) {
-                    response = max(//
-                            response, //
-                            (long) (Math.abs(a.getX() - b.getX()) + 1) * (long) (Math.abs(a.getY() - b.getY()) + 1));
+                    response = max(response, area);
                 }
             }
         }
