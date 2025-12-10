@@ -28,57 +28,6 @@ class MatheclipseHelperTest {
     }
 
     @Test
-    void TT() {
-        MatheclipseHelper helper = new MatheclipseHelper();
-        helper.addEquation("x1 + x5 == 5");
-        helper.addEquation("x2 + x3 + x4 == 4");
-        helper.addEquation("x0 + x1 + x3 == 7");
-        helper.addEquation("x4 + x5 == 3");
-        helper.addEquation("x0 + x1 + x2 + x3 + x4 + x5 == 10");
-        // helper.addEquation("x0 >= 0");
-        // helper.addEquation("x1 >= 0");
-        // helper.addEquation("x2 >= 0");
-        // helper.addEquation("x3 >= 0");
-        // helper.addEquation("x4 >= 0");
-        // helper.addEquation("x5 >= 0");
-        helper.addUnknown("x0");
-        helper.addUnknown("x1");
-        helper.addUnknown("x2");
-        helper.addUnknown("x3");
-        helper.addUnknown("x4");
-        helper.addUnknown("x5");
-        helper.solve();
-        System.out.println(helper.getRawResult());
-        System.out.println(helper.getResults("x0"));
-        System.out.println(helper.getResults("x1"));
-        System.out.println(helper.getResults("x2"));
-        System.out.println(helper.getResults("x3"));
-        System.out.println(helper.getResults("x4"));
-        System.out.println(helper.getResults("x5"));
-    }
-
-    @Test
-    void TT2() {
-        MatheclipseHelper helper = new MatheclipseHelper();
-        double[][] coefficients = { 
-            {0, 1, 0, 0, 0, 1}, 
-            {0, 0, 1, 1, 1, 0}, 
-            {1, 1, 0, 1, 0, 0}, 
-            {0, 0, 0, 0, 1, 1}, 
-            {1, 1, 1, 1, 1, 1}, 
-        };
-        double[]   constants = { 5, 4, 5, 6, 10 };
-
-        RealMatrix matrixA = new Array2DRowRealMatrix(coefficients);
-        RealVector vectorB = new ArrayRealVector(constants);
-
-        // Lösen
-        DecompositionSolver solver = new LUDecomposition(matrixA).getSolver();
-        RealVector solution = solver.solve(vectorB);
-        System.out.println(solution.toString());
-    }
-
-    @Test
     void testSolve2() {
         MatheclipseHelper helper = new MatheclipseHelper();
         helper.addEquation("t1 * dx0 + x == t1 * 64   + 232488932265751");
