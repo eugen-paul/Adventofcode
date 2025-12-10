@@ -1,6 +1,6 @@
 # Solutions
 
-## Progress: Year 2025 [18/24]
+## Progress: Year 2025 [20/24]
 
 | Day | Status | Link                                |
 | --- | ------ | ----------------------------------- |
@@ -13,6 +13,6 @@
 | 7   | ⭐⭐   | [Day 7 : Laboratories](day7)        |
 | 8   | ⭐⭐   | [Day 8 : Playground](day8)          |
 | 9   | ⭐⭐   | [Day 9 : Movie Theater](day9)       |
-| 10  |        | [Day 10: ...](day10)                |
+| 10  | ⭐⭐   | [Day 10: Factory](day10)            |
 | 11  |        | [Day 11: ...](day11)                |
 | 12  |        | [Day 12: ...](day12)                |
