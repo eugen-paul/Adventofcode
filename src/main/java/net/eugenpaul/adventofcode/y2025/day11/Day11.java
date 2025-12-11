@@ -5,7 +5,6 @@ import static net.eugenpaul.adventofcode.helper.MatrixHelper.*;
 import static net.eugenpaul.adventofcode.helper.MathHelper.*;
 import static net.eugenpaul.adventofcode.helper.StringConverter.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,10 +44,7 @@ public class Day11 extends SolutionTemplate {
         for (var d : eventData) {
             String from = d.substring(0, d.indexOf(":"));
             String[] splits = d.split(" ");
-            List<String> tos = new ArrayList<>();
-            for (int i = 1; i < splits.length; i++) {
-                tos.add(splits[i]);
-            }
+            List<String> tos = List.of(splits).subList(1, splits.length);
             m.put(from, tos);
         }
 
@@ -83,10 +79,7 @@ public class Day11 extends SolutionTemplate {
         for (var d : eventData) {
             String from = d.substring(0, d.indexOf(":"));
             String[] splits = d.split(" ");
-            List<String> tos = new ArrayList<>();
-            for (int i = 1; i < splits.length; i++) {
-                tos.add(splits[i]);
-            }
+            List<String> tos = List.of(splits).subList(1, splits.length);
             m.put(from, tos);
         }
 

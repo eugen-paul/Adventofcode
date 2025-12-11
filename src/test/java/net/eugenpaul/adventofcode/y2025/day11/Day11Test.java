@@ -30,7 +30,7 @@ class Day11Test {
         List<String> eventData = FileReaderHelper.readListStringFromFile("y2025/Day11/puzzle1.txt");
         assertTrue(event.doPuzzleFromData(eventData));
 
-        assertEquals(0, event.getTotalScore());
-        //assertEquals(0, event.getTotalScore2());
+        assertEquals(566, event.getTotalScore());
+        assertEquals(331837854931968L, event.getTotalScore2());
     }
 }
