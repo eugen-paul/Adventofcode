@@ -1,0 +1,1 @@
+[Advent of Code Year 2025 Day 11](https://adventofcode.com/2025/day/11)

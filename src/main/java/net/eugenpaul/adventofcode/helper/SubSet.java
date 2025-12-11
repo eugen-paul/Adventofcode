@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 public final class SubSet {
 
     /**
-     * berechnet alles SubSets fuer list. Fuer jeden SubSet wird callback aufgerufen.
+     * berechnet alle SubSets fuer list. Fuer jeden SubSet wird callback aufgerufen.
      * <p>
      * Beispiel:
      * <p>
