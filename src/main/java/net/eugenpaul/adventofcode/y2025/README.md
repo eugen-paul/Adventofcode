@@ -16,3 +16,7 @@
 | 10  | ⭐⭐   | [Day 10: Factory](day10)             |
 | 11  | ⭐⭐   | [Day 11: Reactor](day11)             |
 | 12  | ⭐⭐   | [Day 12: Christmas Tree Farm](day12) |
+
+![My tymes](../../../../../../../doc/img/2025_times.png "My times")
+
+![Solutions 2025](../../../../../../../doc/img/2025.png "2025 is done")

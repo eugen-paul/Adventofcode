@@ -30,4 +30,6 @@
 | 24 | ⭐⭐ | [Day 24: Blizzard Basin](day24) |
 | 25 | ⭐⭐ | [Day 25: Full of Hot Air](day25) |
 
+![My tymes](../../../../../../../doc/img/2022_times.png "My times")
+
 ![Solutions 2022](../../../../../../../doc/img/2022.png "2022 is done")
