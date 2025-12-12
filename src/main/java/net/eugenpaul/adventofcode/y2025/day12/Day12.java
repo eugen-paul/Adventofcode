@@ -109,11 +109,11 @@ public class Day12 extends SolutionTemplate {
         if (aAreaNeed > aArea) {
             return false;
         }
-
         if (aAreaNeedExt <= aArea) {
             return true;
         }
-
+        //will never call for real data. The function is always terminated in the Ifs before for the real data.
+        
         TargetArea area = new TargetArea(a);
 
         List<Integer> shapesLeft = new ArrayList<>(a.s);
@@ -129,19 +129,28 @@ public class Day12 extends SolutionTemplate {
             return isPos(shapes.subList(1, shapes.size()), area, shapesLeft.subList(1, shapesLeft.size()), 0, 0);
         }
 
-        for (int curY = startY; curY <= area.h - 3; curY++) {
-            for (int curX = startX; curX <= area.w - 3; curX++) {
+        boolean firstX = true;
+        int curY = startY;
+        while (curY <= area.h - 3) {
+            int curX = 0;
+            if (firstX) {
+                curX = startX;
+                firstX = false;
+            }
+            while (curX <= area.w - 3) {
                 for (var shape : shapes.get(0).all) {
                     if (area.add(shape, curX, curY)) {
                         shapesLeft.set(0, shapesLeft.get(0) - 1);
-                        if (isPos(shapes, area, shapesLeft, 0, 0)) {
+                        if (isPos(shapes, area, shapesLeft, curX + 1, curY)) {
                             return true;
                         }
                         shapesLeft.set(0, shapesLeft.get(0) + 1);
                         area.remove(shape, curX, curY);
                     }
                 }
+                curX++;
             }
+            curY++;
         }
 
         return false;
