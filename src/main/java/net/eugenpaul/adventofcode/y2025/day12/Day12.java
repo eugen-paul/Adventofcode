@@ -48,14 +48,15 @@ public class Day12 extends SolutionTemplate {
 
         List<Integer> shapes = new ArrayList<>();
         for (var shapeData : data.subList(0, data.size() - 1)) {
-            shapes.add(shapeData.subList(1, shapeData.size()).stream().mapToInt(v -> 3 - v.replace("#", "").length())
-                    .sum());
+            shapes.add(shapeData.subList(1, shapeData.size()).stream().mapToInt(v -> 3 - v.replace("#", "").length()).sum());
         }
 
         for (var all : data.subList(data.size() - 1, data.size())) {
             for (var a : all) {
                 String[] d = a.split(":");
-                int aArea = toInt(d[0].split("x")[0]) * toInt(d[0].split("x")[1]);
+                int w = toInt(d[0].split("x")[0]);
+                int l = toInt(d[0].split("x")[1]);
+                int aArea = (w - w % 3) * (l - l % 3); // Actually, you don't need mod here.
                 var s = Arrays.asList(d[1].trim().split(" ")).stream().map(v -> toInt(v)).toList();
                 var aAreaNeed = 0;
                 for (int i = 0; i < shapes.size(); i++) {
