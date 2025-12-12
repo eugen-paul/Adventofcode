@@ -48,7 +48,8 @@ public class Day12 extends SolutionTemplate {
 
         List<Integer> shapes = new ArrayList<>();
         for (var shapeData : data.subList(0, data.size() - 1)) {
-            shapes.add(shapeData.subList(1, shapeData.size()).stream().mapToInt(v -> 3 - v.replace("#", "").length()).sum());
+            shapes.add(shapeData.subList(1, shapeData.size()).stream().mapToInt(v -> 3 - v.replace("#", "").length())
+                    .sum());
         }
 
         for (var all : data.subList(data.size() - 1, data.size())) {
@@ -100,20 +101,22 @@ public class Day12 extends SolutionTemplate {
         for (int i = 0; i < shapes.size(); i++) {
             aAreaNeed += shapes.get(i).n11.size() * a.s.get(i);
         }
-
-        var aAreaNeedExt = 0;
-        for (int i = 0; i < shapes.size(); i++) {
-            aAreaNeedExt += 9 * a.s.get(i);
-        }
-
         if (aAreaNeed > aArea) {
             return false;
         }
-        if (aAreaNeedExt <= aArea) {
+
+        var aAreaOpt = (a.w - a.w % 3) * (a.h - a.h % 3);
+        var aAreaNeedMax = 0;
+        for (int i = 0; i < shapes.size(); i++) {
+            aAreaNeedMax += 9 * a.s.get(i);
+        }
+
+        if (aAreaNeedMax <= aAreaOpt) {
             return true;
         }
-        //will never call for real data. The function is always terminated in the Ifs before for the real data.
-        
+        // will never call for real data. The function is always terminated in the Ifs
+        // before for the real data.
+
         TargetArea area = new TargetArea(a);
 
         List<Integer> shapesLeft = new ArrayList<>(a.s);
