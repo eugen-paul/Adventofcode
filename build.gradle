@@ -8,10 +8,10 @@ repositories {
     mavenCentral()
 }
 
-configurations.all {
-    // Check for updates every build
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
+// configurations.all {
+//     // Check for updates every build
+//     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+// }
 
 test {
     // set heap size for the test JVM(s)
